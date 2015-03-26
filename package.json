@@ -29,7 +29,7 @@
     "browser-sync": "^2.2.4",
     "css-loader": "^0.9.1",
     "del": "^1.1.1",
-    "eslint": "^0.16.0",
+    "eslint": "^0.16.2",
     "eslint-loader": "^0.6.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",

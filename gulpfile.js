@@ -95,9 +95,11 @@ gulp.task('bundle', function(cb) {
       throw new $.util.PluginError('webpack', err);
     }
 
-    if (argv.verbose) {
+    //男人就需要看看eslint的错误提示
+    //ES6格式的import会莫名报错
+    //if (argv.verbose) {
       $.util.log('[webpack]', stats.toString({colors: true}));
-    }
+    //}
 
     if (!started) {
       started = true;

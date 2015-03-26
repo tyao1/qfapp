@@ -53,6 +53,7 @@ var config = {
 
   module: {
     preLoaders: [
+
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -67,7 +68,7 @@ var config = {
 //      },
       {
         test: /\.scss$/,
-        loader: "style!css!sass!"+ AUTOPREFIXER_LOADER
+        loader: 'style!css!sass!'+ AUTOPREFIXER_LOADER
       },
       {
         test: /\.gif/,

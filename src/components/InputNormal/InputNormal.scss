@@ -1,0 +1,6 @@
+@import '../../styles/variables.scss';
+
+.InputNormal>Input{
+  border:$borderProperty;
+  border-radius:$borderRadius;
+}

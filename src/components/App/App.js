@@ -7,8 +7,8 @@ import AppStore from '../../stores/AppStore';
 import Navbar from '../Navbar';
 import ContentPage from '../ContentPage';
 import NotFoundPage from '../NotFoundPage';
+import InputNormal from '../InputNormal';
 
-//style file
 require('./App.scss');
 
 export default class App extends React.Component {
@@ -28,6 +28,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <InputNormal src="../asd.png"/>
+
         <Navbar />
         {
           this.props.path === '/' ?
