@@ -1,10 +1,11 @@
 'use strict';
 
-var React = require('react');
-var App = require('./components/App');
+import React from 'react';
+import router from './router';
+import Banner from './components/Banner/Banner';
 
-
-React.render(
-  <App />,
-  document.getElementById('react')
-);
+router.run(function (Handler) {
+  React.render(
+      <Handler/>
+    , document.body);
+});

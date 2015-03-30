@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+.banner{
+  background: $bannerBg;
+  height:$bannerHeight;
+  box-shadow: 0 1px 2px rgba(0,0,0,.4);
+  &>.inner{
+    @include maxWidth();
+    height:100%;
+    &>.right{
+      float:right;
+      height:100%;
+      &>ul{
+          margin:0;
+        &>li{
+          display: inline;
+          &>a{
+            height: $bannerHeight;
+            line-height: $bannerHeight;
+            padding:0 12px;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

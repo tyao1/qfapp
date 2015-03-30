@@ -2,14 +2,15 @@
 
 import React from 'react';
 import Banner from '../Banner';
-import {RouteHandler} from 'react-router';
-const HomePage = React.createClass({
+
+const ShoppingPage = React.createClass({
   render() {
     return (
       <div>
-        <p>this is home</p>
+        <p>this is shopping!!!!!!!!</p>
       </div>
     );
   }
-})
-export default HomePage;
+});
+
+export default ShoppingPage;
