@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Route,DefaultRoute } from 'react-router';
-import App from './components/App/app';
+import App from './components/App';
 import HomePage from './components/HomePage';
 import ShoppingPage from './components/ShoppingPage'
 
