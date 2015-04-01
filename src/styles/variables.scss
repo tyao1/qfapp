@@ -13,16 +13,20 @@ $cardBgColor: #FFF;        //物品卡片背景
 
 $bannerBg :#fff;          //顶条背景色
 
+
 /*
     像素清晰可见
 */
+$fontSize:14px;
+$bigFontSize:18px;
+$xLargeFontSize:36px;
 
 $pageMaxWidth : 1024px;       //页面最大宽度
 $borderRadius :9px;           //圆角
 $borderProperty :1px solid rgba(48,48,48,.3);   //边框格式
 
 $bannerHeight :84px;        //顶栏高
-
+$inputHeight:40px;          //输入框高度
 
 /*
     各种方法
@@ -32,4 +36,21 @@ $bannerHeight :84px;        //顶栏高
 @mixin maxWidth() {
   width:$pageMaxWidth;
   margin:0 auto;
+}
+
+//普通元素加一个阴影提供视觉上的突出
+@mixin dropShadow(){
+  box-shadow: 0 0 3px rgba(0,0,0,.5);
+}
+
+//普通transition
+@mixin normalTransition($transition){
+  transition:$transition .3s ease-in;
+}
+
+//竖直方向剧中 (flex way)
+@mixin verticalCenter(){
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

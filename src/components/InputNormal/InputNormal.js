@@ -8,6 +8,7 @@ export default class InputNormal extends React.Component {
 
   render() {
     var { src, ...others } = this.props;
+
     return (
       <div className="InputNormal">
           <input {...others} ref="input" key="input" />
@@ -19,9 +20,7 @@ export default class InputNormal extends React.Component {
 }
 
 InputNormal.propTypes = {
-  maxLines: React.PropTypes.number
 };
 
 InputNormal.defaultProps = {
-  maxLines: 1
 };

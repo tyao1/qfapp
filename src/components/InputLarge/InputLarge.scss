@@ -1,16 +1,18 @@
 @import '../../styles/variables.scss';
 
-.InputNormal>Input{
+.InputLarge>Input{
+  width:492px;
   border:$borderProperty;
-  border-radius:$borderRadius;
-  line-height:$inputHeight;
-  height:$inputHeight;
+  border-radius:4px;
+  line-height:$inputHeight+9;
+  height:$inputHeight+9;
   box-sizing: border-box;
   padding:0 14px 0 42px;
+  font-size:$fontSize+2px;
   @include normalTransition(box-shadow);
+  margin:98px auto;
   &:focus{
     outline:none;
     @include dropShadow();
-
   }
 }

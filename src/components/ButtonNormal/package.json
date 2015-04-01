@@ -1,0 +1,6 @@
+{
+  "name": "ButtonNormal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ButtonNormal.js"
+}

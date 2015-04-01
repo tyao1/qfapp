@@ -5,13 +5,13 @@
  */
 
 import React from 'react';
-import { Route,DefaultRoute } from 'react-router';
+import { Route, DefaultRoute } from 'react-router';
 import App from './components/App';
 import HomePage from './components/HomePage';
 import ShoppingPage from './components/ShoppingPage'
 
 export default (
-  <Route  name="app" path='/' handler={App}>
+  <Route name="app" path='/' handler={App}>
     <Route name='shop' handler={ShoppingPage} />
     <Route name='sell' handler={HomePage} />
     <Route name='orders' handler={HomePage} />

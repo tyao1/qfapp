@@ -6,6 +6,25 @@
   &>.inner{
     @include maxWidth();
     height:100%;
+    position:relative;
+    &>.left{
+      position:absolute;
+      top:0;
+      right:0;
+      left:0;
+      &>img{
+        padding:12px 0 12px 24px;
+        float:left;
+      }
+      &>.InputNormal{
+        float:left;
+        margin-left:120px;
+        margin-top:($bannerHeight - $inputHeight)/2;
+        &>input{
+          width:330px;
+        }
+      }
+    }
     &>.right{
       float:right;
       height:100%;

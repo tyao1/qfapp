@@ -1,0 +1,6 @@
+{
+  "name": "InputLarge",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./InputLarge.js"
+}

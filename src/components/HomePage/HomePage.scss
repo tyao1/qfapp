@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+.FirstSection{
+  width:100%;
+  height:574px;
+  @include verticalCenter();
+  background:#0E5869 url('./welcomebg.png') no-repeat center;
+  background-size:cover;
+  overflow: hidden;
+  &>.inner {
+    margin:auto;
+    text-align:center;
+    &>.subtle{
+      font-size:$bigFontSize;
+      color:#CFCFCF;
+    }
+    &>.main{
+      font-size:$xLargeFontSize;
+      color:white;
+      margin:0;
+    }
+
+    &>.InputLarge{
+      width:80%;
+    }
+  }
+}
