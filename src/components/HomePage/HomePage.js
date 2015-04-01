@@ -3,7 +3,7 @@
 import React from 'react';
 import Banner from '../Banner';
 import InputLarge from '../InputLarge';
-
+import ButtonNormal from '../ButtonNormal';
 require('./HomePage.scss');
 
 const HomePage = React.createClass({
@@ -13,7 +13,8 @@ const HomePage = React.createClass({
         <div className="inner">
           <p className="subtle">最便捷二手物品交易平台</p>
           <p className="main">轻松购买闲置的电子用品</p>
-          <InputLarge placeholder="键入你想买或想卖的物品"/>
+          <InputLarge placeholder="键入你想买或想卖的物品" btnText="搜索"/>
+          <ButtonNormal text="我们如何运作"/>
         </div>
       </div>
     );

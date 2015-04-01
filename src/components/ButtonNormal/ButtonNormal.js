@@ -10,8 +10,8 @@ export default class ButtonNormal extends React.Component {
     var { text, ...others } = this.props;
 
   return (
-      <button className="ButtonNormal">
-        {text}
+      <button className="ButtonNormal" data-text={text}>
+        <span>{text}</span>
       </button>
     );
   }

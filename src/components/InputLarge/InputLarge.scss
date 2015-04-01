@@ -1,18 +1,40 @@
 @import '../../styles/variables.scss';
 
-.InputLarge>Input{
-  width:492px;
-  border:$borderProperty;
-  border-radius:4px;
-  line-height:$inputHeight+9;
-  height:$inputHeight+9;
-  box-sizing: border-box;
-  padding:0 14px 0 42px;
-  font-size:$fontSize+2px;
-  @include normalTransition(box-shadow);
-  margin:98px auto;
-  &:focus{
-    outline:none;
-    @include dropShadow();
+.InputLarge {
+  margin: 98px 0;
+  font-size: $bigFontSize;
+  >Input {
+    width: 492px;
+    border: $borderProperty;
+    border-radius: 4px;
+    line-height: $inputHeight+9;
+    height: $inputHeight+9;
+    box-sizing: border-box;
+    padding: 0 14px 0 42px;
+    position:relative;
+    @include normalTransition(box-shadow);
+
+    &:focus {
+      outline: none;
+      @include dropShadow();
+    }
   }
+  &.btn{
+    position:relative;
+    >Input{
+      padding-right:100px;
+    }
+    >button{
+      position:absolute;
+      right:0;
+      top:0;
+      bottom:0;
+      border:none;
+      background:$mainColor;
+      color:white;
+      padding:0 23px;
+      border-radius: 4px;
+    }
+
+}
 }

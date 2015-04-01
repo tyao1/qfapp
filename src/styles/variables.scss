@@ -54,3 +54,15 @@ $inputHeight:40px;          //输入框高度
   flex-direction: column;
   justify-content: center;
 }
+
+//增加transition-timing-func
+@mixin transTimingBounce(){
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+}
+@mixin transTimingNormal(){
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+
+}
+//normal cubic-bezier(0.2, 1, 0.3, 1)
+//bounce cubic-bezier(0.68, -0.55, 0.265, 1.55);

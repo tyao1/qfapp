@@ -6,21 +6,21 @@
   background:#0E5869 url('./welcomebg.png') no-repeat center;
   background-size:cover;
   overflow: hidden;
-  &>.inner {
+  >.inner {
     margin:auto;
     text-align:center;
-    &>.subtle{
+    >.subtle{
       font-size:$bigFontSize;
       color:#CFCFCF;
     }
-    &>.main{
+    >.main{
       font-size:$xLargeFontSize;
       color:white;
       margin:0;
     }
-
-    &>.InputLarge{
-      width:80%;
+    >button{
+      color:#F2F2F2;
+      border-color:#F2F2F2;
     }
   }
 }

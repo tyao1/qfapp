@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+
+.ButtonNormal{
+  border:$borderProperty;
+  border-radius: $borderRadius;
+  background:none;
+  overflow: hidden;
+  padding: 0;
+  position:relative;
+  transition:background .3s,border .3s;
+  @include transTimingNormal();
+  &:hover{
+    background:rgba(0,0,0,.3);
+    &>span{
+      opacity: 0;
+      transform: translate3d(0, -25%, 0);
+    }
+    &:after{
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  &:focus{
+    outline:none;
+  }
+  >span{
+    height:$inputHeight;
+    padding:0 28px;
+    display:block;
+    line-height: $inputHeight;
+    transition:transform .3s,opacity .3s;
+    @include transTimingBounce();
+  }
+  &:after{
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: $inputHeight;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    color: currentColor;
+    transform: translate3d(0, 25%, 0);
+    transition:transform .3s,opacity .3s;
+    @include transTimingBounce();
+    box-sizing: border-box;
+  }
+}
