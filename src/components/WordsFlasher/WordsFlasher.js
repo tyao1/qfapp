@@ -1,27 +1,30 @@
 'use strict';
-import React from 'react';
+import React from 'react/addons';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+
 require('./WordsFlasher.scss');
 
-let curCount = 0;
+
 
 const WordsFlasher = React.createClass({
   GoNext(){
-    curCount=++curCount%this.props.words.length;
-    this.render();
-
+    this.setState({curCount: (this.state.curCount + 1) % this.props.words.length});
   },
-  componentWillMount(){
-
+  getInitialState(){
+    return{curCount:0}
   },
   componentDidMount(){
-    setInterval(this.GoNext, 1000);
+    setInterval(this.GoNext, 5000);
   },
 
   render(){
+
+    let word=this.props.words[(this.state.curCount)%this.props.words.length];
     return (
       <span className="WordsFlasher">
-        <span>{this.props.words[(curCount+1)%this.props.words.length]}</span>
-        <span className="active">{this.props.words[curCount]}</span>
+        <ReactCSSTransitionGroup transitionName="wf">
+          <span key={'k'+this.state.curCount}>{word}</span>
+        </ReactCSSTransitionGroup>
       </span>
     );
   }

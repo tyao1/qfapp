@@ -1,19 +1,40 @@
 @import '../../styles/variables.scss';
-
+@mixin trans(){
+  transition:transform .3s ease-out,opacity .3s ease-in-out;
+}
 .WordsFlasher{
   display: inline-block;
-  width:200px;
+  width:190px;
   position:relative;
   vertical-align: top;
-  >span{
+  >span>span{
     display:inline-block;
 
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     top:0;
     left:0;
-    &.active{
+
+    &.wf-enter{
+      opacity:0;
+      transform: translate3d(0,-40%,0);
+      transition-delay: .15s;
+      @include trans();
+    }
+    &.wf-enter.wf-enter-active{
       opacity:1;
+      transform: translate3d(0,0,0);
+      @include trans();
+    }
+    &.wf-leave.wf-leave-active{
+      opacity:0;
+      transform: translate3d(0,40%,0);
+      @include trans();
+    }
+    .example-leave {
+      opacity: 0;
+      transform: translate3d(0,-40%,0);
+      @include trans();
     }
   }
 }

@@ -4,6 +4,9 @@
 @mixin daPadding(){
   padding:7px 28px;
 }
+@mixin trans(){
+  transition:transform .3s $bounceTiming,opacity .3s $normalTiming;
+}
 .ButtonNormal{
   border:$borderProperty;
   border-radius: $borderRadius;
@@ -31,8 +34,8 @@
   }
   >span{
     @include daPadding();
-    transition:transform .3s,opacity .3s;
-    @include transTimingBounce();
+    @include trans();
+
     display: block;
   }
   &:after{
@@ -46,8 +49,7 @@
     opacity: 0;
     color: currentColor;
     transform: translate3d(0, 50%, 0);
-    transition:transform .3s,opacity .3s;
-    @include transTimingBounce();
+    @include trans();
     box-sizing: border-box;
   }
 }
