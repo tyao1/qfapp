@@ -3,6 +3,8 @@
 import React from 'react';
 import Banner from '../Banner';
 
+require('./ShoppingPage.scss');
+
 var cartItemNum = 0;
 
 var CartIcon = React.createClass({

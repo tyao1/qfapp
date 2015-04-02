@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
 
+
+@mixin daPadding(){
+  padding:7px 28px;
+}
 .ButtonNormal{
   border:$borderProperty;
   border-radius: $borderRadius;
@@ -9,11 +13,12 @@
   position:relative;
   transition:background .3s,border .3s;
   @include transTimingNormal();
+
   &:hover{
     background:rgba(0,0,0,.3);
     &>span{
       opacity: 0;
-      transform: translate3d(0, -25%, 0);
+      transform: translate3d(0, -50%, 0);
     }
     &:after{
       opacity: 1;
@@ -25,24 +30,22 @@
     outline:none;
   }
   >span{
-    height:$inputHeight;
-    padding:0 28px;
-    display:block;
-    line-height: $inputHeight;
+    @include daPadding();
     transition:transform .3s,opacity .3s;
     @include transTimingBounce();
+    display: block;
   }
   &:after{
     content: attr(data-text);
     position: absolute;
     width: 100%;
     height: 100%;
-    line-height: $inputHeight;
+    @include daPadding();
     top: 0;
     left: 0;
     opacity: 0;
     color: currentColor;
-    transform: translate3d(0, 25%, 0);
+    transform: translate3d(0, 50%, 0);
     transition:transform .3s,opacity .3s;
     @include transTimingBounce();
     box-sizing: border-box;

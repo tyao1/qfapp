@@ -7,9 +7,8 @@ require('./ButtonNormal.scss');
 export default class ButtonNormal extends React.Component {
 
   render() {
-    var { text, ...others } = this.props;
-
-  return (
+    var { text } = this.props;
+    return (
       <button className="ButtonNormal" data-text={text}>
         <span>{text}</span>
       </button>

@@ -1,0 +1,6 @@
+{
+  "name": "WordsFlasher",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./WordsFlasher.js"
+}
