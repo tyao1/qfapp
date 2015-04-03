@@ -5,8 +5,20 @@ import ActionTypes from '../constants/ActionTypes';
 import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 import http from 'superagent';
 
+import AppConstants from '../constants/AppConstants.js';
+
 export default {
 
+  loadHome(){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.LOAD_HOME
+    });
+  },
+  leaveHome(){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.LEAVE_HOME
+    });
+  },
   navigateTo(path, options) {
     if (ExecutionEnvironment.canUseDOM) {
       if (options && options.replace) {

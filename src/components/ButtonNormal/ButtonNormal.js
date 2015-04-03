@@ -7,10 +7,14 @@ require('./ButtonNormal.scss');
 export default class ButtonNormal extends React.Component {
 
   render() {
-    var { text } = this.props;
+    var { text, svg, ...others } = this.props;
+    var img;
+    if(svg){
+      img = <div className="svgWrapper">{svg}</div>;
+    }
     return (
-      <button className="ButtonNormal" data-text={text}>
-        <span>{text}</span>
+      <button className="ButtonNormal" data-text={text} {...others}>
+        {img}<span>{text}</span>
       </button>
     );
   }

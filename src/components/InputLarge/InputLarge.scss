@@ -10,7 +10,7 @@
     line-height: $inputHeight+9;
     height: $inputHeight+9;
     box-sizing: border-box;
-    padding: 0 14px 0 42px;
+    padding: 0 14px 0 46px;
     position:relative;
     @include normalTransition(box-shadow);
 
@@ -18,6 +18,20 @@
       outline: none;
       @include dropShadow();
     }
+
+    }
+    >.svgWrapper{
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      width:42px;
+      display: flex;
+      >svg{
+        margin:12px 0 0 18px;
+        min-height:20px;
+        min-width:18px;
+      }
   }
   &.btn{
     position:relative;

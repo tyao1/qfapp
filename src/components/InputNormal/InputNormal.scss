@@ -1,16 +1,30 @@
 @import '../../styles/variables.scss';
 
-.InputNormal>Input{
-  border:$borderProperty;
-  border-radius:$borderRadius;
-  line-height:$inputHeight;
-  height:$inputHeight;
-  box-sizing: border-box;
-  padding:0 14px 0 42px;
-  @include normalTransition(box-shadow);
-  &:focus{
-    outline:none;
-    @include dropShadow();
+.InputNormal {
+  position:relative;
+  > Input {
+    border: $borderProperty;
+    border-radius: $borderRadius;
+    line-height: $inputHeight;
+    height: $inputHeight;
+    box-sizing: border-box;
+    padding: 0 14px 0 40px;
+    @include normalTransition(box-shadow);
+    &:focus {
+      outline: none;
+      @include dropShadow();
 
+    }
+  }
+
+  >.svgWrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    svg {
+      margin:11px 0 0 14px;
+    }
   }
 }

@@ -1,0 +1,6 @@
+{
+  "name": "SVGs",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SVGs.js"
+}

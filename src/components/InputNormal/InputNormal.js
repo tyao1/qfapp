@@ -7,16 +7,18 @@ require('./InputNormal.scss');
 export default class InputNormal extends React.Component {
 
   render() {
-    var { src, ...others } = this.props;
-
+    var { svg, ...others } = this.props;
+    var img;
+    if(svg){
+      img = <div className="svgWrapper">{svg}</div>;
+    }
     return (
       <div className="InputNormal">
           <input {...others} ref="input" key="input" />
-          <img src={src}/>
+        {img}
       </div>
     );
   }
-
 }
 
 InputNormal.propTypes = {

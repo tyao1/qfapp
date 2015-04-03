@@ -4,6 +4,8 @@
 
 $fontColor: #4A4A4A;      //字体色
 $boldFontColor :#000;     //某些heading字体颜色
+$subtleFontColor :rgba(0,0,0,.25);
+$subtleFontColor2 :rgba(0,0,0,.42);
 
 $mainColor: #53DAB0;      //主要颜色、按钮、背景等
 $secondaryColor: #FBE2AC; //次要颜色、按钮等
@@ -19,6 +21,7 @@ $bannerBg :#fff;          //顶条背景色
 */
 $fontSize:14px;
 $bigFontSize:18px;
+$LargeFontSize:26px;
 $xLargeFontSize:36px;
 
 $pageMaxWidth : 1024px;       //页面最大宽度
@@ -27,6 +30,13 @@ $borderProperty :1px solid rgba(48,48,48,.3);   //边框格式
 
 $bannerHeight :84px;        //顶栏高
 $inputHeight:40px;          //输入框高度
+
+
+/*
+    来一段动画
+*/
+$bounceTiming: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+$normalTiming: cubic-bezier(.87,.35,.49,.92);
 
 /*
     各种方法
@@ -57,15 +67,14 @@ $inputHeight:40px;          //输入框高度
 
 //增加transition-timing-func
 @mixin transTimingBounce(){
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-timing-function: $bounceTiming;
 
 }
 @mixin transTimingNormal(){
-  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: $normalTiming;
 
 }
-$bounceTiming: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-$normalTiming: cubic-bezier(0.2, 1, 0.3, 1);
+
 //normal cubic-bezier(0.2, 1, 0.3, 1)
 //bounce cubic-bezier(0.68, -0.55, 0.265, 1.55);
 

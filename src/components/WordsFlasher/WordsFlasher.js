@@ -11,15 +11,14 @@ const WordsFlasher = React.createClass({
     this.setState({curCount: (this.state.curCount + 1) % this.props.words.length});
   },
   getInitialState(){
-    return{curCount:0}
+    return {curCount: 0};
   },
   componentDidMount(){
-    setInterval(this.GoNext, 5000);
+    setInterval(this.GoNext, 3500);
   },
 
   render(){
-
-    let word=this.props.words[(this.state.curCount)%this.props.words.length];
+    let word = this.props.words[(this.state.curCount)%this.props.words.length];
     return (
       <span className="WordsFlasher">
         <ReactCSSTransitionGroup transitionName="wf">
@@ -30,7 +29,7 @@ const WordsFlasher = React.createClass({
   }
 });
 
-WordsFlasher.defaultProps={
+WordsFlasher.defaultProps = {
   words: ['电子用品', '书籍', '小物件', '优惠券']
 };
 

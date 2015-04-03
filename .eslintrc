@@ -14,6 +14,9 @@
 
     // Code style
     "indent": [2, 2],
-    "quotes": [2, "single"]
+    "quotes": [2, "single"],
+
+    //preference
+    "no-underscore-dangle":false
   }
 }
