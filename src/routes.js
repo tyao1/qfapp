@@ -16,6 +16,6 @@ export default (
     <Route name='sell' handler={HomePage} />
     <Route name='orders' handler={HomePage} />
     <Route name='test' handler={HomePage} />
-    <DefaultRoute handler={HomePage}/>
+    <DefaultRoute name="home" handler={HomePage}/>
   </Route>
 );

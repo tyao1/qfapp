@@ -24,14 +24,14 @@ const Banner = React.createClass({
       <div className="banner">
         <div className="inner">
           <div className="left">
-            <img className="logo" src={require('./logo.png')}/>
+            <Link to="home"><img className="logo" src={require('./logo.png')}/></Link>
             <InputNormal placeholder="输入你想要买或者卖的内容"/>
           </div>
           <div className="right">
               <ul>
-                <li><Link to="shop">浏览物品</Link></li>
-                <li><Link to="sell">出售物品</Link></li>
-                <li><Link to="orders">我的订单</Link></li>
+                <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
+                <li><Link to="sell" data-name="出售物品"><span>出售物品</span></Link></li>
+                <li><Link to="orders" data-name="我的订单"><span>我的订单</span></Link></li>
               </ul>
           </div>
         </div>
