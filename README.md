@@ -1,7 +1,11 @@
 男人的开发框架，走起！
 
-
-
+### How to Install
+(vpn connection might be required)
+```shell
+$ npm install gulp -g
+$ npm install
+```
 
 ### How to Build
 
