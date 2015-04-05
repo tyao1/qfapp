@@ -48,7 +48,9 @@ gulp.task('clean', del.bind(
 gulp.task('vendor', function() {
   //normalize css
   return gulp.src('node_modules/normalize.css/*.css')
-    .pipe(gulp.dest('build'));
+    .pipe($.if(RELEASE, $.minifyCss()))
+    .pipe(gulp.dest('build'))
+    .pipe($.size({title: 'normalize'}))
 });
 
 // Static files
