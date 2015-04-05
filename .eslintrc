@@ -9,8 +9,13 @@
     "__SERVER__": true
   },
   "rules": {
+
+    // ES6 import
+    "sourceType": "module",
+
     // Strict mode
     "strict": [2, "global"],
+
 
     // Code style
     "indent": [2, 2],

@@ -89,7 +89,7 @@ var config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader?experimental'
+        loader: 'babel-loader?stage=0'
       }
     ]
   }

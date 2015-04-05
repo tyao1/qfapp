@@ -1,4 +1,8 @@
-男人的开发框架，走起！
+### 使用ES6！
+ES6的特性详解：
+http://es6-features.org/
+来自Airbnb的ES6 Style Guide
+https://github.com/airbnb/javascript/tree/es6
 
 ### How to Install
 (vpn connection might be required)
