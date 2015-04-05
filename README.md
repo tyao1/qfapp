@@ -47,16 +47,17 @@ $ npm test
 ### Async请求放在Store里还是Action里
 看情况！
 
-```shell
+
 An alternative to doing all async ops in the action creators, which I believe someone from the FB team has mentioned, is putting async writes in the action creators and reads in the stores—with the important caveat that the stores don't update themselves asynchronously, but instead fire an action when the async request completes.
 
 For example, a component might do:
-
+```shell
 getInitialState() {
   return { data: myStore.getSomeData(this.props.id) };
 }
+```
 The store would have a method implemented, perhaps, something like this:
-
+```shell
 class Store {
   getSomeData(primaryKey) {
     if (!this.cache[primaryKey]) {
