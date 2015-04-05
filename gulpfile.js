@@ -66,7 +66,17 @@ gulp.task('assets', function() {
 
 
 // CSS style sheets
-
+var sass = require('gulp-sass');
+gulp.task('sass', function () {
+  gulp.src('src/styles/main.scss')
+    .pipe(sass())
+    .on('error', console.error.bind(console))
+    .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+    .pipe($.csscomb())
+    .pipe($.if(RELEASE, $.minifyCss()))
+    .pipe(gulp.dest('build'))
+    .pipe($.size({title: 'styles'}));
+});
 //gulp.task('styles', function() {
 //  src.styles = 'src/styles/**/*.{css,less}';
 /*  return gulp.src('src/styles/bootstrap.less')
@@ -96,7 +106,6 @@ gulp.task('bundle', function(cb) {
     }
 
     //男人就需要看看eslint的错误提示
-    //ES6格式的import会莫名报错
     //if (argv.verbose) {
       $.util.log('[webpack]', stats.toString({colors: true}));
     //}
@@ -116,7 +125,7 @@ gulp.task('bundle', function(cb) {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
-  runSequence(['vendor', 'assets', 'bundle'], cb); //'styles',
+  runSequence(['vendor', 'assets', 'sass', 'bundle'], cb); //'styles',
 });
 
 gulp.task('reload',function(){
@@ -131,6 +140,7 @@ gulp.task('build:watch', function(cb) {
   watch = true;
   runSequence('build', function() {
     gulp.watch(src.assets, ['assets']);
+    gulp.watch('src/styles/main.scss', ['sass']);
     gulp.watch('build/**', ['reload']);
     cb();
   });

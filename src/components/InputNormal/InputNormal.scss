@@ -8,12 +8,16 @@
     line-height: $inputHeight;
     height: $inputHeight;
     box-sizing: border-box;
-    padding: 0 14px 0 40px;
+    padding: 0 14px 0 38px;
+    background:$inputBg;
+    width: 100%;
     @include normalTransition(box-shadow);
     &:focus {
       outline: none;
       @include dropShadow();
-
+      + .svgWrapper>svg{
+        fill:$subtleFontColor2;
+      }
     }
   }
 
@@ -23,8 +27,15 @@
     top: 0;
     bottom: 0;
     width: 40px;
-    svg {
-      margin:11px 0 0 14px;
+    display: flex;
+    >svg {
+      margin:auto;
+      max-height:24px;
+      width:20px;
+      height:auto;
+      fill:$subtleFontColor;
+      transition:fill .3s ease;
     }
   }
 }
+

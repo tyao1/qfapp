@@ -6,12 +6,12 @@ import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import AppConstants from '../constants/AppConstants';
 
-var CHANGE_EVENT = 'CHANGE_AppStore';
+const CHANGE_EVENT = 'CHANGE_AppStore';
 
-var _isHome = false;
+let _isHome = false;
 
 
-var AppStore = assign({}, EventEmitter.prototype, {
+const AppStore = assign({}, EventEmitter.prototype, {
 
   getIsHome(){
     return _isHome;

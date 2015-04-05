@@ -28,9 +28,10 @@
       width:42px;
       display: flex;
       >svg{
-        margin:12px 0 0 18px;
+        margin: 0 0 0 18px;
         min-height:20px;
         min-width:18px;
+        fill:$subtleFontColor2;
       }
   }
   &.btn{

@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.regForm{
+  text-align:center;
+  max-width:320px;
+  >p{
+    font-size:$bigFontSize;
+  }
+  >.InputNormal{
+    margin:9px 0;
+
+  }
+  >.ButtonNormal{
+
+    width:100%;
+    background:$fontColor;
+    color:#fff;
+  }
+}

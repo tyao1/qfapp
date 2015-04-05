@@ -19,19 +19,17 @@
     &.wf-enter{
       opacity:0;
       transform: translate3d(0,-40%,0);
-      transition-delay: .15s;
+
     }
     &.wf-enter.wf-enter-active{
       opacity:1;
       transform: translate3d(0,0,0);
+      transition-delay: .15s;
     }
     &.wf-leave.wf-leave-active{
       opacity:0;
       transform: translate3d(0,40%,0);
     }
-    .example-leave {
-      opacity: 0;
-      transform: translate3d(0,-40%,0);
-    }
+
   }
 }

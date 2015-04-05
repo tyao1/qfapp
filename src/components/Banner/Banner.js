@@ -5,6 +5,7 @@ import invariant from 'react/lib/invariant';
 import {RouteHandler, Link} from 'react-router';
 import InputNormal from '../InputNormal';
 import AppStore from '../../stores/AppStore';
+import UserStore from '../../stores/UserStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
@@ -13,10 +14,13 @@ import {coffecup} from '../SVGs';
 require('./Banner.scss');
 
 
-
 function getIsHome(){
+  return {isHome: AppStore.getIsHome()};
+}
+function getInitialData(){
   return {
-    isHome: AppStore.getIsHome()
+    isHome: AppStore.getIsHome(),
+    userData: UserStore.getUserData()
   };
 }
 function getScrollState(){
@@ -28,7 +32,7 @@ const Banner = React.createClass({
   //不用担心不必要的rerender辣
   mixins: [PureRenderMixin],
 
-  _onChange(){
+  _onAppChange(){
     let tmp = getIsHome();
     this.setState(tmp);
     if(tmp.isHome) {
@@ -38,22 +42,27 @@ const Banner = React.createClass({
       window.removeEventListener('scroll', this._onScroll);
     }
   },
+  onUserChange(){
+
+  },
   _onScroll(){
     this.setState(getScrollState());
   },
   getInitialState(){
-    return getIsHome();
+    return getInitialData();
   },
   componentWillMount() {
-    AppStore.addChangeListener(this._onChange);
+    AppStore.addChangeListener(this._onAppChange);
+    UserStore.addChangeListener(this._onUserChange);
   },
   componentWillUnmount(){
-    AppStore.removeChangeListener(this._onChange);
+    AppStore.removeChangeListener(this._onAppChange);
+    UserStore.removeChangeListener(this._onUserChange);
   },
 
   render() {
-    var isHome = this.state.isHome;
-    var classes;
+    let isHome = this.state.isHome;
+    let classes;
     if(isHome) {
       classes = cn('banner', {isHome}, {notScrolled: !this.state.isScrolled});
     }
@@ -61,6 +70,22 @@ const Banner = React.createClass({
       classes = 'banner';
     }
 
+    let controls;
+    if(this.state.userData){
+      controls = <ul>
+        <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
+        <li><Link to="sell" data-name="出售物品"><span>出售物品</span></Link></li>
+        <li><Link to="orders" data-name="我的订单"><span>我的订单</span></Link></li>
+      </ul>;
+    }
+    else
+    {
+      controls = <ul>
+        <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
+        <li><a data-name="登入"><span>登入</span></a></li>
+        <li><a data-name="注册清风"><span>注册清风</span></a></li>
+      </ul>;
+    }
 
     return (
       <div className={classes}>
@@ -70,11 +95,7 @@ const Banner = React.createClass({
             <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup}/>
           </div>
           <div className="right">
-              <ul>
-                <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
-                <li><Link to="sell" data-name="出售物品"><span>出售物品</span></Link></li>
-                <li><Link to="orders" data-name="我的订单"><span>我的订单</span></Link></li>
-              </ul>
+            {controls}
           </div>
         </div>
       </div>

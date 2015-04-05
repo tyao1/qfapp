@@ -1,0 +1,61 @@
+@import './variables.scss';
+/*
+
+  适合所有网页的全局scss写在这里
+  例如页面背景，字体……
+  由App.js加载
+  此文件应该为最先写入<style>中的
+*/
+
+
+/*
+ *  载入界面！
+ *
+**/
+#react {
+  display: table;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+  .logo{
+    font-size:$LargeFontSize;
+  }
+  .table {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .browserupgrade {
+    max-width: 50%;
+    margin:0 auto 24px;
+    padding:12px;
+    box-shadow:0 0 3px rgba(0,0,0,.6);
+
+  }
+  .loading{
+    font-size:$bigFontSize;
+    color:$subtleFontColor
+  }
+}
+html{
+  height: 100%;
+  width: 100%;
+}
+//TODO 修改字体
+//test
+body{
+  background:$bgColor;
+  font:14px serif;
+  color:$fontColor;
+  height: 100%;
+}
+
+ul{
+  list-style-type:none ;
+  padding:0;
+}
+
+a{
+  text-decoration: none;
+  color:$fontColor;
+  cursor:pointer;
+}

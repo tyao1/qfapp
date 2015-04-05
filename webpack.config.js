@@ -7,6 +7,8 @@
 
 var _ = require('lodash');
 var webpack = require('webpack');
+var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+
 var argv = require('minimist')(process.argv.slice(2));
 
 var DEBUG = !argv.release;
@@ -42,8 +44,7 @@ var config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.optimize.OccurenceOrderPlugin()
 
   ],
 
@@ -100,12 +101,25 @@ var config = {
 // -----------------------------------------------------------------------------
 
 var appConfig = _.merge({}, config, {
-  entry: './src/app.js',
+  entry: {
+    app:'./src/app.js',
+    vendor:['react','react-router']
+  },
   output: {
-    filename: "[name].js",
+    filename: "[name].js"
   },
   plugins: config.plugins.concat([
-      new webpack.DefinePlugin(_.merge(GLOBALS, {'__SERVER__': false}))
+
+      new webpack.DefinePlugin(_.merge(GLOBALS, {'__SERVER__': false})),
+      new ChunkManifestPlugin({
+        filename: "manifest.json",
+        manifestVariable: "webpackManifest"
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name:"vendor",
+        //filename:'common.js',
+        minChunks: Infinity
+      })
     ].concat(DEBUG ? [] : [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin(),

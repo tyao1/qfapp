@@ -1,5 +1,5 @@
 'use strict';
-import React from 'react/addons';
+import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 require('./WordsFlasher.scss');

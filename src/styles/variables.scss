@@ -5,6 +5,7 @@
 $fontColor: #4A4A4A;      //字体色
 $boldFontColor :#000;     //某些heading字体颜色
 $subtleFontColor :rgba(0,0,0,.25);
+$subtleFontColor1 :rgba(0,0,0,.1);
 $subtleFontColor2 :rgba(0,0,0,.42);
 
 $mainColor: #53DAB0;      //主要颜色、按钮、背景等
@@ -14,7 +15,7 @@ $bgColor: #FDFCFA;        //背景色
 $cardBgColor: #FFF;        //物品卡片背景
 
 $bannerBg :#fff;          //顶条背景色
-
+$inputBg: rgba(255,255,255,.8);
 
 /*
     像素清晰可见
@@ -44,7 +45,7 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
-  width:$pageMaxWidth;
+  max-width:$pageMaxWidth;
   margin:0 auto;
 }
 
@@ -73,6 +74,14 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 @mixin transTimingNormal(){
   transition-timing-function: $normalTiming;
 
+}
+
+@mixin clearfix() {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 //normal cubic-bezier(0.2, 1, 0.3, 1)

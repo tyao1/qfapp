@@ -6,15 +6,15 @@ import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import AppConstants from '../constants/AppConstants';
 
-var CHANGE_EVENT = 'CHANGE_UserStore';
+const CHANGE_EVENT = 'CHANGE_UserStore';
 
-var _isHome=false;
+let _userData;
 
 
-var UserStore = assign({}, EventEmitter.prototype, {
+const UserStore = assign({}, EventEmitter.prototype, {
 
-  getIsHome(){
-    return _isHome;
+  getUserData(){
+    return _userData;
   },
 
   emitChange() {
@@ -36,14 +36,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
   switch (action.actionType) {
 
-    case AppConstants.LOAD_HOME:
-      _isHome=true;
-      AppStore.emitChange();
-      break;
-    case AppConstants.LEAVE_HOME:
-      _isHome=false;
-      AppStore.emitChange();
-      break;
+
     default:
     // Do nothing
 
