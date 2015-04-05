@@ -20,7 +20,7 @@ export default class InputLarge extends React.Component {
 
     return (
       <div className={classes}>
-        <input {...others} ref="input" key="input" />
+        <input {...others}/>
         {img}
         {btn}
       </div>

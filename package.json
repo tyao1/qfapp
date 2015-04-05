@@ -63,6 +63,7 @@
     "react-tools": "^0.13.0",
     "run-sequence": "^1.0.2",
     "sass-loader": "0.4.2",
+    "strip-loader": "^0.1.0",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.3",

@@ -26,6 +26,17 @@ var GLOBALS = {
 // Common configuration chunk to be used for both
 // client-side (app.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
+var strip = DEBUG?
+  {
+    test: /nothing/,
+    exclude: /node_modules/,
+    loader: 'strip-loader?strip[]=console.log'
+  }
+  :{
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: 'strip-loader?strip[]=console.log'
+}
 
 var config = {
   output: {
@@ -87,6 +98,7 @@ var config = {
         test: /\.svg/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       },
+      strip,
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,

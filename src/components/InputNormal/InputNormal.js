@@ -1,10 +1,17 @@
+/*
+ * svg - svg文件
+ * bindValue - 绑定value属性
+ * bindChange - 绑定onChange事件
+ *
+ */
+
 'use strict';
 
 import React from 'react';
 
 require('./InputNormal.scss');
 
-export default class InputNormal extends React.Component {
+const InputNormal = React.createClass({
 
   render() {
     var { svg, ...others } = this.props;
@@ -14,15 +21,16 @@ export default class InputNormal extends React.Component {
     }
     return (
       <div className="InputNormal">
-          <input {...others} ref="input" key="input" />
+          <input {...others} />
         {img}
       </div>
     );
   }
-}
+});
 
 InputNormal.propTypes = {
 };
 
 InputNormal.defaultProps = {
 };
+export default InputNormal;

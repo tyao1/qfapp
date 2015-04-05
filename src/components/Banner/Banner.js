@@ -42,7 +42,7 @@ const Banner = React.createClass({
       window.removeEventListener('scroll', this._onScroll);
     }
   },
-  onUserChange(){
+  _onUserChange(){
 
   },
   _onScroll(){

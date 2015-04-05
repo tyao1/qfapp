@@ -3,6 +3,11 @@
 .regForm{
   text-align:center;
   max-width:320px;
+  >span{
+    height:16px;
+    display:block;
+
+  }
   >p{
     font-size:$bigFontSize;
   }
