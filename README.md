@@ -43,3 +43,44 @@ Run unit tests powered by [Jest](https://facebook.github.io/jest/) with the foll
 ```shell
 $ npm test
 ```
+
+### Async请求放在Store里还是Action里
+看情况！
+
+```shell
+An alternative to doing all async ops in the action creators, which I believe someone from the FB team has mentioned, is putting async writes in the action creators and reads in the stores—with the important caveat that the stores don't update themselves asynchronously, but instead fire an action when the async request completes.
+
+For example, a component might do:
+
+getInitialState() {
+  return { data: myStore.getSomeData(this.props.id) };
+}
+The store would have a method implemented, perhaps, something like this:
+
+class Store {
+  getSomeData(primaryKey) {
+    if (!this.cache[primaryKey]) {
+      MyResurceDAO.get(primaryKey).then(this.updateFromServer);
+      this.cache[primaryKey] = LOADING_TOKEN;
+      // LOADING_TOKEN is a unique value of some kind
+      // that the component can use to know that the
+      // value is not yet available.
+    } else {
+      return this.cache[primaryKey];
+    }
+  }
+
+  updateFromServer(data) {
+    fluxDispatcher.dispatch({
+      type: "DATA_FROM_SERVER",
+      payload: {id: primaryKey, data: data}
+    });
+  }
+
+  // this handles the "DATA_FROM_SERVER" action
+  handleDataFromServer(action) {
+    this.cache[action.payload.id] = action.payload.data;
+    this.emit("change"); // or whatever you do to re-render your app
+  }
+}
+```
