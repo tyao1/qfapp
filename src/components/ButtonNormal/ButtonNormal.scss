@@ -1,12 +1,6 @@
 @import '../../styles/variables.scss';
 
 
-@mixin daPadding(){
-  padding:7px 28px;
-}
-@mixin trans(){
-  transition:transform .3s $bounceTiming,opacity .3s $normalTiming;
-}
 .ButtonNormal{
   border:$borderProperty;
   border-radius: $borderRadius;
@@ -14,43 +8,8 @@
   overflow: hidden;
   padding: 0;
   position:relative;
-  transition:background .3s,border .3s;
-  @include transTimingNormal();
+  transition:background .3s $normalTiming,border .3s $normalTiming;
 
-  &:hover{
-    &>span{
-      opacity: 0;
-      transform: translate3d(0, -50%, 0);
-    }
-    &:after{
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  &:active{
-    transform:translate3d(0,1px,0);
-  }
-  &:focus{
-    outline:none;
-  }
-  >span{
-    @include daPadding();
-    @include trans();
+  @include buttonEffect1(7px 28px);
 
-    display: block;
-  }
-  &:after{
-    content: attr(data-text);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    @include daPadding();
-    top: 0;
-    left: 0;
-    opacity: 0;
-    color: currentColor;
-    transform: translate3d(0, 50%, 0);
-    @include trans();
-    box-sizing: border-box;
-  }
 }

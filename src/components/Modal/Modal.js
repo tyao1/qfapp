@@ -39,12 +39,13 @@ const Modal = React.createClass({
   render() {
 
 
-    let classes = cn('modal',{active:this.props.isOpen&&this.state.transed});
-    let styles = (this.props.isOpen||(!this.props.isOpen&&this.state.transed))?{display: 'flex'}:{};
+    let classes = cn('modal',{active:this.props.isOpen&&this.state.transed},{ready:this.props.isOpen||(!this.props.isOpen&&this.state.transed)});
+    //let styles = (this.props.isOpen||(!this.props.isOpen&&this.state.transed))?{display: 'flex'}:{};
 
     return (
-      <div style={styles} className={classes}  onClick={this.handleModalClick}>
+      <div className={classes}  onClick={this.handleModalClick}>
         <div className="inner" onClick={this.handleInnerClick}>
+          <div className="deco"/>
           {this.props.children}
         </div>
       </div>

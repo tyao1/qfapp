@@ -10,6 +10,9 @@
   height: 100%;
   z-index:5;
   transition:background .3s $normalTiming;
+  &.ready{
+    display: flex;
+  }
   &.active{
     background:rgba($bgColor,.8);
     >.inner{
@@ -22,10 +25,23 @@
     opacity:0;
     transform:translate3d(0,-100%,0);
     transition:opacity .3s $normalTiming,transform .5s $bounceTiming;
+    background:$secondaryColor;
+    padding:46px;
+    border-radius:0 0 9px 9px;
+    position:relative;
+
+    >.deco{
+      content:'';
+      background:url('./popupbg.svg');
+      position:absolute;
+      top: -19px;
+      left: 0;
+      right: 0;
+      height: 19px;
+      display: block;
+    }
     >div{
-      background:$secondaryColor;
-      padding:46px;
-      border-radius:9px;
+
     }
   }
 }

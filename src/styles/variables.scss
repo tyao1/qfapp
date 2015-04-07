@@ -46,6 +46,7 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
   max-width:$pageMaxWidth;
+  min-width:888px;
   margin:0 auto;
 }
 
@@ -81,6 +82,53 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
     content: "";
     display: table;
     clear: both;
+  }
+}
+
+@mixin buttonEffect1($padding:"",$amount:50%,$height:"",$timing:$bounceTiming){
+
+  @mixin btnTrans(){
+    transition:transform .3s $timing,opacity .3s $timing;
+  }
+  &:hover{
+    &>span{
+      opacity: 0;
+      transform: translate3d(0, -$amount, 0);
+    }
+    &:after{
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  &:active{
+    transform:translate3d(0,1px,0);
+  }
+  &:focus{
+    outline:none;
+  }
+  >span{
+    @if($height!= "") {height:$height;line-height:$height;}
+    @else {height:100%}
+    @if($padding!= "") {padding: $padding;}
+    @include btnTrans();
+    display: inline-block;
+  }
+  &:after{
+    content: attr(data-text);
+    position: absolute;
+    @if($height!= "") {height:$height;line-height:$height;}
+    @else {height:100%}
+    @if($padding!= "") {padding: $padding;}
+
+    width: 100%;
+
+    top: 0;
+    left: 0;
+    opacity: 0;
+    color: currentColor;
+    transform: translate3d(0, $amount, 0);
+    @include btnTrans();
+    box-sizing: border-box;
   }
 }
 

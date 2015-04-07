@@ -89,17 +89,17 @@ const Banner = React.createClass({
     let controls;
     if(this.state.userData){
       controls = <ul>
-        <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
-        <li><Link to="sell" data-name="出售物品"><span>出售物品</span></Link></li>
-        <li><Link to="orders" data-name="我的订单"><span>我的订单</span></Link></li>
+        <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
+        <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
+        <li><Link to="orders" data-text="我的订单"><span>我的订单</span></Link></li>
       </ul>;
     }
     else
     {
       controls = <ul>
-        <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
-        <li><a data-name="登入" onClick={this.handleLoginClick}><span>登入</span></a></li>
-        <li className="special"><a data-name="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
+        <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
+        <li><a data-text="登入" onClick={this.handleLoginClick}><span>登入</span></a></li>
+        <li className="special"><a data-text="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
         <Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
           <LoginForm/>
         </Modal>

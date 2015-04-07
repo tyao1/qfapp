@@ -80,7 +80,7 @@ var config = {
 //      },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass!'+ AUTOPREFIXER_LOADER
+        loader: 'style!css!'+ AUTOPREFIXER_LOADER +'!sass'
       },
       {
         test: /\.gif/,

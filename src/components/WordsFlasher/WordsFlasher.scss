@@ -15,7 +15,7 @@
     position: absolute;
     top:0;
     left:0;
-    @include trans();
+
 
     &.active{
       animation:wordsFlasher 3s $normalTiming;
