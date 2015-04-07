@@ -1,9 +1,24 @@
 
 @import '../../styles/variables.scss';
 
+$cart-dropdown-margin-top: 85px;
+
+@keyframes green-nav-dropdown
+{
+  0%   {margin-top: 0px;}
+  100% {margin-top: 85px;}
+}
+
+
 .cart-page-main-container {
-  margin-top: -20px;
+  margin-top: 85px;
   padding-top: 0;
+  background: rgba(33, 33, 33, 0.2);
+  min-height: 1024px;
+  animation: green-nav-dropdown 1s;
+  -moz-animation: green-nav-dropdown 1s;	/* Firefox */
+  -webkit-animation: green-nav-dropdown 1s;	/* Safari 和 Chrome */
+  -o-animation: green-nav-dropdown 1s;	/* Opera */
 }
 
 .green-nav {
@@ -46,4 +61,81 @@
   margin-right: 32px;
   margin-top: 18px;
   font-size: $bigFontSize + 3px;
+}
+
+.gouwuche-title {
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 35px;
+  margin-left: 42px;
+  vertical-align: middle;
+  line-height: $green-bar-height;
+}
+
+.cart-list-main-container {
+  display: table;
+  min-width: 1280px;
+  min-height: 560px;
+  background: rgba(white, 0.7);
+  padding: 0px;
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  border-left: rgba(33, 33, 33, 0.2) 2px solid;
+  border-right: rgba(33, 33, 33, 0.2) 2px solid;
+  border-bottom: rgba(33, 33, 33, 0.2) 2px solid;
+  ul {
+
+  }
+}
+
+.cart-list-item-container {
+  display: block;
+  margin-top: 0px;
+  margin-left: 15px;
+  margin-right: 15px;
+  min-height: 140px;
+  background: rgba(white, 0.9);
+  padding-bottom: 35px;
+
+  img {
+    float: left;
+    margin-left: 35px;
+    margin-top: 25px;
+    width: 95px;
+    height: 95px;
+    border-radius: 85px;
+  }
+}
+
+.cart-list-item-simple-info {
+  display: block;
+  float: left;
+  margin-left: 50px;
+  margin-top: 15px;
+  width: 190px;
+}
+
+.item-price-text {
+  font-size: 21px;
+}
+
+.cart-list-item-others {
+  display: block;
+  float: right;
+  margin-right: 10px;
+  margin-top: 15px;
+  width: 90px;
+}
+
+.delete-item {
+  margin-top: 35px;
+  font-size: 18px;
+  line-height: 100%;
+  vertical-align: middle;
+}
+
+.lastItem {
+  // 购物车中最后一项物品底部加边框~~~
+  border-bottom: rgba(33, 33, 33, 0.2) 2px solid;
 }
