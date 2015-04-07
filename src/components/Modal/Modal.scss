@@ -40,8 +40,23 @@
       height: 19px;
       display: block;
     }
-    >div{
-
+    >.close{
+      position: absolute;
+      right: 24px;
+      top: 6px;
+      stroke-width: 2px;
+      cursor: pointer;
+      >svg{
+        transition:all .3s $normalTiming;
+      }
+      &:hover{
+        stroke-width:5px;
+      }
+      &:active{
+        >svg{
+          transform:rotate(90deg);
+        }
+      }
     }
   }
 }

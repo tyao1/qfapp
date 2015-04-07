@@ -3,7 +3,7 @@
 import React from 'react';
 import cn from 'classnames';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-
+import {close} from '../SVGs';
 
 //modal起初为display:none
 require('./Modal.scss');
@@ -17,16 +17,28 @@ const Modal = React.createClass({
     return({transed:false});
   },
 
-
   componentDidUpdate(){
     //设置display:block后马上设置.active类
     if(this.props.isOpen&&!this.state.transed){
       window.requestAnimationFrame(()=>this.setState({transed:true}));
       //利用requestAnimationFrame防止两次渲染在同时发生
       //setTimeout(()=>this.setState({transed:true}),0);
+
+      window.addEventListener('keydown',this.handleKeyPress);
+
     }
     else if(!this.props.isOpen&&this.state.transed){
       setTimeout(()=>this.setState({transed:false}),TRANSTIME);
+      window.removeEventListener('keydown',this.handleKeyPress);
+    }
+  },
+  componentWillUnmount(){
+    window.removeEventListener('keydown',this.handleKeyPress);
+  },
+  handleKeyPress(event){
+    console.log(event);
+    if(event.keyCode===27){
+      this.props.onClose();
     }
   },
   handleModalClick(){
@@ -37,15 +49,12 @@ const Modal = React.createClass({
   },
 
   render() {
-
-
     let classes = cn('modal',{active:this.props.isOpen&&this.state.transed},{ready:this.props.isOpen||(!this.props.isOpen&&this.state.transed)});
-    //let styles = (this.props.isOpen||(!this.props.isOpen&&this.state.transed))?{display: 'flex'}:{};
-
     return (
       <div className={classes}  onClick={this.handleModalClick}>
         <div className="inner" onClick={this.handleInnerClick}>
           <div className="deco"/>
+          <a className="close" onClick={this.handleModalClick}>{close}</a>
           {this.props.children}
         </div>
       </div>

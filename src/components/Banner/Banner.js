@@ -62,6 +62,9 @@ const Banner = React.createClass({
   componentWillUnmount(){
     AppStore.removeChangeListener(this._onAppChange);
     UserStore.removeChangeListener(this._onUserChange);
+
+    //in case
+    window.removeEventListener('scroll', this._onScroll);
   },
 
   handleLoginClick(){
