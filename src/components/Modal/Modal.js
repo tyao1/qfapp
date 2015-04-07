@@ -12,7 +12,6 @@ require('./Modal.scss');
 const TRANSTIME = 300;
 
 const Modal = React.createClass({
-  mixin:[PureRenderMixin],
   getInitialState(){
     return({transed:false});
   },
@@ -20,11 +19,19 @@ const Modal = React.createClass({
   componentDidUpdate(){
     //设置display:block后马上设置.active类
     if(this.props.isOpen&&!this.state.transed){
-      window.requestAnimationFrame(()=>this.setState({transed:true}));
-      //利用requestAnimationFrame防止两次渲染在同时发生
-      //setTimeout(()=>this.setState({transed:true}),0);
+     window.addEventListener('keydown',this.handleKeyPress);
+      //解决部分情况下class未显示完成
+      setTimeout(()=> {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(()=>this.setState({transed: true}));
+        }
+        else {
+          setTimeout(()=>this.setState({transed: true}), 0);
+        }
+      },10);
+      //利用requestAnimationFrame防止两次渲染在同时发生,but ie>=10
 
-      window.addEventListener('keydown',this.handleKeyPress);
+
 
     }
     else if(!this.props.isOpen&&this.state.transed){
@@ -55,7 +62,7 @@ const Modal = React.createClass({
         <div className="inner" onClick={this.handleInnerClick}>
           <div className="deco"/>
           <a className="close" onClick={this.handleModalClick}>{close}</a>
-          {this.props.children}
+            {this.props.children}
         </div>
       </div>
     );

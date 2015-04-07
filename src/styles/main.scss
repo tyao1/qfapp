@@ -43,7 +43,7 @@ html{
 //test
 body{
   background:$bgColor;
-  font:14px serif;
+  font:14px $normalFontFamilyEng $normalFontFamilyChn serif;
   color:$fontColor;
   height: 100%;
 }

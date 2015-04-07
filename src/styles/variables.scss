@@ -1,4 +1,12 @@
 /*
+    Typography!!!
+
+*/
+$normalFontFamilyEng:'Lucida Bright', Georgia, Times, 'Times New Roman';
+$normalFontFamilyChn: 'Hiragino Sans GB','Microsoft YaHei Light','STHeiti SC Light','Microsoft YaHei','STHeiti SC';
+
+
+/*
     颜色颜色颜色
 */
 
@@ -10,6 +18,7 @@ $subtleFontColor2 :rgba(0,0,0,.42);
 
 $mainColor: #53DAB0;      //主要颜色、按钮、背景等
 $secondaryColor: #FBE2AC; //次要颜色、按钮等
+$thirdColor : #EE7D79;    //第三颜色 用来修饰网页，增加趣味性
 
 $bgColor: #FDFCFA;        //背景色
 $cardBgColor: #FFF;        //物品卡片背景
@@ -24,6 +33,7 @@ $fontSize:14px;
 $bigFontSize:18px;
 $LargeFontSize:26px;
 $xLargeFontSize:36px;
+$xxLargeFontSize:64px;
 
 $pageMaxWidth : 1024px;       //页面最大宽度
 $borderRadius :9px;           //圆角

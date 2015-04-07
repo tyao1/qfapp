@@ -8,9 +8,11 @@
   background:#0E5869 url('./welcomebg.png') no-repeat fixed center;
   background-size:cover;
   overflow: hidden;
+  position:relative;
   >.inner {
     margin:auto;
     text-align:center;
+
     >.subtle{
       font-size:$bigFontSize;
       color:#CFCFCF;
@@ -24,6 +26,55 @@
     >button{
       color:#F2F2F2;
       border-color:#F2F2F2;
+    }
+    >.how{
+      position: absolute;
+      top:0;
+      right:0;
+      left:0;
+      bottom:0;
+      background:$secondaryColor;
+      transform:translate3d(0,-100%,0);
+      visibility: hidden;
+      transition:transform .35s $normalTiming,visibility 0 .35s;
+      @include verticalCenter();
+
+      >.inner{
+        @include maxWidth();
+        >li{
+          width:33%;
+          display: inline;
+          margin: 0 30px;
+          >h2{
+            font-size:$xxLargeFontSize;
+            display: inline-block;
+            padding:0 17px 0 0;
+            vertical-align: middle;
+            margin: 0;
+            line-height: 1;
+            position:relative;
+            &:after{
+              content:'';
+              width:5px;
+              background:$thirdColor;
+              display: inline-block;
+              margin: 0 0 0 22px;
+              height: 38px;
+            }
+          }
+          >p{
+            display: inline-block;
+            width:160px;
+            vertical-align: middle;
+          }
+        }
+
+      }
+      &.active{
+        visibility: visible;
+        transform:translate3d(0,0,0);
+        transition:transform .35s $normalTiming;
+      }
     }
   }
 }
@@ -54,6 +105,7 @@
   >main{
     margin:84px 0;
     font-size:$xLargeFontSize;
+    color: $subtleFontColor1;
   }
 }
 

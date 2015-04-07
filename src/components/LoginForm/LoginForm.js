@@ -59,7 +59,7 @@ const LoginForm = React.createClass({
     else{
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
-        <p>登陆</p>
+        <p>登入</p>
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         <ButtonNormal text={this.state.isLogining?'登入中……':'登入'} onClick={this.handleClick}/>
