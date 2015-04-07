@@ -9,8 +9,10 @@ import UserConstants from '../constants/UserConstants';
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
 let _userData;
+let _loginMsg;
 let _regMsg;
-
+let _isRegistering;
+let _isLogining;
 const UserStore = assign({}, EventEmitter.prototype, {
 
   getUserData(){
@@ -19,6 +21,14 @@ const UserStore = assign({}, EventEmitter.prototype, {
 
   getRegMsg(){
     return _regMsg;
+  },
+
+  getIsRegistering(){
+    return _isRegistering;
+  },
+
+  getIsLogining(){
+    return _isLogining;
   },
 
   emitChange() {
@@ -40,13 +50,41 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
   switch (action.actionType) {
     case UserConstants.REG_SUBMIT:
-          console.log(action.data);
-          break;
+      _isRegistering = true;
+      UserStore.emitChange();
+      break;
 
     case UserConstants.REG_FAILURE:
-          _regMsg='啊哦，网络出错辣！';
-          UserStore.emitChange();
-          break;
+      _regMsg = '啊哦，网络出错辣！';
+      _isRegistering = false;
+      UserStore.emitChange();
+      break;
+    case UserConstants.REG_SUCCESS:
+      console.log(action.data);
+      if(action.data.code=='0000'){
+        _userData = action.data.userData;
+      };
+      _isRegistering = false;
+      UserStore.emitChange();
+      break;
+    case UserConstants.LOGIN_SUBMIT:
+      _isLogining = true;
+      UserStore.emitChange();
+      break;
+
+    case UserConstants.LOGIN_FAILURE:
+      _regMsg = '啊哦，网络出错辣！';
+      _isLogining = false;
+      UserStore.emitChange();
+      break;
+    case UserConstants.LOGIN_SUCCESS:
+      console.log(action.data);
+      if(action.data.code=='0000'){
+        _userData = action.data.userData;
+      };
+      _isLogining = false;
+      UserStore.emitChange();
+      break;
     default:
     // Do nothing
 

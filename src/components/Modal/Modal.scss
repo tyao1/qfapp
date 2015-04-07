@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+
+.modal{
+  color:$fontColor;
+  position:fixed;
+  display:none;
+  top:0;
+  right:0;
+  left:0;
+  height: 100%;
+  z-index:5;
+  transition:background .3s $normalTiming;
+  &.active{
+    background:rgba($bgColor,.8);
+    >.inner{
+      opacity:1;
+      transform: translate3d(0,0,0);
+    }
+  }
+  >.inner{
+    margin:auto;
+    opacity:0;
+    transform:translate3d(0,-100%,0);
+    transition:opacity .3s $normalTiming,transform .5s $bounceTiming;
+    >div{
+      background:$secondaryColor;
+      padding:46px;
+      border-radius:9px;
+    }
+  }
+}

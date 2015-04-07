@@ -1,20 +1,26 @@
 @import '../../styles/variables.scss';
 .banner{
 
-  &.isHome.notScrolled{
-    position:absolute;
-    background:none;
-    box-shadow:none;
-    color:$bannerBg;
-    >.inner>.right>ul>li>a{
+  &.isHome{
+    &.notScrolled{
+      position:absolute;
+      background:none;
+      box-shadow:none;
       color:$bannerBg;
-      &:after{
-        color:$bannerBg;
+      >.inner{
+        >.right>ul>li>a {
+          color: $bannerBg;
+          &:after {
+            color: $bannerBg;
+          }
+        }
+        >.left>.InputNormal{
+          opacity:0;
+          visibility: hidden;
+        }
       }
     }
-    .InputNormal{
-      display: none;
-    }
+
   }
 
   background: $bannerBg;
@@ -26,7 +32,7 @@
   right:0;
   transition:background .3s,box-shadow .3s;
   transition-timing-function: $normalTiming;
-
+  z-index:2;
   >.inner{
     @include maxWidth();
     height:100%;
@@ -38,26 +44,35 @@
         float:left;
       }
       >.InputNormal{
+        opacity:1;
         float:left;
         margin-left:120px;
         margin-top:($bannerHeight - $inputHeight)/2;
+        transition: opacicty .3s $normalTiming;
         >input{
           width:330px;
         }
       }
     }
     >.right{
+      padding-right:24px;
       float:right;
       height:100%;
       >ul{
           margin:0;
         >li{
           display: inline;
-
+          margin:0 6px;
+          &.special{
+            background:$mainColor;
+            padding:9px 12px;
+            margin:0 18px;
+            border-radius: $borderRadius;
+          }
           >a{
             position:relative;
             display: inline-block;
-            margin:0 6px;
+
 
             >span {
               height: $bannerHeight;

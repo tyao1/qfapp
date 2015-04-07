@@ -2,21 +2,47 @@
 @mixin trans(){
   transition:transform .3s ease-out,opacity .3s ease-in-out;
 }
-.WordsFlasher{
+.wordsFlasher{
   display: inline-block;
   width:190px;
   position:relative;
   vertical-align: top;
 
-  >span>span{
+  >span{
     display:inline-block;
 
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     top:0;
     left:0;
     @include trans();
-    &.wf-enter{
+
+    &.active{
+      animation:wordsFlasher 3s $normalTiming;
+    }
+  }
+}
+@keyframes wordsFlasher {
+  0%{
+    opacity:0;
+    transform: translate3d(0,-40%,0);
+  }
+  15%{
+    opacity:1;
+    transform: translate3d(0,0,0);
+  }
+  75%{
+    opacity:1;
+    transform: translate3d(0,0,0);
+  }
+  100%{
+    opacity:0;
+    transform: translate3d(0,40%,0);
+  }
+}
+/*
+for reactcsstransition
+&.wf-enter{
       opacity:0;
       transform: translate3d(0,-40%,0);
 
@@ -30,6 +56,4 @@
       opacity:0;
       transform: translate3d(0,40%,0);
     }
-
-  }
-}
+*/

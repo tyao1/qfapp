@@ -7,6 +7,9 @@ import UserAPIUtils from '../utils/UserAPIUtils';
 
 export default {
 
+  /*
+   * 注册
+   */
   register(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.REG_SUBMIT,
@@ -23,6 +26,26 @@ export default {
   register_success(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.REG_SUCCESS,
+      data
+    });
+  },
+
+  login(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.LOGIN_SUBMIT,
+      data
+    });
+    UserAPIUtils.register(data);
+  },
+  login_failure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.LOGIN_FAILURE,
+      data
+    });
+  },
+  login_success(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.LOGIN_SUCCESS,
       data
     });
   }

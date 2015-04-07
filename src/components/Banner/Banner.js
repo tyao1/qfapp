@@ -10,9 +10,11 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
 import {coffecup} from '../SVGs';
+import Modal from '../Modal';
+import LoginForm from '../LoginForm';
+import RegForm from '../RegForm';
 
 require('./Banner.scss');
-
 
 function getIsHome(){
   return {isHome: AppStore.getIsHome()};
@@ -43,7 +45,9 @@ const Banner = React.createClass({
     }
   },
   _onUserChange(){
-
+    this.setState({
+      userData: UserStore.getUserData()
+    });
   },
   _onScroll(){
     this.setState(getScrollState());
@@ -60,6 +64,18 @@ const Banner = React.createClass({
     UserStore.removeChangeListener(this._onUserChange);
   },
 
+  handleLoginClick(){
+    this.setState({modalLoginIsOpen:true});
+  },
+  handleLoginClose(){
+    this.setState({modalLoginIsOpen:false});
+  },
+  handleRegClick(){
+    this.setState({modalRegIsOpen:true});
+  },
+  handleRegClose(){
+    this.setState({modalRegIsOpen:false});
+  },
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -82,8 +98,14 @@ const Banner = React.createClass({
     {
       controls = <ul>
         <li><Link to="shop" data-name="浏览物品"><span>浏览物品</span></Link></li>
-        <li><a data-name="登入"><span>登入</span></a></li>
-        <li><a data-name="注册清风"><span>注册清风</span></a></li>
+        <li><a data-name="登入" onClick={this.handleLoginClick}><span>登入</span></a></li>
+        <li className="special"><a data-name="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
+        <Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
+          <LoginForm/>
+        </Modal>
+        <Modal isOpen = {this.state.modalRegIsOpen} onClose = {this.handleRegClose}>
+          <RegForm/>
+        </Modal>
       </ul>;
     }
 
@@ -98,6 +120,7 @@ const Banner = React.createClass({
             {controls}
           </div>
         </div>
+
       </div>
     );
   }

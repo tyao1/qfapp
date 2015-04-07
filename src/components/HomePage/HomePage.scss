@@ -108,8 +108,11 @@
     >.right{
       float:right;
       width:50%;
-      >.regForm {
+      >.container {
         margin: 0 auto;
+        .regForm{
+          margin:0 auto;
+        }
       }
 
     }

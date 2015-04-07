@@ -6,10 +6,10 @@ import ButtonNormal from '../ButtonNormal';
 import {user,passkey,email} from '../SVGs';
 import UserAction from '../../actions/UserAction.js';
 import UserStore from '../../stores/UserStore.js';
-require('./RegForm.scss');
+//require('./LoginForm.scss');
 
 
-const RegForm = React.createClass({
+const LoginForm = React.createClass({
   getInitialState(){
 
     return {
@@ -18,7 +18,7 @@ const RegForm = React.createClass({
       email: '',
       msg:UserStore.getRegMsg(),
       userData:UserStore.getUserData(),
-      isRegistering:UserStore.getIsRegistering()
+      isLogining:UserStore.getIsLogining()
     };
   },
   _onUserChange(){
@@ -59,11 +59,10 @@ const RegForm = React.createClass({
     else{
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
-        <p>快速注册</p>
+        <p>登陆</p>
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
-        <InputNormal type="email" placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3}/>
-        <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>
+        <ButtonNormal text={this.state.isLogining?'登入中……':'登入'} onClick={this.handleClick}/>
       </div>;
     }
     return (
@@ -74,8 +73,8 @@ const RegForm = React.createClass({
   }
 });
 
-RegForm.defaultProps = {
+LoginForm.defaultProps = {
 
 };
 
-export default RegForm;
+export default LoginForm;
