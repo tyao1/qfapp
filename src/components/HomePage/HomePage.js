@@ -58,8 +58,8 @@ const HomePage = React.createClass({
       <div>
         <section className="FirstSection">
           <div className="inner">
-            <p className="subtle">最便捷二手物品交易平台</p>
-            <p className="main">轻松购买闲置的<WordsFlasher/></p>
+            <h3 className="subtle">最便捷二手物品交易平台</h3>
+            <h1 className="main">轻松购买闲置的<WordsFlasher/></h1>
             <InputLarge placeholder="键入你想买或想卖的物品" btnText="搜索" svg={coffecup}/>
             <div className={`how${this.state.openedHow?' active':''}`}>
               <ul className="inner">
@@ -102,8 +102,8 @@ const HomePage = React.createClass({
           <div className="inner">
             {truck}
             <div className="left">
-              <p className="minor">拥有闲置物品？</p>
-              <p className="huge">在清风上出售<br/>享受前所未有的便利</p>
+              <h3 className="minor">拥有闲置物品？</h3>
+              <h2 className="huge">在清风上出售<br/>享受前所未有的便利</h2>
               <p className="more">只需轻敲键盘，我们的工作人员就会上门收件，替您完成闲置物品的保管和运送，一旦交易成功，我们就会将收入支付给您。</p>
             </div>
             <div className="right">

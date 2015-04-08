@@ -59,7 +59,7 @@ const RegForm = React.createClass({
     else{
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
-        <p>快速注册</p>
+        <h3>快速注册</h3>
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         <InputNormal type="email" placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3}/>
