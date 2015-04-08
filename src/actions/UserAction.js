@@ -17,13 +17,13 @@ export default {
     });
     UserAPIUtils.register(data);
   },
-  register_failure(data){
+  registerFailure(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.REG_FAILURE,
       data
     });
   },
-  register_success(data){
+  registerSuccess(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.REG_SUCCESS,
       data
@@ -35,15 +35,15 @@ export default {
       actionType: UserConstants.LOGIN_SUBMIT,
       data
     });
-    UserAPIUtils.register(data);
+    UserAPIUtils.login(data);
   },
-  login_failure(data){
+  loginFailure(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.LOGIN_FAILURE,
       data
     });
   },
-  login_success(data){
+  loginSuccess(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.LOGIN_SUCCESS,
       data

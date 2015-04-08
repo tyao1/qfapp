@@ -95,7 +95,9 @@ const Banner = React.createClass({
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
         <li><Link to="orders" data-text="我的订单"><span>我的订单</span></Link></li>
+        <li><img src={this.state.userData.avartar}/></li>
       </ul>;
+
     }
     else
     {

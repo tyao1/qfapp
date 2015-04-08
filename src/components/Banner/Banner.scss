@@ -77,8 +77,18 @@
             @include buttonEffect1(0 12px,25%,$bannerHeight,$normalTiming);
 
           }
+          >img{
+            height: ($bannerHeight - 34px);
+            width: ($bannerHeight - 34px);
+            border-radius: 50%;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            border:$borderProperty;
+          }
         }
       }
+
     }
   }
 }

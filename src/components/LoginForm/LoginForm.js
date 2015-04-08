@@ -44,9 +44,9 @@ const LoginForm = React.createClass({
   },
   handleClick(){
     //fire User action
-    if(!this.state.isRegistering) {
+    if(!this.state.isLogining) {
       let {password, username, email} = this.state;
-      UserAction.register({password, username, email});
+      UserAction.login({password, username, email});
     }
   },
   render(){

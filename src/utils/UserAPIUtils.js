@@ -7,12 +7,11 @@ const UserAPIUtils = {
       .get('/mockregister.json')  //SHOULD BE POST
       .send(data)
       .end(function(err,res){
-
         if(err){
-          UserAction.register_failure(err);
+          UserAction.registerFailure(err);
         }
         else{
-          UserAction.register_success(JSON.parse(res.text));
+          UserAction.registerSuccess(JSON.parse(res.text));
         }
       });
   },
@@ -22,10 +21,10 @@ const UserAPIUtils = {
       .send(data)
       .end(function(err,res){
         if(err){
-          UserAction.register_failure(err);
+          UserAction.loginFailure(err);
         }
         else{
-          UserAction.register_success(JSON.parse(res.text));
+          UserAction.loginSuccess(JSON.parse(res.text));
         }
       });
   }

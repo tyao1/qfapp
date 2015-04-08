@@ -8,12 +8,17 @@ import UserConstants from '../constants/UserConstants';
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
-let _userData;
+let _userData = JSON.parse(localStorage.getItem('userData'));
+console.log(_userData);
 let _loginMsg;
 let _regMsg;
 let _isRegistering;
 let _isLogining;
 const UserStore = assign({}, EventEmitter.prototype, {
+
+  init(){
+    console.log('init');
+  },
 
   getUserData(){
     return _userData;
@@ -63,7 +68,11 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       console.log(action.data);
       if(action.data.code=='0000'){
         _userData = action.data.userData;
-      };
+        setTimeout(()=>{
+          console.log(JSON.stringify(action.data.userData));
+          localStorage.setItem('userData',JSON.stringify(action.data.userData));
+        },0);
+      }
       _isRegistering = false;
       UserStore.emitChange();
       break;
@@ -78,10 +87,13 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       UserStore.emitChange();
       break;
     case UserConstants.LOGIN_SUCCESS:
-      console.log(action.data);
       if(action.data.code=='0000'){
         _userData = action.data.userData;
-      };
+        setTimeout(()=>{
+          console.log(JSON.stringify(action.data.userData));
+          localStorage.setItem('userData',JSON.stringify(action.data.userData));
+        },0);
+      }
       _isLogining = false;
       UserStore.emitChange();
       break;

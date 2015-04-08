@@ -43,12 +43,12 @@ html{
 //test
 body{
   background:$bgColor;
-  font:14px $normalFontFamilyEng $normalFontFamilyChn serif;
+  font:14px $normalFontFamilyEng,$normalFontFamilyChn;
   color:$fontColor;
   height: 100%;
 }
 h1,h2,h3,h4,h5,h6{
-  font-family:$headingFontFamilyEng $headingFontFamilyChn;
+  font-family:$headingFontFamilyEng,$headingFontFamilyChn;
 }
 ul{
   list-style-type:none ;
