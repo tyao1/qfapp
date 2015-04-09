@@ -17,6 +17,7 @@
       font-size:$bigFontSize;
       color:#CFCFCF;
       margin-bottom:7px;
+      @include customFont();
     }
     >.main{
       font-size:$xLargeFontSize;
@@ -96,6 +97,7 @@
       font-size:$LargeFontSize;
       color:$boldFontColor;
       margin:0;
+      @include customFont();
     }
     >p{
       color:$subtleFontColor2;
@@ -106,6 +108,11 @@
     margin:84px 0;
     font-size:$xLargeFontSize;
     color: $subtleFontColor1;
+  }
+  >button{
+    @include customFont();
+    font-size:$bigFontSize;
+
   }
 }
 
@@ -144,12 +151,14 @@
         font-size:$LargeFontSize;
         color:$subtleFontColor2;
         margin:11px 0;
+        @include customFont();
       }
       >.huge{
         font-size:$xLargeFontSize;
         color:$boldFontColor;
         margin:0;
         line-height: 1.18;
+        @include customFont();
       }
       >.more{
         max-width:80%;
