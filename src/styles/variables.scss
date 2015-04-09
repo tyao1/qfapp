@@ -6,6 +6,9 @@ $normalFontFamilyEng: Helvetica Neue, Segoe UI, Helvetica, Arial;
 $normalFontFamilyChn: 'Hiragino Sans GB','STHeiti SC Light','Microsoft YaHei Light','Microsoft YaHei','STHeiti SC', serif;
 $headingFontFamilyEng: 'Lucida Bright', Georgia, Times, 'Times New Roman';
 $headingFontFamilyChn: 'Songti SC','STHeiti SC','STZhongsong','Heiti','Microsoft YaHei','Heiti',san-serif;
+$headingCustomFamily: 'qf';
+
+
 
 /*
     颜色颜色颜色
@@ -53,6 +56,11 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 /*
     各种方法
 */
+
+@mixin customFont(){
+  font-family : $headingCustomFamily, $headingFontFamilyEng, $headingFontFamilyChn;
+}
+
 
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
