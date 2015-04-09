@@ -49,9 +49,10 @@
 html{
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
 }
-//TODO 修改字体
-//test
+*, *:before, *:after { box-sizing: inherit; }
+
 body{
   background:$bgColor;
   font:14px $normalFontFamilyEng,$normalFontFamilyChn;

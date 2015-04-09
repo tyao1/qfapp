@@ -9,7 +9,7 @@ import UserStore from '../../stores/UserStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
-import {coffecup} from '../SVGs';
+import {coffecup,logo} from '../SVGs';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
@@ -118,7 +118,7 @@ const Banner = React.createClass({
       <div className={classes}>
         <div className="inner">
           <div className="left">
-            <Link to="home"><img className="logo" src={require('./logo.png')}/></Link>
+            <Link to="home">{logo}</Link>
             <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup}/>
           </div>
           <div className="right">

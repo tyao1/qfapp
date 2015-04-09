@@ -7,18 +7,24 @@
       background:none;
       box-shadow:none;
       color:$bannerBg;
-      >.inner{
-        >.right>ul>li>a {
+      >.inner {
+        > .right > ul > li > a {
           color: $bannerBg;
           &:after {
             color: $bannerBg;
           }
         }
-        >.left>.InputNormal{
-          opacity:0;
-          visibility: hidden;
-          width: 0;
+        > .left {
+          >a>svg{
+            fill: #fff;
+          }
+          > .InputNormal {
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+          }
         }
+
       }
     }
 
@@ -39,10 +45,15 @@
     height:100%;
     position:relative;
     >.left{
-
+      float:left;
       >a{
-        padding:12px 0 8px 24px;
-        float:left;
+        display: inline-block;
+        float: left;
+        >svg{
+          width: $bannerHeight;
+          height: $bannerHeight;
+          fill: $boldFontColor;
+        }
       }
       >.InputNormal{
         opacity:1;
