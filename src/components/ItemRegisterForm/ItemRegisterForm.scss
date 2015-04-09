@@ -1,0 +1,178 @@
+@import '../../styles/variables.scss';
+
+.item-register-form-main-container {
+  display: table;
+  margin: auto;
+  padding: auto;
+}
+// 于是用了Google的Material Design……
+
+.left-part-container {
+  margin-top: 35px;
+  width: 620px;
+  float: left;
+}
+
+.delete-button-container {
+  float: right;
+  margin-right: -10px;
+  margin-top: -18px;
+  button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: rgba(0,0,0,0);
+    img {
+      margin: 0;
+      margin-left: -4px;
+      padding: 0;
+      width: 30px;
+      height: 32px;
+    }
+  }
+}
+
+.right-part-container {
+  float: right;
+  position: relative;
+  margin-top: 35px;
+
+  textarea {
+    width: 450px;
+    height: 270px;
+    resize:none;
+
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: 1px solid #757575;
+    border-bottom: 1px solid #757575;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 12px;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+}
+
+.name-input-container {
+  min-width: 725px;
+  margin-left: 22px;
+}
+
+#name-input {
+  width: 539px;
+
+}
+
+.other-inputs-container {
+  float: left;
+  margin-left: 22px;
+}
+
+/* form starting stylings ------------------------------- */
+.item-info-inputs-container {
+  display: block;
+  min-width: 600px;
+  min-height: 320px;
+
+  background: $mainColor;
+  border-radius: 18px;
+
+  padding: 35px;
+}
+
+.item-info-inputs-container {
+  .group {
+    position: relative;
+    margin-bottom: 45px;
+  }
+
+  input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 250px;
+    border: none;
+    border-bottom: 1px solid #757575;
+    background: rgba(0, 0, 0, 0);
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* LABEL ======================================= */
+  label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  /* active state */
+  input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 16px;
+    color: #FFFFFF;
+  }
+
+  /* HIGHLIGHTER ================================== */
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* active state */
+  input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+  }
+
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: white;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@-moz-keyframes inputHighlighter {
+  from {
+    background: white;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: white;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+

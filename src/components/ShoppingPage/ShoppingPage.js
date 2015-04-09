@@ -2,6 +2,9 @@
 
 import React from 'react';
 import Banner from '../Banner';
+//For test
+import ItemRegisterForm from '../ItemRegisterForm';
+
 
 require('./ShoppingPage.scss');
 
@@ -105,6 +108,7 @@ const ShoppingPage = React.createClass({
       <div className="cart-page-main-container">
         <GreenNav />
         <CartListComponent />
+        <ItemRegisterForm />
         <p>this is shopping!!!!!!!!</p>
       </div>
     );
