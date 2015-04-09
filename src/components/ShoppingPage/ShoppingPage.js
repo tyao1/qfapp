@@ -35,9 +35,9 @@ var Counter = React.createClass({
     return (
       <div>
         <form>
-          <input type="button" value="-"></input>
-          <input type="number" value={this.props.initValue}></input>
-          <input type="button" value="+"></input>
+          <input className="btn-plus" type="button" value="-"></input>
+          <input className="input-number" type="number" value={this.props.initValue}></input>
+          <input className="btn-minus" type="button" value="+"></input>
         </form>
       </div>
     );
