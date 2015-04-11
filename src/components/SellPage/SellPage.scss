@@ -1,0 +1,10 @@
+@import '../../styles/variables.scss';
+
+.sellPage{
+  .inner{
+    @include maxWidth();
+    margin-top:$bannerHeight;
+  }
+
+
+}
