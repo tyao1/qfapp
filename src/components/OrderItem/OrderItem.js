@@ -76,7 +76,7 @@ const OrderItem = React.createClass({
                 单价
               </p>
               <p className="main">
-                ¥{data.price}
+                ¥{data.price.toFixed(2)}
               </p>
             </li>
             <li className="one">
@@ -84,7 +84,7 @@ const OrderItem = React.createClass({
                 总价
               </p>
               <p className="main">
-                ¥{data.price * data.num}
+                ¥{(data.price * data.num).toFixed(2)}
               </p>
             </li>
           </ul>

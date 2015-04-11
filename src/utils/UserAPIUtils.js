@@ -27,6 +27,19 @@ const UserAPIUtils = {
           UserAction.loginSuccess(JSON.parse(res.text));
         }
       });
+  },
+  getSellOrders(data,callback){
+    request
+      .get('/mocksellorders.json')
+      .send(data)
+      .end(function(err,res){
+        if(err){
+          UserAction.getSellOrdersFailure(err);
+        }
+        else{
+          UserAction.getSellOrdersSuccess(JSON.parse(res.text));
+        }
+      });
   }
 
 };

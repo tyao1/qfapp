@@ -6,10 +6,13 @@ import ButtonNormal from '../ButtonNormal';
 import {user,passkey,email} from '../SVGs';
 import UserAction from '../../actions/UserAction.js';
 import UserStore from '../../stores/UserStore.js';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+
 require('./RegForm.scss');
 
 
 const RegForm = React.createClass({
+  mixins:[PureRenderMixin],
   getInitialState(){
 
     return {

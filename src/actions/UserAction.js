@@ -48,6 +48,18 @@ export default {
       actionType: UserConstants.LOGIN_SUCCESS,
       data
     });
-  }
+  },
+  getSellOrdersFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.SELL_ORDERS_FAILURE,
+      data
+    });
+  },
+  getSellOrdersSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.SELL_ORDERS_SUCCESS,
+      data
+    });
+  },
 
 };

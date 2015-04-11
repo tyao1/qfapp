@@ -35,7 +35,18 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
 
   switch (action.actionType) {
-
+    case AppConstants.TRANSITON:
+      if(action.data.path === '/')
+      {
+        _isHome = true;
+      }
+      else
+      {
+        _isHome = false;
+      }
+      AppStore.emitChange();
+      break;
+    /*
     case AppConstants.LOAD_HOME:
       _isHome = true;
       AppStore.emitChange();
@@ -44,6 +55,7 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       _isHome = false;
       AppStore.emitChange();
       break;
+      */
     default:
       // Do nothing
 

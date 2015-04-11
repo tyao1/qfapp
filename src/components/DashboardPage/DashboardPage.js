@@ -6,14 +6,15 @@ import RequireLogin from '../../mixins/RequireLogin';
 import {Link} from 'react-router';
 import UserStore from '../../stores/UserStore';
 
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+//import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import SellOrders from '../SellOrders';
 
 require('./DashboardPage.scss');
 
 const DashboardPage = React.createClass({
-  mixins:[RequireLogin],
+  mixins:[RequireLogin,PureRenderMixin],
 
   getInitialState(){
     return ({
@@ -44,7 +45,7 @@ const DashboardPage = React.createClass({
         elem = <div key="info">asdsa</div>;
         break;
       default:
-        elem = null;
+        elem = <SellOrders/>;
         break;
     }
     return (

@@ -88,7 +88,7 @@
             @include buttonEffect1(0 12px,25%,$bannerHeight,$normalTiming);
 
           }
-          >img{
+          >a>img{
             height: ($bannerHeight - 34px);
             width: ($bannerHeight - 34px);
             border-radius: 50%;

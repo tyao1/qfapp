@@ -1,4 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.1"
+  "name": "SellOrders",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SellOrders.js"
 }

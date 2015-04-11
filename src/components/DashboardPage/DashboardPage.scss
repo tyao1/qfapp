@@ -1,0 +1,57 @@
+@import '../../styles/variables.scss';
+
+.dashboard{
+
+  >.inner {
+    @include maxWidth();
+    margin-top:$bannerHeight;
+    padding:36px 0 0 0;
+
+    >.left {
+      float: left;
+      width: 44%;
+
+      >ul{
+        >li{
+          margin:0 0 42px 0;
+          >p{
+            color:$subtleFontColor2;
+            margin:0;
+          }
+          >a{
+            font-size:$bigFontSize;
+            h3{
+              margin:0;
+              padding:0 0 9px 0;
+            }
+            &.active{
+              color:#000;
+
+            }
+          }
+          >.controls{
+            position:absolute;
+            padding:0;
+            opacity:0;
+            transition:all .3s $bounceTiming;
+          }
+          >a.active + .controls{
+            box-shadow: 0 -2px $mainColor;
+            padding:9px 12px 0 183px;
+            opacity:1;
+          }
+        }
+
+
+      }
+    }
+
+    >.right{
+      float:left;
+      width:55%;
+    }
+
+
+  }
+
+}

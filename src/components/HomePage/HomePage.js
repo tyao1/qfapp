@@ -9,6 +9,7 @@ import RegForm from '../RegForm';
 import Modal from '../Modal';
 import AppStore from '../../stores/AppStore.js';
 import AppActions from '../../actions/AppActions.js';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 
 import {coffecup, shoppingbag, truck} from '../SVGs';
@@ -19,7 +20,7 @@ require('./HomePage.scss');
 
 
 const HomePage = React.createClass({
-
+  mixins:[PureRenderMixin],
   getInitialState(){
     return {
       openedHow:false,
