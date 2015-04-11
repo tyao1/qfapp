@@ -6,24 +6,28 @@ import ButtonNormal from '../ButtonNormal';
 import {user,passkey,email} from '../SVGs';
 import UserAction from '../../actions/UserAction.js';
 import UserStore from '../../stores/UserStore.js';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+
 //require('./LoginForm.scss');
 
 
 const LoginForm = React.createClass({
+  mixins:[PureRenderMixin],
+
   getInitialState(){
 
     return {
       username: '',
       password: '',
       email: '',
-      msg:UserStore.getRegMsg(),
+      msg:UserStore.getLoginMsg(),
       userData:UserStore.getUserData(),
       isLogining:UserStore.getIsLogining()
     };
   },
   _onUserChange(){
     this.setState({
-      msg:UserStore.getRegMsg(),
+      msg:UserStore.getLoginMsg(),
       userData:UserStore.getUserData()
     });
   },

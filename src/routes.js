@@ -15,7 +15,7 @@ export default (
   <Route name="app" path='/' handler={App}>
     <Route name='shop' handler={ShoppingPage} />
     <Route name='sell' handler={HomePage} />
-    <Route name='orders' handler={DashboardPage} />
+    <Route name='my' handler={DashboardPage} path="my/:section"/>
     <Route name='test' handler={HomePage} />
     <DefaultRoute name="home" handler={HomePage}/>
   </Route>

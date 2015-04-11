@@ -27,12 +27,14 @@ const HomePage = React.createClass({
       isGoShopping:false
     }
   },
+  /*
   componentWillMount() {
     AppActions.loadHome();
   },
   componentWillUnmount(){
     AppActions.leaveHome();
   },
+  */
   handleHowClick(){
     if(this.state.openedHow) {
       this.setState({

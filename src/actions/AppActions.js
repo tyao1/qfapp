@@ -19,6 +19,12 @@ export default {
       actionType: AppConstants.LEAVE_HOME
     });
   },
+  transition(data){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.TRANSITION,
+      data
+    });
+  },
   navigateTo(path, options) {
     if (ExecutionEnvironment.canUseDOM) {
       if (options && options.replace) {

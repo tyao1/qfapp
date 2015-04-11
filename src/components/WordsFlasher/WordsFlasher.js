@@ -36,7 +36,11 @@ const WordsFlasher = React.createClass({
 });
 
 WordsFlasher.defaultProps = {
-  words: ['电子用品', '书籍', '小物件', '优惠券']
+  words: ['交通工具',
+    '书籍课本',
+    '生活电器',
+    '手机数码',
+    '体育用具']
 };
 
 export default WordsFlasher;
