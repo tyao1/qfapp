@@ -4,6 +4,10 @@
   .inner{
     @include maxWidth();
     margin-top:$bannerHeight;
+    padding:24px;
+
+
+
   }
 
 

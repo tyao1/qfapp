@@ -3,9 +3,85 @@
 .myInfo{
   border:2px solid $mainColor;
   border-radius:$borderRadius;
-  min-height:420px;
+  min-height:220px;
   width:100%;
   background:white;
-  padding:24px;
+  padding:32px;
+  >.headline{
+    >.avartar{
+      height:124px;
+      width:124px;
+      border-radius:50%;
+      border:1px solid $subtleFontColor2;
+      overflow: hidden;
+      float:left;
+      position:relative;
+      &:hover > span{
+        opacity:1;
+      }
+      >img{
+        height: 100%;
+        width: 100%;
 
+      }
+      >span{
+        position:absolute;
+        opacity:0;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        display: block;
+        padding:50px 5px 0;
+        border-radius:50%;
+        color:#fff;
+        text-align: center;
+        background:$subtleFontColor2;
+        transition:all .3s ease;
+
+      }
+    }
+    >.info{
+      float:left;
+      padding:0 0 0 36px;
+      >.name{
+        font-size:$bigFontSize;
+        padding:0 0 14px 0;
+        margin:0 0 8px 0;
+        border-bottom:2px solid $mainColor;
+        display:block;
+        width:307px;
+      }
+      >p{
+        margin:0;
+        >.value{
+          color:$subtleFontColor2;
+        }
+        &.earning{
+          position:relative;
+          &:before{
+            content:'';
+            display:block;
+            position:absolute;
+            top:0;
+            height:1px;
+            width:64px;
+            border-top:1px solid $subtleFontColor1;
+
+          }
+
+          margin:6px 0 0 0;
+          padding:6px 0 0 0;
+          >.value{
+            color:$subtleFontColor2;
+          }
+        }
+      }
+    }
+  }
+
+  >.content{
+    clear:both;
+    padding:32px 0 0 0;
+  }
 }

@@ -9,7 +9,7 @@ require('./MyInfo.scss');
 const MyInfo = React.createClass({
   _onUserChange(){
     this.setState({
-      sellOrders: UserStore.getSellOrders()
+      userData: UserStore.getUserData()
     });
   },
 
@@ -17,7 +17,7 @@ const MyInfo = React.createClass({
 
   getInitialState(){
     return {
-      sellOrders: UserStore.getSellOrders()
+      userData: UserStore.getUserData()
     }
   },
   componentWillMount(){
@@ -31,7 +31,26 @@ const MyInfo = React.createClass({
   render(){
 
     return (<div className="myInfo">
-      Info!
+      <div className="headline">
+        <div className="avartar">
+          <span>暂不支持更换头像</span>
+          <img src={this.state.userData.avartar}/>
+        </div>
+        <div className="info">
+          <h3 className="name">{this.state.userData.name}</h3>
+          <p>已购物品：<span className="value">123件</span></p>
+          <p>已售物品：<span className="value">22件</span></p>
+          <p className="earning">累计收益：<span className="value">2323元</span></p>
+        </div>
+
+      </div>
+
+      <div className="content">
+        <div className="inner">
+
+
+          </div>
+      </div>
     </div>);
 
   }

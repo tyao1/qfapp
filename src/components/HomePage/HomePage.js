@@ -115,6 +115,28 @@ const HomePage = React.createClass({
           </div>
         </section>
         <footer>
+          <div className="inner">
+            <div className="left">
+              <h3>关于清风</h3>
+              <p>欢迎关注我们的公众号</p>
+              <img className="qr" src={require('./code.png')}/>
+            </div>
+
+            <div className="left">
+              <h3>清风福利</h3>
+              <p>我们目前正在为毕业季学生提供寄存服务！ <br/>关注我们的公众号了解详情<br/>欢迎尝试！</p>
+            </div>
+
+            <div className="right">
+              <h3>联系我们</h3>
+              <p>直接用公众号吧，或者可以联系文科：<br/>wenke@qfplan.com</p>
+            </div>
+
+            <div className="copyright">
+              Copyright © 2015 清风
+            </div>
+          </div>
+
 
         </footer>
       </div>

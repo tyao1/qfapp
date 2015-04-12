@@ -30,7 +30,9 @@ const SellPage = React.createClass({
     return (
       <div className="sellPage">
         <div className="inner">
-          selll!!!!!
+          <div className="title">
+
+          </div>
         </div>
       </div>
     );

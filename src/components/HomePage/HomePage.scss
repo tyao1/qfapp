@@ -180,6 +180,41 @@
 
   footer{
     height:340px;
-    background:$footerBg;
+    background:$footerBg url('./footerbg.svg') repeat-x;
+    color:#D8D8D8;
+    padding:24px;
+    >.inner{
+        height:100%;
+        position:relative;
+        @include maxWidth();
+      h3{
+        font-size:$bigFontSize;
+        padding-bottom:9px;
+        border-bottom:1px solid rgba(#D8D8D8,.8);
+        max-width:200px;
+      }
+
+      .qr{
+        width:170px;
+        height:auto;
+        border-radius:9px;
+
+      }
+
+      >.left{
+        float:left;
+        padding:0 120px 0 0;
+      }
+
+      >.right{
+        float:right;
+        padding:0 0 0 0;
+      }
+      >.copyright{
+        position:absolute;
+        right:0;
+        bottom:0;
+      }
+    }
   }
 }
