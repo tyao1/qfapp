@@ -11,6 +11,8 @@ var ItemInfoInputs = React.createClass({
   render: function() {
     return (
       <div className="item-info-inputs-container">
+        <div className="border-clip-left"></div>
+
         <div className="left-part-container">
         <div className="name-input-container">
           <div className="group">
