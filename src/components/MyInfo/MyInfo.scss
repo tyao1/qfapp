@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.myInfo{
+  border:2px solid $mainColor;
+  border-radius:$borderRadius;
+  min-height:420px;
+  width:100%;
+  background:white;
+  padding:24px;
+
+}

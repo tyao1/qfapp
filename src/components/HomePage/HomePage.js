@@ -58,7 +58,7 @@ const HomePage = React.createClass({
   },
   render() {
     return (
-      <div>
+      <div className="homePage">
         <section className="FirstSection">
           <div className="inner">
             <h3 className="subtle">最便捷二手物品交易平台</h3>
@@ -114,6 +114,9 @@ const HomePage = React.createClass({
             </div>
           </div>
         </section>
+        <footer>
+
+        </footer>
       </div>
     );
   }

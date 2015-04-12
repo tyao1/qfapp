@@ -7,6 +7,8 @@ import {user,passkey,email} from '../SVGs';
 import UserAction from '../../actions/UserAction.js';
 import UserStore from '../../stores/UserStore.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+import {Link} from 'react-router';
+import router from '../../router';
 
 require('./RegForm.scss');
 
@@ -52,11 +54,18 @@ const RegForm = React.createClass({
       UserAction.register({password, username, email});
     }
   },
+  handleSellClick(){
+    router.transitionTo('sell');
+  },
   render(){
     let regForm;
     if(this.state.userData){
       regForm= <div className="regForm">
-        test
+        <div className="center">
+          <Link to="my"  params={{section: 'info'}}><img src={this.state.userData.avartar} /></Link>
+          <p>欢迎回来,{this.state.userData.name}</p>
+          <ButtonNormal text={'出售物品'} onClick={this.handleSellClick}/>
+        </div>
       </div>;
     }
     else{

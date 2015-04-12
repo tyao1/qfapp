@@ -12,6 +12,7 @@
       width: 36%;
 
       >ul{
+        margin:0;
         >li{
           margin:0 0 42px 0;
           >p{
@@ -20,9 +21,11 @@
           }
           >a{
             font-size:$bigFontSize;
-            h3{
+            color:$subtleFontColor2;
+            >h3{
               margin:0;
               padding:0 0 9px 0;
+
             }
             &.active{
               color:#000;

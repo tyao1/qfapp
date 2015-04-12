@@ -1,181 +1,185 @@
 @import '../../styles/variables.scss';
 
+.homePage {
+  .FirstSection {
+    width: 100%;
+    height: 574px;
+    @include verticalCenter();
+    background: #0E5869 url('./welcomebg.png') no-repeat fixed center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+    > .inner {
+      margin: auto;
+      text-align: center;
 
-.FirstSection{
-  width:100%;
-  height:574px;
-  @include verticalCenter();
-  background:#0E5869 url('./welcomebg.png') no-repeat fixed center;
-  background-size:cover;
-  overflow: hidden;
-  position:relative;
-  >.inner {
-    margin:auto;
-    text-align:center;
+      > .subtle {
+        font-size: $bigFontSize;
+        color: #CFCFCF;
+        margin-bottom: 7px;
+        @include customFont();
+      }
+      > .main {
+        font-size: $xLargeFontSize;
+        color: white;
+        margin: 0 0 0 36px;
+      }
+      > button {
+        color: #F2F2F2;
+        border-color: #F2F2F2;
+      }
+      > .how {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: $secondaryColor;
+        transform: translate3d(0, -100%, 0);
+        visibility: hidden;
+        transition: transform .35s $normalTiming, visibility 0 .35s;
+        @include verticalCenter();
 
-    >.subtle{
-      font-size:$bigFontSize;
-      color:#CFCFCF;
-      margin-bottom:7px;
-      @include customFont();
-    }
-    >.main{
-      font-size:$xLargeFontSize;
-      color:white;
-      margin:0 0 0 36px;
-    }
-    >button{
-      color:#F2F2F2;
-      border-color:#F2F2F2;
-    }
-    >.how{
-      position: absolute;
-      top:0;
-      right:0;
-      left:0;
-      bottom:0;
-      background:$secondaryColor;
-      transform:translate3d(0,-100%,0);
-      visibility: hidden;
-      transition:transform .35s $normalTiming,visibility 0 .35s;
-      @include verticalCenter();
-
-      >.inner{
-        @include maxWidth();
-        >li{
-          width:33%;
-          display: inline;
-          margin: 0 30px;
-          >h2{
-            font-size:$xxLargeFontSize;
-            display: inline-block;
-            padding:0 17px 0 0;
-            vertical-align: middle;
-            margin: 0;
-            line-height: 1;
-            position:relative;
-            &:after{
-              content:'';
-              width:5px;
-              background:$thirdColor;
+        > .inner {
+          @include maxWidth();
+          > li {
+            width: 33%;
+            display: inline;
+            margin: 0 30px;
+            > h2 {
+              font-size: $xxLargeFontSize;
               display: inline-block;
-              margin: 0 0 0 22px;
-              height: 38px;
+              padding: 0 17px 0 0;
+              vertical-align: middle;
+              margin: 0;
+              line-height: 1;
+              position: relative;
+              &:after {
+                content: '';
+                width: 5px;
+                background: $thirdColor;
+                display: inline-block;
+                margin: 0 0 0 22px;
+                height: 38px;
+              }
+            }
+            > p {
+              display: inline-block;
+              width: 160px;
+              vertical-align: middle;
             }
           }
-          >p{
-            display: inline-block;
-            width:160px;
-            vertical-align: middle;
+
+        }
+        &.active {
+          visibility: visible;
+          transform: translate3d(0, 0, 0);
+          transition: transform .35s $normalTiming;
+        }
+      }
+    }
+  }
+
+  .SecondSection {
+    height: 560px;
+    text-align: center;
+    padding-bottom: 42px;
+    > header {
+      margin-top: 84px;
+      > svg {
+        width: 34px;
+        height: auto;
+        fill: $subtleFontColor;
+      }
+      > h2 {
+        font-size: $LargeFontSize;
+        color: $boldFontColor;
+        margin: 0;
+        @include customFont();
+      }
+      > p {
+        color: $subtleFontColor2;
+        margin: 5px 0;
+      }
+    }
+    > main {
+      margin: 84px 0;
+      font-size: $xLargeFontSize;
+      color: $subtleFontColor1;
+    }
+    > button {
+      @include customFont();
+      font-size: $bigFontSize;
+
+    }
+  }
+
+  .ThirdSection {
+    height: 380px;
+    background-color: $mainColor;
+    position: relative;
+    padding: 24px 0;
+    > svg {
+      width: 100%;
+      position: absolute;
+      top: -100px;
+      left: 0;
+      right: 0;
+      fill: $mainColor;
+    }
+    > .inner {
+      @include maxWidth();
+      position: relative;
+      height: 100%;
+      padding: 0 24px;
+      > svg {
+        width: 232px;
+        fill: $subtleFontColor1;
+        position: absolute;
+        bottom: 32%;
+        left: 11%;
+        z-index: 0;
+      }
+
+      > .left {
+        float: left;
+        width: 50%;
+
+        > .minor {
+          font-size: $LargeFontSize;
+          color: $subtleFontColor2;
+          margin: 11px 0;
+          @include customFont();
+        }
+        > .huge {
+          font-size: $xLargeFontSize;
+          color: $boldFontColor;
+          margin: 0;
+          line-height: 1.18;
+          @include customFont();
+        }
+        > .more {
+          max-width: 80%;
+          margin: 90px 0 0 0;
+          color: $subtleFontColor2;
+        }
+      }
+      > .right {
+        float: right;
+        width: 50%;
+        > .container {
+          margin: 0 auto;
+          .regForm {
+            margin: 0 auto;
           }
         }
 
       }
-      &.active{
-        visibility: visible;
-        transform:translate3d(0,0,0);
-        transition:transform .35s $normalTiming;
-      }
     }
   }
-}
 
-
-
-.SecondSection{
-  height:560px;
-  text-align: center;
-  padding-bottom:42px;
-  >header{
-    margin-top:84px;
-    >svg{
-      width:34px;
-      height:auto;
-      fill:$subtleFontColor;
-    }
-    >h2{
-      font-size:$LargeFontSize;
-      color:$boldFontColor;
-      margin:0;
-      @include customFont();
-    }
-    >p{
-      color:$subtleFontColor2;
-      margin:5px 0;
-    }
-  }
-  >main{
-    margin:84px 0;
-    font-size:$xLargeFontSize;
-    color: $subtleFontColor1;
-  }
-  >button{
-    @include customFont();
-    font-size:$bigFontSize;
-
-  }
-}
-
-.ThirdSection{
-  height:380px;
-  background-color:$mainColor;
-  position:relative;
-  padding:24px 0;
-  >svg{
-    width: 100%;
-    position: absolute;
-    top: -100px;
-    left: 0;
-    right: 0;
-    fill: $mainColor;
-  }
-  >.inner {
-    @include maxWidth();
-    position: relative;
-    height:100%;
-    padding:0 24px;
-    >svg{
-      width:232px;
-      fill:$subtleFontColor1;
-      position:absolute;
-      bottom:32%;
-      left:11%;
-      z-index:0;
-    }
-
-    >.left {
-      float: left;
-      width: 50%;
-
-      >.minor{
-        font-size:$LargeFontSize;
-        color:$subtleFontColor2;
-        margin:11px 0;
-        @include customFont();
-      }
-      >.huge{
-        font-size:$xLargeFontSize;
-        color:$boldFontColor;
-        margin:0;
-        line-height: 1.18;
-        @include customFont();
-      }
-      >.more{
-        max-width:80%;
-        margin:90px 0 0 0;
-        color:$subtleFontColor2;
-      }
-    }
-    >.right{
-      float:right;
-      width:50%;
-      >.container {
-        margin: 0 auto;
-        .regForm{
-          margin:0 auto;
-        }
-      }
-
-    }
+  footer{
+    height:340px;
+    background:$footerBg;
   }
 }

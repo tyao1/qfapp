@@ -10,6 +10,7 @@ import UserStore from '../../stores/UserStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import SellOrders from '../SellOrders';
+import MyInfo from '../MyInfo';
 
 require('./DashboardPage.scss');
 
@@ -42,7 +43,7 @@ const DashboardPage = React.createClass({
     let elem;
     switch(this.state.section){
       case 'info':
-        elem = <div key="info">asdsa</div>;
+        elem = <MyInfo/>;
         break;
       default:
         elem = <SellOrders/>;
@@ -55,7 +56,7 @@ const DashboardPage = React.createClass({
               <ul>
                 <li>
                   <p>卖卖卖</p>
-                  <Link to="my" data-text="我的售卖" params={{section: 'sell'}}><h3>我的售卖</h3></Link>
+                  <Link to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link>
                   <div className="controls">
                     <div>所有</div>
 
@@ -63,7 +64,7 @@ const DashboardPage = React.createClass({
                 </li>
                 <li>
                   <p>我的清风</p>
-                  <Link to="my" data-text="个人信息" params={{section: 'info'}}><h3>个人信息</h3></Link>
+                  <Link to="my" data-text="个人信息" params={{section: 'info'}}><span>个人信息</span></Link>
                 </li>
               </ul>
           </div>
