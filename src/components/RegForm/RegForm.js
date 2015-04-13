@@ -18,10 +18,10 @@ const RegForm = React.createClass({
   getInitialState(){
 
     return {
-      username: '',
+      nickname: '',
       password: '',
       email: '',
-      verify:'',
+      verifyCode:'',
       msg:UserStore.getRegMsg(),
       userData:UserStore.getUserData(),
       isRegistering:UserStore.getIsRegistering(),
@@ -43,7 +43,7 @@ const RegForm = React.createClass({
     UserStore.removeChangeListener(this._onUserChange);
   },
   handleChange1(event) {
-    this.setState({username: event.target.value});
+    this.setState({nickname: event.target.value});
   },
   handleChange2(event) {
     this.setState({password: event.target.value});
@@ -52,13 +52,13 @@ const RegForm = React.createClass({
     this.setState({email: event.target.value});
   },
   handleChange4(event) {
-    this.setState({verify: event.target.value});
+    this.setState({verifyCode: event.target.value});
   },
   handleClick(){
     //fire User action
     if(!this.state.isRegistering) {
-      let {password, username, email, verify} = this.state;
-      UserAction.register({password, username, email, verify});
+      let {password, nickname, email, verifyCode} = this.state;
+      UserAction.register({password, nickname, email, verifyCode});
     }
   },
   handleVerifyImgClick(){
@@ -89,7 +89,7 @@ const RegForm = React.createClass({
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
         <h3>快速注册</h3>
-        <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
+        <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.nickname} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         <InputNormal type="email" placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3}/>
         <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verify} onChange={this.handleChange4}>
