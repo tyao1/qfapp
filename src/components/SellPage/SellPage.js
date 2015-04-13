@@ -7,7 +7,7 @@ import UserConstants from '../../constants/UserConstants';
 
 import {boxface,additem} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
-
+import ItemRegisterForm from '../ItemRegisterForm';
 require('./SellPage.scss');
 
 const SellPage = React.createClass({
@@ -29,9 +29,14 @@ const SellPage = React.createClass({
     UserStore.removeChangeListener(this._onUserChange);
 
   },
+  itemsCount:0,
+  handleAddClick(){
+    this.setState({items:this.state.items.concat('d'+this.itemsCount++)});
+    console.log(this.state.items);
+  },
   render(){
     const items = this.state.items;
-    let titleClass = `title${items.length?'active':''}`;
+    let titleClass = `title${items.length?' active':''}`;
     return (
       <div className="sellPage">
         <div className="inner">
@@ -42,9 +47,13 @@ const SellPage = React.createClass({
               即可轻松售卖物品。
             </span>
           </div>
-
+          <ul className="items">
+            {
+              items.map((data) => <ItemRegisterForm key={data}/>)
+            }
+          </ul>
           <div className="controls">
-            <ButtonNormal text="添加物品" svg={additem}/>
+            <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
 
             </div>
         </div>

@@ -11,13 +11,14 @@ import AppConstants from '../constants/AppConstants';
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
-let _userData = JSON.parse(localStorage.getItem('userData'));
+let _userData;// = JSON.parse(localStorage.getItem('userData'));
 let _loginMsg;
 let _regMsg;
 let _isRegistering;
 let _isLogining;
 let _section;
-
+let _regVerify = 0;
+let _needActivation = 0;
 const UserStore = assign({}, EventEmitter.prototype, {
 
   cache:{},
@@ -40,6 +41,14 @@ const UserStore = assign({}, EventEmitter.prototype, {
 
   getIsLogining(){
     return _isLogining;
+  },
+
+  getRegVerify(){
+    return _regVerify;
+  },
+
+  getNeedActivation(){
+    return _needActivation;
   },
 
   getSellOrders() {
@@ -99,11 +108,12 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         UserStore.emitChange();
         break;
       case UserConstants.REG_SUCCESS:
-        if (action.data.code == '0000') {
-          _userData = action.data.userData;
-          setTimeout(()=> {
-            localStorage.setItem('userData', JSON.stringify(action.data.userData));
-          }, 0);
+        if (action.data.code === 0) {
+          //_userData = action.data.userData;
+          _needActivation = true;
+        }
+        else{
+          _regMsg = action.data.Msg;
         }
         _isRegistering = false;
         UserStore.emitChange();

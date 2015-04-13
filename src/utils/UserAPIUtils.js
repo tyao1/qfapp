@@ -4,7 +4,7 @@ import UserAction from '../actions/UserAction';
 const UserAPIUtils = {
   register(data,callback){
     request
-      .get('/mockregister.json')  //SHOULD BE POST
+      .post('http://10.60.136.39/qfplan/index.php/Home/User.json')
       .send(data)
       .end(function(err,res){
         if(err){

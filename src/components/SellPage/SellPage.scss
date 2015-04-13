@@ -9,6 +9,18 @@
     @include verticalCenter();
     >.title{
       text-align:center;
+
+      &.active{
+        >svg{
+          fill:$subtleFontColor2;
+          width:80px;
+
+        }
+        >span{
+          visibility:hidden;
+        }
+      }
+
       >svg{
         fill:$fontColor;
       }

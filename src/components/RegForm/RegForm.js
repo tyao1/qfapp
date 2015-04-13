@@ -21,15 +21,19 @@ const RegForm = React.createClass({
       username: '',
       password: '',
       email: '',
+      verify:'',
       msg:UserStore.getRegMsg(),
       userData:UserStore.getUserData(),
-      isRegistering:UserStore.getIsRegistering()
+      isRegistering:UserStore.getIsRegistering(),
+      regVerify:UserStore.getRegVerify()
     };
   },
   _onUserChange(){
     this.setState({
       msg:UserStore.getRegMsg(),
-      userData:UserStore.getUserData()
+      userData:UserStore.getUserData(),
+      regVerify:UserStore.getRegVerify(),
+      needActivation : UserStore.getNeedActivation()
     });
   },
   componentWillMount() {
@@ -47,12 +51,18 @@ const RegForm = React.createClass({
   handleChange3(event) {
     this.setState({email: event.target.value});
   },
+  handleChange4(event) {
+    this.setState({verify: event.target.value});
+  },
   handleClick(){
     //fire User action
     if(!this.state.isRegistering) {
-      let {password, username, email} = this.state;
-      UserAction.register({password, username, email});
+      let {password, username, email, verify} = this.state;
+      UserAction.register({password, username, email, verify});
     }
+  },
+  handleVerifyImgClick(){
+  
   },
   handleSellClick(){
     router.transitionTo('sell');
@@ -68,6 +78,13 @@ const RegForm = React.createClass({
         </div>
       </div>;
     }
+    else if(this.state.needActivation) {
+      regForm =<div className="regForm">
+        <div className="center">
+          <p>注册成功,请先前往邮箱激活！</p>
+        </div>
+      </div>
+    }
     else{
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
@@ -75,7 +92,11 @@ const RegForm = React.createClass({
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         <InputNormal type="email" placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3}/>
+        <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verify} onChange={this.handleChange4}>
+          <img className="verify" src={'http://10.60.136.39/qfplan/index.php/Home/Verify.png?type=1&time='+this.state.regVerify} onClick={this.handleVerifyImgClick}/>
+        </InputNormal>
         <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>
+
       </div>;
     }
     return (
