@@ -33,14 +33,39 @@ var GreenNav = React.createClass({
 });
 
 var Counter = React.createClass({
+  getInitialState: function() {
+    return {
+      amount: this.props.initValue
+    };
+  },
+
+  minusOne: function(e) {
+    if (this.state.amount <= 1) { return; }
+    this.setState({amount: this.state.amount - 1});
+    React.findDOMNode(this.refs.itemNum).value = this.state.amount;
+    console.log("-1");
+  },
+
+  plusOne: function(e) {
+    this.setState({amount: this.state.amount + 1});
+    React.findDOMNode(this.refs.itemNum).value = this.state.amount;
+    console.log("+1");
+  },
+
+  handleChange: function(e) {
+    e.preventDefault();
+    console.log(e);
+  },
+
   render: function(){
     // CSS 该怎么找啊啊~~~
     return (
       <div>
         <form>
-          <input className="btn-plus" type="button" value="-"></input>
-          <input className="input-number" type="number" value={this.props.initValue}></input>
-          <input className="btn-minus" type="button" value="+"></input>
+          <input className="btn-plus" type="button" onClick={this.minusOne} value="-"></input>
+          <input className="input-number" ref="itemNum" type="text" pattern="[0-9]*" value={this.state.amount}
+            onChange={this.handleChange}></input>
+          <input className="btn-minus" type="button" onClick={this.plusOne} value="+"></input>
         </form>
       </div>
     );
@@ -48,58 +73,73 @@ var Counter = React.createClass({
 });
 
 var CartListItem = React.createClass({
-  render: function(){
-    // 价格部分的逻辑还要改啊啊啊！
-    return (
-      <li>
-        <div className={"cart-list-item-container " + (this.props.lastChild ? "lastItem" : "")}>
-          <img src={require(this.props.image)} />
-          <span className="cart-list-item-simple-info">
-            <h3>{this.props.itemtype}</h3>
-            <p>{this.props.itemname}</p>
-          </span>
 
-          <span className="cart-list-item-simple-info">
-            <h3>数量</h3>
-            <Counter initValue={1} />
-          </span>
+  getInitialState: function() {
+    return {
+      numOrdered: 1,
+      priceTotal: this.props.price
+    };
+  },
 
-          <span className="cart-list-item-simple-info">
-            <h3>卖家</h3>
-            <p>{this.props.sellername}</p>
-          </span>
+render: function(){
+  // 价格部分的逻辑还要改啊啊啊！
+  return (
+    <li>
+      <div className={"cart-list-item-container " + (this.props.lastChild ? "lastItem" : "")}>
+        <img src={require(this.props.image)} />
+        <span className="cart-list-item-simple-info">
+          <h3>{this.props.itemtype}</h3>
+          <p>{this.props.itemname}</p>
+        </span>
 
-          <span className="cart-list-item-simple-info">
-            <h3>价格</h3>
-            <p className="item-price-text">
+        <span className="cart-list-item-simple-info">
+          <h3>数量</h3>
+          <Counter initValue={this.state.numOrdered} />
+        </span>
+
+        <span className="cart-list-item-simple-info">
+          <h3>卖家</h3>
+          <p>{this.props.sellername}</p>
+        </span>
+
+        <span className="cart-list-item-simple-info">
+          <h3>价格</h3>
+          <p className="item-price-text">
             {"￥ " + (this.props.price | 0).toString() + '.00'}
-            </p>
-          </span>
+          </p>
+        </span>
 
-          <span className="cart-list-item-others">
-            <div className="delete-item">
-              <a>删除</a>
-            </div>
-          </span>
-        </div>
-      </li>
-    );
-  }
+        <span className="cart-list-item-others">
+          <div className="delete-item">
+            <a>删除</a>
+          </div>
+        </span>
+      </div>
+    </li>
+  );
+}
 });
 
 var CartListComponent = React.createClass({
-  render: function(){
-    return (
-      <div className="cart-list-main-container">
-        <ul>
-          <CartListItem image="./test-book.png" itemname="论演员的自我修养啊自我修养啊自我修养啊"
-            itemtype="书籍" sellername="没名字能用了啊啊啊啊" price={24} lastChild={false}/>
-          <CartListItem image="./test-book.png" itemname="论演员的自我修养自我修养"
-            itemtype="书籍" sellername="没名字能用了啊啊啊啊" price={36} lastChild={true}/>
-        </ul>
-      </div>
-    );
-  }
+  getInitialState: function() {
+    return {
+      itemList: [],
+      totalPrice: 0
+    };
+  },
+
+render: function(){
+  return (
+    <div className="cart-list-main-container">
+      <ul>
+        <CartListItem image="./test-book.png" itemname="论演员的自我修养啊自我修养啊自我修养啊"
+          itemtype="书籍" sellername="没名字能用了啊啊啊啊" price={24} lastChild={false}/>
+        <CartListItem image="./test-book.png" itemname="论演员的自我修养自我修养"
+          itemtype="书籍" sellername="没名字能用了啊啊啊啊" price={36} lastChild={true}/>
+      </ul>
+    </div>
+  );
+}
 });
 
 const ShoppingPage = React.createClass({
