@@ -1,13 +1,39 @@
 @import '../../styles/variables.scss';
 
 .sellPage{
-  .inner{
+  >.inner{
     @include maxWidth();
     margin-top:$bannerHeight;
     padding:24px;
+    min-height:480px;
+    @include verticalCenter();
+    >.title{
+      text-align:center;
+      >svg{
+        fill:$fontColor;
+      }
+      >span{
+        display: inline-block;
+        text-align: left;
+        font-size:$LargeFontSize;
+        padding:6px 0 0 24px;
+        vertical-align: top;
+      }
+    }
 
-
-
+    >.controls{
+      margin:24px auto 0;
+      .ButtonNormal{
+        background:$secondaryColor;
+        >span{
+          padding: 14px 32px;
+        }
+        &:after {
+          padding: 18px 32px;
+          color:#000;
+        }
+      }
+    }
   }
 
 

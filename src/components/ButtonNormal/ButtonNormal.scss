@@ -12,4 +12,9 @@
 
   @include buttonEffect1(7px 28px);
 
+  .svgWrapper{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 9px 0 0;
+  }
 }

@@ -14,7 +14,7 @@ export default class ButtonNormal extends React.Component {
     }
     return (
       <button className="ButtonNormal" data-text={text} {...others}>
-        {img}<span>{text}</span>
+        <span>{img}{text}</span>
       </button>
     );
   }
