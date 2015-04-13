@@ -31,7 +31,7 @@ const UserStore = assign({}, EventEmitter.prototype, {
   },
 
   getLoginMsg(){
-    return _LoginMsg;
+    return _loginMsg;
   },
 
   getIsRegistering(){
