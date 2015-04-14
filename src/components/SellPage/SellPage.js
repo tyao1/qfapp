@@ -8,6 +8,7 @@ import UserConstants from '../../constants/UserConstants';
 import {boxface,additem} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
 import ItemRegisterForm from '../ItemRegisterForm';
+import RequireLogin from '../../mixins/RequireLogin'
 require('./SellPage.scss');
 
 const SellPage = React.createClass({
@@ -15,7 +16,7 @@ const SellPage = React.createClass({
 
   },
 
-  mixins:[PureRenderMixin],
+  mixins:[PureRenderMixin, RequireLogin],
   getInitialState(){
     return {
       items:[]
@@ -27,12 +28,14 @@ const SellPage = React.createClass({
   },
   componentWillUnMount(){
     UserStore.removeChangeListener(this._onUserChange);
-
   },
+
   itemsCount:0,
   handleAddClick(){
     this.setState({items:this.state.items.concat('d'+this.itemsCount++)});
-    console.log(this.state.items);
+  },
+  handleSubmitClick(){
+
   },
   render(){
     const items = this.state.items;
@@ -53,9 +56,16 @@ const SellPage = React.createClass({
             }
           </ul>
           <div className="controls">
+
             <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
 
-            </div>
+            <p></p>
+            {
+              items.length?
+              <ButtonNormal text="提交列表" svg={additem} onClick={this.handleSubmitClick}/>
+                :null
+            }
+          </div>
         </div>
       </div>
     );

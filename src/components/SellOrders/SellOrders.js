@@ -14,11 +14,11 @@ const SellOrders = React.createClass({
     });
   },
 
-  mixins:[PureRenderMixin],
+  mixins: [PureRenderMixin],
   getInitialState(){
     return {
       sellOrders: UserStore.getSellOrders()
-    }
+    };
   },
   componentWillMount(){
     UserStore.addChangeListener(this._onUserChange);
@@ -33,15 +33,12 @@ const SellOrders = React.createClass({
     const sellOrders = this.state.sellOrders;
     console.log(sellOrders);
     if(sellOrders===UserConstants.SELL_ORDERS_NULL){
-      elem = <img src="./facebook.svg" />
+      elem = <img src="./facebook.svg" />;
     }
     else if(sellOrders.length){
       elem = sellOrders.map((order)=>
         <OrderItem data={order}/>
       );
-
-    }
-    else{
 
     }
 

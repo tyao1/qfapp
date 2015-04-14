@@ -27,7 +27,7 @@ const WordsFlasher = React.createClass({
     //let words = this.props.words;
     return (
       <span className="wordsFlasher">
-        {this.props.words.map((ele,i)=>
+        {this.props.words.map((ele, i)=>
           <span className={this.state.curCount===i||(this.state.curCount-1)%this.props.words.length===i?'active':null} key={i}>{ele}</span>
         )}
       </span>

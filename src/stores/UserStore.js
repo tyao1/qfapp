@@ -8,6 +8,9 @@ import UserConstants from '../constants/UserConstants';
 
 import UserAPIUtils from '../utils/UserAPIUtils';
 import AppConstants from '../constants/AppConstants';
+import AppStore from './AppStore';
+import router from '../router';
+import AppAction from '../actions/AppActions';
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
@@ -132,6 +135,12 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case UserConstants.LOGIN_SUCCESS:
         if (action.data.code === 0) {
+          //需要重定向??
+          let trans = AppStore.getToTrans();
+          if(trans)
+          {
+            router.transitionTo(trans);
+          }
           _userData = action.data.logininfo;
           setTimeout(()=> {
             localStorage.setItem('userData', JSON.stringify(action.data.userData));

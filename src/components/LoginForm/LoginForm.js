@@ -20,16 +20,17 @@ const LoginForm = React.createClass({
       username: '',
       password: '',
       email: '',
+      verifyCode: '',
       msg: UserStore.getLoginMsg(),
       userData: UserStore.getUserData(),
-      isLogining: UserStore.getIsLogining(),
+      isLogining: UserStore.getIsLogining()
 
     };
   },
   _onUserChange(){
     this.setState({
       msg: UserStore.getLoginMsg(),
-      userData: UserStore.getUserData(),
+      userData: UserStore.getUserData()
 
     });
   },
@@ -47,6 +48,9 @@ const LoginForm = React.createClass({
   },
   handleChange3(event) {
     this.setState({email: event.target.value});
+  },
+  handleChange4(event) {
+    this.setState({verifyCode: event.target.value});
   },
   handleClick(){
     //fire User action
@@ -73,7 +77,7 @@ const LoginForm = React.createClass({
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         {this.state.needVerify?
-          <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verify}
+          <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verifyCode}
                        onChange={this.handleChange4}>
             <img className="verify"
                  src={'http://10.60.136.39/qfplan/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}

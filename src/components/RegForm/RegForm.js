@@ -92,7 +92,7 @@ const RegForm = React.createClass({
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.nickname} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
         <InputNormal type="email" placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3}/>
-        <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verify} onChange={this.handleChange4}>
+        <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verifyCode} onChange={this.handleChange4}>
           <img className="verify" src={'http://10.60.136.39/qfplan/index.php/Home/Verify.png?type=1&time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
         </InputNormal>
         <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>

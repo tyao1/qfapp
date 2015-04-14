@@ -27,7 +27,7 @@ export default {
   },
   needLogin(data){
     Dispatcher.handleViewAction({
-      actionType: AppConstants.TRANSITION,
+      actionType: AppConstants.NEED_LOGIN,
       data
     });
   },

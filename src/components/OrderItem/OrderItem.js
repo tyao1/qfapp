@@ -10,14 +10,13 @@ const OrderItem = React.createClass({
     let time;
     let remains;
     if(data.status === 4){
-      let date = new Date(data.time*1000);
-
-      time = '上架时间：'+date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDay()+' '+ date.getHours()+':'+date.getMinutes();
-      remains = '剩余天数：' + (((data.time+60*60*24*30*data.timeSpan - Date.now()/1000) / (60*60*24) ) | 0) + '天'; //BITWISE OR
+      let date = new Date(data.time * 1000);
+      time = '上架时间：'+date.getFullYear() + '/'+(date.getMonth()+1) + '/'+date.getDay() + ' '+ date.getHours() + ':' + date.getMinutes();
+      remains = '剩余天数：' + (((data.time + 60 * 60 * 24 * 30 * data.timeSpan - Date.now() / 1000) / (60 * 60 * 24) ) | 0) + '天'; //BITWISE OR
     }
     else{
       time = '请耐心等待';
-      remains = "尚未上架"
+      remains = '尚未上架';
     }
 
 

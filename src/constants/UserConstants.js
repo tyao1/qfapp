@@ -18,7 +18,13 @@ export default keyMirror({
   SELL_ORDERS_KEY_FAILURE: null,
   SELL_ORDERS_NULL: null,
   SELL_ORDERS_FAILURE: null,
-  SELL_ORDERS_SUCCESS: null
+  SELL_ORDERS_SUCCESS: null,
+
+
+  APPLY_SELL_SUBMIT: null,
+  APPLY_SELL_SUCCESS: null,
+  APPLY_SELL_FAILURE: null
+
 
 
 });

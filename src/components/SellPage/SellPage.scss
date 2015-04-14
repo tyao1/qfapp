@@ -18,18 +18,23 @@
         }
         >span{
           visibility:hidden;
+          width:0;
+          height:0;
         }
       }
 
       >svg{
         fill:$fontColor;
+        transition:all .3s $bounceTiming,fill .3s ease;
       }
+
       >span{
         display: inline-block;
         text-align: left;
         font-size:$LargeFontSize;
         padding:6px 0 0 24px;
         vertical-align: top;
+        transition:all .3s $bounceTiming,visibility 0s;
       }
     }
 

@@ -13,12 +13,12 @@ const MyInfo = React.createClass({
     });
   },
 
-  mixins:[PureRenderMixin],
+  mixins: [PureRenderMixin],
 
   getInitialState(){
     return {
       userData: UserStore.getUserData()
-    }
+    };
   },
   componentWillMount(){
     UserStore.addChangeListener(this._onUserChange);

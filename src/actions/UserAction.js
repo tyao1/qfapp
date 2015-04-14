@@ -60,8 +60,6 @@ export default {
     });
   },
 
-
-
   getSellOrdersFailure(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.SELL_ORDERS_FAILURE,
@@ -74,5 +72,25 @@ export default {
       data
     });
   },
+
+
+  applySellSubmit(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_SUBMIT,
+      data
+    });
+  },
+  applySellSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_SUCCESS,
+      data
+    });
+  },
+  applySellFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_FAILURE,
+      data
+    });
+  }
 
 };
