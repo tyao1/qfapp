@@ -5,26 +5,28 @@ const UserAPIUtils = {
   register(data,callback){
     request
       .post('http://10.60.136.39/qfplan/index.php/Home/User.json')
+      .type('form')
       .send(data)
       .end(function(err,res){
         if(err){
           UserAction.registerFailure(err);
         }
         else{
-          UserAction.registerSuccess(JSON.parse(res.text));
+          UserAction.registerSuccess(res.body);
         }
       });
   },
   login(data,callback){
     request
-      .get('/mocklogin.json')  //SHOULD BE POST
+      .post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
+      .type('form')
       .send(data)
       .end(function(err,res){
         if(err){
           UserAction.loginFailure(err);
         }
         else{
-          UserAction.loginSuccess(JSON.parse(res.text));
+          UserAction.loginSuccess(res.body);
         }
       });
   },

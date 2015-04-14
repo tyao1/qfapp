@@ -50,6 +50,10 @@ const UserStore = assign({}, EventEmitter.prototype, {
     return _regVerify;
   },
 
+  getLoginVerify(){
+    return _loginVerify;
+  },
+
   getNeedActivation(){
     return _needActivation;
   },
@@ -111,7 +115,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case UserConstants.REG_SUCCESS:
-        if (action.data.code === 0) {
+        if (action.data.ode === 0) {
           //success
           _needActivation = true;
         }
@@ -134,22 +138,24 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         UserStore.emitChange();
         break;
       case UserConstants.LOGIN_SUCCESS:
-        if (action.data.code === 0) {
+        if (action.data.Code === 0) {
           //需要重定向??
           let trans = AppStore.getToTrans();
           if(trans)
           {
             router.transitionTo(trans);
           }
-          _userData = action.data.logininfo;
+          _userData = action.data.Info;
           setTimeout(()=> {
             localStorage.setItem('userData', JSON.stringify(action.data.userData));
           }, 0);
         }
         else{
           _loginMsg = action.data.Msg;
-          if(action.data.code === 1005){
+          if(action.data.Code === 1004 || action.data.Code === 1005 && action.data.Info){
+            console.log('need verify!!');
             _loginVerify++;
+            console.log(_loginVerify);
           }
         }
         _isLogining = false;

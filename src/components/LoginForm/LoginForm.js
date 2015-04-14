@@ -31,8 +31,8 @@ const LoginForm = React.createClass({
   _onUserChange(){
     this.setState({
       msg: UserStore.getLoginMsg(),
-      userData: UserStore.getUserData()
-
+      userData: UserStore.getUserData(),
+      needVerify : UserStore.getLoginVerify()
     });
   },
   componentWillMount() {
@@ -46,7 +46,7 @@ const LoginForm = React.createClass({
   },
   handleBlur1(event) {
     //用户名检验
-    let res = LoginForm.isValidUserName(this.state.email);
+    let res = LoginForm.isValidEmail(this.state.username);
     let status;
     if(res){
       status = {
@@ -87,6 +87,25 @@ const LoginForm = React.createClass({
   handleChange3(event) {
     this.setState({email: event.target.value});
   },
+  handleBlur3(event){
+    //用户名检验
+    let res = LoginForm.isValidEmail(this.state.email);
+    let status;
+    if(res){
+      status = {
+        isValid1: true,
+        msg: ''
+      }
+    }
+    else{
+      status = {
+        isValid1: false,
+        msg: '用户名格式不符合要求'
+      }
+    }
+
+    this.setState(status);
+  },
   handleChange4(event) {
     this.setState({verifyCode: event.target.value});
   },
@@ -112,8 +131,8 @@ const LoginForm = React.createClass({
     //fire User action
     if(!this.state.isLogining) {
       if(this.state.isValid1===this.state.isValid2===true) {
-        let {password, username, email, verifyCode} = this.state;
-        UserAction.login({password, username, email, verifyCode});
+        let {password, email, verifyCode} = this.state;
+        UserAction.login({password, email, verifyCode});
       }
       else{
         for(let i=1;i<5;i++){
@@ -140,7 +159,7 @@ const LoginForm = React.createClass({
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
         <h3>登录</h3>
-        <InputNormal type="text" className={this.state.isValid1===false?'invalid': null} placeholder="用户名" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1}/>
+        <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
         <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2}/>
         {this.state.needVerify?
           <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode}
