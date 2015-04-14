@@ -9,7 +9,7 @@
 
 .left-part-container {
   margin-top: 35px;
-  width: 620px;
+  width: 420px;
   float: left;
 }
 
@@ -38,7 +38,7 @@
   margin-top: 35px;
 
   textarea {
-    width: 450px;
+    width: 480px;
     height: 270px;
     resize:none;
 
@@ -62,7 +62,7 @@
 }
 
 #name-input {
-  width: 539px;
+  width: 383px;
 
 }
 
@@ -74,8 +74,8 @@
 /* form starting stylings ------------------------------- */
 .item-info-inputs-container {
   display: block;
-  min-width: 600px;
-  min-height: 380px;
+  width: 1080px;
+  height: 380px;
 
   background: $mainColor;
   border-radius: 18px;
@@ -92,7 +92,7 @@
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
-    width: 250px;
+    width: 180px;
     border: none;
     border-bottom: 1px solid #757575;
     background: rgba(0, 0, 0, 0);
