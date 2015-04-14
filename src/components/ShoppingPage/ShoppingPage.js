@@ -42,19 +42,20 @@ var Counter = React.createClass({
   minusOne: function(e) {
     if (this.state.amount <= 1) { return; }
     this.setState({amount: this.state.amount - 1});
-    React.findDOMNode(this.refs.itemNum).value = this.state.amount;
+    // React.findDOMNode(this.refs.itemNum).value = this.state.amount;
     console.log("-1");
   },
 
   plusOne: function(e) {
     this.setState({amount: this.state.amount + 1});
-    React.findDOMNode(this.refs.itemNum).value = this.state.amount;
+    // React.findDOMNode(this.refs.itemNum).value = this.state.amount;
     console.log("+1");
   },
 
   handleChange: function(e) {
-    e.preventDefault();
-    console.log(e);
+    //React.findDOMNode(this.refs.itemNum).value = this.state.amount;
+    this.setState({amount: e.target.value ? parseInt(e.target.value) : 1});
+    // console.log(e);
   },
 
   render: function(){
