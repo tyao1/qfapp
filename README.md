@@ -1,3 +1,7 @@
+### 无关紧要的东西
+来一发普通的disco！
+http://www.bilibili.com/video/av2130097/
+
 ### 使用ES6！
 ES6的特性详解：
 http://es6-features.org/
