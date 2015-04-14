@@ -25,7 +25,7 @@
 
       >svg{
         fill:$fontColor;
-        transition:all .3s $bounceTiming,fill .3s ease;
+        transition:height .3s $bounceTiming,width .3s $bounceTiming,fill .3s ease;
       }
 
       >span{
@@ -34,7 +34,7 @@
         font-size:$LargeFontSize;
         padding:6px 0 0 24px;
         vertical-align: top;
-        transition:all .3s $bounceTiming,visibility 0s;
+        transition:height .3s ,width .3s ,visibility 0s;
       }
     }
 

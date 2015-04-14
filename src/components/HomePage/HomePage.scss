@@ -3,7 +3,7 @@
 .homePage {
   .FirstSection {
     width: 100%;
-    height: 574px;
+    min-height: 574px;
     @include verticalCenter();
     background: #0E5869 url('./welcomebg.png') no-repeat fixed center;
     background-size: cover;
@@ -81,9 +81,9 @@
   }
 
   .SecondSection {
-    height: 560px;
+    min-height: 560px;
     text-align: center;
-    padding-bottom: 42px;
+    padding-bottom: 72px;
     > header {
       margin-top: 84px;
       > svg {
@@ -103,9 +103,14 @@
       }
     }
     > main {
-      margin: 84px 0;
-      font-size: $xLargeFontSize;
-      color: $subtleFontColor1;
+      margin: 36px 0;
+      .bookCard{
+        margin:0 auto;
+      }
+      >span {
+        font-size: $xLargeFontSize;
+        color: $subtleFontColor1;
+      }
     }
     > button {
       @include customFont();
@@ -122,10 +127,11 @@
     > svg {
       width: 100%;
       position: absolute;
-      top: -100px;
+      top: -40px;
       left: 0;
       right: 0;
       fill: $mainColor;
+      pointer-events: none;
     }
     > .inner {
       @include maxWidth();
@@ -139,6 +145,7 @@
         bottom: 32%;
         left: 11%;
         z-index: 0;
+        pointer-events: none;
       }
 
       > .left {

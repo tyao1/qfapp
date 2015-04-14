@@ -103,7 +103,7 @@ const Banner = React.createClass({
     {
       controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
-        <li><a data-text="登入" onClick={this.handleLoginClick}><span>登入</span></a></li>
+        <li><a data-text="登录" onClick={this.handleLoginClick}><span>登录</span></a></li>
         <li className="special"><a data-text="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
         <Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
           <LoginForm/>

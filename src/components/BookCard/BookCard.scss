@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+$mainHeight : 324px;
+$topHeight : 178px;
+
+.bookCard{
+  text-align: left;
+  width:200px;
+  height:$mainHeight;
+  border-radius:$borderRadius;
+  overflow: hidden;
+  box-shadow:0 0 2px $subtleFontColor2;
+  >.top{
+    height:$topHeight;
+    background:$mainColor url('./mockpic.jpg');
+  }
+  >.content{
+    height: $mainHeight - $topHeight;
+    background:white;
+    padding:12px;
+    >span{
+      color:$subtleFontColor2;
+    }
+    >p{
+      margin:0;
+      font-size:$bigFontSize - 2px;
+      height:48px;
+    }
+
+    >.ButtonNormal{
+      margin:9px auto 0;
+      display: block;
+      font-size:$bigFontSize;
+      background:$secondaryColor;
+      width:100%;
+      border:none;
+    }
+
+
+  }
+
+
+}

@@ -43,7 +43,6 @@ const Modal = React.createClass({
     window.removeEventListener('keydown',this.handleKeyPress);
   },
   handleKeyPress(event){
-    console.log(event);
     if(event.keyCode===27){
       this.props.onClose();
     }

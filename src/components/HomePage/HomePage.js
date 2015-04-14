@@ -11,6 +11,9 @@ import AppStore from '../../stores/AppStore.js';
 import AppActions from '../../actions/AppActions.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
+//for test
+import BookCard from '../BookCard';
+
 
 import {coffecup, shoppingbag, truck} from '../SVGs';
 
@@ -91,9 +94,7 @@ const HomePage = React.createClass({
             <p>想淘最新最好的便宜货，就在这里</p>
           </header>
           <main>
-           ［TODO］<br/>
-            小不正在赶工！<br/>
-            欢迎来出售你的物品
+            <BookCard/>
           </main>
           <ButtonNormal text="前去淘货" onClick={this.handleGoShoppingClick}/>
           <Modal isOpen={this.state.isGoShopping} onClose={this.handleGoShoppingClose}>
@@ -101,7 +102,7 @@ const HomePage = React.createClass({
           </Modal>
         </section>
         <section className="ThirdSection">
-          <svg xmlns="http://www.w3.org/2000/svg" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M-5 100q5-80 10 0zm5 0q5-100 10 0m-5 0q5-70 10 0m-5 0q5-90 10 0m-5 0q5-70 10 0m-5 0q5-110 10 0m-5 0q5-90 10 0m-5 0q5-70 10 0m-5 0q5-90 10 0m-5 0q5-50 10 0m-5 0q5-80 10 0m-5 0q5-60 10 0m-5 0q5-40 10 0m-5 0q5-50 10 0m-5 0q5-80 10 0m-5 0q5-55 10 0m-5 0q5-70 10 0m-5 0q5-80 10 0m-5 0q5-50 10 0m-5 0q5-75 10 0m-5 0q5-85 10 0z"/></svg>
+          <svg height="100" viewBox="0 40 100 100" preserveAspectRatio="none"><path d="M-5 100q5-80 10 0zm5 0q5-100 10 0m-5 0q5-70 10 0m-5 0q5-90 10 0m-5 0q5-70 10 0m-5 0q5-110 10 0m-5 0q5-90 10 0m-5 0q5-70 10 0m-5 0q5-90 10 0m-5 0q5-50 10 0m-5 0q5-80 10 0m-5 0q5-60 10 0m-5 0q5-40 10 0m-5 0q5-50 10 0m-5 0q5-80 10 0m-5 0q5-55 10 0m-5 0q5-70 10 0m-5 0q5-80 10 0m-5 0q5-50 10 0m-5 0q5-75 10 0m-5 0q5-85 10 0z"/></svg>
           <div className="inner">
             {truck}
             <div className="left">
