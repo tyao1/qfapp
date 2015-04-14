@@ -1,9 +1,9 @@
 {
-  "code":"0000",
-  "userData":{
+  "code":0,
+  "logininfo":{
     "email":"test@test.com",
-    "name":"cui",
-    "avartar":"http://www.qfplan.com/Public/images/logo1.jpg"
+    "nickname":"cui",
+    "path":"http://www.qfplan.com/Public/images/logo1.jpg"
   }
 
 }

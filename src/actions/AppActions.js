@@ -25,6 +25,14 @@ export default {
       data
     });
   },
+  needLogin(data){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.TRANSITION,
+      data
+    });
+  },
+
+
   navigateTo(path, options) {
     if (ExecutionEnvironment.canUseDOM) {
       if (options && options.replace) {

@@ -6,6 +6,7 @@ export default keyMirror({
 
   LOAD_HOME: null,
   LEAVE_HOME: null,
-  TRANSITION: null
+  TRANSITION: null,
+  NEED_LOGIN: null
 
 });

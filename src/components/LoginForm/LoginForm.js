@@ -3,7 +3,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import InputNormal from '../InputNormal';
 import ButtonNormal from '../ButtonNormal';
-import {user,passkey,email} from '../SVGs';
+import {user, passkey, email} from '../SVGs';
 import UserAction from '../../actions/UserAction.js';
 import UserStore from '../../stores/UserStore.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
@@ -12,7 +12,7 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 
 const LoginForm = React.createClass({
-  mixins:[PureRenderMixin],
+  mixins: [PureRenderMixin],
 
   getInitialState(){
 
@@ -20,15 +20,17 @@ const LoginForm = React.createClass({
       username: '',
       password: '',
       email: '',
-      msg:UserStore.getLoginMsg(),
-      userData:UserStore.getUserData(),
-      isLogining:UserStore.getIsLogining()
+      msg: UserStore.getLoginMsg(),
+      userData: UserStore.getUserData(),
+      isLogining: UserStore.getIsLogining(),
+
     };
   },
   _onUserChange(){
     this.setState({
-      msg:UserStore.getLoginMsg(),
-      userData:UserStore.getUserData()
+      msg: UserStore.getLoginMsg(),
+      userData: UserStore.getUserData(),
+
     });
   },
   componentWillMount() {
@@ -51,7 +53,11 @@ const LoginForm = React.createClass({
     if(!this.state.isLogining) {
       let {password, username, email} = this.state;
       UserAction.login({password, username, email});
+      console.log('login');
     }
+  },
+  handleVerifyImgClick(){
+    UserAction.refreshLoginVerify();
   },
   render(){
     let regForm;
@@ -63,10 +69,20 @@ const LoginForm = React.createClass({
     else{
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
-        <h3>登入</h3>
+        <h3>登录</h3>
         <InputNormal type="text" placeholder="用户名" svg={user} value={this.state.username} onChange={this.handleChange1}/>
         <InputNormal type="password" placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2}/>
-        <ButtonNormal text={this.state.isLogining?'登入中……':'登入'} onClick={this.handleClick}/>
+        {this.state.needVerify?
+          <InputNormal type="text" placeholder="验证码" svg={email} value={this.state.verify}
+                       onChange={this.handleChange4}>
+            <img className="verify"
+                 src={'http://10.60.136.39/qfplan/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
+                 onClick={this.handleVerifyImgClick}/>
+          </InputNormal>
+          :
+          null
+        }
+        <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
       </div>;
     }
     return (

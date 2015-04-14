@@ -29,6 +29,11 @@ export default {
       data
     });
   },
+  refreshRegVerify(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.REFRESH_REGV
+    });
+  },
 
   login(data){
     Dispatcher.handleServerAction({
@@ -49,6 +54,14 @@ export default {
       data
     });
   },
+  refreshLoginVerify(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.REFRESH_LOGINV
+    });
+  },
+
+
+
   getSellOrdersFailure(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.SELL_ORDERS_FAILURE,

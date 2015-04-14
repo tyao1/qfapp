@@ -9,12 +9,20 @@ import AppConstants from '../constants/AppConstants';
 const CHANGE_EVENT = 'CHANGE_AppStore';
 
 let _isHome = false;
+let _transition;
+let _toTrans;
 
 
 const AppStore = assign({}, EventEmitter.prototype, {
 
   getIsHome(){
-    return _isHome;
+    if(_transition)
+     return (_transition.path === '/');
+    else
+      return false;
+  },
+  getTransition(){
+    return _transition;
   },
 
   emitChange() {
@@ -36,14 +44,11 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
 
   switch (action.actionType) {
     case AppConstants.TRANSITION:
-      if(action.data.path === '/')
-      {
-        _isHome = true;
-      }
-      else
-      {
-        _isHome = false;
-      }
+      _transition = action.data;
+      AppStore.emitChange();
+      break;
+    case AppConstants.NEED_LOGIN:
+      _toTrans = action.data;
       AppStore.emitChange();
       break;
     /*

@@ -18,10 +18,10 @@ let _isRegistering;
 let _isLogining;
 let _section;
 let _regVerify = 0;
+let _loginVerify = 0;
 let _needActivation = 0;
 const UserStore = assign({}, EventEmitter.prototype, {
-
-  cache:{},
+  cache: {},
 
   getUserData(){
     return _userData;
@@ -57,11 +57,9 @@ const UserStore = assign({}, EventEmitter.prototype, {
       UserAPIUtils.getSellOrders();
       //设置无内容标志
       this.cache[UserConstants.SELL_ORDERS_KEY] = UserConstants.SELL_ORDERS_NULL;
-      setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY]=null},5000);//cache for 5 sec
-
+      setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY] = null; }, 5000);//cache for 5 sec
     }
-
-      return this.cache[UserConstants.SELL_ORDERS_KEY];
+    return this.cache[UserConstants.SELL_ORDERS_KEY];
 
 
   },
@@ -105,19 +103,23 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.REG_FAILURE:
         _regMsg = '啊哦，网络出错辣！';
         _isRegistering = false;
+        _regVerify++;
         UserStore.emitChange();
         break;
+
       case UserConstants.REG_SUCCESS:
         if (action.data.code === 0) {
-          //_userData = action.data.userData;
+          //success
           _needActivation = true;
         }
         else{
           _regMsg = action.data.Msg;
+          _regVerify++;
         }
         _isRegistering = false;
         UserStore.emitChange();
         break;
+
       case UserConstants.LOGIN_SUBMIT:
         _isLogining = true;
         UserStore.emitChange();
@@ -129,11 +131,17 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         UserStore.emitChange();
         break;
       case UserConstants.LOGIN_SUCCESS:
-        if (action.data.code == '0000') {
-          _userData = action.data.userData;
+        if (action.data.code === 0) {
+          _userData = action.data.logininfo;
           setTimeout(()=> {
             localStorage.setItem('userData', JSON.stringify(action.data.userData));
           }, 0);
+        }
+        else{
+          _loginMsg = action.data.Msg;
+          if(action.data.code === 1005){
+            _loginVerify++;
+          }
         }
         _isLogining = false;
         UserStore.emitChange();
@@ -150,9 +158,17 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case AppConstants.TRANSITION:
         if(action.data.path.startsWith('/my'))
         {
-          _section=action.data.params.section;
+          _section = action.data.params.section;
           UserStore.emitChange();
         }
+        break;
+      case UserConstants.REFRESH_REGV:
+          _regVerify++;
+          UserStore.emitChange();
+        break;
+      case UserConstants.REFRESH_LOGINV:
+          _loginVerify++;
+          UserStore.emitChange();
         break;
       default:
         break;
