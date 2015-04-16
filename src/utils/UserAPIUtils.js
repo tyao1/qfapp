@@ -18,7 +18,7 @@ const UserAPIUtils = {
   },
   login(data,callback){
     request
-      .post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
+      .get('mocklogin.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
       .type('form')
       .send(data)
       .end(function(err,res){
@@ -33,13 +33,14 @@ const UserAPIUtils = {
   getSellOrders(data,callback){
     request
       .get('/mocksellorders.json')
+      .type('form')
       .send(data)
       .end(function(err,res){
         if(err){
           UserAction.getSellOrdersFailure(err);
         }
         else{
-          UserAction.getSellOrdersSuccess(JSON.parse(res.text));
+          UserAction.getSellOrdersSuccess(res.body);
         }
       });
   }

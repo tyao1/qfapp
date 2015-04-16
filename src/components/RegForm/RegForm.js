@@ -138,18 +138,18 @@ const RegForm = React.createClass({
   handleClick(){
     //fire User action
     if(!this.state.isRegistering) {
-      if(this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4===true) {
+      if(true===this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4===true) {
         let {password, nickname, email, verifyCode} = this.state;
         UserAction.register({password, nickname, email, verifyCode});
       }
       else{
+        let obj={};
         for(let i=1;i<5;i++){
           if(this.state['isValid'+i]!==true){
-            let obj={};
             obj['isValid'+i] = false;
-              this.setState(obj);
           }
         }
+        this.setState(obj);
       }
     }
   },

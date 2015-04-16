@@ -14,7 +14,14 @@ import AppAction from '../actions/AppActions';
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
-let _userData;// = JSON.parse(localStorage.getItem('userData'));
+
+//安全获取data
+const localdata = localStorage.getItem('userData');
+let _userData;
+if(localdata!=='undefined'){
+  _userData = JSON.stringify(localdata);
+}
+
 let _loginMsg;
 let _regMsg;
 let _isRegistering;
@@ -23,6 +30,7 @@ let _section;
 let _regVerify = 0;
 let _loginVerify = 0;
 let _needActivation = 0;
+
 const UserStore = assign({}, EventEmitter.prototype, {
   cache: {},
 
@@ -145,9 +153,10 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           {
             router.transitionTo(trans);
           }
+          _loginMsg = '登录成功！'
           _userData = action.data.Info;
           setTimeout(()=> {
-            localStorage.setItem('userData', JSON.stringify(action.data.userData));
+            localStorage.setItem('userData', JSON.stringify(_userData));
           }, 0);
         }
         else{

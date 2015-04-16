@@ -45,7 +45,7 @@ const LoginForm = React.createClass({
     this.setState({username: event.target.value});
   },
   handleBlur1(event) {
-    //用户名检验
+    //邮箱登陆
     let res = LoginForm.isValidEmail(this.state.username);
     let status;
     if(res){
@@ -93,13 +93,13 @@ const LoginForm = React.createClass({
     let status;
     if(res){
       status = {
-        isValid1: true,
+        isValid3: true,
         msg: ''
       }
     }
     else{
       status = {
-        isValid1: false,
+        isValid3: false,
         msg: '用户名格式不符合要求'
       }
     }
@@ -130,18 +130,18 @@ const LoginForm = React.createClass({
   handleClick(){
     //fire User action
     if(!this.state.isLogining) {
-      if(this.state.isValid1===this.state.isValid2===true) {
+      if(true===this.state.isValid3===this.state.isValid2===true) {
         let {password, email, verifyCode} = this.state;
         UserAction.login({password, email, verifyCode});
       }
       else{
+        let obj={};
         for(let i=1;i<5;i++){
           if(this.state['isValid'+i]!==true){
-            let obj={};
             obj['isValid'+i] = false;
-            this.setState(obj);
           }
         }
+        this.setState(obj);
       }
     }
   },

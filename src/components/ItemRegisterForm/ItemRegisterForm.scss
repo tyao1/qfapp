@@ -1,78 +1,10 @@
 @import '../../styles/variables.scss';
 
-.item-register-form-main-container {
-  display: table;
-  margin: auto;
-  padding: auto;
-}
+
 // 于是用了Google的Material Design……
+// 改了下classname
 
-.left-part-container {
-  margin-top: 35px;
-  width: 420px;
-  float: left;
-}
-
-.delete-button-container {
-  float: right;
-  margin-right: -10px;
-  margin-top: -18px;
-  button {
-    width: 35px;
-    height: 35px;
-    border: none;
-    background: rgba(0,0,0,0);
-    img {
-      margin: 0;
-      margin-left: -4px;
-      padding: 0;
-      width: 30px;
-      height: 32px;
-    }
-  }
-}
-
-.right-part-container {
-  float: right;
-  position: relative;
-  margin-top: 35px;
-
-  textarea {
-    width: 480px;
-    height: 270px;
-    resize:none;
-
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    border: 1px solid #757575;
-    border-bottom: 1px solid #757575;
-    background: rgba(0, 0, 0, 0);
-    border-radius: 12px;
-  }
-
-  textarea:focus {
-    outline: none;
-  }
-}
-
-.name-input-container {
-  min-width: 725px;
-  margin-left: 22px;
-}
-
-#name-input {
-  width: 383px;
-
-}
-
-.other-inputs-container {
-  float: left;
-  margin-left: 22px;
-}
-
-/* form starting stylings ------------------------------- */
-.item-info-inputs-container {
+.itemRegisterForm {
   display: block;
   width: 1080px;
   height: 380px;
@@ -80,9 +12,7 @@
   background: $mainColor;
   border-radius: 18px;
   padding: 35px;
-}
 
-.item-info-inputs-container {
   .group {
     position: relative;
     margin-bottom: 45px;
@@ -143,28 +73,87 @@
   }
   */
 
+  ｝
+  .border-clip-left {
+    position: relative;
+    float: left;
+    min-height: 380px;
+    min-width: 78px;
+    margin-left: -95px;
+    margin-top: -35px;
+    padding-left: -50px;
+    padding-top: 0px;
+    background: url('border-3.png');
+  }
+
+  >.left {
+    margin-top: 35px;
+    width: 420px;
+    float: left;
+
+    >.name-input-container {
+      min-width: 725px;
+      margin-left: 22px;
+    }
+
+    >.other-inputs-container {
+      float: left;
+      margin-left: 22px;
+    }
+  }
+
+  >.delete{
+    float: right;
+    margin-right: -10px;
+    margin-top: -18px;
+    button {
+      width: 35px;
+      height: 35px;
+      border: none;
+      background: rgba(0, 0, 0, 0);
+      img {
+        margin: 0;
+        margin-left: -4px;
+        padding: 0;
+        width: 30px;
+        height: 32px;
+      }
+    }
+  }
+
+  >.right{
+    float: right;
+    position: relative;
+    margin-top: 35px;
+
+    textarea {
+      width: 480px;
+      height: 270px;
+      resize: none;
+
+      font-size: 18px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      border: 1px solid #757575;
+      border-bottom: 1px solid #757575;
+      background: rgba(0, 0, 0, 0);
+      border-radius: 12px;
+    }
+
+    textarea:focus {
+      outline: none;
+    }
+  }
+
+
+
+  #name-input {
+    width: 383px;
+
+  }
+
 }
 
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-  from {
-    background: white;
-  }
-  to {
-    width: 0;
-    background: transparent;
-  }
-}
-
-@-moz-keyframes inputHighlighter {
-  from {
-    background: white;
-  }
-  to {
-    width: 0;
-    background: transparent;
-  }
-}
 
 @keyframes inputHighlighter {
   from {
@@ -174,16 +163,4 @@
     width: 0;
     background: transparent;
   }
-}
-
-.border-clip-left {
-  position: relative;
-  float: left;
-  min-height: 380px;
-  min-width: 78px;
-  margin-left: -95px;
-  margin-top: -35px;
-  padding-left: -50px;
-  padding-top: 0px;
-  background: url('border-3.png');
 }
