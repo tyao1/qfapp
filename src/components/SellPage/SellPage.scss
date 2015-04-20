@@ -38,20 +38,97 @@
       }
     }
 
+
+    >.items{
+      .itemRegisterForm{
+        margin:32px auto;
+      }
+    }
+
     >.controls{
       margin:24px auto 0;
-      .ButtonNormal{
-        background:$secondaryColor;
+      >.ButtonNormal{
+        margin: 9px auto;
+        display: block;
         >span{
-          padding: 14px 32px;
+          padding: 7px 56px;
         }
         &:after {
-          padding: 18px 32px;
+          padding: 7px 56px;
           color:#000;
         }
+
+        &.submit{
+          background:$secondaryColor;
+
+        }
+      }
+
+    }
+
+    >.err{
+      text-align: center;
+      display: inline-block;
+      position:relative;
+      margin:12px auto 0;
+      &.active:after{
+        content:'!';
+        position:absolute;
+        top:-24px;
+        left:-24px;
+        font-size:64px;
+        color:$subtleFontColor;
+        transform:rotate(-13deg);
       }
     }
   }
+
+  .submitForm {
+    .main{
+      color:#000;
+      font-size:$LargeFontSize;
+      margin-bottom:24px;
+    }
+    .inputEffectAgain {
+      position: relative;
+      margin: 0 22px 44px 0;
+      width: 189px;
+      display: inline-block;
+
+      label {
+        color: $subtleFontColor;
+        font-size: $bigFontSize;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: 0.2s $normalTiming all;
+      }
+
+      input:focus ~ label, label.active {
+        top: -20px;
+        font-size: $bigFontSize - 2px;
+        color: $subtleFontColor;
+      }
+
+      input {
+        font-size: $bigFontSize;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid $subtleFontColor2;
+        background: none;
+        outline: none;
+      }
+    }
+    >.ButtonNormal{
+      display: block;
+      margin:8px 0;
+    }
+  }
+
 
 
 }

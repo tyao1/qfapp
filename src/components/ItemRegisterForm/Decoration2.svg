@@ -1,0 +1,19 @@
+<svg width="8px" height="27px" viewBox="0 0 8 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="8" height="27"></rect>
+    </defs>
+    <g>
+        <g transform="translate(-103.000000, -459.000000)">
+            <g transform="translate(103.000000, 196.000000)">
+                <g transform="translate(0.000000, 263.000000)">
+                    <rect fill="#50E3C2" x="0" y="-10" width="19" height="44"></rect>
+                    <g fill="#FDFCFA">
+                        <g transform="translate(-6.000000, -61.000000)">
+                            <path d="M6.5,87 C10.0898509,87 13,84.0898509 13,80.5 C13,76.9101491 10.0898509,74 6.5,74 C2.91014913,74 0,76.9101491 0,80.5 C0,84.0898509 2.91014913,87 6.5,87 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

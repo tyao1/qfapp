@@ -6,155 +6,154 @@
 
 .itemRegisterForm {
   display: block;
-  width: 1080px;
-  height: 380px;
+  width: 100%;
+  color:#fff;
+  min-width:1000px;
+  height: 300px;
+  background: $mainColorTint;
+  border-radius: $borderRadius;
+  padding: 46px 32px;
+  position:relative;
 
-  background: $mainColor;
-  border-radius: 18px;
-  padding: 35px;
 
-  .group {
-    position: relative;
-    margin-bottom: 45px;
-  }
 
-  input {
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 180px;
-    border: none;
-    border-bottom: 1px solid #757575;
-    background: rgba(0, 0, 0, 0);
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  /* LABEL ======================================= */
-  label {
-    color: #999;
-    font-size: 18px;
+  label{
+    color: $subtleFontColor;
+    font-size: $bigFontSize;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
     left: 5px;
     top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+    transition: 0.2s $normalTiming all;
   }
 
   /* active state */
-  input:focus ~ label, input:valid ~ label {
+  label.active, input:focus ~ label{
     top: -20px;
-    font-size: 16px;
-    color: #FFFFFF;
+    font-size: $bigFontSize - 2px;
+    color: $subtleFontColor;
   }
 
-  /* HIGHLIGHTER ================================== */
-  .highlight {
+  &:after{
+    content:'';
     position: absolute;
-    height: 60%;
-    width: 100px;
-    top: 25%;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  /* active state */
-  /*
-  input:focus ~ .highlight {
-    -webkit-animation: inputHighlighter 0.3s ease;
-    -moz-animation: inputHighlighter 0.3s ease;
-    animation: inputHighlighter 0.3s ease;
-  }
-  */
-
-  ｝
-  .border-clip-left {
-    position: relative;
-    float: left;
-    min-height: 380px;
-    min-width: 78px;
-    margin-left: -95px;
-    margin-top: -35px;
-    padding-left: -50px;
-    padding-top: 0px;
-    background: url('border-3.png');
+    left:0;
+    top:0;
+    width:7px;
+    bottom:0;
+    background:url(./Decoration2.svg) repeat-y;
   }
 
   >.left {
-    margin-top: 35px;
-    width: 420px;
+    width: 50%;
     float: left;
+    padding:0 24px 0 0;
 
-    >.name-input-container {
-      min-width: 725px;
-      margin-left: 22px;
+    input , select{
+      font-size: $bigFontSize;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $subtleFontColor2;
+      background: none;
+      outline:none;
+    }
+    select{
+      margin-top: 6px;
     }
 
-    >.other-inputs-container {
-      float: left;
-      margin-left: 22px;
+    .controls{
+      position:absolute;
+      right:0;
+      top:12px;
+      >button{
+        background:none;
+        outline:none;
+        border:1px solid transparent;
+        border-radius: 50%;
+      }
+      >button:hover{
+        border:1px solid $subtleFontColor1;
+      }
+      >button:active {
+        transform:translate3d(0,1px,0);
+      }
+    }
+
+    >.inputEffectLong {
+      position:relative;
+      margin:0 22px 44px 0;
+      width:400px;
+      display: inline-block;
+
+    }
+    >.inputEffect {
+         position:relative;
+         margin:0 22px 44px 0;
+         width:189px;
+         display: inline-block;
+
+         &.price {
+           > span {
+             position: absolute;
+             left: 5px;
+             top: 10px;
+             font-size: $bigFontSize;
+           }
+           >input{
+             padding-left:18px;
+           }
+         }
     }
   }
 
   >.delete{
-    float: right;
-    margin-right: -10px;
-    margin-top: -18px;
-    button {
-      width: 35px;
-      height: 35px;
-      border: none;
-      background: rgba(0, 0, 0, 0);
-      img {
-        margin: 0;
-        margin-left: -4px;
-        padding: 0;
-        width: 30px;
-        height: 32px;
-      }
+    position:absolute;
+    right: 6px;
+    top: 12px;
+    cursor: pointer;
+    svg{
+      height:20px;
+      stroke-width: 6px;
     }
   }
 
   >.right{
     float: right;
-    position: relative;
-    margin-top: 35px;
+    width:50%;
+    padding:4px 0 0 24px;
+    >.textareaEffect {
+      position: relative;
+      >label{
+        left:12px;
+        top:9px;
+      }
+      >textarea:focus ~ label, >label.active {
+        top: -28px;
+        font-size: $bigFontSize - 2px;
+        color: $subtleFontColor;
+      }
+      >textarea {
+        width: 100%;
+        height: 220px;
+        resize: none;
+        font-size: $bigFontSize;
+        padding: 9px 12px;
+        display: block;
+        border: 1px solid $subtleFontColor2;
+        background: none;
+        outline: none;
+        border-radius: $borderRadius;
+      }
 
-    textarea {
-      width: 480px;
-      height: 270px;
-      resize: none;
-
-      font-size: 18px;
-      padding: 10px 10px 10px 5px;
-      display: block;
-      border: 1px solid #757575;
-      border-bottom: 1px solid #757575;
-      background: rgba(0, 0, 0, 0);
-      border-radius: 12px;
     }
-
-    textarea:focus {
-      outline: none;
-    }
-  }
-
-
-
-  #name-input {
-    width: 383px;
-
   }
 
 }
 
-
+/*
 @keyframes inputHighlighter {
   from {
     background: white;
@@ -164,3 +163,4 @@
     background: transparent;
   }
 }
+*/
