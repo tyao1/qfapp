@@ -23,7 +23,11 @@ export default keyMirror({
 
   APPLY_SELL_SUBMIT: null,
   APPLY_SELL_SUCCESS: null,
-  APPLY_SELL_FAILURE: null
+  APPLY_SELL_FAILURE: null,
+  APPLY_SELL_NEW: null,
+
+
+  NEED_LOGIN: null
 
 
 

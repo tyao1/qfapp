@@ -194,6 +194,14 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           _loginVerify++;
           UserStore.emitChange();
         break;
+      case UserConstants.NEED_LOGIN:
+        setTimeout(()=>{
+          _userData = null;
+          UserStore.emitChange();
+          localStorage.setItem('userData', '');
+        },action.data.time * 1000);
+
+        break;
       default:
         break;
     }

@@ -35,6 +35,10 @@ export default {
     });
   },
 
+
+  /*
+   * 登录
+   */
   login(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.LOGIN_SUBMIT,
@@ -60,6 +64,10 @@ export default {
     });
   },
 
+
+  /*
+   * 卖单
+   */
   getSellOrdersFailure(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.SELL_ORDERS_FAILURE,
@@ -79,6 +87,8 @@ export default {
       actionType: UserConstants.APPLY_SELL_SUBMIT,
       data
     });
+    console.log(data);
+    UserAPIUtils.applySell(data);
   },
   applySellSuccess(data){
     Dispatcher.handleServerAction({
@@ -91,6 +101,18 @@ export default {
       actionType: UserConstants.APPLY_SELL_FAILURE,
       data
     });
+  },
+  applySellNew(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.APPLY_SELL_NEW
+    });
+  },
+  needLogin(wait=2){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.NEED_LOGIN,
+      wait
+    });
   }
+
 
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import UserStore from '../../stores/UserStore'
+import SellStore from '../../stores/SellStore'
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import UserConstants from '../../constants/UserConstants';
 
@@ -11,12 +11,28 @@ import Modal from '../Modal';
 
 
 import ItemRegisterForm from '../ItemRegisterForm';
-import RequireLogin from '../../mixins/RequireLogin'
+import RequireLogin from '../../mixins/RequireLogin';
+
+
+import UserAction from '../../actions/UserAction';
 require('./SellPage.scss');
 
 const SellPage = React.createClass({
-  _onUserChange(){
+  _onSellChange(){
 
+    let successful = SellStore.getSuccess();
+    if(successful){
+      this.setState({
+        items: [],
+        itemsCount: 0
+      });
+      this.goodsInfo = null;
+    }
+    this.setState({
+      realErrMsg: SellStore.getSubmitMsg(),
+      isSubmitting: SellStore.getIsSubmitting(),
+      isSuccessful: successful
+    });
   },
 
   mixins:[PureRenderMixin, RequireLogin],
@@ -25,17 +41,19 @@ const SellPage = React.createClass({
       items: ['d1'],
       itemsCount: 1,
       errMsg: '',
+      realErrMsg:'',
       b_NO: '',
       NO:'',
-      modalSubmitIsOpen: false
+      modalSubmitIsOpen: false,
+      showSuccess: false
     }
   },
   componentWillMount(){
-    UserStore.addChangeListener(this._onUserChange);
+    SellStore.addChangeListener(this._onSellChange);
 
   },
   componentWillUnMount(){
-    UserStore.removeChangeListener(this._onUserChange);
+    SellStore.removeChangeListener(this._onSellChange);
   },
 
   handleAddClick(){
@@ -68,7 +86,7 @@ const SellPage = React.createClass({
         if(goodToGo) {
           //提交
           console.log(state);
-          let t_limit = Date.now() / 1000 + parseInt(state.timeSpan) * 60 * 60 * 24 * 30;
+          let t_limit = Math.round(Date.now() / 1000) + parseInt(state.timeSpan) * 60 * 60 * 24 * 30;
           let {name,price,detail,num} = state;
           let good = {name, price, t_limit, detail, num};
           this.goodsInfo.push(good);
@@ -78,8 +96,10 @@ const SellPage = React.createClass({
     });
 
     if(goodToGo){
+      UserAction.applySellNew();
       this.setState({
         errMsg: '',
+        isSuccessful:false,
         modalSubmitIsOpen: true
       });
       //call submit action
@@ -114,10 +134,24 @@ const SellPage = React.createClass({
     this.setState({NO:e.target.value});
   },
   handleRealSubmitClick(){
+    if(this.state.isSuccessful){
+      this.setState({
+        modalSubmitIsOpen:false
+      });
+      return;
+    }
+    //this.setState({realErrMsg)
+    //检查宿舍楼
+    let realData={
+      b_NO: this.state.b_NO,
+      NO: this.state.NO,
+      info: this.goodsInfo
+    };
+    UserAction.applySellSubmit(realData);
+  }
 
 
-
-  },
+  ,
   render(){
     const items = this.state.items;
     let titleClass = `title${items.length?' active':''}`;
@@ -153,21 +187,30 @@ const SellPage = React.createClass({
 
 
         <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
-          <div className="submitForm">
-            <p className="main">马上就好，还差一些信息</p>
-
-            <div className="inputEffectAgain">
-              <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
-              <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
+          {this.state.isSuccessful?
+            <div className="submitForm">
+              <p className="main">提交成功～我们将在未来几天内联系您！</p>
+              <ButtonNormal className="ButtonNormal submit" text="关闭"
+                            svg={paperplane} onClick={this.handleRealSubmitClick}/>
             </div>
+            :
+            <div className="submitForm">
+              <p className="main">马上就好，还差一些信息</p>
 
-            <div className="inputEffectAgain">
-              <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
-              <label className={this.state.NO.length?'active':null}>宿舍号</label>
+              <div className="inputEffectAgain">
+                <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
+                <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
+              </div>
+
+              <div className="inputEffectAgain">
+                <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
+                <label className={this.state.NO.length?'active':null}>宿舍号</label>
+              </div>
+              <p>{this.state.realErrMsg}</p>
+              <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
+                            svg={paperplane} onClick={this.handleRealSubmitClick}/>
             </div>
-
-            <ButtonNormal className="ButtonNormal submit" text="正式提交" svg={paperplane} onClick={this.handleRealSubmitClick}/>
-          </div>
+          }
         </Modal>
       </div>
     );

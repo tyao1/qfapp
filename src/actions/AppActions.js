@@ -30,43 +30,6 @@ export default {
       actionType: AppConstants.NEED_LOGIN,
       data
     });
-  },
-
-
-  navigateTo(path, options) {
-    if (ExecutionEnvironment.canUseDOM) {
-      if (options && options.replace) {
-        window.history.replaceState({}, document.title, path);
-      } else {
-        window.history.pushState({}, document.title, path);
-      }
-    }
-
-    Dispatcher.handleViewAction({
-      actionType: ActionTypes.CHANGE_LOCATION,
-      path
-    });
-  },
-
-  loadPage(path, cb) {
-    Dispatcher.handleViewAction({
-      actionType: ActionTypes.LOAD_PAGE,
-      path
-    });
-
-    http.get('/api/page' + path)
-      .accept('application/json')
-      .end((err, res) => {
-        Dispatcher.handleServerAction({
-          actionType: ActionTypes.LOAD_PAGE,
-          path,
-          err,
-          page: res.body
-        });
-        if (cb) {
-          cb();
-        }
-      });
   }
 
 };
