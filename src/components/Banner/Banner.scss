@@ -208,17 +208,18 @@
     right:0;
     bottom:0;
     transition:all .4s ease;
+    visibility: hidden;
     .cart {
       padding-top:$bannerHeight + 32px;
       transform: translate3d(0,-100%,0);
       transition:all .3s $bounceTiming;
-      visibility: hidden;
     }
     &.active{
       background: $subtleFontColor2;
+      visibility: visible;
+
       .cart{
       transform: translate3d(0,0,0);
-      visibility: visible;
       transition:all .3s $bounceTiming .1s;
       }
     }

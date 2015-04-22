@@ -2,11 +2,12 @@
 
 
 .cart{
-  max-width:960px;
+  width:1024px;
+
   margin:0 auto;
   background:#fff;
   padding:32px;
-
+  border-radius:$borderRadius;
 
   >.cartList{
    >.cartListItem{
