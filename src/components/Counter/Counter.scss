@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+
+.counter{
+  border:1px solid $mainColor;
+  height:  $LargeFontSize + 2px;
+  background: white;
+  display: inline-block;
+  border-radius:$borderRadius;
+  >.plus {
+    display:inline-block;
+    width: 32px;
+    height: $LargeFontSize;
+    background: $mainColor;
+    border: none;
+    border-radius:0 $borderRadius $borderRadius 0;
+    color: white;
+    font-size: 18px;
+    outline:none;
+
+  }
+
+  >.minus {
+    display:inline-block;
+    width: 32px;
+    height: $LargeFontSize;
+    background: $mainColor;
+    border: none;
+    border-radius:$borderRadius 0 0 $borderRadius;
+    color: white;
+    font-size: 18px;
+    outline:none;
+  }
+
+  >.number {
+    display:inline-block;
+    width: 44px;
+    text-align: center;
+    border:none;
+    outline:none;
+    background:none;
+  }
+}

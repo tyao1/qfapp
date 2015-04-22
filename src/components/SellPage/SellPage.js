@@ -14,7 +14,7 @@ import ItemRegisterForm from '../ItemRegisterForm';
 import RequireLogin from '../../mixins/RequireLogin';
 
 
-import UserAction from '../../actions/UserAction';
+import UserAction from '../../actions/UserActions';
 require('./SellPage.scss');
 
 const SellPage = React.createClass({

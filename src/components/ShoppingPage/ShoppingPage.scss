@@ -139,35 +139,3 @@ $cart-dropdown-margin-top: 85px;
   // 购物车中最后一项物品底部加边框~~~
   border-bottom: rgba(33, 33, 33, 0.2) 2px solid;
 }
-
-.btn-plus {
-  float: left;
-  width: 32px;
-  height: 35px;
-  background: $mainColor;
-  border: none;
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-  color: white;
-  font-size: 18px;
-}
-
-.btn-minus {
-  float: left;
-  width: 32px;
-  height: 35px;
-  background: $mainColor;
-  border: none;
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 7px;
-  color: white;
-  font-size: 18px;
-}
-
-.input-number {
-  float: left;
-  width: 32px;
-  height: 34px;
-  text-align: center;
-
-}

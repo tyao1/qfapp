@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import InputNormal from '../InputNormal';
 import ButtonNormal from '../ButtonNormal';
 import {user, passkey, email} from '../SVGs';
-import UserAction from '../../actions/UserAction.js';
+import UserAction from '../../actions/UserActions.js';
 import UserStore from '../../stores/UserStore.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import FormValidation from '../../mixins/FormValidation';

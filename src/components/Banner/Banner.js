@@ -6,30 +6,23 @@ import {RouteHandler, Link} from 'react-router';
 import InputNormal from '../InputNormal';
 import AppStore from '../../stores/AppStore';
 import UserStore from '../../stores/UserStore';
+import CartStore from '../../stores/CartStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
-import {coffecup,logo} from '../SVGs';
+import {coffecup,logo,shoppingcart,close} from '../SVGs';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
+import Cart from '../Cart';
+
 
 require('./Banner.scss');
 
 function getIsHome(){
   return {isHome: AppStore.getIsHome()};
 }
-function getInitialData(){
-  return {
-    isHome: AppStore.getIsHome(),
-    userData: UserStore.getUserData()
-  };
-}
-function getScrollState(){
-  return {
-    isScrolled: window.pageYOffset>574-84
-  };
-}
+
 const Banner = React.createClass({
   //不用担心不必要的rerender辣
   mixins: [PureRenderMixin],
@@ -49,19 +42,34 @@ const Banner = React.createClass({
       userData: UserStore.getUserData()
     });
   },
+
+  _onCartChange(){
+    this.setState({
+      itemsCount: CartStore.getItemsCount()
+    });
+  },
   _onScroll(){
-    this.setState(getScrollState());
+    this.setState({isScrolled: window.pageYOffset>574-84});
   },
   getInitialState(){
-    return getInitialData();
+    return {
+      isHome: AppStore.getIsHome(),
+      userData: UserStore.getUserData(),
+      itemsCount: CartStore.getItemsCount(),
+      cartOpen: false
+    };
   },
+
+
   componentWillMount() {
     AppStore.addChangeListener(this._onAppChange);
     UserStore.addChangeListener(this._onUserChange);
+    CartStore.addChangeListener(this._onCartChange);
   },
   componentWillUnmount(){
     AppStore.removeChangeListener(this._onAppChange);
     UserStore.removeChangeListener(this._onUserChange);
+    CartStore.removeChangeListener(this._onCartChange);
 
     //in case
     window.removeEventListener('scroll', this._onScroll);
@@ -79,6 +87,10 @@ const Banner = React.createClass({
   handleRegClose(){
     this.setState({modalRegIsOpen:false});
   },
+  handleShoppingCartClick(){
+    console.log(!this.state.cartOpen);
+    this.setState({cartOpen:!this.state.cartOpen})
+  },
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -89,7 +101,7 @@ const Banner = React.createClass({
       classes = 'banner';
     }
 
-    let controls;
+    let controls, shoppingCart, cart;
     if(this.state.userData){
       controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
@@ -97,7 +109,13 @@ const Banner = React.createClass({
         <li><Link to="my" data-text="我的订单" params={{section: 'sell'}}><span>我的订单</span></Link></li>
         <li><Link to="my"  params={{section: 'info'}}><img src={this.state.userData.path}/></Link></li>
       </ul>;
-
+      shoppingCart = <button className={`shoppingCart${this.state.cartOpen?' active':''}`} onClick={this.handleShoppingCartClick}>
+        <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
+          <div className="close">{close}</div>
+        </button>
+      cart = <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
+          <Cart/>
+        </div>
     }
     else
     {
@@ -123,9 +141,11 @@ const Banner = React.createClass({
           </div>
           <div className="right">
             {controls}
+            {shoppingCart}
           </div>
-        </div>
 
+        </div>
+        {cart}
       </div>
     );
   }

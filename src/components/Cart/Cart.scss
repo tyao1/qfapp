@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+
+.cart{
+  max-width:960px;
+  margin:0 auto;
+  background:#fff;
+  padding:32px;
+
+
+  >.cartList{
+   >.cartListItem{
+     margin:34px 0;
+   }
+  }
+
+  >.checkout{
+    padding:0 32px;
+    border-top:1px solid $subtleFontColor1;
+    @include clearfix();
+    >.controls{
+      float:right;
+      width:33%;
+      >.total{
+        font-size:$LargeFontSize;
+        text-align: center;
+      }
+      >.ButtonNormal{
+        margin:0 auto;
+        display: block;
+        font-size: $bigFontSize;
+        border-color:#000;
+      }
+    }
+  }
+}

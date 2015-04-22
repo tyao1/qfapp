@@ -2,9 +2,11 @@
 
 import React from 'react';
 import Banner from '../Banner';
-//For test
-import ItemRegisterForm from '../ItemRegisterForm';
 
+import Counter from '../Counter';
+import CartListItem from '../CartListItem';
+
+import Cart from '../Cart';
 
 require('./ShoppingPage.scss');
 
@@ -32,94 +34,6 @@ var GreenNav = React.createClass({
   }
 });
 
-var Counter = React.createClass({
-  getInitialState: function() {
-    return {
-      amount: this.props.initValue
-    };
-  },
-
-  minusOne: function(e) {
-    if (this.state.amount <= 1) { return; }
-    this.setState({amount: this.state.amount - 1});
-    // React.findDOMNode(this.refs.itemNum).value = this.state.amount;
-    console.log("-1");
-  },
-
-  plusOne: function(e) {
-    this.setState({amount: this.state.amount + 1});
-    // React.findDOMNode(this.refs.itemNum).value = this.state.amount;
-    console.log("+1");
-  },
-
-  handleChange: function(e) {
-    //React.findDOMNode(this.refs.itemNum).value = this.state.amount;
-    this.setState({amount: e.target.value ? parseInt(e.target.value) : 1});
-    // console.log(e);
-  },
-
-  render: function(){
-    // CSS 该怎么找啊啊~~~
-    return (
-      <div>
-        <form>
-          <input className="btn-plus" type="button" onClick={this.minusOne} value="-"></input>
-          <input className="input-number" ref="itemNum" type="text" pattern="[0-9]*" value={this.state.amount}
-            onChange={this.handleChange}></input>
-          <input className="btn-minus" type="button" onClick={this.plusOne} value="+"></input>
-        </form>
-      </div>
-    );
-  }
-});
-
-var CartListItem = React.createClass({
-
-  getInitialState: function() {
-    return {
-      numOrdered: 1,
-      priceTotal: this.props.price
-    };
-  },
-
-render: function(){
-  // 价格部分的逻辑还要改啊啊啊！
-  return (
-    <li>
-      <div className={"cart-list-item-container " + (this.props.lastChild ? "lastItem" : "")}>
-        <img src={require(this.props.image)} />
-        <span className="cart-list-item-simple-info">
-          <h3>{this.props.itemtype}</h3>
-          <p>{this.props.itemname}</p>
-        </span>
-
-        <span className="cart-list-item-simple-info">
-          <h3>数量</h3>
-          <Counter initValue={this.state.numOrdered} />
-        </span>
-
-        <span className="cart-list-item-simple-info">
-          <h3>卖家</h3>
-          <p>{this.props.sellername}</p>
-        </span>
-
-        <span className="cart-list-item-simple-info">
-          <h3>价格</h3>
-          <p className="item-price-text">
-            {"￥ " + (this.props.price | 0).toString() + '.00'}
-          </p>
-        </span>
-
-        <span className="cart-list-item-others">
-          <div className="delete-item">
-            <a>删除</a>
-          </div>
-        </span>
-      </div>
-    </li>
-  );
-}
-});
 
 var CartListComponent = React.createClass({
   getInitialState: function() {
@@ -147,10 +61,8 @@ const ShoppingPage = React.createClass({
   render() {
     return (
       <div className="cart-page-main-container">
-        <GreenNav />
-        <CartListComponent />
-        <ItemRegisterForm />
-        <p>this is shopping!!!!!!!!</p>
+        <Cart/>
+
       </div>
     );
   }

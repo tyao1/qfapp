@@ -1,6 +1,6 @@
 'use strict';
 import request from 'superagent';
-import UserAction from '../actions/UserAction';
+import UserActions from '../actions/UserActions';
 const UserAPIUtils = {
   register(data,callback){
     request
@@ -9,10 +9,10 @@ const UserAPIUtils = {
       .send(data)
       .end(function(err,res){
         if(err){
-          UserAction.registerFailure(err);
+          UserActions.registerFailure(err);
         }
         else{
-          UserAction.registerSuccess(res.body);
+          UserActions.registerSuccess(res.body);
         }
       });
   },
@@ -23,10 +23,10 @@ const UserAPIUtils = {
       .send(data)
       .end(function(err,res){
         if(err){
-          UserAction.loginFailure(err);
+          UserActions.loginFailure(err);
         }
         else{
-          UserAction.loginSuccess(res.body);
+          UserActions.loginSuccess(res.body);
         }
       });
   },
@@ -37,10 +37,10 @@ const UserAPIUtils = {
       .send(data)
       .end(function(err,res){
         if(err){
-          UserAction.getSellOrdersFailure(err);
+          UserActions.getSellOrdersFailure(err);
         }
         else{
-          UserAction.getSellOrdersSuccess(res.body);
+          UserActions.getSellOrdersSuccess(res.body);
         }
       });
   },
@@ -52,10 +52,10 @@ const UserAPIUtils = {
       .send(data)
       .end(function(err,res){
         if(err){
-          UserAction.applySellFailure(err);
+          UserActions.applySellFailure(err);
         }
         else{
-          UserAction.applySellSuccess(res.body);
+          UserActions.applySellSuccess(res.body);
         }
       });
   },

@@ -5,6 +5,7 @@ import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import UserConstants from '../constants/UserConstants';
+import CartConstants from '../constants/CartConstants';
 
 import UserAPIUtils from '../utils/UserAPIUtils';
 import AppConstants from '../constants/AppConstants';
@@ -12,24 +13,46 @@ import AppStore from './AppStore';
 import router from '../router';
 import AppAction from '../actions/AppActions';
 import UserAction from '../actions/UserActions';
+import CartActions from '../actions/CartActions';
 
-const CHANGE_EVENT = 'CHANGE_SellStore';
+import Immutable from 'immutable';
+
+const CHANGE_EVENT = 'CHANGE_CartStore';
 
 
-let _isSubmitting = false;
-let _submitMsg = '';
-let _success = false;
-const SellStore = assign({}, EventEmitter.prototype, {
+let _items = Immutable.fromJS({
+  a123:{
+      itemType: '书籍',
+      itemName: '论演员的自我修养',
+      num: 1,
+      max: 3,
+      price: 7.0,
+      nickname :'没名字能用了啊',
+      path: ''
+    },
+  b123:{
+      itemType: '书籍',
+      itemName: '论演员的自我修养',
+      num: 1,
+      max: 3,
+      price: 3.0,
+      nickname :'没名字能用了啊',
+      path: ''
+    }
+  }
+  );
+console.log(_items);
 
-  getIsSubmitting(){
-    return _isSubmitting;
+const CartStore = assign({}, EventEmitter.prototype, {
+
+  getItemsCount(){
+    return _items.size;
   },
-  getSubmitMsg(){
-    return _submitMsg;
+
+  getItems(){
+    return _items;
   },
-  getSuccess(){
-    return _success;
-  },
+
   emitChange() {
     return this.emit(CHANGE_EVENT);
   },
@@ -44,7 +67,7 @@ const SellStore = assign({}, EventEmitter.prototype, {
 
 });
 
-SellStore.dispatcherToken = Dispatcher.register((payload) => {
+CartStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
   if(payload.source==='SERVER_ACTION')
   {
@@ -55,27 +78,6 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         _submitMsg = '';
         SellStore.emitChange();
         break;
-
-      case UserConstants.APPLY_SELL_FAILURE:
-        _submitMsg = '啊哦，网络出错辣！';
-        _isSubmitting = false;
-        SellStore.emitChange();
-        break;
-      case UserConstants.APPLY_SELL_SUCCESS:
-        if (action.data.Code === 0) {
-          console.log('success');
-          _success = true;
-        }
-        else if(action.data.Code === 1007){
-          UserAction.needLogin();
-        }
-        else{
-          _submitMsg = action.data.Msg;
-        }
-        _isSubmitting = false;
-
-        SellStore.emitChange();
-        break;
       default:
       // Do nothing
 
@@ -83,14 +85,17 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
   }
   else{
     switch (action.actionType) {
-      case UserConstants.APPLY_SELL_NEW:
-        _success = false;
-        _submitMsg = '';
-        SellStore.emitChange();
+      case CartConstants.CHANGE_NUM:
+        _items = _items.updateIn([action.data.id,'num'],val => action.data.num);
+        CartStore.emitChange();
+        break;
+      case CartConstants.DELETE_ITEM:
+        _items = _items.delete(action.data.id);
+        CartStore.emitChange();
         break;
     }
   }
 
 });
 
-export default SellStore;
+export default CartStore;

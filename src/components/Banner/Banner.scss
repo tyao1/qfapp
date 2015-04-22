@@ -25,6 +25,28 @@
           }
         }
 
+
+        .shoppingCart{
+          background:none;
+          &.active{
+            background:$mainColorTint;
+            &:hover{
+              background:$mainColorTint;
+
+            }
+          }
+          &:hover{
+            background:rgba($mainColor,.5);
+
+          }
+        }
+
+      }
+
+      >.cartWrapper{
+        color: $fontColor;
+        position:absolute;
+        background:none;
       }
     }
 
@@ -41,6 +63,7 @@
   transition-timing-function: $normalTiming;
   z-index:2;
   >.inner{
+    z-index: 1;
     @include maxWidth();
     height:100%;
     position:relative;
@@ -72,6 +95,8 @@
       height:100%;
       >ul{
           margin:0;
+          display: inline-block;
+          padding-right: $bannerHeight;
         >li{
           display: inline;
           margin:0 6px;
@@ -100,6 +125,102 @@
         }
       }
 
+      >.shoppingCart{
+        position: absolute;
+        right: 0;
+        height: $bannerHeight;
+        width: $bannerHeight;
+        display: inline-block;
+        line-height: $bannerHeight;
+        background:$mainColor;
+        margin-left:12px;
+        text-align:center;
+        border:none;
+        outline:none;
+        padding:0 0 0 6px;
+        overflow: hidden;
+        transition: all .1s ease-in-out .3s;
+        >span{
+          font-size: $bigFontSize + 2px;
+          color:#fff;
+          display: inline-block;
+          vertical-align: baseline;
+          padding:0 0 0 6px;
+          transition:font-size .24s ease;
+        }
+
+        >.svgWrapper {
+          vertical-align: middle;
+          display: inline-block;
+          > svg {
+            stroke: #fff;
+            width: 20px;
+            height: 18px;
+          }
+          transition:all .24s ease;
+        }
+
+        &:hover{
+          background:$mainColorTint;
+        }
+
+        >.close{
+          visibility: hidden;
+          position:absolute;
+          right: -30px;
+          top: 12px;
+          transition:all .1s ease;
+        }
+        &.active{
+          transition: all .1s ease;
+          padding:0;
+          width:100%;
+          >span {
+            font-size: $LargeFontSize;
+          }
+          >.close{
+            right: 12px;
+            visibility: visible;
+          }
+          >.svgWrapper {
+            vertical-align: middle;
+            display: inline-block;
+            > svg {
+              stroke: #fff;
+              width: 30px;
+              height: 27px;
+            }
+          }
+        }
+
+      }
+
+
+
+
+    }
+  }
+  .cartWrapper{
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    transition:all .4s ease;
+    .cart {
+      padding-top:$bannerHeight + 32px;
+      transform: translate3d(0,-100%,0);
+      transition:all .3s $bounceTiming;
+      visibility: hidden;
+    }
+    &.active{
+      background: $subtleFontColor2;
+      .cart{
+      transform: translate3d(0,0,0);
+      visibility: visible;
+      transition:all .3s $bounceTiming .1s;
+      }
     }
   }
 }

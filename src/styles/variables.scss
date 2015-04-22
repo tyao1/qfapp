@@ -67,7 +67,7 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
   max-width:$pageMaxWidth;
-  min-width:888px;
+  width:$pageMaxWidth;
   margin:0 auto;
 }
 

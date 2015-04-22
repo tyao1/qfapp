@@ -1,0 +1,52 @@
+@import '../../styles/variables.scss';
+
+
+.cartListItem{
+  position: relative;
+  >  img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    border:1px solid $subtleFontColor2;
+    overflow: hidden;
+  }
+  >section{
+    display:inline-block;
+    vertical-align: middle;
+    margin-left: 3%;
+    width: 18%;
+    &.small{
+      width:14%;
+    }
+    &.big{
+      width:20%;
+    }
+    >span{
+      display:block;
+      color:$subtleFontColor2;
+    }
+    >.counter{
+      margin: 7px 0 0 0;
+    }
+    >p{
+      margin:6px 0 0 0;
+      max-height:23px;
+      font-size:$bigFontSize;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  >.ButtonNormal{
+   color:$subtleFontColor2;
+    border:none;
+    font-size:$fontSize -2px;
+    position: absolute;
+    right:0;
+    top:44px;
+  }
+
+}
