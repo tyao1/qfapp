@@ -39,14 +39,24 @@
       text-overflow: ellipsis;
     }
   }
-
-  >.ButtonNormal{
-   color:$subtleFontColor2;
-    border:none;
-    font-size:$fontSize -2px;
+  >.controls {
     position: absolute;
-    right:0;
-    top:44px;
-  }
+    right: 0;
+    top: 44px;
+    > .ButtonNormal {
+      color: $subtleFontColor2;
+      border: none;
+      font-size: $fontSize -2px;
+      &.caution{
+        color:$thirdColor;
+      }
+      >span{
+        padding:0 12px 0 0;
+      }
+      &:after{
+        padding:0 12px 0 0;
+      }
 
+    }
+  }
 }

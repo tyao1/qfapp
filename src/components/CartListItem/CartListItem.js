@@ -8,11 +8,19 @@ require('./CartListItem.scss');
 
 const CartListItem = React.createClass({
 
-
+  getInitialState(){
+    return {isDelete: false}
+  },
   handleCounterChange(num){
     this.props.handleNumChange(num);
   },
   handleDelete(){
+    this.setState({isDelete: true})
+  },
+  handleCancelDelete(){
+    this.setState({isDelete: false})
+  },
+  handleRealDelete(){
     this.props.handleDelete();
   },
   render: function(){
@@ -38,8 +46,16 @@ const CartListItem = React.createClass({
             {"￥ " + this.props.price}
           </p>
         </section>
-        <ButtonNormal text="删除" onClick={this.handleDelete}/>
-
+        {
+          this.state.isDelete?
+            <div className="controls">
+              <ButtonNormal className="ButtonNormal caution" text="确认" onClick={this.handleRealDelete}/>
+              <ButtonNormal text="取消" onClick={this.handleCancelDelete}/>
+            </div>:
+            <div className="controls">
+              <ButtonNormal text="删除" onClick={this.handleDelete}/>
+            </div>
+        }
       </div>
     );
   }

@@ -3,7 +3,7 @@
 import Dispatcher from '../core/Dispatcher';
 import CartConstants from '../constants/CartConstants';
 
-import UserAPIUtils from '../utils/UserAPIUtils';
+import CartAPIUtils from '../utils/CartAPIUtils';
 
 export default {
 
@@ -14,11 +14,36 @@ export default {
     });
   },
   deleteItem(data){
-      Dispatcher.handleViewAction({
-        actionType: CartConstants.DELETE_ITEM,
-        data
-      });
-    }
+    Dispatcher.handleViewAction({
+      actionType: CartConstants.DELETE_ITEM,
+      data
+    });
+  },
+  cartOrderSubmit(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_ORDER_SUBMIT,
+      data
+    });
+    console.log(data);
+    CartAPIUtils.submitOrder(data);
+  },
+  cartOrderSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_ORDER_SUCCESS,
+      data
+    });
+  },
+  cartOrderFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_ORDER_FAILURE,
+      data
+    });
+  },
+  cartOrderNew(){
+    Dispatcher.handleViewAction({
+      actionType: CartConstants.CART_ORDER_NEW
+    });
+  }
 
 
 };

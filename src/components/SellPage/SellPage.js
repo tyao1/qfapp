@@ -148,10 +148,7 @@ const SellPage = React.createClass({
       info: this.goodsInfo
     };
     UserAction.applySellSubmit(realData);
-  }
-
-
-  ,
+  },
   render(){
     const items = this.state.items;
     let titleClass = `title${items.length?' active':''}`;

@@ -7,7 +7,7 @@ import CartStore from '../../stores/CartStore';
 
 import CartListItem from '../CartListItem';
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart} from '../SVGs';
+import {shoppingcart, boxface, paperplane} from '../SVGs';
 
 
 import CartActions from '../../actions/CartActions';
@@ -22,14 +22,23 @@ const Cart = React.createClass({
   mixins: [PureRenderMixin],
   _onCartChange(){
     this.setState({
-      items: CartStore.getItems()
+      items: CartStore.getItems(),
+      realErrMsg: CartStore.getSubmitMsg(),
+      isSubmitting: CartStore.getIsSubmitting(),
+      isSuccessful: CartStore.getSuccess()
     });
 
   },
 
   getInitialState(){
     return {
-      items: CartStore.getItems()
+      items: CartStore.getItems(),
+      aboutToOrder: false,
+      b_NO: '',
+      NO: '',
+      realErrMsg: CartStore.getSubmitMsg(),
+      isSubmitting: CartStore.getIsSubmitting(),
+      isSuccessful: CartStore.getSuccess()
     };
   },
 
@@ -52,16 +61,42 @@ const Cart = React.createClass({
       CartActions.deleteItem({id});
     }
   },
+  handleOrder(){
+    this.setState({aboutToOrder: true});
+  },
+  handleCloseOrder(){
+    this.setState({aboutToOrder: false});
+  },
 
+  handleBNOChange(e){
+    this.setState({b_NO:e.target.value});
+
+  },
+  handleNOChange(e){
+    this.setState({NO:e.target.value});
+  },
+
+  handleRealSubmitClick(){
+    if(this.state.isSuccessful){
+      this.setState({
+        aboutToOrder:false
+      });
+      CartActions.cartOrderNew();
+      this.props.onCartClose();
+    }
+    else{
+      CartActions.cartOrderSubmit(this.state.items.toJS());
+    }
+
+  },
   render() {
     let elem;
     let cartList = [];
-    if(this.state.items.size){
+    if(this.state.isSuccessful || this.state.items.size){
       let items = this.state.items.toJS();
       let price = 0;
       elem = <div className="cart">
         <div className="cartList">
-
           {
 
             Object.keys(items).map((key)=>{
@@ -79,14 +114,55 @@ const Cart = React.createClass({
         <div className="checkout">
           <div className="controls">
             <p className="total">总价：${price.toFixed(2)}元</p>
-            <ButtonNormal text="下单" svg={shoppingcart}/>
+            <div className={`orderWrapper${this.state.aboutToOrder?' active':''}`}>
+              <ButtonNormal text="下单" svg={shoppingcart} onClick={this.handleOrder}/>
+              <div className="morph">
+                {this.state.isSuccessful?
+                  <div className="submitForm">
+                    <p className="main">哇呼～<br/>订单已经成功提交~<br/>请等待我们发货</p>
+                    <ButtonNormal className="ButtonNormal submit" text="关闭"
+                                  svg={paperplane} onClick={this.handleRealSubmitClick}/>
+                  </div>
+                  :
+                  <div className="submitForm">
+                    <p className="main">确认订单
+                      <span className="price">物品总价：${price.toFixed(2)}元</span>
+                    </p>
+
+                    <div className="inputEffectAgain">
+                      <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
+                      <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
+                    </div>
+
+                    <div className="inputEffectAgain">
+                      <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
+                      <label className={this.state.NO.length?'active':null}>宿舍号</label>
+                    </div>
+
+                    <p>{this.state.realErrMsg}</p>
+                    <div className="controls">
+                      <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
+                                    svg={paperplane} onClick={this.handleRealSubmitClick}/>
+                      <ButtonNormal className="ButtonNormal cancel" text="关闭"
+                                    onClick={this.handleCloseOrder}/>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
           </div>
         </div>
       </div>;
     }
     else{
       elem = <div className="cart">
-          asdasda
+          <div className="inner">
+            {boxface}
+            <span>
+              购物车里空空如也，<br/>
+              快去淘些好东西吧～
+            </span>
+          </div>
         </div>
     }
     return (

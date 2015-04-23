@@ -89,8 +89,12 @@ const Banner = React.createClass({
   },
   handleShoppingCartClick(){
     console.log(!this.state.cartOpen);
-    this.setState({cartOpen:!this.state.cartOpen})
+    this.setState({cartOpen: !this.state.cartOpen})
   },
+  handleShoppingCartClose(){
+    this.setState({cartOpen: false})
+  },
+
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -114,7 +118,7 @@ const Banner = React.createClass({
           <div className="close">{close}</div>
         </button>
       cart = <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
-          <Cart/>
+          <Cart onCartClose={this.handleShoppingCartClose}/>
         </div>
     }
     else
