@@ -34,6 +34,9 @@ let _needActivation = 0;
 const UserStore = assign({}, EventEmitter.prototype, {
   cache: {},
 
+  getUserName(){
+    return _userData.nickname;
+  },
   getUserData(){
     return _userData;
   },

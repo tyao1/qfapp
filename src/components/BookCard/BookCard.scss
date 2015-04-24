@@ -1,23 +1,67 @@
 @import '../../styles/variables.scss';
 
-$mainHeight : 324px;
-$topHeight : 178px;
-
+$mainHeight : 338px;
+$topHeight : 197px;
+$avartarSize:44px;
 .bookCard{
   text-align: left;
-  width:200px;
+  width:240px;
   height:$mainHeight;
-  border-radius:$borderRadius;
   overflow: hidden;
-  box-shadow:0 0 2px $subtleFontColor2;
+  transition:box-shadow .24s ease;
+  &:hover{
+    box-shadow: 0 0 8px rgba(0,0,0,.6);
+  }
   >.top{
     height:$topHeight;
-    background:$mainColor url('./mockpic.jpg');
+    background:$mainColor;
+    position:relative;
+    cursor: pointer;
+    >img{
+      width: 100%;
+      min-height: 100%;
+      transition: transform 1s ease;
+    }
+    >.detail{
+      visibility: hidden;
+      opacity:0;
+      z-index:1;
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:rgba(#000,.5);
+      display: flex;
+      text-align:center;
+      >span{
+        font-size:$bigFontSize;
+        margin:auto;
+        color:#fff;
+        padding:6px 27px;
+        border:2px solid #fff;
+      }
+      transition:all .23s ease;
+    }
+
+    &:hover{
+      >.detail{
+
+        visibility: visible;
+        opacity: 1;
+      }
+      >img{
+        transform:scale(1.1);
+      }
+    }
   }
   >.content{
+    border-top:4px solid $mainColorTint;
     height: $mainHeight - $topHeight;
     background:white;
     padding:12px;
+    position: relative;
+    z-index: 2;
     >span{
       color:$subtleFontColor2;
     }
@@ -26,16 +70,47 @@ $topHeight : 178px;
       font-size:$bigFontSize - 2px;
       height:48px;
     }
-
-    >.ButtonNormal{
-      margin:9px auto 0;
-      display: block;
-      font-size:$bigFontSize;
-      background:$secondaryColor;
-      width:100%;
-      border:none;
+    >.seller{
+      height:$avartarSize;
+      width:$avartarSize;
+      position:absolute;
+      border:1px solid rgba(255,255,255,.5);
+      border-radius:50%;
+      top:-$avartarSize/2;
+      right:12px;
+      background:$mainColorTint;
     }
+    >.shop {
+      margin: 9px auto 0;
+      >.price{
+        font-size: $LargeFontSize;
+        color:$mainColor;
+      }
 
+      > .ButtonNormal {
+        display: inline-block;
+
+        float:right;
+
+        >span{
+          padding: 3px 8px 3px 15px;
+          >span{
+            display:none;
+          }
+          svg{
+            fill:rgba(0,0,0,.8);
+          }
+        }
+        &:hover{
+          background: $secondaryColor;
+          border-color: transparent;
+        }
+
+        &:after{
+          padding:4px 0 0;;
+        }
+      }
+    }
 
   }
 

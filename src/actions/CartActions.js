@@ -19,6 +19,19 @@ export default {
       data
     });
   },
+  deleteItemSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.DELETE_ITEM_SUCCESS,
+      data
+    });
+  },
+  deleteItemFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.DELETE_ITEM_FAILURE,
+      data
+    });
+  },
+
   cartOrderSubmit(data){
     Dispatcher.handleServerAction({
       actionType: CartConstants.CART_ORDER_SUBMIT,
@@ -43,7 +56,31 @@ export default {
     Dispatcher.handleViewAction({
       actionType: CartConstants.CART_ORDER_NEW
     });
-  }
+  },
+
+
+  cartAdd(data){
+    Dispatcher.handleViewAction({
+      actionType: CartConstants.CART_ADD,
+      data:data
+    });
+    //CartAPIUtils.submitOrder(data);
+  },
+
+  cartAddSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_ADD_SUCCESS,
+      data:data
+    });
+  },
+  cartAddFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_ADD_FAILURE,
+      data:data
+    });
+  },
+
+
 
 
 };

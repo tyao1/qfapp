@@ -3,25 +3,36 @@
 import React from 'react';
 import ButtonNormal from '../ButtonNormal';
 import {shoppingcart} from '../SVGs';
-
+import CartActions from '../../actions/CartActions';
 
 require('./BookCard.scss');
 
 
 const BookCard = React.createClass({
 
-
+  handleBuyClick(){
+    CartActions.cartAdd(this.props.item);
+  },
   render() {
+    const item = this.props.item;
     return(
       <div className="bookCard">
         <div className="top">
-
+          <div className="detail">
+            <span>查看详情</span>
+          </div>
+          <img src={require('./mockpic.jpg')}/>
         </div>
         <div className="content">
-          <span>书籍</span>
-          <p>论演员的自我修养啊养啊养</p>
-
-          <ButtonNormal text="¥23" svg={shoppingcart} />
+          <div className="seller">
+            <img src={item.path}/>
+          </div>
+          <span>{item.itemType}</span>
+          <p>{item.itemName}</p>
+          <div className="shop">
+            <span className="price">¥{item.price.toFixed(2)}</span>
+            <ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>
+          </div>
         </div>
       </div>
     );

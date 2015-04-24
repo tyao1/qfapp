@@ -44,8 +44,14 @@ const Banner = React.createClass({
   },
 
   _onCartChange(){
+    const itemsCount = CartStore.getItemsCount();
+    const isChanged = itemsCount!==this.state.itemsCount;
+    if(isChanged){
+      setTimeout(()=>this.setState({isChanged:false}),300);
+    }
     this.setState({
-      itemsCount: CartStore.getItemsCount()
+      itemsCount,
+      isChanged
     });
   },
   _onScroll(){
@@ -113,7 +119,7 @@ const Banner = React.createClass({
         <li><Link to="my" data-text="我的订单" params={{section: 'sell'}}><span>我的订单</span></Link></li>
         <li><Link to="my"  params={{section: 'info'}}><img src={this.state.userData.path}/></Link></li>
       </ul>;
-      shoppingCart = <button className={`shoppingCart${this.state.cartOpen?' active':''}`} onClick={this.handleShoppingCartClick}>
+      shoppingCart = <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
         <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
           <div className="close">{close}</div>
         </button>

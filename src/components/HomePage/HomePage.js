@@ -94,7 +94,15 @@ const HomePage = React.createClass({
             <p>想淘最新最好的便宜货，就在这里</p>
           </header>
           <main>
-            <BookCard/>
+            <BookCard item={{
+              id: 'a1234',
+              itemType:'书籍',
+              itemName:'论演员的自我修养啊养',
+              price:23,
+              max: 3,
+              nickname :'没名字能用了啊',
+              path: ''
+            }}/>
           </main>
           <ButtonNormal text="前去淘货" onClick={this.handleGoShoppingClick}/>
           <Modal isOpen={this.state.isGoShopping} onClose={this.handleGoShoppingClose}>

@@ -18,7 +18,46 @@ const CartAPIUtils = {
       });
   },
 
+  addItem(data, callback){
+    request
+      .get('mockadditem.json')//put
+      .type('form')
+      .send(data)
+      .end(function(err,res){
+        if(err){
+          //就返回之前的物品backup呗
+          CartActions.cartAddFailure(data);
+        }
+        else{
+          CartActions.cartAddSuccess({
+            body: res.body,
+            data
+        });
+        }
+      });
+  },
 
+  deleteItem(data,backup,callback){
+    request
+      .get('mockadditem.json')//put
+      .type('form')
+      .send(data)
+      .end(function(err,res){
+        if(err){
+          //就返回之前的物品backup呗
+          CartActions.deleteItemFailure({
+            id:data,
+            backup});
+        }
+        else{
+          CartActions.deleteItemSuccess({
+            body: res.body,
+            id:data,
+            backup
+          });
+        }
+      });
+  },
 
 
 };

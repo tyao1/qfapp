@@ -25,7 +25,7 @@ const Cart = React.createClass({
       items: CartStore.getItems(),
       realErrMsg: CartStore.getSubmitMsg(),
       isSubmitting: CartStore.getIsSubmitting(),
-      isSuccessful: CartStore.getSuccess()
+      isSuccessful: CartStore.getSuccess(),
     });
 
   },
@@ -81,8 +81,8 @@ const Cart = React.createClass({
       this.setState({
         aboutToOrder:false
       });
-      CartActions.cartOrderNew();
       this.props.onCartClose();
+      setTimeout(()=>{CartActions.cartOrderNew()},430);
     }
     else{
       CartActions.cartOrderSubmit(this.state.items.toJS());

@@ -4,17 +4,13 @@ import Dispatcher from '../core/Dispatcher';
 import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
-import UserConstants from '../constants/UserConstants';
 import CartConstants from '../constants/CartConstants';
 
-import UserAPIUtils from '../utils/UserAPIUtils';
-import AppConstants from '../constants/AppConstants';
-import AppStore from './AppStore';
-import router from '../router';
-import AppAction from '../actions/AppActions';
-import UserAction from '../actions/UserActions';
+import UserActions from '../actions/UserActions';
 import CartActions from '../actions/CartActions';
 
+import UserStore from '../stores/UserStore.js';
+import CartAPIUtils from '../utils/CartAPIUtils';
 import Immutable from 'immutable';
 
 const CHANGE_EVENT = 'CHANGE_CartStore';
@@ -47,6 +43,26 @@ let _items = Immutable.fromJS({
     }
   }
   );
+
+
+
+/*
+ *
+ * 回撤物品操作
+ *
+ */
+function reverseAdd(id){
+  if(_items.get(id)){
+    _items = _items.delete(id);
+  }
+}
+function reverseDelete(id,data){
+  if(!_items.get(id)){
+    _items = _items.set(id,data);
+  }
+}
+
+
 
 const CartStore = assign({}, EventEmitter.prototype, {
 
@@ -100,17 +116,43 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         if (action.data.Code === 0) {
           //handle storeitems change
           _success = true;
-          console.log(_items);
           _items = _items.clear();
-          console.log(_items);
         }
         else if(action.data.Code === 1007){
-          UserAction.needLogin();
+          UserActions.needLogin();
         }
         else{
           _submitMsg = action.data.Msg;
         }
         _isSubmitting = false;
+        CartStore.emitChange();
+        break;
+      case CartConstants.CART_ADD_FAILURE:
+        //物品添加失败，回撤操作
+        //发出提醒
+        reverseAdd(action.data);
+        CartStore.emitChange();
+        break;
+      case CartConstants.CART_ADD_SUCCESS:
+        console.log('fuck!');
+        if(action.data.body.Code!==0){
+          //失败
+          reverseAdd(action.data.data);
+        }
+        CartStore.emitChange();
+        break;
+      case CartConstants.DELETE_ITEM_FAILURE:
+        //物品删除失败，回撤操作
+        //发出提醒
+        reverseDelete(action.data.id, action.data.backup);
+        CartStore.emitChange();
+        break;
+      case CartConstants.DELETE_ITEM_SUCCESS:
+        console.log('wtf');
+        if(action.data.body.Code!==0){
+          //失败
+          reverseDelete(action.data.id, action.data.backup);
+        }
         CartStore.emitChange();
         break;
       default:
@@ -130,8 +172,60 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM:
-        _items = _items.delete(action.data.id);
+        const deleteId = action.data.id;
+        const deleteItem = _items.get(deleteId);
+        console.log('deleteItem',deleteItem);
+        _items = _items.delete(deleteId);
         CartStore.emitChange();
+        CartAPIUtils.deleteItem(deleteId,deleteItem);
+        break;
+      case CartConstants.CART_ADD:
+        console.log(action.data);
+        const item = action.data;
+        //检查用户名是否为卖家
+        const username = UserStore.getUserName();
+        if(username===item.nickname)
+        {
+          //notificate error
+          return
+        }
+        const checkItem = _items.get(item.id);
+        if(checkItem){
+          //该物品已经在购物车，增加数量
+          const max = checkItem.get('max');
+          _items = _items.updateIn([action.data.id,'num'],val => (val===max?max:val+1));
+        }
+        else{
+          //提交物品增加请求
+          /*
+           {
+           itemType: '书籍',
+           itemName: '论演员的自我修养',
+           num: 1,
+           max: 3,
+           price: 3.0,
+           nickname :'没名字能用了啊',
+           path: ''
+           }
+           */
+          const {itemType,itemName,max,price,nickname,path} = item;
+          const newItem = {
+            itemType,
+            itemName,
+            num: 1,
+            max,
+            price,
+            nickname,
+            path
+          };
+          _items = _items.set(item.id,Immutable.fromJS(newItem));
+          //直接调用api请求吧！
+          CartAPIUtils.addItem(item.id,item);
+        }
+        CartStore.emitChange();
+        break;
+
+      default:
         break;
     }
   }

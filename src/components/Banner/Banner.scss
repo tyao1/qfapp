@@ -61,7 +61,7 @@
   right:0;
   transition:background .3s,box-shadow .3s;
   transition-timing-function: $normalTiming;
-  z-index:2;
+  z-index:20;
   >.inner{
     z-index: 1;
     @include maxWidth();
@@ -191,6 +191,13 @@
               height: 27px;
             }
           }
+          &.changed{
+            animation:none;
+          }
+        }
+
+        &.changed{
+          animation: cartChanged .3s ease;
         }
 
       }
@@ -223,5 +230,17 @@
       transition:all .3s $bounceTiming .1s;
       }
     }
+  }
+}
+
+@keyframes cartChanged {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.3);
+  }
+  100%{
+    transform: scale(1);
   }
 }
