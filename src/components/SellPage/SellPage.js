@@ -8,6 +8,7 @@ import UserConstants from '../../constants/UserConstants';
 import {boxface,additem,paperplane} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
 import Modal from '../Modal';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 
 import ItemRegisterForm from '../ItemRegisterForm';
@@ -163,9 +164,11 @@ const SellPage = React.createClass({
             </span>
           </div>
           <ul className="items">
+            <ReactCSSTransitionGroup transitionName="t">
             {
               items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
             }
+            </ReactCSSTransitionGroup>
           </ul>
 
           <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html:this.state.errMsg}}></p>

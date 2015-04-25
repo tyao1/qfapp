@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
-$briefHeight:226px;
-$briefPadding:32px;
+$briefHeight:240px;
+$briefPadding:38px;
 $controlsWidth:340px;
 .itemDetailPage {
   padding:$bannerHeight 0 0 0;
@@ -13,8 +13,10 @@ $controlsWidth:340px;
     color:#fff;
     >.inner{
       @include maxWidth;
-      padding:$briefPadding $controlsWidth+42px $briefPadding 12px;
+      padding:$briefPadding 0 $briefPadding 12px;
       >.words {
+        width: 1024px - $controlsWidth - 24px;
+        padding-right:24px;
         display: inline-block;
         > .itemName {
           margin: 0;
@@ -30,19 +32,75 @@ $controlsWidth:340px;
         }
       }
       >.controls{
+        color:$fontColor;
         position:fixed;
         display: inline-block;
-        margin-left:32px;
         float:right;
         width:340px;
         height:$briefHeight - $briefPadding*2;
         background:$secondaryColorTint;
         border-radius:$borderRadius;
         box-shadow:0 2px 4px $subtleFontColor2;
-        padding:12px;
-
+        padding:24px;
+        .title{
+          display:block;
+          color:$subtleFontColor2;
+          margin:0 0 5px;
+        }
+        >.amount{
+          display: inline-block;
+          vertical-align: top;
+          width:40%;
+        }
+        >.totalPrice{
+          display: inline-block;
+          vertical-align: top;
+          width:40%;
+          margin:0 0 0 20%;
+          >p{
+            font-size:$bigFontSize;
+            margin: 0;
+          }
+        }
+        >.ButtonNormal{
+          margin: 24px 0 0 0;
+          width: 100%;
+          background:$secondaryColor;
+          border:none;
+        }
       }
     }
   }
+  >.inner{
+    @include maxWidth();
 
+    >main{
+      width: 1024px - $controlsWidth;
+      padding:0 48px 0 0;
+      display: inline-block;
+      vertical-align: top;
+      h2{
+        font-size:$LargeFontSize;
+        color:$boldFontColor;
+      }
+      >.gallery{
+        margin-top:-29px;
+        >img{
+          height:230px;
+          width:auto;
+          max-width:230px;
+          box-shadow:0 1px 3px $subtleFontColor2;
+          margin:0 12px 12px 0;
+        }
+      }
+
+    }
+    >.side{
+      display: inline-block;
+      vertical-align: top;
+      width: $controlsWidth;
+      padding:32px 0 0 0;
+      color:$subtleFontColor;
+    }
+  }
 }
