@@ -52,7 +52,6 @@ const Cart = React.createClass({
 
   handleNumChange(id){
     return (num)=>{
-      console.log(id,num);
       CartActions.changeNum({id,num});
     }
   },
@@ -101,7 +100,6 @@ const Cart = React.createClass({
 
             Object.keys(items).map((key)=>{
               let data = items[key];
-              console.log(data);
               price += data.price * data.num;
               return <CartListItem key={key} itemId={key} image={data.path} itemName={data.itemName}
                             itemType={data.itemType} name={data.nickname} price={(data.price * data.num).toFixed(2)}

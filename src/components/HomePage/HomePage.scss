@@ -37,7 +37,7 @@
         background: $secondaryColor;
         transform: translate3d(0, -100%, 0);
         visibility: hidden;
-        transition: transform .35s $normalTiming, visibility 0 .35s;
+        transition: visibility 0s .35s, transform .35s $normalTiming;
         @include verticalCenter();
 
         > .inner {

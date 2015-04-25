@@ -37,7 +37,6 @@ export default {
       actionType: CartConstants.CART_ORDER_SUBMIT,
       data
     });
-    console.log(data);
     CartAPIUtils.submitOrder(data);
   },
   cartOrderSuccess(data){

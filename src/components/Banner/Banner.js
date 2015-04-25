@@ -79,6 +79,30 @@ const Banner = React.createClass({
 
     //in case
     window.removeEventListener('scroll', this._onScroll);
+    if(this.keyListener)
+      window.removeEventListener('keydown',this.handleKeyPress);
+
+  },
+
+
+  keyListener: false,
+  componentDidUpdate(){
+    if(this.state.cartOpen){
+      if(!this.keyListener) {
+        this.keyListener = true;
+        window.addEventListener('keydown', this.handleKeyPress);
+      }
+    }
+    else if(this.keyListener){
+      this.keyListener = false
+      window.removeEventListener('keydown',this.handleKeyPress);
+    }
+  },
+
+  handleKeyPress(event){
+    if(event.keyCode===27){
+      this.setState({cartOpen: false})
+    }
   },
 
   handleLoginClick(){
@@ -94,7 +118,6 @@ const Banner = React.createClass({
     this.setState({modalRegIsOpen:false});
   },
   handleShoppingCartClick(){
-    console.log(!this.state.cartOpen);
     this.setState({cartOpen: !this.state.cartOpen})
   },
   handleShoppingCartClose(){

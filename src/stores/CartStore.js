@@ -130,14 +130,13 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
       case CartConstants.CART_ADD_FAILURE:
         //物品添加失败，回撤操作
         //发出提醒
-        reverseAdd(action.data);
+        reverseAdd(action.data.id);
         CartStore.emitChange();
         break;
       case CartConstants.CART_ADD_SUCCESS:
-        console.log('fuck!');
         if(action.data.body.Code!==0){
           //失败
-          reverseAdd(action.data.data);
+          reverseAdd(action.data.id);
         }
         CartStore.emitChange();
         break;
@@ -148,7 +147,6 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM_SUCCESS:
-        console.log('wtf');
         if(action.data.body.Code!==0){
           //失败
           reverseDelete(action.data.id, action.data.backup);
@@ -174,13 +172,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
       case CartConstants.DELETE_ITEM:
         const deleteId = action.data.id;
         const deleteItem = _items.get(deleteId);
-        console.log('deleteItem',deleteItem);
         _items = _items.delete(deleteId);
         CartStore.emitChange();
         CartAPIUtils.deleteItem(deleteId,deleteItem);
         break;
       case CartConstants.CART_ADD:
-        console.log(action.data);
         const item = action.data;
         //检查用户名是否为卖家
         const username = UserStore.getUserName();

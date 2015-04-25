@@ -24,7 +24,6 @@ const CartListItem = React.createClass({
     this.props.handleDelete();
   },
   render: function(){
-    console.log('num:' + this.props.num);
     return (
       <div className="cartListItem">
         <img src={this.props.image} />

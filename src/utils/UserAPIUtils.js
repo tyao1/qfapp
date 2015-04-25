@@ -2,7 +2,7 @@
 import request from 'superagent';
 import UserActions from '../actions/UserActions';
 const UserAPIUtils = {
-  register(data,callback){
+  register(data){
     request
       .post('http://10.60.136.39/qfplan/index.php/Home/User.json')
       .type('form')
@@ -16,7 +16,7 @@ const UserAPIUtils = {
         }
       });
   },
-  login(data,callback){
+  login(data){
     request
       .get('mocklogin.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
       .type('form')
@@ -30,7 +30,7 @@ const UserAPIUtils = {
         }
       });
   },
-  getSellOrders(data,callback){
+  getSellOrders(data){
     request
       .get('/mocksellorders.json')
       .type('form')
