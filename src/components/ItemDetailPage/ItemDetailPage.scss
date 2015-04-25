@@ -1,1 +1,48 @@
 @import '../../styles/variables.scss';
+
+$briefHeight:226px;
+$briefPadding:32px;
+$controlsWidth:340px;
+.itemDetailPage {
+  padding:$bannerHeight 0 0 0;
+  >.brief{
+
+    width:100%;
+    height:$briefHeight;
+    background:$fontColor;
+    color:#fff;
+    >.inner{
+      @include maxWidth;
+      padding:$briefPadding $controlsWidth+42px $briefPadding 12px;
+      >.words {
+        display: inline-block;
+        > .itemName {
+          margin: 0;
+          font-size: $LargeFontSize - 2px;
+          height: 72px;
+          @include textClip();
+
+        }
+        > .price {
+          color: $mainColor;
+          font-size: $xxLargeFontSize;
+          margin: 7px 0 0;
+        }
+      }
+      >.controls{
+        position:fixed;
+        display: inline-block;
+        margin-left:32px;
+        float:right;
+        width:340px;
+        height:$briefHeight - $briefPadding*2;
+        background:$secondaryColorTint;
+        border-radius:$borderRadius;
+        box-shadow:0 2px 4px $subtleFontColor2;
+        padding:12px;
+
+      }
+    }
+  }
+
+}

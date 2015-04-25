@@ -8,7 +8,9 @@ export default keyMirror({
   DETAIL_KEY_FAILURE: null,
 
   DETAIL_FAILURE: null,
-  DETAIL_SUCCESS: null
+  DETAIL_SUCCESS: null,
+
+  DETAIL_NEW: null
 
 
 });

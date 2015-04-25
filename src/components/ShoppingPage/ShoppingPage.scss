@@ -1,0 +1,49 @@
+@import '../../styles/variables.scss';
+
+
+$navWidth: 200px;
+.shoppingPage{
+  >.inner{
+    @include maxWidth();
+    padding-top: $bannerHeight + 32px;
+
+    >.nav{
+      padding:14px;
+      width: $navWidth;
+      position:fixed;
+      background:#fff;
+      border:1px solid $mainColorTint;
+      border-radius:$borderRadius;
+
+      >h3{
+        margin:0 0 9px 0;
+        font-size: $bigFontSize;
+        color:$boldFontColor;
+      }
+      >p{
+        margin:3px 0;
+      }
+    }
+
+
+    >.main{
+
+      padding-left:$navWidth + 32px;
+
+
+      >.items {
+        >img{
+          margin: auto;
+          display: block;
+          margin-top: 23vh;
+        }
+        > .bookCard {
+          display: inline-block;
+          margin: 0 0 30px 24px;
+        }
+      }
+    }
+  }
+
+
+}

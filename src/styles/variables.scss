@@ -24,6 +24,7 @@ $mainColor: #53DAB0;      //主要颜色、按钮、背景等
 $mainColorTint: #50E3C2;
 $secondaryColor: #FBE2AC; //次要颜色、按钮等
 $thirdColor : #EE7D79;    //第三颜色 用来修饰网页，增加趣味性
+$secondaryColorTint :#FEFEF3;
 
 $bgColor: #FDFCFA;        //背景色
 $cardBgColor: #FFF;        //物品卡片背景
@@ -58,6 +59,13 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 /*
     各种方法
 */
+
+@mixin textClip(){
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+//  white-space: nowrap;
+
 
 @mixin customFont(){
   font-family : $headingCustomFamily, $headingFontFamilyEng, $headingFontFamilyChn;
