@@ -151,12 +151,13 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.LOGIN_SUCCESS:
         if (action.data.Code === 0) {
           //需要重定向??
+          _loginMsg = '登录成功！';
           let trans = AppStore.getToTrans();
           if(trans)
           {
             router.transitionTo(trans);
           }
-          _loginMsg = '登录成功！'
+
           _userData = action.data.Info;
           setTimeout(()=> {
             localStorage.setItem('userData', JSON.stringify(_userData));

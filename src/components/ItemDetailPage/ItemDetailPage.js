@@ -5,24 +5,23 @@ import Banner from '../Banner';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import PageStore from '../../stores/PageStore';
-import BookCard from '../BookCard';
-
 import PageConstants from '../../constants/PageConstants';
-require('./ShoppingPage.scss');
+
+require('./ItemDetailPage.scss');
 
 
-const ShoppingPage = React.createClass({
+const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
 
   _onPageChange(){
     this.setState({
-      items: PageStore.getItems('all')
+
     });
   },
 
   getInitialState(){
     return {
-      items: PageStore.getItems('all')
+
     };
   },
 
@@ -37,33 +36,15 @@ const ShoppingPage = React.createClass({
 
   render() {
     const items = this.state.items;
-    let elem;
-    if(items===PageConstants.PAGE_KEY_NULL){
-      elem = <img src="./facebook.svg" />;
-    }
-    else
-    {
-      elem = items.map(data => <BookCard item={data}/>);
-    }
     console.log(items);
     return (
-      <div className="shoppingPage">
+      <div className="itemDetailPage">
         <div className="inner">
-          <div className="nav">
-            <h3>类别</h3>
-            <p>所有</p>
-
-          </div>
-          <div className="main">
-            <div className="items">
-              {elem}
-            </div>
-          </div>
+          this is detail page!!!
         </div>
-
       </div>
     );
   }
 });
 
-export default ShoppingPage;
+export default ItemDetailPage;

@@ -5,8 +5,6 @@ import OrderItem from '../OrderItem';
 import RequireLogin from '../../mixins/RequireLogin';
 import {Link} from 'react-router';
 import UserStore from '../../stores/UserStore';
-
-//import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import SellOrders from '../SellOrders';
@@ -16,7 +14,9 @@ require('./DashboardPage.scss');
 
 const DashboardPage = React.createClass({
   mixins:[RequireLogin,PureRenderMixin],
-
+  contextTypes: {
+    router: React.PropTypes.func
+  },
   getInitialState(){
     return ({
       section:UserStore.getSection()
@@ -34,9 +34,6 @@ const DashboardPage = React.createClass({
   },
   componentWillUnMount(){
     UserStore.removeChangeListener(this._onUserChange);
-  },
-  componentWillReceiveProps(nextProps) {
-
   },
 
   render() {

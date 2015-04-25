@@ -12,7 +12,7 @@ import Immutable from 'immutable';
 const CHANGE_EVENT = 'CHANGE_NotificationStore';
 const TIMEOUT = 8000;
 
-let _notifications = Immutable.Map();
+let _notifications = Immutable.OrderedMap();
 
 let _key = 0;
 
@@ -81,8 +81,11 @@ NotificationStore.dispatcherToken = Dispatcher.register((payload) => {
   else{
     switch (action.actionType) {
       case NotificationConstants.DELETE_ONE:
-        console.log(action.data);
         _notifications = _notifications.delete(action.data);
+        NotificationStore.emitChange();
+        break;
+      case NotificationConstants.ADD_ONE:
+        pushNotification(action.data);
         NotificationStore.emitChange();
         break;
       default:

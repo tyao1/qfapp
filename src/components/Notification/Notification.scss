@@ -6,14 +6,17 @@
   left:0;
   right:0;
   @include maxWidth();
-
+  opacity:0;
+  visibility: hidden;
+  transform: translate3d(0,100%,0);
+  transition:opacity .24s $normalTiming, transform .24s $bounceTiming, visibility 0s .24s;
   &.active{
-    >.inner {
+
       opacity:1;
       visibility: visible;
       transform: translate3d(0,0,0);
       transition:opacity .24s $normalTiming, transform .24s $bounceTiming;
-    }
+
   }
 
   >.inner{
@@ -25,10 +28,7 @@
       display: block;
 
     }
-    opacity:0;
-    visibility: hidden;
-    transform: translate3d(0,100%,0);
-    transition:opacity .24s $normalTiming, transform .24s $bounceTiming, visibility 0s .24s;
+
     width:280px;
     padding:13px 19px;
     float:right;

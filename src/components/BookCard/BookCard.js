@@ -21,7 +21,7 @@ const BookCard = React.createClass({
           <div className="detail">
             <span>查看详情</span>
           </div>
-          <img src={require('./mockpic.jpg')}/>
+          <img src={item.thumbnail}/>
         </div>
         <div className="content">
           <div className="seller">

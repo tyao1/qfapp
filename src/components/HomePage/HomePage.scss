@@ -151,7 +151,7 @@
       > .left {
         float: left;
         width: 50%;
-
+        position: relative;
         > .minor {
           font-size: $LargeFontSize;
           color: $subtleFontColor2;
@@ -160,7 +160,7 @@
         }
         > .huge {
           font-size: $xLargeFontSize;
-          color: $boldFontColor;
+          color: #fff;
           margin: 0;
           line-height: 1.18;
           @include customFont();

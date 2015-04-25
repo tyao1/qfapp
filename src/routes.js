@@ -11,13 +11,13 @@ import HomePage from './components/HomePage';
 import SellPage from './components/SellPage';
 import ShoppingPage from './components/ShoppingPage';
 import DashboardPage from './components/DashboardPage';
-
+import ItemDetailPage from './components/ItemDetailPage';
 export default (
   <Route name="app" path='/' handler={App}>
-    <Route name='shop' handler={ShoppingPage} />
-    <Route name='sell' handler={SellPage} />
+    <Route name='shop' handler={ShoppingPage}/>
+    <Route name='sell' handler={SellPage}/>
     <Route name='my' handler={DashboardPage} path="my/:section"/>
-    <Route name='test' handler={HomePage} />
+    <Route name='detail' handler={ItemDetailPage} path="detail/:id"/>
     <DefaultRoute name="home" handler={HomePage}/>
   </Route>
 );
