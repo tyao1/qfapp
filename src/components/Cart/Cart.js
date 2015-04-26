@@ -84,6 +84,17 @@ const Cart = React.createClass({
       setTimeout(()=>{CartActions.cartOrderNew()},430);
     }
     else{
+      if(!this.state.NO.length)
+      {
+        this.setState({realErrMsg: '宿舍号不能为空'});
+        return;
+      }
+      else
+      if(!this.state.b_NO.length)
+      {
+        this.setState({realErrMsg: '宿舍楼号不能为空'});
+        return;
+      }
       CartActions.cartOrderSubmit(this.state.items.toJS());
     }
 

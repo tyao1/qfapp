@@ -143,6 +143,17 @@ const SellPage = React.createClass({
     }
     //this.setState({realErrMsg)
     //检查宿舍楼
+    if(!this.state.NO.length)
+    {
+      this.setState({realErrMsg: '宿舍号不能为空'});
+      return;
+    }
+    else
+    if(!this.state.b_NO.length)
+    {
+      this.setState({realErrMsg: '宿舍楼号不能为空'});
+      return;
+    }
     let realData={
       b_NO: this.state.b_NO,
       NO: this.state.NO,
