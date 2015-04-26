@@ -11,6 +11,7 @@ export default keyMirror({
   LOGIN_SUBMIT: null,
   LOGIN_SUCCESS: null,
   LOGIN_FAILURE: null,
+  LOGOUT_SUBMIT: null,
   REFRESH_LOGINV: null,
 
 

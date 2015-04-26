@@ -25,7 +25,7 @@
 
       >svg{
         fill:$fontColor;
-        transition:height .3s $bounceTiming,width .3s $bounceTiming,fill .3s ease;
+        transition:height .3s $normalTiming,width .3s $normalTiming,fill .3s ease;
       }
 
       >span{

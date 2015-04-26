@@ -98,6 +98,39 @@
           display: inline-block;
           padding-right: $bannerHeight;
         >li{
+
+          &.user{
+            display:inline-block;
+            position:relative;
+            height: 50px;
+            width: 50px;
+            &:hover{
+              >.controls{
+                visibility:visible;
+                opacity:1;
+                transform:translate3d(0,0,0);
+              }
+            }
+            >.controls{
+              visibility:hidden;
+              opacity:0;
+              transform:translate3d(0,-12%,0);
+              transition:all .21s ease;
+              box-shadow:0 1px 2px $subtleFontColor2;
+              position:absolute;
+              bottom: -46px;
+              left: -12px;
+              right: -12px;
+              background: white;
+              padding: 9px 12px;
+              color: $fontColor;
+              border-radius: $borderRadius;
+              >li{
+                cursor:pointer;
+              }
+            }
+          }
+
           display: inline;
           margin:0 6px;
           &.special{

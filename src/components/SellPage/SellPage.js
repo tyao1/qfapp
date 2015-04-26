@@ -5,7 +5,7 @@ import SellStore from '../../stores/SellStore'
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import UserConstants from '../../constants/UserConstants';
 
-import {boxface,additem,paperplane} from '../SVGs';
+import {boxface, additem, paperplane} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
 import Modal from '../Modal';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
@@ -36,18 +36,18 @@ const SellPage = React.createClass({
     });
   },
 
-  mixins:[PureRenderMixin, RequireLogin],
+  mixins: [PureRenderMixin, RequireLogin],
   getInitialState(){
     return {
       items: ['d1'],
       itemsCount: 1,
       errMsg: '',
-      realErrMsg:'',
+      realErrMsg: '',
       b_NO: '',
-      NO:'',
+      NO: '',
       modalSubmitIsOpen: false,
       showSuccess: false
-    }
+    };
   },
   componentWillMount(){
     SellStore.addChangeListener(this._onSellChange);
@@ -64,7 +64,7 @@ const SellPage = React.createClass({
       items: this.state.items.concat('d'+count)
     });
   },
-  goodsInfo:null,
+  goodsInfo: null,
   handleSubmitClick(){
     let errMsg = '';
 
@@ -72,15 +72,15 @@ const SellPage = React.createClass({
     console.log(items);
     this.goodsInfo = [];
     let goodToGo = true;
-    items.map((data,i) => {
+    items.map((data, i) => {
       const state = this.refs[data].state;
       if(!state.name||state.name.length<4){
-        errMsg+= `${i+1}号物品，物品名至少需要4个字<br/>`;
+        errMsg += `${i+1}号物品，物品名至少需要4个字<br/>`;
         goodToGo = false;
       }
       else if(state.num<1){
         console.log(state);
-        errMsg+= `${i+1}号物品，物品数量需要至少为1<br/>`;
+        errMsg += `${i+1}号物品，物品数量需要至少为1<br/>`;
         goodToGo = false;
       }
       else{
@@ -88,7 +88,11 @@ const SellPage = React.createClass({
           //提交
           console.log(state);
           let t_limit = Math.round(Date.now() / 1000) + parseInt(state.timeSpan) * 60 * 60 * 24 * 30;
-          let {name,price,detail,num} = state;
+          let {name, price, detail, num} = state;
+          if(price[price.length-1]==='.'){
+            price.substring(0,price.length-1)
+          }
+          price = parseFloat(price);
           let good = {name, price, t_limit, detail, num};
           this.goodsInfo.push(good);
         }
@@ -100,7 +104,7 @@ const SellPage = React.createClass({
       UserAction.applySellNew();
       this.setState({
         errMsg: '',
-        isSuccessful:false,
+        isSuccessful: false,
         modalSubmitIsOpen: true
       });
       //call submit action
@@ -122,22 +126,22 @@ const SellPage = React.createClass({
           itemsCount: this.state.itemsCount+1
         });
       }
-    }
+    };
   },
   handleModalSubmitClose(){
-    this.setState({modalSubmitIsOpen:false});
+    this.setState({modalSubmitIsOpen: false});
   },
   handleBNOChange(e){
-    this.setState({b_NO:e.target.value});
+    this.setState({b_NO: e.target.value});
 
   },
   handleNOChange(e){
-    this.setState({NO:e.target.value});
+    this.setState({NO: e.target.value});
   },
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       this.setState({
-        modalSubmitIsOpen:false
+        modalSubmitIsOpen: false
       });
       return;
     }
@@ -154,10 +158,10 @@ const SellPage = React.createClass({
       this.setState({realErrMsg: '宿舍楼号不能为空'});
       return;
     }
-    let realData={
+    let realData = {
       b_NO: this.state.b_NO,
       NO: this.state.NO,
-      info: this.goodsInfo
+      info: JSON.stringify(this.goodsInfo)
     };
     UserAction.applySellSubmit(realData);
   },
@@ -182,7 +186,7 @@ const SellPage = React.createClass({
             </ReactCSSTransitionGroup>
           </ul>
 
-          <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html:this.state.errMsg}}></p>
+          <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
 
           <div className="controls">
 

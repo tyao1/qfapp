@@ -18,10 +18,13 @@ const CHANGE_EVENT = 'CHANGE_UserStore';
 //安全获取data
 const localdata = localStorage.getItem('userData');
 let _userData;
-if(localdata!=='undefined'){
-  _userData = JSON.stringify(localdata);
+if(localdata)
+{
+  if(localdata!==''&&localdata!=='undefined'){
+    _userData = JSON.stringify(localdata);
+  }
 }
-
+console.log(_userData);
 let _loginMsg;
 let _regMsg;
 let _isRegistering;
@@ -126,8 +129,9 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case UserConstants.REG_SUCCESS:
-        if (action.data.ode === 0) {
+        if (action.data.Code === 0) {
           //success
+        
           _needActivation = true;
         }
         else{
@@ -151,7 +155,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.LOGIN_SUCCESS:
         if (action.data.Code === 0) {
           //需要重定向??
-          _loginMsg = '登录成功！';
+          _loginMsg = ''; //登录成功！
           let trans = AppStore.getToTrans();
           if(trans)
           {
@@ -174,6 +178,12 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isLogining = false;
         UserStore.emitChange();
         break;
+        case UserConstants.LOGOUT_SUBMIT:
+          _userData = null;
+          UserStore.emitChange();
+          router.transitionTo('/');
+          localStorage.setItem('userData', '');
+        break;
       default:
       // Do nothing
 
@@ -182,7 +192,6 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
   else
   {
     switch (action.actionType){
-
       case AppConstants.TRANSITION:
         if(action.data.path.startsWith('/my'))
         {

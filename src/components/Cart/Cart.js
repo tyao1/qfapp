@@ -25,7 +25,7 @@ const Cart = React.createClass({
       items: CartStore.getItems(),
       realErrMsg: CartStore.getSubmitMsg(),
       isSubmitting: CartStore.getIsSubmitting(),
-      isSuccessful: CartStore.getSuccess(),
+      isSuccessful: CartStore.getSuccess()
     });
 
   },
@@ -52,13 +52,13 @@ const Cart = React.createClass({
 
   handleNumChange(id){
     return (num)=>{
-      CartActions.changeNum({id,num});
-    }
+      CartActions.changeNum({id, num});
+    };
   },
   handleDelete(id){
     return ()=>{
       CartActions.deleteItem({id});
-    }
+    };
   },
   handleOrder(){
     this.setState({aboutToOrder: true});
@@ -68,20 +68,20 @@ const Cart = React.createClass({
   },
 
   handleBNOChange(e){
-    this.setState({b_NO:e.target.value});
+    this.setState({b_NO: e.target.value});
 
   },
   handleNOChange(e){
-    this.setState({NO:e.target.value});
+    this.setState({NO: e.target.value});
   },
 
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       this.setState({
-        aboutToOrder:false
+        aboutToOrder: false
       });
       this.props.onCartClose();
-      setTimeout(()=>{CartActions.cartOrderNew()},430);
+      setTimeout(()=>{CartActions.cartOrderNew(); }, 430);
     }
     else{
       if(!this.state.NO.length)
@@ -101,7 +101,7 @@ const Cart = React.createClass({
   },
   render() {
     let elem;
-    let cartList = [];
+    //let cartList = [];
     if(this.state.isSuccessful || this.state.items.size){
       let items = this.state.items.toJS();
       let price = 0;
@@ -172,7 +172,7 @@ const Cart = React.createClass({
               快去淘些好东西吧～
             </span>
           </div>
-        </div>
+        </div>;
     }
     return (
       <div>

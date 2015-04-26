@@ -9,7 +9,7 @@ import router from '../router';
 
 const CHANGE_EVENT = 'CHANGE_AppStore';
 
-let _isHome = false;
+//let _isHome = false;
 let _transition;
 let _toTrans;
 
@@ -17,10 +17,12 @@ let _toTrans;
 const AppStore = assign({}, EventEmitter.prototype, {
 
   getIsHome(){
-    if(_transition)
+    if(_transition){
      return (_transition.path === '/');
-    else
+   }
+    else{
       return false;
+    }
   },
   getTransition(){
     return _transition;

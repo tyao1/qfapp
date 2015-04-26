@@ -23,22 +23,22 @@ let _submitMsg = '';
 
 
 let _items = Immutable.fromJS({
-  a123:{
+  a123: {
       itemType: '书籍',
       itemName: '论演员的自我修养',
       num: 1,
       max: 3,
       price: 7.0,
-      nickname :'没名字能用了啊',
+      nickname: '没名字能用了啊',
       path: ''
     },
-  b123:{
+  b123: {
       itemType: '书籍',
       itemName: '论演员的自我修养',
       num: 1,
       max: 3,
       price: 3.0,
-      nickname :'没名字能用了啊',
+      nickname: '没名字能用了啊',
       path: ''
     }
   }
@@ -56,9 +56,9 @@ function reverseAdd(id){
     _items = _items.delete(id);
   }
 }
-function reverseDelete(id,data){
+function reverseDelete(id, data){
   if(!_items.get(id)){
-    _items = _items.set(id,data);
+    _items = _items.set(id, data);
   }
 }
 
@@ -166,7 +166,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CHANGE_NUM:
-        _items = _items.updateIn([action.data.id,'num'],val => action.data.num);
+        _items = _items.updateIn([action.data.id, 'num'], val => action.data.num);
         CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM:
@@ -174,7 +174,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         const deleteItem = _items.get(deleteId);
         _items = _items.delete(deleteId);
         CartStore.emitChange();
-        CartAPIUtils.deleteItem(deleteId,deleteItem);
+        CartAPIUtils.deleteItem(deleteId, deleteItem);
         break;
       case CartConstants.CART_ADD:
         const item = action.data;
@@ -183,13 +183,13 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         if(username===item.nickname)
         {
           //notificate error
-          return
+          return;
         }
         const checkItem = _items.get(item.id);
         if(checkItem){
           //该物品已经在购物车，增加数量
           const max = checkItem.get('max');
-          _items = _items.updateIn([action.data.id,'num'],val => (val===max?max:val+1));
+          _items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));
         }
         else{
           //提交物品增加请求
@@ -204,7 +204,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
            path: ''
            }
            */
-          const {itemType,itemName,max,price,nickname,path} = item;
+          const {itemType, itemName, max, price, nickname, path} = item;
           const newItem = {
             itemType,
             itemName,
@@ -214,9 +214,9 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
             nickname,
             path
           };
-          _items = _items.set(item.id,Immutable.fromJS(newItem));
+          _items = _items.set(item.id, Immutable.fromJS(newItem));
           //直接调用api请求吧！
-          CartAPIUtils.addItem(item.id,item);
+          CartAPIUtils.addItem(item.id, item);
         }
         CartStore.emitChange();
         break;

@@ -13,25 +13,26 @@ import MyInfo from '../MyInfo';
 require('./DashboardPage.scss');
 
 const DashboardPage = React.createClass({
-  mixins:[RequireLogin,PureRenderMixin],
+  mixins: [RequireLogin, PureRenderMixin],
   contextTypes: {
     router: React.PropTypes.func
   },
   getInitialState(){
     return ({
-      section:UserStore.getSection()
+      section: UserStore.getSection()
     });
   },
   _onUserChange(){
     this.setState({
-      section:UserStore.getSection()
-    })
+      section: UserStore.getSection()
+    });
   },
 
   componentWillMount(){
     UserStore.addChangeListener(this._onUserChange);
 
   },
+
   componentWillUnMount(){
     UserStore.removeChangeListener(this._onUserChange);
   },

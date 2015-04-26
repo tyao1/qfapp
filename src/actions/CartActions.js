@@ -61,7 +61,7 @@ export default {
   cartAdd(data){
     Dispatcher.handleViewAction({
       actionType: CartConstants.CART_ADD,
-      data:data
+      data: data
     });
     //CartAPIUtils.submitOrder(data);
   },
@@ -69,16 +69,15 @@ export default {
   cartAddSuccess(data){
     Dispatcher.handleServerAction({
       actionType: CartConstants.CART_ADD_SUCCESS,
-      data:data
+      data: data
     });
   },
   cartAddFailure(data){
     Dispatcher.handleServerAction({
       actionType: CartConstants.CART_ADD_FAILURE,
-      data:data
+      data: data
     });
-  },
-
+  }
 
 
 

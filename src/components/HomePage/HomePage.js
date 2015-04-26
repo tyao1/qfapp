@@ -23,12 +23,12 @@ require('./HomePage.scss');
 
 
 const HomePage = React.createClass({
-  mixins:[PureRenderMixin],
+  mixins: [PureRenderMixin],
   getInitialState(){
     return {
-      openedHow:false,
-      textHow:'我们如何运作',
-    }
+      openedHow: false,
+      textHow: '我们如何运作'
+    };
   },
   /*
   componentWillMount() {
@@ -42,13 +42,13 @@ const HomePage = React.createClass({
     if(this.state.openedHow) {
       this.setState({
         openedHow: false,
-        textHow:'我们如何运作'
+        textHow: '我们如何运作'
       });
     }
     else{
       this.setState({
         openedHow: true,
-        textHow:'回到搜索'
+        textHow: '回到搜索'
       });
     }
   },
@@ -94,11 +94,11 @@ const HomePage = React.createClass({
           <main>
             <BookCard item={{
               id: 'a1234',
-              itemType:'书籍',
-              itemName:'论演员的自我修养啊养',
-              price:23,
+              itemType: '书籍',
+              itemName: '论演员的自我修养啊养',
+              price: 23,
               max: 3,
-              nickname :'没名字能用了啊',
+              nickname: '没名字能用了啊',
               path: ''
             }}/>
           </main>

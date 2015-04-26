@@ -17,10 +17,9 @@ require('./RegForm.scss');
 const RegForm = React.createClass({
   mixins: [PureRenderMixin, FormValidation],
   getInitialState(){
-
     return {
-      nickname:  '',
-      password:  '',
+      nickname: '',
+      password: '',
       email: '',
       verifyCode: '',
       //msg: UserStore.getRegMsg(),
@@ -47,7 +46,7 @@ const RegForm = React.createClass({
     //用户名
     this.setState({nickname: event.target.value});
   },
-  handleBlur1(event) {
+  handleBlur1() {
     //用户名检验
     let res = RegForm.isValidUserName(this.state.nickname);
     let status;
@@ -55,13 +54,13 @@ const RegForm = React.createClass({
       status = {
         isValid1: true,
         msg: ''
-      }
+      };
     }
     else{
       status = {
         isValid1: false,
-        msg: '用户名格式不符合要求'
-      }
+        msg: '用户名长度需要在2-15位之间'
+      };
     }
 
     this.setState(status);
@@ -70,7 +69,7 @@ const RegForm = React.createClass({
   handleChange2(event) {
     this.setState({password: event.target.value});
   },
-  handleBlur2(event) {
+  handleBlur2() {
     //密码检验
     let res = RegForm.isValidPassword(this.state.password);
     let status;
@@ -78,20 +77,20 @@ const RegForm = React.createClass({
       status = {
         isValid2: true,
         msg: ''
-      }
+      };
     }
     else{
       status = {
         isValid2: false,
-        msg: '密码格式不符合要求'
-      }
+        msg: '密码需要在6-20位之间'
+      };
     }
     this.setState(status);
   },
   handleChange3(event) {
     this.setState({email: event.target.value});
   },
-  handleBlur3(event) {
+  handleBlur3() {
     //邮箱检验
     let res = RegForm.isValidEmail(this.state.email);
     let status;
@@ -99,20 +98,20 @@ const RegForm = React.createClass({
       status = {
         isValid3: true,
         msg: ''
-      }
+      };
     }
     else{
       status = {
         isValid3: false,
-        msg: '邮箱格式不符合要求'
-      }
+        msg: '邮箱格式不正确'
+      };
     }
     this.setState(status);
   },
   handleChange4(event) {
     this.setState({verifyCode: event.target.value});
   },
-  handleBlur4(event) {
+  handleBlur4() {
     //验证码检验
     let res = RegForm.isValidVerify(this.state.verifyCode);
     let status;
@@ -120,19 +119,19 @@ const RegForm = React.createClass({
       status = {
         isValid4: true,
         msg: ''
-      }
+      };
     }
     else{
       status = {
         isValid4: false,
-        msg: '验证码格式不符合要求'
-      }
+        msg: '验证码格式不正确'
+      };
     }
     this.setState(status);
   },
   checkAndClearMsg(){
-    if(true===this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4){
-      this.setState({msg:null});
+    if(true===this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4===true){
+      this.setState({msg: null});
     }
   },
   handleClick(){
@@ -143,8 +142,8 @@ const RegForm = React.createClass({
         UserAction.register({password, nickname, email, verifyCode});
       }
       else{
-        let obj={};
-        for(let i=1;i<5;i++){
+        let obj = {};
+        for(let i = 1; i<5; i++){
           if(this.state['isValid'+i]!==true){
             obj['isValid'+i] = false;
           }
@@ -185,7 +184,7 @@ const RegForm = React.createClass({
         <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2}/>
         <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
         <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode} onChange={this.handleChange4} onBlur={this.handleBlur4}>
-          <img className="verify" src={'http://10.60.136.39/qfplan/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
+          <img className="verify" src={'http://10.60.136.39/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
         </InputNormal>
         <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>
 

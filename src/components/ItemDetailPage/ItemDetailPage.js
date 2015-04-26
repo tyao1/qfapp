@@ -27,15 +27,17 @@ const ItemDetailPage = React.createClass({
   },
   _onDetailChange(){
     const detail = DetailStore.getDetail(this.getCurrentID());
-    if(detail!==this.state.detail)
+    if(detail!==this.state.detail){
       this.setState({
         detail,
-        num:1
+        num: 1
       });
-    else
+    }
+    else{
       this.setState({
         detail
       });
+    }
   },
 
   getInitialState(){
@@ -58,7 +60,7 @@ const ItemDetailPage = React.createClass({
     DetailStore.removeChangeListener(this._onDetailChange);
   },
   handleCounterChange(num){
-    this.setState({num})
+    this.setState({num});
   },
   handleBuyClick(){
     /*
@@ -70,7 +72,7 @@ const ItemDetailPage = React.createClass({
      nickname :'没名字能用了啊',
      path: ''
      */
-    let {itemType,itemName,max,price,nickname,path} = this.state.detail;
+    let {itemType, itemName, max, price, nickname, path} = this.state.detail;
 
     CartActions.cartAdd({
       itemType, itemName, max, price, nickname, path,
@@ -80,7 +82,7 @@ const ItemDetailPage = React.createClass({
   render() {
 
     const detail = this.state.detail;
-    console.log('hey detail',detail);
+    console.log('hey detail', detail);
     let elem;
     if(detail === DetailConstants.DETAIL_KEY_NULL)
     {
@@ -133,7 +135,7 @@ const ItemDetailPage = React.createClass({
             这里应该有标签
           </div>
         </div>
-      </div>
+      </div>;
     }
     return (
       <div>

@@ -26,11 +26,9 @@ const PageStore = assign({}, EventEmitter.prototype, {
       //清除内容
       //setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY] = null; }, 5000);//cache for 5 sec
     }
-    else
+    else{
       return item;
-  },
-  getNotifications(){
-    return _notifications;
+    }
   },
   emitChange() {
     return this.emit(CHANGE_EVENT);
@@ -52,11 +50,11 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType) {
       case PageConstants.PAGE_SUCCESS:
-        _items = _items.set(action.data.key,action.data.body);
+        _items = _items.set(action.data.key, action.data.body);
         PageStore.emitChange();
         break;
       case PageConstants.PAGE_FAILURE:
-        _items = _items.set(action.data.key,PageConstants.PAGE_KEY_FAILURE);
+        _items = _items.set(action.data.key, PageConstants.PAGE_KEY_FAILURE);
         PageStore.emitChange();
         break;
 
@@ -65,10 +63,6 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
 
     }
   }
-  else{
-
-  }
-
 });
 
 export default PageStore;

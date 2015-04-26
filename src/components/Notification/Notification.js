@@ -14,7 +14,7 @@ require('./Notification.scss');
 const Notification = React.createClass({
   mixins: [PureRenderMixin],
   getInitialState(){
-    return {notifications: NotificationStore.getNotifications()}
+    return {notifications: NotificationStore.getNotifications()};
   },
   _onNotificationChange(){
     this.setState({notifications: NotificationStore.getNotifications()});
@@ -30,7 +30,7 @@ const Notification = React.createClass({
     return ()=>{
       console.log(key);
       NotificationActions.deleteNotification(key);
-    }
+    };
   },
   render() {
     console.log('render notification');
@@ -41,7 +41,7 @@ const Notification = React.createClass({
           {must}
           <ReactCSSTransitionGroup transitionName="t">
           {
-            notifications.map((data,key)=>
+            notifications.map((data, key)=>
                 <div className="item" key={key} onClick={this.handleClose(key)}>{data}
                   <div className="close">{close}</div>
                 </div>

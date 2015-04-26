@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 
 import Counter from '../Counter';
@@ -9,16 +10,16 @@ require('./CartListItem.scss');
 const CartListItem = React.createClass({
 
   getInitialState(){
-    return {isDelete: false}
+    return {isDelete: false};
   },
   handleCounterChange(num){
     this.props.handleNumChange(num);
   },
   handleDelete(){
-    this.setState({isDelete: true})
+    this.setState({isDelete: true});
   },
   handleCancelDelete(){
-    this.setState({isDelete: false})
+    this.setState({isDelete: false});
   },
   handleRealDelete(){
     this.props.handleDelete();
@@ -42,7 +43,7 @@ const CartListItem = React.createClass({
         <section>
           <span>价格</span>
           <p>
-            {"￥ " + this.props.price}
+            {'￥ ' + this.props.price}
           </p>
         </section>
         {

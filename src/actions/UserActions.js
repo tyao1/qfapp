@@ -64,6 +64,15 @@ export default {
     });
   },
 
+  //登出
+  logout(){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.LOGOUT_SUBMIT,
+    });
+    UserAPIUtils.logout();
+  },
+
+
 
   /*
    * 卖单
@@ -87,7 +96,7 @@ export default {
       actionType: UserConstants.APPLY_SELL_SUBMIT,
       data
     });
-    console.log(data);
+    console.log('sell submit', data);
     UserAPIUtils.applySell(data);
   },
   applySellSuccess(data){

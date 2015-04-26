@@ -5,16 +5,21 @@ import Banner from '../Banner';
 
 import {close} from '../SVGs';
 
-require("./ItemRegisterForm.scss");
+require('./ItemRegisterForm.scss');
 
-
+function priceToFloat(price){
+  if(price[price.length-1]==='.'){
+    price.substring(0,price.length-1)
+  }
+  return parseFloat(price);
+}
 const ItemRegisterForm = React.createClass({
 
   getInitialState(){
 
     return {
       name: '',
-      price: '0.00',
+      price: '0.0',
       num: 1,
       timeSpan: 5,
       detail: ''
@@ -24,7 +29,7 @@ const ItemRegisterForm = React.createClass({
   },
 
   handleNameChange(e){
-    this.setState({name:e.target.value})
+    this.setState({name: e.target.value});
   },
 
   handlePriceChange(e){
@@ -42,7 +47,7 @@ const ItemRegisterForm = React.createClass({
           price = price.substring(1);
         }
         //if (!isNaN(price)) {
-        this.setState({price: price})
+        this.setState({price: price});
         //}
       }
     }
@@ -51,13 +56,13 @@ const ItemRegisterForm = React.createClass({
   handleAmountChange(e){
     let num = e.target.value;
     if(!num){
-      this.setState({num:0});
+      this.setState({num: 0});
       }
     else {
       const numOnly = /^\d+$/;
       if (numOnly.test(num)) {
         //因为是数字，所以parseInt肯定工作，保留int状态
-        this.setState({num: parseInt(e.target.value)})
+        this.setState({num: parseInt(e.target.value)});
       }
     }
   },
@@ -65,16 +70,25 @@ const ItemRegisterForm = React.createClass({
     this.setState({timeSpan: e.target.value});
   },
   handleDetailChange(e){
-    this.setState({detail:e.target.value})
+    this.setState({detail: e.target.value});
   },
   addAmount(){
 
-    this.setState({num: this.state.num+1})
+    this.setState({num: this.state.num+1});
 
   },
   reduceAmount(){
     if(this.state.num>1){
-      this.setState({num: this.state.num-1})
+      this.setState({num: this.state.num-1});
+    }
+  },
+
+  addPrice(){
+    this.setState({price: (priceToFloat(this.state.price)+1).toFixed(2)});
+  },
+  reducePrice(){
+    if(this.state.price>=1){
+      this.setState({price: (priceToFloat(this.state.price)-1).toFixed(2)});
     }
   },
 
@@ -91,6 +105,10 @@ const ItemRegisterForm = React.createClass({
             <span>¥</span>
             <input type="text" value={this.state.price} onChange={this.handlePriceChange}/>
             <label className='active'>价格</label>
+              <div className="controls">
+                <button onClick={this.addPrice}>+</button>
+                <button onClick={this.reducePrice}>-</button>
+              </div>
           </div>
 
 

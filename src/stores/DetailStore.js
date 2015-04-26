@@ -31,8 +31,9 @@ const DetailStore = assign({}, EventEmitter.prototype, {
       //清除内容
       //setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY] = null; }, 5000);//cache for 5 sec
     }
-    else
+    else{
       return item;
+    }
   },
   emitChange() {
     return this.emit(CHANGE_EVENT);
@@ -54,11 +55,11 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType) {
       case DetailConstants.DETAIL_SUCCESS:
-        _items = _items.set(action.data.key,action.data.body);
+        _items = _items.set(action.data.key, action.data.body);
         DetailStore.emitChange();
         break;
       case DetailConstants.PAGE_FAILURE:
-        _items = _items.set(action.data.key,DetailConstants.DETAIL_KEY_FAILURE);
+        _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_FAILURE);
         DetailStore.emitChange();
         break;
       default:
@@ -89,8 +90,8 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
         let previItem = _items.get(tempItem.id);
         if(!previItem||previItem === DetailConstants.DETAIL_KEY_NULL){
           tempItem.isTemp = true;
-          _items = _items.set(tempItem.id,tempItem);
-          console.log('_items',_items);
+          _items = _items.set(tempItem.id, tempItem);
+          console.log('_items', _items);
           DetailStore.emitChange();
         }
         break;

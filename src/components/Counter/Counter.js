@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 
 require('./Counter.scss');
@@ -11,7 +12,7 @@ const Counter = React.createClass({
     };
   },
 
-  minusOne: function(e) {
+  minusOne: function() {
     if (this.props.initValue <= (this.props.min||1)) { return; }
     //let value = this.state.amount - 1;
     let value = this.props.initValue - 1;
@@ -19,7 +20,7 @@ const Counter = React.createClass({
     this.onValueChange(value);
   },
 
-  plusOne: function(e) {
+  plusOne: function() {
     if(this.props.initValue===(this.props.max||1)) {return; }
     //let value = this.state.amount + 1;
     let value = this.props.initValue + 1;
@@ -29,7 +30,9 @@ const Counter = React.createClass({
 
   handleChange: function(e) {
     let value = e.target.value ? parseInt(e.target.value) : (this.props.min||1);
-    if(value>(this.props.max||1)) value = this.props.max||1;
+    if(value>(this.props.max||1)) {
+      value = this.props.max || 1;
+    }
     //this.setState({amount: value});
     this.onValueChange(value);
   },

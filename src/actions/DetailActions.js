@@ -25,6 +25,6 @@ export default {
       data
     });
     //react-router action
-    router.transitionTo('detail',{id:data.id});
+    router.transitionTo('detail', {id: data.id});
   }
 }

@@ -20,7 +20,7 @@ const BookCard = React.createClass({
   },
   render() {
     const item = this.props.item;
-    return(
+    return (
       <div className="bookCard">
         <div className="top" onClick={this.handleDetailClick}>
           <div className="detail">

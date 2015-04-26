@@ -23,7 +23,7 @@ function pushNotification(data){
   setTimeout(()=>{
     _notifications = _notifications.delete(key);
     NotificationStore.emitChange();
-  },TIMEOUT);
+  }, TIMEOUT);
 }
 
 const NotificationStore = assign({}, EventEmitter.prototype, {

@@ -73,7 +73,6 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
           _submitMsg = action.data.Msg;
         }
         _isSubmitting = false;
-
         SellStore.emitChange();
         break;
       default:

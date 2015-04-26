@@ -13,13 +13,13 @@ const TRANSTIME = 300;
 
 const Modal = React.createClass({
   getInitialState(){
-    return({transed:false});
+    return ({transed: false});
   },
 
   componentDidUpdate(){
     //设置display:block后马上设置.active类
     if(this.props.isOpen&&!this.state.transed){
-     window.addEventListener('keydown',this.handleKeyPress);
+      window.addEventListener('keydown', this.handleKeyPress);
       //解决部分情况下class未显示完成
       setTimeout(()=> {
         if (window.requestAnimationFrame) {
@@ -28,19 +28,17 @@ const Modal = React.createClass({
         else {
           setTimeout(()=>this.setState({transed: true}), 0);
         }
-      },10);
+      }, 10);
       //利用requestAnimationFrame防止两次渲染在同时发生,but ie>=10
-
-
 
     }
     else if(!this.props.isOpen&&this.state.transed){
-      setTimeout(()=>this.setState({transed:false}),TRANSTIME);
-      window.removeEventListener('keydown',this.handleKeyPress);
+      setTimeout(()=>this.setState({transed: false}), TRANSTIME);
+      window.removeEventListener('keydown', this.handleKeyPress);
     }
   },
   componentWillUnmount(){
-    window.removeEventListener('keydown',this.handleKeyPress);
+    window.removeEventListener('keydown', this.handleKeyPress);
   },
   handleKeyPress(event){
     if(event.keyCode===27){
@@ -55,9 +53,9 @@ const Modal = React.createClass({
   },
 
   render() {
-    let classes = cn('modal',{active:this.props.isOpen&&this.state.transed},{ready:this.props.isOpen||(!this.props.isOpen&&this.state.transed)});
+    let classes = cn('modal', {active: this.props.isOpen&&this.state.transed}, {ready: this.props.isOpen||(!this.props.isOpen&&this.state.transed)});
     return (
-      <div className={classes}  onClick={this.handleModalClick}>
+      <div className={classes} onClick={this.handleModalClick}>
         <div className="inner" onClick={this.handleInnerClick}>
           <div className="deco"/>
           <a className="close" onClick={this.handleModalClick}>{close}</a>

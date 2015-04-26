@@ -7,10 +7,11 @@ import InputNormal from '../InputNormal';
 import AppStore from '../../stores/AppStore';
 import UserStore from '../../stores/UserStore';
 import CartStore from '../../stores/CartStore';
+import UserActions from '../../actions/UserActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
-import {coffecup,logo,shoppingcart,close} from '../SVGs';
+import {coffecup, logo, shoppingcart, close} from '../SVGs';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
@@ -47,7 +48,7 @@ const Banner = React.createClass({
     const itemsCount = CartStore.getItemsCount();
     const isChanged = itemsCount!==this.state.itemsCount;
     if(isChanged){
-      setTimeout(()=>this.setState({isChanged:false}),300);
+      setTimeout(()=>this.setState({isChanged: false}), 300);
     }
     this.setState({
       itemsCount,
@@ -79,9 +80,9 @@ const Banner = React.createClass({
 
     //in case
     window.removeEventListener('scroll', this._onScroll);
-    if(this.keyListener)
-      window.removeEventListener('keydown',this.handleKeyPress);
-
+    if(this.keyListener){
+      window.removeEventListener('keydown', this.handleKeyPress);
+    }
   },
 
 
@@ -94,36 +95,38 @@ const Banner = React.createClass({
       }
     }
     else if(this.keyListener){
-      this.keyListener = false
-      window.removeEventListener('keydown',this.handleKeyPress);
+      this.keyListener = false;
+      window.removeEventListener('keydown', this.handleKeyPress);
     }
   },
 
   handleKeyPress(event){
     if(event.keyCode===27){
-      this.setState({cartOpen: false})
+      this.setState({cartOpen: false});
     }
   },
 
   handleLoginClick(){
-    this.setState({modalLoginIsOpen:true});
+    this.setState({modalLoginIsOpen: true});
   },
   handleLoginClose(){
-    this.setState({modalLoginIsOpen:false});
+    this.setState({modalLoginIsOpen: false});
   },
   handleRegClick(){
-    this.setState({modalRegIsOpen:true});
+    this.setState({modalRegIsOpen: true});
   },
   handleRegClose(){
-    this.setState({modalRegIsOpen:false});
+    this.setState({modalRegIsOpen: false});
   },
   handleShoppingCartClick(){
-    this.setState({cartOpen: !this.state.cartOpen})
+    this.setState({cartOpen: !this.state.cartOpen});
   },
   handleShoppingCartClose(){
-    this.setState({cartOpen: false})
+    this.setState({cartOpen: false});
   },
-
+  handleLogout(){
+    UserActions.logout();
+  },
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -140,15 +143,20 @@ const Banner = React.createClass({
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
         <li><Link to="my" data-text="我的订单" params={{section: 'sell'}}><span>我的订单</span></Link></li>
-        <li><Link to="my"  params={{section: 'info'}}><img src={this.state.userData.path}/></Link></li>
+        <li className="user">
+          <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path}/></Link>
+          <ul className="controls">
+            <li onClick={this.handleLogout}>登出</li>
+          </ul>
+        </li>
       </ul>;
       shoppingCart = <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
         <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
           <div className="close">{close}</div>
-        </button>
+        </button>;
       cart = <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
           <Cart onCartClose={this.handleShoppingCartClose}/>
-        </div>
+        </div>;
     }
     else
     {
