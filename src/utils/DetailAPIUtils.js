@@ -5,9 +5,8 @@ const DetailAPIUtils = {
 
   getDetail(data){
     request
-      .get('mockitemdetail.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
-      .type('form')
-      .send(data)
+      .get('http://10.60.136.39/index.php/Home/Goods.json') //'http://10.60.136.39/index.php/Home/Goods.json' //./mockitemdetail.json
+      .query({goods_id:data})
       .end(function(err, res){
         if(err){
           DetailActions.getDetailFailure({

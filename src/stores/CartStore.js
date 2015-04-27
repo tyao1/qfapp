@@ -8,10 +8,15 @@ import CartConstants from '../constants/CartConstants';
 
 import UserActions from '../actions/UserActions';
 import CartActions from '../actions/CartActions';
+import AppActions from '../actions/AppActions';
+import NotificationActions from '../actions/NotificationActions';
+import AppStore from '../stores/AppStore';
 
-import UserStore from '../stores/UserStore.js';
+import UserStore from '../stores/UserStore';
 import CartAPIUtils from '../utils/CartAPIUtils';
 import Immutable from 'immutable';
+
+import AppConstants from '../constants/AppConstants';
 
 const CHANGE_EVENT = 'CHANGE_CartStore';
 
@@ -21,30 +26,37 @@ let _isSubmitting = false;
 let _success = false;
 let _submitMsg = '';
 
-
-let _items = Immutable.fromJS({
-  a123: {
-      itemType: '书籍',
-      itemName: '论演员的自我修养',
-      num: 1,
-      max: 3,
-      price: 7.0,
-      nickname: '没名字能用了啊',
-      path: ''
-    },
-  b123: {
-      itemType: '书籍',
-      itemName: '论演员的自我修养',
-      num: 1,
-      max: 3,
-      price: 3.0,
-      nickname: '没名字能用了啊',
-      path: ''
-    }
+/*
+= Immutable.fromJS({
+ a123: {
+     type_id: '书籍',
+     name: '论演员的自我修养',
+     num: 1,
+     max: 3,
+     price: 7.0,
+     nickname: '没名字能用了啊',
+     path: ''
+   },
+ b123: {
+     type_id: '书籍',
+     name: '论演员的自我修养',
+     num: 1,
+     max: 3,
+     price: 3.0,
+     nickname: '没名字能用了啊',
+     path: ''
+   }
+ }
+ );
+ */
+let _items = Immutable.Map();
+const localdata = localStorage.getItem('items');
+if(localdata)
+{
+  if(localdata!==''&&localdata!=='undefined'){
+    _items = Immutable.fromJS(JSON.stringify(localdata));
   }
-  );
-
-
+}
 
 /*
  *
@@ -119,7 +131,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           _items = _items.clear();
         }
         else if(action.data.Code === 1007){
-          UserActions.needLogin();
+          AppActions.needLogin(AppStore.getTransition().path);
         }
         else{
           _submitMsg = action.data.Msg;
@@ -130,28 +142,48 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
       case CartConstants.CART_ADD_FAILURE:
         //物品添加失败，回撤操作
         //发出提醒
-        reverseAdd(action.data.id);
+        reverseAdd(action.data.goods_id);
         CartStore.emitChange();
+        setTimeout(()=>{
+          NotificationActions.addNotification(
+            `添加失败，${action.data.backup.name}：网络错误`
+          );
+        });
         break;
       case CartConstants.CART_ADD_SUCCESS:
         if(action.data.body.Code!==0){
           //失败
-          reverseAdd(action.data.id);
+          reverseAdd(action.data.goods_id);
+          setTimeout(()=>{
+            NotificationActions.addNotification(
+              `添加失败，${action.data.backup.name}：${action.data.body.Msg}`
+            );
+          });
+          CartStore.emitChange();
         }
-        CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM_FAILURE:
         //物品删除失败，回撤操作
         //发出提醒
-        reverseDelete(action.data.id, action.data.backup);
+        reverseDelete(action.data.goods_id, action.data.backup);
         CartStore.emitChange();
+        setTimeout(()=>{
+          NotificationActions.addNotification(
+            `删除失败，${action.data.backup.name}：网络错误`
+          );
+        });
         break;
       case CartConstants.DELETE_ITEM_SUCCESS:
         if(action.data.body.Code!==0){
           //失败
-          reverseDelete(action.data.id, action.data.backup);
+          reverseDelete(action.data.goods_id, action.data.backup);
+          setTimeout(()=>{
+            NotificationActions.addNotification(
+              `删除失败，${action.data.backup.get('name')}：${action.data.body.Msg}`
+            );
+          });
+          CartStore.emitChange();
         }
-        CartStore.emitChange();
         break;
       default:
       // Do nothing
@@ -166,11 +198,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CHANGE_NUM:
-        _items = _items.updateIn([action.data.id, 'num'], val => action.data.num);
+        _items = _items.updateIn([action.data.goods_id, 'num'], val => action.data.num);
         CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM:
-        const deleteId = action.data.id;
+        const deleteId = action.data.goods_id;
         const deleteItem = _items.get(deleteId);
         _items = _items.delete(deleteId);
         CartStore.emitChange();
@@ -178,49 +210,51 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case CartConstants.CART_ADD:
         const item = action.data;
+        console.log('item', item);
         //检查用户名是否为卖家
         const username = UserStore.getUserName();
         if(username===item.nickname)
         {
-          //notificate error
+          setTimeout(()=>{
+            NotificationActions.addNotification(
+              `不能购买自己的物品额=。=`
+            );
+          });
           return;
         }
-        const checkItem = _items.get(item.id);
+        const checkItem = _items.get(item.goods_id);
         if(checkItem){
           //该物品已经在购物车，增加数量
           const max = checkItem.get('max');
-          _items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));
+          let num = checkItem.get('num');
+          num = num===max?max:num+1;
+          action.data.num = num;
+          _items = _items.set(item.goods_id, action.data);
+          //_items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));
         }
         else{
-          //提交物品增加请求
-          /*
-           {
-           itemType: '书籍',
-           itemName: '论演员的自我修养',
-           num: 1,
-           max: 3,
-           price: 3.0,
-           nickname :'没名字能用了啊',
-           path: ''
-           }
-           */
-          const {itemType, itemName, max, price, nickname, path} = item;
+          const {goods_id, type_id, name, quality, price, nickname, path, num} = item;
           const newItem = {
-            itemType,
-            itemName,
-            num: 1,
-            max,
+            goods_id,
+            type_id,
+            name,
+            num,
+            quality,
             price,
             nickname,
             path
           };
-          _items = _items.set(item.id, Immutable.fromJS(newItem));
+          _items = _items.set(item.goods_id, Immutable.fromJS(newItem));
           //直接调用api请求吧！
-          CartAPIUtils.addItem(item.id, item);
+          CartAPIUtils.addItem(item.goods_id, item);
         }
         CartStore.emitChange();
         break;
-
+      case AppConstants.NEED_LOGIN:
+          _items = _items.clear();
+          CartStore.emitChange();
+          localStorage.setItem('items', '');
+          break;
       default:
         break;
     }

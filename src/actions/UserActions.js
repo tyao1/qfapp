@@ -2,7 +2,8 @@
 
 import Dispatcher from '../core/Dispatcher';
 import UserConstants from '../constants/UserConstants';
-
+import AppActions from '../actions/AppActions';
+import AppStore from '../stores/AppStore';
 import UserAPIUtils from '../utils/UserAPIUtils';
 
 export default {
@@ -66,9 +67,8 @@ export default {
 
   //登出
   logout(){
-    Dispatcher.handleServerAction({
-      actionType: UserConstants.LOGOUT_SUBMIT,
-    });
+    //直接发AppActions
+    AppActions.needLogin(AppStore.getTransition().path);
     UserAPIUtils.logout();
   },
 
@@ -114,12 +114,6 @@ export default {
   applySellNew(){
     Dispatcher.handleViewAction({
       actionType: UserConstants.APPLY_SELL_NEW
-    });
-  },
-  needLogin(wait=2){
-    Dispatcher.handleViewAction({
-      actionType: UserConstants.NEED_LOGIN,
-      wait
     });
   }
 

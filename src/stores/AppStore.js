@@ -51,16 +51,12 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
   switch (action.actionType) {
     case AppConstants.TRANSITION:
       _transition = action.data;
-      console.log('transition occured');
-      console.log(_transition);
       AppStore.emitChange();
       break;
     case AppConstants.NEED_LOGIN:
       _toTrans = action.data;
-      console.log('NEED_LOGIN:');
-      console.log(_toTrans);
       router.transitionTo('home');
-      //AppStore.emitChange();
+      AppStore.emitChange();
       break;
 
     /*

@@ -4,7 +4,7 @@ $briefHeight:240px;
 $briefPadding:38px;
 $controlsWidth:340px;
 .itemDetailPage {
-  padding:$bannerHeight 0 0 0;
+  padding:$bannerHeight 0;
   >.brief{
 
     width:100%;
@@ -14,10 +14,15 @@ $controlsWidth:340px;
     >.inner{
       @include maxWidth;
       padding:$briefPadding 0 $briefPadding 12px;
+      >img{
+        margin:0 auto;
+        display:block;
+      }
       >.words {
         width: 1024px - $controlsWidth - 24px;
         padding-right:24px;
         display: inline-block;
+        float: left;
         > .itemName {
           margin: 0;
           font-size: $LargeFontSize - 2px;
@@ -31,6 +36,14 @@ $controlsWidth:340px;
           margin: 7px 0 0;
         }
       }
+      >.amounts{
+        float:right;
+        font-size:$bigFontSize;
+        padding:0 13px 0 0;
+        >.title{
+          margin:0 12px 6px 0;
+        }
+      }
       >.controls{
         color:$fontColor;
         position:fixed;
@@ -42,6 +55,11 @@ $controlsWidth:340px;
         border-radius:$borderRadius;
         box-shadow:0 2px 4px $subtleFontColor2;
         padding:24px;
+        top:$briefHeight - 70px;
+        >.off{
+          text-align: center;
+          margin: 44px 0 0 0;
+        }
         .title{
           display:block;
           color:$subtleFontColor2;
@@ -73,7 +91,10 @@ $controlsWidth:340px;
   }
   >.inner{
     @include maxWidth();
-
+    >.loading{
+      display:block;
+      margin:auto;
+    }
     >main{
       width: 1024px - $controlsWidth;
       padding:0 48px 0 0;
@@ -91,6 +112,29 @@ $controlsWidth:340px;
           max-width:230px;
           box-shadow:0 1px 3px $subtleFontColor2;
           margin:0 12px 12px 0;
+          min-width: 130px;
+          background: #fff;
+        }
+      }
+      >.detail{
+        margin:30px 0 0 0;
+      }
+      >.seller{
+        margin:42px 0 0 0;
+        >.info{
+          >img{
+            display:inline-block;
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            border:1px solid $subtleFontColor2;
+            vertical-align:middle;
+            margin: 0 12px 0 0;
+          }
+          >p{
+            display:inline-block;
+            vertical-align:middle;
+          }
         }
       }
 

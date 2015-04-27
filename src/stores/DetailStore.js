@@ -22,7 +22,7 @@ const DetailStore = assign({}, EventEmitter.prototype, {
 
   getDetail(id) {
     let item = _items.get(id);
-    if (!item|| item === DetailConstants.DETAIL_KEY_NULL) {
+    if (!item || item === DetailConstants.DETAIL_KEY_NULL || item.isTemp) {
       //开始异步获取数据
       DetailAPIUtils.getDetail(id);
       //设置无内容标志
@@ -55,7 +55,38 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType) {
       case DetailConstants.DETAIL_SUCCESS:
-        _items = _items.set(action.data.key, action.data.body);
+        if(action.data.body.Code===0)
+        {
+          //转义内容
+          let {goods_id, type_id, name, quality, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname} = action.data.body.Info;
+          goods_id = parseInt(goods_id);
+          type_id = parseInt(type_id);
+          quality = parseInt(quality);
+          price = parseFloat(price);
+          status = parseInt(status);
+          sold_num = parseInt(sold_num);
+          book_num = parseInt(book_num);
+
+          _items = _items.set(action.data.key, {
+            goods_id,
+            type_id,
+            name,
+            quality,
+            price,
+            status,
+            path,
+            sold_num,
+            book_num,
+            token_off,
+            img,
+            upath,
+            detail,
+            nickname
+          });
+        }
+        else{
+          _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_FAILURE);
+        }
         DetailStore.emitChange();
         break;
       case DetailConstants.PAGE_FAILURE:
@@ -87,11 +118,10 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
       case DetailConstants.DETAIL_NEW:
         //填充来自之前的缓存数据，有则跳过，无则填充
         const tempItem = action.data;
-        let previItem = _items.get(tempItem.id);
+        let previItem = _items.get(tempItem.goods_id);
         if(!previItem||previItem === DetailConstants.DETAIL_KEY_NULL){
           tempItem.isTemp = true;
-          _items = _items.set(tempItem.id, tempItem);
-          console.log('_items', _items);
+          _items = _items.set(tempItem.goods_id, tempItem);
           DetailStore.emitChange();
         }
         break;

@@ -42,6 +42,7 @@ const Banner = React.createClass({
     this.setState({
       userData: UserStore.getUserData()
     });
+    console.log(UserStore.getUserData());
   },
 
   _onCartChange(){

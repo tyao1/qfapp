@@ -25,25 +25,26 @@ const CartListItem = React.createClass({
     this.props.handleDelete();
   },
   render: function(){
+    const item = this.props.data;
     return (
       <div className="cartListItem">
-        <img src={this.props.image} />
+        <img src={item.path} />
         <section className="big">
-          <span>{this.props.itemType}</span>
-          <p>{this.props.itemName}</p>
+          <span>{item.type_id}</span>
+          <p>{item.name}</p>
         </section>
         <section className="small">
-          <span>总量：{this.props.max}</span>
-          <Counter initValue={this.props.num} OnValueChange={this.handleCounterChange} max={this.props.max}/>
+          <span>总量：{item.quality}</span>
+          <Counter initValue={item.num} OnValueChange={this.handleCounterChange} max={item.quality}/>
         </section>
         <section>
           <span>卖家</span>
-          <p>{this.props.name}</p>
+          <p>{item.nickname}</p>
         </section>
         <section>
           <span>价格</span>
           <p>
-            {'￥ ' + this.props.price}
+            {'￥ ' + item.price.toFixed(2)}
           </p>
         </section>
         {

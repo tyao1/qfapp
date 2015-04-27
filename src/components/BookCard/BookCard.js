@@ -13,7 +13,9 @@ require('./BookCard.scss');
 const BookCard = React.createClass({
 
   handleBuyClick(){
-    CartActions.cartAdd(this.props.item);
+    let item = this.props.item;
+    item.num = 1;
+    CartActions.cartAdd(item);
   },
   handleDetailClick(){
     DetailActions.getNewDetail(this.props.item);
@@ -26,14 +28,17 @@ const BookCard = React.createClass({
           <div className="detail">
             <span>查看详情</span>
           </div>
-          <img src={item.thumbnail}/>
+          <img src={item.path}/>
         </div>
         <div className="content">
           <div className="seller">
-            <img src={item.path}/>
+            <img src={item.upath}/>
+            <div className="controls">
+              {item.nickname}
+            </div>
           </div>
-          <span>{item.itemType}</span>
-          <p>{item.itemName}</p>
+          <span>{item.type_id}</span>
+          <p>{item.name}</p>
           <div className="shop">
             <span className="price">¥{item.price.toFixed(2)}</span>
             <ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>

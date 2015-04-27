@@ -10,7 +10,7 @@ import UserAPIUtils from '../utils/UserAPIUtils';
 import AppConstants from '../constants/AppConstants';
 import AppStore from './AppStore';
 import router from '../router';
-import AppAction from '../actions/AppActions';
+import AppActions from '../actions/AppActions';
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
@@ -130,8 +130,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case UserConstants.REG_SUCCESS:
         if (action.data.Code === 0) {
-          //success
-        
+          //成功
           _needActivation = true;
         }
         else{
@@ -161,7 +160,6 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           {
             router.transitionTo(trans);
           }
-
           _userData = action.data.Info;
           setTimeout(()=> {
             localStorage.setItem('userData', JSON.stringify(_userData));
@@ -170,19 +168,11 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         else{
           _loginMsg = action.data.Msg;
           if(action.data.Code === 1004 || action.data.Code === 1005 && action.data.Info){
-            console.log('need verify!!');
             _loginVerify++;
-            console.log(_loginVerify);
           }
         }
         _isLogining = false;
         UserStore.emitChange();
-        break;
-        case UserConstants.LOGOUT_SUBMIT:
-          _userData = null;
-          UserStore.emitChange();
-          router.transitionTo('/');
-          localStorage.setItem('userData', '');
         break;
       default:
       // Do nothing
@@ -207,13 +197,11 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           _loginVerify++;
           UserStore.emitChange();
         break;
-      case UserConstants.NEED_LOGIN:
-        setTimeout(()=>{
+      //TODO 这里和APP重复了
+      case AppConstants.NEED_LOGIN:
           _userData = null;
           UserStore.emitChange();
           localStorage.setItem('userData', '');
-        },action.data.time * 1000);
-
         break;
       default:
         break;

@@ -50,14 +50,14 @@ const Cart = React.createClass({
     CartStore.removeChangeListener(this._onCartChange);
   },
 
-  handleNumChange(id){
+  handleNumChange(goods_id){
     return (num)=>{
-      CartActions.changeNum({id, num});
+      CartActions.changeNum({goods_id, num});
     };
   },
-  handleDelete(id){
+  handleDelete(goods_id){
     return ()=>{
-      CartActions.deleteItem({id});
+      CartActions.deleteItem({goods_id});
     };
   },
   handleOrder(){
@@ -112,9 +112,9 @@ const Cart = React.createClass({
             Object.keys(items).map((key)=>{
               let data = items[key];
               price += data.price * data.num;
-              return <CartListItem key={key} itemId={key} image={data.path} itemName={data.itemName}
-                            itemType={data.itemType} name={data.nickname} price={(data.price * data.num).toFixed(2)}
-                                   num={data.num} max={data.max} handleNumChange={this.handleNumChange(key)} handleDelete={this.handleDelete(key)}/>;
+              data.price = data.price * data.num;
+              key = parseInt(key);
+              return <CartListItem key={key} data={data} handleNumChange={this.handleNumChange(key)} handleDelete={this.handleDelete(key)}/>;
             })
           }
         </div>

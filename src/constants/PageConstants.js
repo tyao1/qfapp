@@ -7,8 +7,10 @@ export default keyMirror({
   PAGE_KEY_NULL: null,
   PAGE_KEY_FAILURE: null,
 
+  PAGE_KEY_HOME: null,
   PAGE_FAILURE: null,
   PAGE_SUCCESS: null
+
 
 
 });

@@ -6,11 +6,8 @@ import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import UserConstants from '../constants/UserConstants';
 
-import UserAPIUtils from '../utils/UserAPIUtils';
 import AppConstants from '../constants/AppConstants';
-import AppStore from './AppStore';
-import router from '../router';
-import AppAction from '../actions/AppActions';
+import AppActions from '../actions/AppActions';
 import UserAction from '../actions/UserActions';
 
 const CHANGE_EVENT = 'CHANGE_SellStore';
@@ -63,11 +60,12 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case UserConstants.APPLY_SELL_SUCCESS:
         if (action.data.Code === 0) {
-          console.log('success');
           _success = true;
         }
         else if(action.data.Code === 1007){
-          UserAction.needLogin();
+          //需要登陆
+          AppActions.needLogin(AppStore.getTransition().path);
+          //UserAction.needLogin();
         }
         else{
           _submitMsg = action.data.Msg;

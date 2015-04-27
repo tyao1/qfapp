@@ -30,6 +30,21 @@ const PageStore = assign({}, EventEmitter.prototype, {
       return item;
     }
   },
+  getHome() {
+    let item = _items.get(PageConstants.PAGE_KEY_HOME);
+    if (!item|| item === PageConstants.PAGE_KEY_NULL) {
+      //开始异步获取数据
+      PageAPIUtils.getHome();
+      //设置无内容标志
+      _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);
+      return PageConstants.PAGE_KEY_NULL;
+      //清除内容
+      setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY] = null; }, 60000 * 60);//cache for 60 min
+    }
+    else{
+      return item;
+    }
+  },
   emitChange() {
     return this.emit(CHANGE_EVENT);
   },

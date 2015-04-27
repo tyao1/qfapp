@@ -50,29 +50,6 @@ NotificationStore.dispatcherToken = Dispatcher.register((payload) => {
   if(payload.source==='SERVER_ACTION')
   {
     switch (action.actionType) {
-      case CartConstants.CART_ADD_FAILURE:
-        pushNotification(`添加失败，${action.data.backup.itemName}：网络错误`);
-        NotificationStore.emitChange();
-        break;
-      case CartConstants.CART_ADD_SUCCESS:
-        if(action.data.body.Code!==0){
-          pushNotification(`添加失败，${action.data.backup.itemName}：${action.data.body.Msg}`);
-        }
-        NotificationStore.emitChange();
-        break;
-      case CartConstants.DELETE_ITEM_FAILURE:
-        pushNotification(`删除失败，${action.data.backup.get('itemName')}：网络错误`);
-        NotificationStore.emitChange();
-        break;
-      case CartConstants.DELETE_ITEM_SUCCESS:
-        if(action.data.body.Code!==0){
-          //失败
-          console.log(action.data);
-          pushNotification(`删除失败，${action.data.backup.get('itemName')}：${action.data.body.Msg}`);
-        }
-        NotificationStore.emitChange();
-        break;
-
       default:
       // Do nothing
 
