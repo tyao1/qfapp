@@ -81,7 +81,7 @@ const HomePage = React.createClass({
                 </li>
               </ul>
             </div>
-            <ButtonNormal text={this.state.textHow} onClick={this.handleHowClick}/>
+            <ButtonNormal className={`ButtonNormal${this.state.openedHow?' opened':''}`} text={this.state.textHow} onClick={this.handleHowClick}/>
 
           </div>
         </section>

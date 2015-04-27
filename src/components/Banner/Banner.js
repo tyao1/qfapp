@@ -63,7 +63,7 @@ const Banner = React.createClass({
     const yOff = window.pageYOffset;
     this.setState({
       isScrolled: yOff > 574-84,
-      miniBanner: yOff >= this.yOffset
+      miniBanner: yOff >= this.yOffset || yOff > 400
       });
     this.yOffset = yOff;
   },

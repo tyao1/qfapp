@@ -27,6 +27,11 @@
       > button {
         color: #F2F2F2;
         border-color: #F2F2F2;
+        transition: color .2s ease, border-color .2s ease;
+        &.opened{
+          color:$fontColor;
+          border-color:$fontColor;
+        }
       }
       > .how {
         position: absolute;
