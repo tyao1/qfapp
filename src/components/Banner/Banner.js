@@ -32,10 +32,12 @@ const Banner = React.createClass({
     let tmp = getIsHome();
     this.setState(tmp);
     if(tmp.isHome) {
-      window.addEventListener('scroll', this._onScroll);
+      this._onScroll();
+      console.log('isfuckinghome');
+      //window.addEventListener('scroll', this._onScroll);
     }
     else{
-      window.removeEventListener('scroll', this._onScroll);
+      //window.removeEventListener('scroll', this._onScroll);
     }
   },
   _onUserChange(){
@@ -56,8 +58,14 @@ const Banner = React.createClass({
       isChanged
     });
   },
+  yOffset:0,
   _onScroll(){
-    this.setState({isScrolled: window.pageYOffset>574-84});
+    const yOff = window.pageYOffset;
+    this.setState({
+      isScrolled: yOff > 574-84,
+      miniBanner: yOff >= this.yOffset
+      });
+    this.yOffset = yOff;
   },
   getInitialState(){
     return {
@@ -70,6 +78,7 @@ const Banner = React.createClass({
 
 
   componentWillMount() {
+    window.addEventListener('scroll', this._onScroll);
     AppStore.addChangeListener(this._onAppChange);
     UserStore.addChangeListener(this._onUserChange);
     CartStore.addChangeListener(this._onCartChange);
@@ -80,7 +89,7 @@ const Banner = React.createClass({
     CartStore.removeChangeListener(this._onCartChange);
 
     //in case
-    window.removeEventListener('scroll', this._onScroll);
+    //window.removeEventListener('scroll', this._onScroll);
     if(this.keyListener){
       window.removeEventListener('keydown', this.handleKeyPress);
     }
@@ -132,10 +141,10 @@ const Banner = React.createClass({
     let isHome = this.state.isHome;
     let classes;
     if(isHome) {
-      classes = cn('banner', {isHome}, {notScrolled: !this.state.isScrolled});
+      classes = cn('banner', {isHome}, {notScrolled: !this.state.isScrolled}, {miniBanner: this.state.miniBanner});
     }
     else{
-      classes = 'banner';
+      classes = cn('banner', {miniBanner: this.state.miniBanner});
     }
 
     let controls, shoppingCart, cart;

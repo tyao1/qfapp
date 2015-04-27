@@ -1,6 +1,59 @@
 @import '../../styles/variables.scss';
-.banner{
+$bannerHeightSmall:50px;
 
+.banner{
+  &.miniBanner{
+    height: $bannerHeightSmall;
+    .shoppingCart{
+      width:86px;
+    }
+    >.inner{
+      > .left{
+        > a > svg{
+          height: $bannerHeightSmall;
+        }
+        >.InputNormal{
+          margin-top:($bannerHeightSmall - $inputHeight)/2;
+          padding-top:1px;
+          padding-bottom:1px;
+          >input{
+            height: 32px;
+            line-height: 32px;
+            margin-top: 3px;
+            border: none;
+            border-bottom: 1px solid $subtleFontColor;
+            box-shadow:none;
+          }
+        }
+      }
+      >.right{
+        >ul>li{
+          &.user{
+            height: 32px;
+            width: 32px;
+            img{
+              height: 32px;
+              width: 32px;
+            }
+          }
+          >a{
+            >span{
+              height:$bannerHeightSmall;
+              line-height:$bannerHeightSmall;
+            }
+            &:after{
+              height:$bannerHeightSmall;
+              line-height:$bannerHeightSmall;
+            }
+          }
+        }
+        >.shoppingCart{
+          height:$bannerHeightSmall;
+          line-height:$bannerHeightSmall;
+        }
+      }
+    }
+  }
   &.isHome{
     &.notScrolled{
       position:absolute;
@@ -59,8 +112,7 @@
   top:0;
   left:0;
   right:0;
-  transition:background .3s,box-shadow .3s;
-  transition-timing-function: $normalTiming;
+  transition:background .24s ease,box-shadow .24s ease,height .24s ease;
   z-index:20;
   >.inner{
     z-index: 1;
@@ -76,6 +128,7 @@
           width: $bannerHeight;
           height: $bannerHeight;
           fill: $boldFontColor;
+          transition: height .24s ease;
         }
       }
       >.InputNormal{
@@ -83,7 +136,7 @@
         float:left;
         margin-left:120px;
         margin-top:($bannerHeight - $inputHeight)/2;
-        transition: opacicty .3s $normalTiming;
+        transition: opacicty .24s $normalTiming, margin-top .24s ease;
         >input{
           width:330px;
         }
@@ -172,7 +225,7 @@
         outline:none;
         padding:0 0 0 6px;
         overflow: hidden;
-        transition: all .1s ease-in-out .3s;
+        transition: width .1s ease-in-out .3s, height .24s ease;
         >span{
           font-size: $bigFontSize + 2px;
           color:#fff;
