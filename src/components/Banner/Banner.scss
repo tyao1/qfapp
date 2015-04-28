@@ -2,7 +2,7 @@
 $bannerHeightSmall:50px;
 
 .banner{
-  &.miniBanner{
+  &.miniBanner:not(.notScrolled){
     height: $bannerHeightSmall;
     .shoppingCart{
       width:86px;

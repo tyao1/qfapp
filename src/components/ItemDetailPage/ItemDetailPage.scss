@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
-$briefHeight:240px;
-$briefPadding:38px;
+$briefHeight:260px;
+$briefPadding:48px;
 $controlsWidth:340px;
 .itemDetailPage {
   padding:$bannerHeight 0;
@@ -26,7 +26,7 @@ $controlsWidth:340px;
         > .itemName {
           margin: 0;
           font-size: $LargeFontSize - 2px;
-          height: 72px;
+          height: 70px;
           @include textClip();
 
         }
@@ -40,15 +40,14 @@ $controlsWidth:340px;
         float:right;
         font-size:$bigFontSize;
         padding:0 13px 0 0;
+        color:rgba(#fff,.8);
         >.title{
           margin:0 12px 6px 0;
         }
       }
       >.controls{
         color:$fontColor;
-        position:fixed;
         display: inline-block;
-        float:right;
         width:340px;
         height:$briefHeight - $briefPadding*2;
         background:$secondaryColorTint;
@@ -56,6 +55,7 @@ $controlsWidth:340px;
         box-shadow:0 2px 4px $subtleFontColor2;
         padding:24px;
         top:$briefHeight - 70px;
+        margin:24px 0 0 0 ;
         >.off{
           text-align: center;
           margin: 44px 0 0 0;
