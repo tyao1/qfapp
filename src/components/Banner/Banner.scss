@@ -50,6 +50,9 @@ $bannerHeightSmall:50px;
         >.shoppingCart{
           height:$bannerHeightSmall;
           line-height:$bannerHeightSmall;
+          >.close{
+            top: 6px;
+          }
         }
       }
     }

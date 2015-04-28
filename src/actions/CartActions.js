@@ -13,6 +13,18 @@ export default {
       data
     });
   },
+  changeNumSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CHANGE_NUM_SUCCESS,
+      data
+    });
+  },
+  changeNumFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CHANGE_NUM_FAILURE,
+      data
+    });
+  },
   deleteItem(data){
     Dispatcher.handleViewAction({
       actionType: CartConstants.DELETE_ITEM,
@@ -77,8 +89,25 @@ export default {
       actionType: CartConstants.CART_ADD_FAILURE,
       data: data
     });
+  },
+
+  //暂时用不到，手动获取购物车数据
+  cartFetch(){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_FETCH
+    });
+    CartAPIUtils.fetchCarts();
+  },
+  cartFetchSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_FETCH_SUCCESS,
+      data: data
+    });
+  },
+  cartFetchFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: CartConstants.CART_FETCH_FAILURE,
+      data: data
+    });
   }
-
-
-
 };

@@ -26,7 +26,7 @@ $controlsWidth:340px;
         > .itemName {
           margin: 0;
           font-size: $LargeFontSize - 2px;
-          height: 70px;
+          max-height: 70px;
           @include textClip();
 
         }
@@ -46,6 +46,11 @@ $controlsWidth:340px;
         }
       }
       >.controls{
+
+        &.isScrolled{
+          position: fixed;
+          top: 45px;
+        }
         color:$fontColor;
         display: inline-block;
         width:340px;
@@ -54,7 +59,7 @@ $controlsWidth:340px;
         border-radius:$borderRadius;
         box-shadow:0 2px 4px $subtleFontColor2;
         padding:24px;
-        top:$briefHeight - 70px;
+
         margin:24px 0 0 0 ;
         >.off{
           text-align: center;

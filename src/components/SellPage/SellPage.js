@@ -204,7 +204,7 @@ const SellPage = React.createClass({
         <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
           {this.state.isSuccessful?
             <div className="submitForm">
-              <p className="main">提交成功～我们将在未来几天内联系您！</p>
+              <p className="main">提交成功～通过申请后，我们就会前来取货！~</p>
               <ButtonNormal className="ButtonNormal submit" text="关闭"
                             svg={paperplane} onClick={this.handleRealSubmitClick}/>
             </div>

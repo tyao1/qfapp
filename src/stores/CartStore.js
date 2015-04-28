@@ -5,22 +5,15 @@ import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import CartConstants from '../constants/CartConstants';
-
-import UserActions from '../actions/UserActions';
-import CartActions from '../actions/CartActions';
-import AppActions from '../actions/AppActions';
 import NotificationActions from '../actions/NotificationActions';
-import AppStore from '../stores/AppStore';
 
 import UserStore from '../stores/UserStore';
 import CartAPIUtils from '../utils/CartAPIUtils';
-import Immutable from 'immutable';
 
+import Immutable from 'immutable';
 import AppConstants from '../constants/AppConstants';
 
 const CHANGE_EVENT = 'CHANGE_CartStore';
-
-
 
 let _isSubmitting = false;
 let _success = false;
@@ -37,26 +30,8 @@ let _submitMsg = '';
      nickname: '没名字能用了啊',
      path: ''
    },
- b123: {
-     type_id: '书籍',
-     name: '论演员的自我修养',
-     num: 1,
-     max: 3,
-     price: 3.0,
-     nickname: '没名字能用了啊',
-     path: ''
-   }
- }
- );
- */
+*/
 let _items = Immutable.Map();
-const localdata = localStorage.getItem('items');
-if(localdata)
-{
-  if(localdata!==''&&localdata!=='undefined'){
-    _items = Immutable.fromJS(JSON.stringify(localdata));
-  }
-}
 
 /*
  *
@@ -74,10 +49,31 @@ function reverseDelete(id, data){
   }
 }
 
+function reverseNum(id, num){
+  if(_items.get(id)){
+    _items = _items.updateIn([id, 'num'], () => num);
+  }
+}
+
+function updateItemAndEmit(Info){
+  if(Info)
+  {
+    let {goods_id, count, nickname, price} = Info;
+    goods_id = parseInt(goods_id);
+    count = parseInt(count);
+    price = parseFloat(price);
+    _items = _items.updateIn([goods_id, 'quality'], () => count);
+    _items = _items.updateIn([goods_id, 'price'], () => price);
+    _items = _items.updateIn([goods_id, 'nickname'], () => nickname);
+    CartStore.emitChange();
+  }
+}
 
 
 const CartStore = assign({}, EventEmitter.prototype, {
-
+  init(){
+    CartAPIUtils.fetchCarts();
+  },
   getItemsCount(){
     return _items.size;
   },
@@ -106,6 +102,7 @@ const CartStore = assign({}, EventEmitter.prototype, {
     this.off(CHANGE_EVENT, callback);
   }
 
+
 });
 
 CartStore.dispatcherToken = Dispatcher.register((payload) => {
@@ -130,9 +127,6 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           _success = true;
           _items = _items.clear();
         }
-        else if(action.data.Code === 1007){
-          AppActions.needLogin(AppStore.getTransition().path);
-        }
         else{
           _submitMsg = action.data.Msg;
         }
@@ -140,8 +134,6 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         CartStore.emitChange();
         break;
       case CartConstants.CART_ADD_FAILURE:
-        //物品添加失败，回撤操作
-        //发出提醒
         reverseAdd(action.data.goods_id);
         CartStore.emitChange();
         setTimeout(()=>{
@@ -152,14 +144,27 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case CartConstants.CART_ADD_SUCCESS:
         if(action.data.body.Code!==0){
-          //失败
-          reverseAdd(action.data.goods_id);
-          setTimeout(()=>{
-            NotificationActions.addNotification(
-              `添加失败，${action.data.backup.name}：${action.data.body.Msg}`
-            );
-          });
-          CartStore.emitChange();
+          if(action.data.body.Code===1048){
+            setTimeout(()=>{
+              NotificationActions.addNotification(
+                `添加失败，${action.data.backup.name}：${action.data.body.Msg}`
+              );
+            });
+            updateItemAndEmit(action.data.Info);
+          }
+          else
+          {
+            reverseAdd(action.data.goods_id);
+            setTimeout(()=>{
+              NotificationActions.addNotification(
+                `添加失败，${action.data.backup.name}：${action.data.body.Msg}`
+              );
+            });
+            CartStore.emitChange();
+          }
+        }
+        else{
+          updateItemAndEmit(action.data.Info);
         }
         break;
       case CartConstants.DELETE_ITEM_FAILURE:
@@ -185,6 +190,72 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           CartStore.emitChange();
         }
         break;
+        case CartConstants.CART_NUM_FAILURE:
+          reverseNum(action.data.goods_id, action.data.backup);
+          CartStore.emitChange();
+          setTimeout(()=>{
+            NotificationActions.addNotification(
+              `更改数量失败${action.data.backup.name}：网络错误`
+            );
+          });
+          break;
+        case CartConstants.CART_NUM_SUCCESS:
+          const cartCode = action.data.body.Code;
+          if(cartCode!==0){
+            if(cartCode===1048){
+              setTimeout(()=>{
+                NotificationActions.addNotification(
+                  `更改数量失败，${action.data.backup.name}：${action.data.body.Msg}`
+                );
+              });
+              updateItemAndEmit(action.data.Info);
+            }
+            else
+            {
+              if(cartCode===1016||cartCode===1017){
+                _items = _items.delete(action.data.goods_id);
+              }
+              else{
+                reverseNum(action.data.goods_id, action.data.backup);
+              }
+              setTimeout(()=>{
+                NotificationActions.addNotification(
+                  `更改数量失败${action.data.backup.name}：${action.data.body.Msg}`
+                );
+              });
+              CartStore.emitChange();
+            }
+          }
+          else{
+            updateItemAndEmit(action.data.Info);
+          }
+          break;
+        case CartConstants.CART_FETCH_SUCCESS:
+          if(action.data.Code===0||action.data.Code===1007){
+            _items = Immutable.fromJS(action.data.Info.car);
+            if(action.data.Info.tokenOff){
+              setTimeout(()=>{
+                NotificationActions.addNotification(
+                  `您的购物车中有${action.data.Info.tokenOff}件物品因下架或售完已被移除`
+                );
+              });
+            }
+          }
+          else{
+            NotificationActions.addNotification(
+              action.data.Info.Msg
+            );
+          }
+          CartStore.emitChange();
+          break;
+        case CartConstants.CART_FETCH_FAILURE:
+          setTimeout(()=>{
+            NotificationActions.addNotification(
+              '获取购物车失败，网络错误'
+            );
+          });
+          CartStore.emitChange();
+          break;
       default:
       // Do nothing
 
@@ -198,7 +269,13 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CHANGE_NUM:
-        _items = _items.updateIn([action.data.goods_id, 'num'], val => action.data.num);
+        const changeId = action.data.goods_id;
+        let number;
+        _items = _items.updateIn([changeId, 'num'], val => {
+            number = val;
+            return action.data.num;
+          });
+        CartAPIUtils.changeNum(changeId, action.data.num, number);
         CartStore.emitChange();
         break;
       case CartConstants.DELETE_ITEM:
@@ -212,8 +289,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         const item = action.data;
         console.log('item', item);
         //检查用户名是否为卖家
-        const username = UserStore.getUserName();
-        if(username===item.nickname)
+        if(UserStore && UserStore.getUserName()===item.nickname)
         {
           setTimeout(()=>{
             NotificationActions.addNotification(
@@ -225,21 +301,26 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         const checkItem = _items.get(item.goods_id);
         if(checkItem){
           //该物品已经在购物车，增加数量
-          const max = checkItem.get('max');
+          const max = checkItem.get('quality');
           let num = checkItem.get('num');
-          num = num===max?max:num+1;
+          num = num===quality?quality:num+1;
           action.data.num = num;
-          _items = _items.set(item.goods_id, action.data);
+          //更改数量Action
+          //TODO setTimeout(()=>{
+            CartActions.changeNum(action.data);
+          //});
+
+          //_items = _items.set(item.goods_id, action.data);
           //_items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));
         }
         else{
-          const {goods_id, type_id, name, quality, price, nickname, path, num} = item;
+          const {goods_id, type_id, name, price, nickname, path, num} = item;
           const newItem = {
             goods_id,
             type_id,
             name,
             num,
-            quality,
+            quality: 1,
             price,
             nickname,
             path
@@ -252,8 +333,8 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case AppConstants.NEED_LOGIN:
           _items = _items.clear();
+          CartStore.init();
           CartStore.emitChange();
-          localStorage.setItem('items', '');
           break;
       default:
         break;
@@ -261,5 +342,9 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
   }
 
 });
+
+CartStore.init();
+
+
 
 export default CartStore;

@@ -8,20 +8,22 @@ import UserConstants from '../constants/UserConstants';
 
 import UserAPIUtils from '../utils/UserAPIUtils';
 import AppConstants from '../constants/AppConstants';
+import CartConstants from '../constants/CartConstants';
 import AppStore from './AppStore';
 import router from '../router';
-import AppActions from '../actions/AppActions';
+
 
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
 
 //安全获取data
 const localdata = localStorage.getItem('userData');
+
 let _userData;
 if(localdata)
 {
   if(localdata!==''&&localdata!=='undefined'){
-    _userData = JSON.stringify(localdata);
+    _userData = JSON.parse(localdata);
   }
 }
 console.log(_userData);
@@ -174,6 +176,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isLogining = false;
         UserStore.emitChange();
         break;
+
       default:
       // Do nothing
 

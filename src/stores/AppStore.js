@@ -6,6 +6,7 @@ import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import AppConstants from '../constants/AppConstants';
 import router from '../router';
+import NotificationActions from '../actions/NotificationActions';
 
 const CHANGE_EVENT = 'CHANGE_AppStore';
 
@@ -41,6 +42,14 @@ const AppStore = assign({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.off(CHANGE_EVENT, callback);
+  },
+  requireLogin(){
+    AppActions.needLogin(AppStore.getTransition().path);
+    setTimeout(()=>{
+      NotificationActions.addNotification(
+        `需要登陆`
+      );
+    });
   }
 
 });
@@ -59,17 +68,11 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       AppStore.emitChange();
       break;
 
-    /*
-    case AppConstants.LOAD_HOME:
-      _isHome = true;
-      AppStore.emitChange();
-      break;
-    case AppConstants.LEAVE_HOME:
-      _isHome = false;
-      AppStore.emitChange();
-      break;
-      */
     default:
+      if(action.data&&action.data.Code===1007){
+        requireLogin();
+      }
+      break;
       // Do nothing
 
   }

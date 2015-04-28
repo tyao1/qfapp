@@ -146,7 +146,7 @@ const Banner = React.createClass({
       classes = cn('banner', {miniBanner: this.state.miniBanner});
     }
 
-    let controls, shoppingCart, cart;
+    let controls;
     if(this.state.userData){
       controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
@@ -159,13 +159,7 @@ const Banner = React.createClass({
           </ul>
         </li>
       </ul>;
-      shoppingCart = <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
-        <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
-          <div className="close">{close}</div>
-        </button>;
-      cart = <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
-          <Cart onCartClose={this.handleShoppingCartClose}/>
-        </div>;
+
     }
     else
     {
@@ -191,11 +185,16 @@ const Banner = React.createClass({
           </div>
           <div className="right">
             {controls}
-            {shoppingCart}
+            <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
+              <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
+                <div className="close">{close}</div>
+            </button>
           </div>
 
         </div>
-        {cart}
+        <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
+          <Cart onCartClose={this.handleShoppingCartClose}/>
+        </div>
       </div>
     );
   }

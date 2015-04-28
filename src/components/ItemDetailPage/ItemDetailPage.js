@@ -14,19 +14,14 @@ import {shoppingcart} from '../SVGs';
 import BookCard from '../BookCard';
 
 import CartActions from '../../actions/CartActions';
+import DetailActions from '../../actions/DetailActions';
 require('./ItemDetailPage.scss');
 
 
 const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
-  getCurrentID(){
-    return parseInt(this.context.router.getCurrentParams().id);
-  },
-  contextTypes: {
-    router: React.PropTypes.func
-  },
   _onDetailChange(){
-    const detail = DetailStore.getDetail(this.getCurrentID());
+    const detail = DetailStore.getDetail();
     console.log('detail in comp', detail);
     if(detail!==this.state.detail){
       this.setState({
@@ -40,20 +35,27 @@ const ItemDetailPage = React.createClass({
       });
     }
   },
-
+  _onScroll(){
+    this.setState({
+      isScrolled: window.pageYOffset > 113,
+      });
+  },
   getInitialState(){
     return {
-      detail: DetailStore.getDetail(this.getCurrentID()),
+      detail: DetailStore.getDetail(),
       num: 1
     };
   },
 
   componentWillMount(){
     DetailStore.addChangeListener(this._onDetailChange);
+    window.addEventListener('scroll', this._onScroll);
 
   },
   componentWillUnMount(){
     DetailStore.removeChangeListener(this._onDetailChange);
+    window.removeEventListener('scroll', this._onScroll);
+
   },
   handleCounterChange(num){
     this.setState({num});
@@ -148,9 +150,9 @@ const ItemDetailPage = React.createClass({
 
               {
                 detail.tokenoff?
-                  <div className="controls"><p className="off">{'抱歉>_<，该物品已经下架'}</p></div>
+                  <div className={`controls${this.state.isScrolled?' isScrolled':''}`}><p className="off">{'抱歉>_<，该物品已经下架'}</p></div>
                   :
-                  <div className="controls">
+                  <div className={`controls${this.state.isScrolled?' isScrolled':''}`}>
                     <div className="amount">
                       <span className="title">剩余数量：{max}</span>
                       {

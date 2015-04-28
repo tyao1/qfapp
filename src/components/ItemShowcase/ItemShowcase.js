@@ -41,7 +41,7 @@ const ItemShowcase = React.createClass({
       elem = <img src="./facebook.svg" />;
     }
     else if(items===PageConstants.PAGE_KEY_FAILURE){
-      elem = <p>啊哦，加载失败了</p>
+      elem = <p>啊哦，加载失败了</p>;
     }
     else
     {
