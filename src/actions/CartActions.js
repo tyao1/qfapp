@@ -91,7 +91,7 @@ export default {
     });
   },
 
-  //暂时用不到，手动获取购物车数据
+
   cartFetch(){
     Dispatcher.handleServerAction({
       actionType: CartConstants.CART_FETCH

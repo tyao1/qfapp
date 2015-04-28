@@ -44,6 +44,7 @@ const AppStore = assign({}, EventEmitter.prototype, {
     this.off(CHANGE_EVENT, callback);
   },
   requireLogin(){
+    console.log('requireLogin');
     AppActions.needLogin(AppStore.getTransition().path);
     setTimeout(()=>{
       NotificationActions.addNotification(
@@ -69,6 +70,7 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
 
     default:
+      console.log('AppStore Default');
       if(action.data&&action.data.Code===1007){
         requireLogin();
       }
