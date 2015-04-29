@@ -7,6 +7,7 @@ require('./WordsFlasher.scss');
 
 
 const WordsFlasher = React.createClass({
+  handler: null,
   GoNext(){
     this.setState({curCount: (this.state.curCount + 1) % this.props.words.length});
   },
@@ -14,7 +15,10 @@ const WordsFlasher = React.createClass({
     return {curCount: 0};
   },
   componentDidMount(){
-    setInterval(this.GoNext, 2700);
+    this.handler = setInterval(this.GoNext, 2700);
+  },
+  componentWillUnmount(){
+    clearInterval(this.handler);
   },
 /*
  * ReactCSSTransitionGroup有bug，暂时废弃

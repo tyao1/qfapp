@@ -30,15 +30,8 @@ const HomePage = React.createClass({
       textHow: '我们如何运作'
     };
   },
-
-  componentWillMount() {
-    console.log('home mount');
-  },
-  componentWillUnmount(){
-    console.log('home unmount');
-  },
-
   handleHowClick(){
+    console.log('how click');
     if(this.state.openedHow) {
       this.setState({
         openedHow: false,

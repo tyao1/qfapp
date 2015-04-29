@@ -6,8 +6,10 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import PageStore from '../../stores/PageStore';
 import BookCard from '../BookCard';
-
+import ButtonNormal from '../ButtonNormal';
 import PageConstants from '../../constants/PageConstants';
+import PageActions from '../../actions/PageActions';
+
 require('./ShoppingPage.scss');
 
 
@@ -18,34 +20,40 @@ const ShoppingPage = React.createClass({
     console.log('shopping change');
 
     this.setState({
-      items: PageStore.getItems('all')
+      items: PageStore.getItems()
     });
   },
 
   getInitialState(){
     return {
-      items: PageStore.getItems('all')
+      items: PageStore.getItems()
     };
   },
 
 
   componentWillMount(){
     console.log('shopping mount');
-
     PageStore.addChangeListener(this._onPageChange);
 
   },
-  componentWillUnMount(){
+  componentWillUnmount(){
     console.log('shopping unmount');
-
     PageStore.removeChangeListener(this._onPageChange);
   },
-
+  handleRetry(){
+    PageActions.refresh();
+  },
   render() {
     const items = this.state.items;
     let elem;
     if(items===PageConstants.PAGE_KEY_NULL){
       elem = <img src="./facebook.svg" />;
+    }
+    else if(items===PageConstants.PAGE_KEY_FAILURE){
+      elem = <div className="failure">
+        <p>啊哦，加载失败了</p>
+        <ButtonNormal text="重试" onClick={this.handleRetry}/>
+      </div>;
     }
     else
     {

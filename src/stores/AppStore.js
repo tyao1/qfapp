@@ -7,6 +7,9 @@ import assign from 'react/lib/Object.assign';
 import AppConstants from '../constants/AppConstants';
 import router from '../router';
 import NotificationActions from '../actions/NotificationActions';
+import AppActions from '../actions/AppActions';
+
+import UserStore from '../stores/UserStore';
 
 const CHANGE_EVENT = 'CHANGE_AppStore';
 
@@ -45,10 +48,10 @@ const AppStore = assign({}, EventEmitter.prototype, {
   },
   requireLogin(){
     console.log('requireLogin');
-    AppActions.needLogin(AppStore.getTransition().path);
     setTimeout(()=>{
+      AppActions.needLogin(AppStore.getTransition().path);
       NotificationActions.addNotification(
-        `需要登陆`
+        `>_<需要登录`
       );
     });
   }
@@ -71,8 +74,9 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
 
     default:
       console.log('AppStore Default');
-      if(action.data&&action.data.Code===1007){
-        requireLogin();
+      console.log('AppStore Default', action.data);
+      if(action.data&&action.data.body&&action.data.body.Code===1007&&UserStore.getUserData()){
+        AppStore.requireLogin();
       }
       break;
       // Do nothing

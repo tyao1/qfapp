@@ -55,7 +55,7 @@ const SellPage = React.createClass({
     SellStore.addChangeListener(this._onSellChange);
 
   },
-  componentWillUnMount(){
+  componentWillUnmount(){
     console.log('sell unmount');
 
     SellStore.removeChangeListener(this._onSellChange);

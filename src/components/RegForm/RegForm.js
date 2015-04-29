@@ -29,6 +29,7 @@ const RegForm = React.createClass({
     };
   },
   _onUserChange(){
+    console.log('user change in reg');
     this.setState({
       msg: UserStore.getRegMsg(),
       userData: UserStore.getUserData(),

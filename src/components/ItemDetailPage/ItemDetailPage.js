@@ -37,7 +37,7 @@ const ItemDetailPage = React.createClass({
   },
   _onScroll(){
     this.setState({
-      isScrolled: window.pageYOffset > 113,
+      isScrolled: window.pageYOffset > 113
       });
   },
   getInitialState(){
@@ -48,13 +48,11 @@ const ItemDetailPage = React.createClass({
   },
 
   componentWillMount(){
-    console.log('ItemDetail Mount');
     DetailStore.addChangeListener(this._onDetailChange);
     window.addEventListener('scroll', this._onScroll);
 
   },
-  componentWillUnMount(){
-    console.log('ItemDetail Unmount');
+  componentWillUnmount(){
     DetailStore.removeChangeListener(this._onDetailChange);
     window.removeEventListener('scroll', this._onScroll);
 
@@ -63,15 +61,6 @@ const ItemDetailPage = React.createClass({
     this.setState({num});
   },
   handleBuyClick(){
-    /*
-     itemType: '书籍',
-     itemName: '论演员的自我修养',
-     num: 1,
-     max: 3,
-     price: 3.0,
-     nickname :'没名字能用了啊',
-     path: ''
-     */
     let {type_id, name, price, nickname,quality ,sold_num, book_num, img} = this.state.detail;
     quality = quality - sold_num - book_num;
     let path = img[0].path;

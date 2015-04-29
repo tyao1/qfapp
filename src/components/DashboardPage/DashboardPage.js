@@ -33,7 +33,7 @@ const DashboardPage = React.createClass({
 
   },
 
-  componentWillUnMount(){
+  componentWillUnmount(){
     UserStore.removeChangeListener(this._onUserChange);
   },
 

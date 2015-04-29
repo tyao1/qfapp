@@ -24,7 +24,7 @@ const SellOrders = React.createClass({
     UserStore.addChangeListener(this._onUserChange);
 
   },
-  componentWillUnMount(){
+  componentWillUnmount(){
     UserStore.removeChangeListener(this._onUserChange);
 
   },

@@ -5,8 +5,10 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import PageStore from '../../stores/PageStore';
 import BookCard from '../BookCard';
+import ButtonNormal from '../ButtonNormal';
 
 import PageConstants from '../../constants/PageConstants';
+import PageActions from '../../actions/PageActions';
 require('./ItemShowcase.scss');
 
 
@@ -14,6 +16,7 @@ const ItemShowcase = React.createClass({
   mixins: [PureRenderMixin],
 
   _onPageChange(){
+    console.log('page change');
     this.setState({
       items: PageStore.getHome()
     });
@@ -30,10 +33,12 @@ const ItemShowcase = React.createClass({
     PageStore.addChangeListener(this._onPageChange);
 
   },
-  componentWillUnMount(){
+  componentWillUnmount(){
     PageStore.removeChangeListener(this._onPageChange);
   },
-
+  handleRetry(){
+    PageActions.refresh();
+  },
   render() {
     const items = this.state.items;
     let elem;
@@ -41,11 +46,14 @@ const ItemShowcase = React.createClass({
       elem = <img src="./facebook.svg" />;
     }
     else if(items===PageConstants.PAGE_KEY_FAILURE){
-      elem = <p>啊哦，加载失败了</p>;
+      elem = <div className="failure">
+          <p>啊哦，加载失败了</p>
+          <ButtonNormal text="重试" onClick={this.handleRetry}/>
+        </div>;
     }
     else
     {
-      elem = items.map(data => <BookCard item={data}/>);
+      elem = items.map(data => <BookCard key={data.goods_id} item={data}/>);
     }
     return (
       <div className="itemShowcase">

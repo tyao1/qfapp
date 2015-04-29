@@ -9,7 +9,9 @@ const App = React.createClass({
   render() {
     return (
       <div className="wrapper">
+        <Banner/>
         <RouteHandler/>
+        <Notification/>
       </div>
     );
   }
