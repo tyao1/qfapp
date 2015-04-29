@@ -7,6 +7,12 @@ import CartAPIUtils from '../utils/CartAPIUtils';
 
 export default {
 
+  /*
+    {
+      goods_id,
+      num
+    }
+  */
   changeNum(data){
     Dispatcher.handleViewAction({
       actionType: CartConstants.CHANGE_NUM,

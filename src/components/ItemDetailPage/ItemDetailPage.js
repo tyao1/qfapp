@@ -71,10 +71,12 @@ const ItemDetailPage = React.createClass({
      path: ''
      */
     let {type_id, name, price, nickname,quality ,sold_num, book_num, img} = this.state.detail;
-    let max = quality - sold_num - book_num;
+    console.log('detail',this.state.detail);
+    quality = quality - sold_num - book_num;
     let path = img[0].path;
     CartActions.cartAdd({
-      type_id, name, max, price, nickname, path,
+      goods_id: DetailStore.getCurId(),
+      type_id, name, quality, price, nickname, path,
       num: this.state.num
     });
   },
@@ -189,8 +191,8 @@ const ItemDetailPage = React.createClass({
           <main>
             <div className="gallery">
               {
-                detail.img.map(img =>
-                  <img src={img.path}/>
+                detail.img.map((img,i) =>
+                  <img key={i} src={img.path}/>
                 )
               }
             </div>

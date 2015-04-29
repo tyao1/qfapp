@@ -6,6 +6,34 @@ import CartActions from '../actions/CartActions';
 
 //缓存物品数量操作
 let cartChangeNumber = {};
+function cartChangeFunc(data, num, backup){
+  //清除记录
+  request
+    .put('http://10.60.136.39/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
+    .type('form')
+    .send({
+      goods_id: data,
+      number: num
+    })
+    .end(function(err, res){
+      if(err){
+        cartChangeNumber[data] = null;
+        //就返回之前的物品backup呗
+        CartActions.changeNumFailure({
+          goods_id: data,
+          backup
+        });
+      }
+      else{
+        cartChangeNumber[data] = null;
+        CartActions.changeNumSuccess({
+          body: res.body,
+          goods_id: data,
+          backup
+        });
+      }
+    });
+}
 
 const CartAPIUtils = {
 
@@ -31,7 +59,7 @@ const CartAPIUtils = {
       .type('form')
       .send({
         goods_id: data,
-        nubmer
+        number
       })
       .end(function(err, res){
         if(err){
@@ -75,37 +103,19 @@ const CartAPIUtils = {
   },
 
 
-  //id  num
-  changeNum(id, num, backup){
-    if(cartChangeNumber[id]){
-      clearTimeout(cartChangeNumber[id]);
-      cartChangeNumber[id] = null;
+  //data:id  num  ,backup:number
+  changeNum(data, num, backup){
+    if(cartChangeNumber[data]){
+      clearTimeout(cartChangeNumber[data].handler);
+      cartChangeNumber[data].handler = setTimeout(
+        cartChangeFunc(data, num, backup), 2000);
     }
-    setTimeout(()=>{
-      request
-        .put('http://10.60.136.39/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
-        .type('form')
-        .send({
-          goods_id: data,
-          number: num
-        })
-        .end(function(err, res){
-          if(err){
-            //就返回之前的物品backup呗
-            CartActions.changeNumFailure({
-              goods_id: data,
-              backup
-            });
-          }
-          else{
-            CartActions.changeNumSuccess({
-              body: res.body,
-              goods_id: data,
-              backup
-            });
-          }
-        });
-    }, 5000);
+    else{
+      cartChangeNumber[data] = {
+        handler: setTimeout(cartChangeFunc(data, num, backup), 2000),
+        backup
+      };
+    }
   },
 
   //data 物品id, backup 之前物品数据
@@ -121,7 +131,7 @@ const CartAPIUtils = {
         }
         else{
           CartActions.cartFetchSuccess({
-            body: res.body,
+            body: res.body
           });
         }
       });

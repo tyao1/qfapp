@@ -108,13 +108,15 @@ const Cart = React.createClass({
       elem = <div className="cart">
         <div className="cartList">
           {
-
             Object.keys(items).map((key)=>{
               let data = items[key];
+              if(!data) {
+                return;
+              }
+              let goods_id = data.goods_id;
               price += data.price * data.num;
               data.price = data.price * data.num;
-              key = parseInt(key);
-              return <CartListItem key={key} data={data} handleNumChange={this.handleNumChange(key)} handleDelete={this.handleDelete(key)}/>;
+              return <CartListItem key={goods_id} data={data} handleNumChange={this.handleNumChange(goods_id)} handleDelete={this.handleDelete(goods_id)}/>;
             })
           }
         </div>

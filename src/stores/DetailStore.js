@@ -17,6 +17,9 @@ let _curId = -1;
 
 const DetailStore = assign({}, EventEmitter.prototype, {
 
+  getCurId(){
+    return _curId;
+  },
   getDetail() {
     if(_curId<0){return DetailConstants.DETAIL_KEY_NULL; }
     let item = _items.get(_curId);
