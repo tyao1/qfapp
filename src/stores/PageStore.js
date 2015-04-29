@@ -8,6 +8,8 @@ import assign from 'react/lib/Object.assign';
 import PageAPIUtils from '../utils/PageAPIUtils';
 import PageConstants from '../constants/PageConstants';
 import Immutable from 'immutable';
+import AppConstants from '../constants/AppConstants';
+import router from '../router';
 
 const CHANGE_EVENT = 'CHANGE_PageStore';
 
@@ -16,6 +18,23 @@ let _keyWord = '';
 let _page = 1;
 let _typeId = '000000';
 let _failMsg ='';
+
+function trans(){
+  let keyWOrd = _keyWord;
+  if(keyWOrd){
+    router.transitionTo('shop',null,{
+      keyWord: _keyWord,
+      typeId: _typeId,
+      page: _page
+    });
+  }else{
+    router.transitionTo('shop',null,{
+      typeId: _typeId,
+      page: _page
+    });
+  }
+
+}
 
 function cleanCache(key, second = 60){
   setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 60 min
@@ -95,7 +114,19 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         }
         else{//搜索页
           if(action.data.body.Code===0){
-            _items = _items.set(action.data.key, action.data.body.Info);
+            let items = action.data.body.Info;
+
+            items.forEach(data=> {
+              data.goods_id = parseInt(data.goods_id);
+              data.quality = parseInt(data.quality);
+              data.price = parseFloat(data.price);
+              data.status = parseInt(data.status);
+              data.t_limit = parseInt(data.t_limit);
+              data.user_id = parseInt(data.user_id);
+            });
+
+
+            _items = _items.set(action.data.key, items);
             cleanCache(action.data.key);
           }
           else{
@@ -118,23 +149,39 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
   }
   else{
     switch (action.actionType) {
+
+
       case PageConstants.PAGE_CHANGE_PAGE:
         _page = action.page;
-        PageStore.emitChange();
+        trans();
+        //PageStore.emitChange();
         break;
       case PageConstants.PAGE_NEW_KEY_WORD:
         _keyWord = action.keyword || '';
         //_typeId = '000000';
         _page = 1;
-        PageStore.emitChange();
+        trans();
+        //PageStore.emitChange();
         break;
       case PageConstants.PAGE_CHANGE_TYPE:
         _typeId = action.type_id || '000000';
         _page = 1;
-        PageStore.emitChange();
+        trans();
+        //PageStore.emitChange();
         break;
       case PageConstants.PAGE_REFRESH:
         refresh();
+        PageStore.emitChange();
+        break;
+      case AppConstants.TRANSITION:
+        if(action.data.path&&action.data.pathname===('/shop')>=0)
+        {
+          console.log('go query!!!');
+          const query = action.data.query;
+          _page = query.page || 1;
+          _keyWord = query.keyWord || '';
+          _typeId = query.typeId || '000000';
+        }
         PageStore.emitChange();
         break;
       default:

@@ -139,11 +139,14 @@ const Banner = React.createClass({
   },
   handleSearchKey(e){
     if(e.keyCode===13){
-     if(this.state.searchText.length>20){
-       let text = this.state.searchText.substr(0,20);
-       this.setState({searchText: text});
-       PageActions.getNewKeyword(text);
-     }
+      let text = this.state.searchText.substr(0,20);
+      if(this.state.searchText.length>20){
+         this.setState({searchText: text});
+         PageActions.getNewKeyword(text);
+      }
+      else{
+        PageActions.getNewKeyword(text);
+      }
     }
   },
   render() {

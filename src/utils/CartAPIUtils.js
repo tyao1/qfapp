@@ -7,32 +7,34 @@ import CartActions from '../actions/CartActions';
 //缓存物品数量操作
 let cartChangeNumber = {};
 function cartChangeFunc(data, num, backup){
+  return ()=>{
   //清除记录
-  request
-    .put('http://10.60.136.39/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
-    .type('form')
-    .send({
-      goods_id: data,
-      number: num
-    })
-    .end(function(err, res){
-      if(err){
-        cartChangeNumber[data] = null;
-        //就返回之前的物品backup呗
-        CartActions.changeNumFailure({
-          goods_id: data,
-          backup
-        });
-      }
-      else{
-        cartChangeNumber[data] = null;
-        CartActions.changeNumSuccess({
-          body: res.body,
-          goods_id: data,
-          backup
-        });
-      }
-    });
+    request
+      .put('http://10.60.136.39/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
+      .type('form')
+      .send({
+        goods_id: data,
+        number: num
+      })
+      .end(function(err, res){
+        if(err){
+          cartChangeNumber[data] = null;
+          //就返回之前的物品backup呗
+          CartActions.changeNumFailure({
+            goods_id: data,
+            backup
+          });
+        }
+        else{
+          cartChangeNumber[data] = null;
+          CartActions.changeNumSuccess({
+            body: res.body,
+            goods_id: data,
+            backup
+          });
+        }
+      });
+  }
 }
 
 const CartAPIUtils = {

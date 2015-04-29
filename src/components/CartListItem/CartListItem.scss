@@ -11,6 +11,7 @@
     vertical-align: middle;
     border:1px solid $subtleFontColor2;
     overflow: hidden;
+    cursor:pointer;
   }
   >section{
     display:inline-block;
@@ -22,6 +23,7 @@
     }
     &.big{
       width:20%;
+      cursor:pointer;
     }
     >span{
       display:block;

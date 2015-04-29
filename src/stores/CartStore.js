@@ -151,7 +151,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CART_ADD_SUCCESS:
-        if(action.data.body.Code!==0){
+        if(action.data.body.Code!==0&&action.data.body.Code!==1007){
 
           reverseAdd(action.data.goods_id);
           setTimeout(()=>{
@@ -195,7 +195,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case CartConstants.CHANGE_NUM_SUCCESS:
         const cartCode = action.data.body.Code;
-        if(cartCode!==0){
+        if(cartCode!==0&&cartCode!==1007){
           if(cartCode===1048){
             setTimeout(()=>{
               NotificationActions.addNotification(
@@ -231,14 +231,12 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           if(action.data.body.Info) {
             let car = action.data.body.Info.car;
             if (car) {
-              //let mappedCar = {};
               car.forEach(data=> {
                 data.goods_id = parseInt(data.goods_id);
                 data.quality = parseInt(data.quality);
                 data.price = parseFloat(data.price);
                 data.status = parseInt(data.status);
                 data.t_limit = parseInt(data.t_limit);
-                data.type_id = parseInt(data.type_id);
                 data.user_id = parseInt(data.user_id);
                 _items = _items.set(data.goods_id, Immutable.fromJS(data));
               });
@@ -309,7 +307,8 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         const item = action.data;
         console.log('item', item);
         //检查用户名是否为卖家
-        if(UserStore && UserStore.getUserName()===item.nickname)
+
+        if(UserStore.getUserName()===item.nickname)
         {
           setTimeout(()=>{
             NotificationActions.addNotification(
@@ -352,10 +351,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         CartStore.emitChange();
         break;
       case AppConstants.NEED_LOGIN:
-          _items = _items.clear();
-          CartStore.init();
-          CartStore.emitChange();
-          break;
+        console.log('need login and clear');
+        _items = _items.clear();
+        CartStore.init();
+        CartStore.emitChange();
+        break;
       default:
         break;
     }

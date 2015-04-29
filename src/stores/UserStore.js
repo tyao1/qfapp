@@ -40,7 +40,7 @@ const UserStore = assign({}, EventEmitter.prototype, {
   cache: {},
 
   getUserName(){
-    return _userData.nickname;
+    return _userData?_userData.nickname:'';
   },
   getUserData(){
     return _userData;

@@ -3,6 +3,7 @@ import React from 'react';
 
 import Counter from '../Counter';
 import ButtonNormal from '../ButtonNormal';
+import DetailActions from '../../actions/DetailActions';
 
 require('./CartListItem.scss');
 
@@ -24,12 +25,15 @@ const CartListItem = React.createClass({
   handleRealDelete(){
     this.props.handleDelete();
   },
+  handleItemClick(){
+    DetailActions.getNewDetail(this.props.data);
+  },
   render: function(){
     const item = this.props.data;
     return (
       <div className="cartListItem">
-        <img src={item.path} />
-        <section className="big">
+        <img src={item.path} onClick={this.handleItemClick} />
+        <section className="big" onClick={this.handleItemClick}>
           <span>{item.type_id}</span>
           <p>{item.name}</p>
         </section>

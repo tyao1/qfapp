@@ -25,7 +25,6 @@ const DetailStore = assign({}, EventEmitter.prototype, {
     let item = _items.get(_curId);
     if (!item || item === DetailConstants.DETAIL_KEY_NULL || item.isTemp) {
       //开始异步获取数据
-      console.log('开始一部后去！！！');
       _items = _items.set(_curId, DetailConstants.DETAIL_KEY_NULL);
       DetailAPIUtils.getDetail(_curId);
       //设置无内容标志
@@ -61,7 +60,6 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
           //转义内容
           let {goods_id, type_id, name, quality, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname} = action.data.body.Info;
           goods_id = parseInt(goods_id);
-          type_id = parseInt(type_id);
           quality = parseInt(quality);
           price = parseFloat(price);
           status = parseInt(status);
@@ -104,16 +102,6 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
   else
   {
     switch (action.actionType){
-      case AppConstants.TRANSITION:
-        if(action.data.path&&action.data.path.indexOf('/detail')>=0)
-        {
-          let id = parseInt(action.data.params.id);
-          if(_curId!==id){
-            _curId = id;
-            DetailStore.emitChange();
-          }
-        }
-        break;
       case DetailConstants.DETAIL_NEW:
         //填充来自之前的缓存数据，有则跳过，无则填充
         const tempItem = action.data;
@@ -123,6 +111,16 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
           tempItem.isTemp = true;
           _items = _items.set(tempItem.goods_id, tempItem);
           DetailStore.emitChange();
+        }
+        break;
+      case AppConstants.TRANSITION:
+        if(action.data.path&&action.data.path.indexOf('/detail')>=0)
+        {
+          let id = parseInt(action.data.params.id);
+          if(_curId!==id){
+            _curId = id;
+            DetailStore.emitChange();
+          }
         }
         break;
       /*case DetailConstants.DETAIL_REFRESH:

@@ -14,7 +14,7 @@ import DashboardPage from './components/DashboardPage';
 import ItemDetailPage from './components/ItemDetailPage';
 export default (
   <Route name="app" path='/' handler={App}>
-    <Route name='shop' handler={ShoppingPage} path="shop"/>
+    <Route name='shop' handler={ShoppingPage} path="shop" />
     <Route name='sell' handler={SellPage}/>
     <Route name='my' handler={DashboardPage} path="my/:section"/>
     <Route name='detail' handler={ItemDetailPage} path="detail/:id"/>
