@@ -111,7 +111,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   fetchCarts(){
     request
-      .get('./mockgetcart.json')//.get('http://10.60.136.39/index.php/Home/Car.json')//put
+      .get('http://10.60.136.39/index.php/Home/Car.json')//.get('./mockgetcart.json')////put
       .end(function(err, res){
         if(err){
           //就返回之前的物品backup

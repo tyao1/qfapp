@@ -4,8 +4,7 @@ import React from 'react';
 import cn from 'classnames';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import {close, must} from '../SVGs';
-import NotificationStore from '../../stores/NotificationStore';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import UserStore from '../../stores/UserStore';
 import NotificationActions from '../../actions/NotificationActions';
 require('./Feedback.scss');
 
@@ -38,16 +37,7 @@ const Feedback = React.createClass({
     return (
       <div className={`notification${notifications.size?' active':''}`}>
         <div className="inner">
-          {must}
-          <ReactCSSTransitionGroup transitionName="t">
-          {
-            notifications.map((data, key)=>
-                <div className="item" key={key} onClick={this.handleClose(key)}>{data}
-                  <div className="close">{close}</div>
-                </div>
-            )
-          }
-          </ReactCSSTransitionGroup>
+
         </div>
       </div>
     );
