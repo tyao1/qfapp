@@ -5,22 +5,15 @@ import Banner from '../Banner';
 import Notification from '../Notification';
 import {RouteHandler} from 'react-router';
 
-export default class App extends React.Component {
-
-  componentDidMount() {
-
-  }
-  componentWillUnmount() {
-
-  }
+const App = React.createClass({
   render() {
     return (
       <div className="wrapper">
-        <Banner/>
         <RouteHandler/>
-        <Notification/>
       </div>
     );
   }
-
-}
+});
+export default App;
+//        <Banner/>
+//        <Notification/>

@@ -15,6 +15,8 @@ const ShoppingPage = React.createClass({
   mixins: [PureRenderMixin],
 
   _onPageChange(){
+    console.log('shopping change');
+
     this.setState({
       items: PageStore.getItems('all')
     });
@@ -28,10 +30,14 @@ const ShoppingPage = React.createClass({
 
 
   componentWillMount(){
+    console.log('shopping mount');
+
     PageStore.addChangeListener(this._onPageChange);
 
   },
   componentWillUnMount(){
+    console.log('shopping unmount');
+
     PageStore.removeChangeListener(this._onPageChange);
   },
 

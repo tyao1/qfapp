@@ -21,8 +21,8 @@ require('./ItemDetailPage.scss');
 const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
   _onDetailChange(){
+    console.log('detail change');
     const detail = DetailStore.getDetail();
-    console.log('detail in comp', detail);
     if(detail!==this.state.detail){
       this.setState({
         detail,
@@ -48,11 +48,13 @@ const ItemDetailPage = React.createClass({
   },
 
   componentWillMount(){
+    console.log('ItemDetail Mount');
     DetailStore.addChangeListener(this._onDetailChange);
     window.addEventListener('scroll', this._onScroll);
 
   },
   componentWillUnMount(){
+    console.log('ItemDetail Unmount');
     DetailStore.removeChangeListener(this._onDetailChange);
     window.removeEventListener('scroll', this._onScroll);
 
@@ -71,7 +73,6 @@ const ItemDetailPage = React.createClass({
      path: ''
      */
     let {type_id, name, price, nickname,quality ,sold_num, book_num, img} = this.state.detail;
-    console.log('detail',this.state.detail);
     quality = quality - sold_num - book_num;
     let path = img[0].path;
     CartActions.cartAdd({

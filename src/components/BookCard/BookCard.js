@@ -19,6 +19,7 @@ const BookCard = React.createClass({
   },
   handleDetailClick(){
     DetailActions.getNewDetail(this.props.item);
+    console.log('temp detail',this.props.item);
   },
   render() {
     const item = this.props.item;

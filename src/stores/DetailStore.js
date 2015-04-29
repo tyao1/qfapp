@@ -25,12 +25,12 @@ const DetailStore = assign({}, EventEmitter.prototype, {
     let item = _items.get(_curId);
     if (!item || item === DetailConstants.DETAIL_KEY_NULL || item.isTemp) {
       //开始异步获取数据
+      console.log('开始一部后去！！！');
+      _items = _items.set(_curId, DetailConstants.DETAIL_KEY_NULL);
       DetailAPIUtils.getDetail(_curId);
       //设置无内容标志
-      _items = _items.set(_curId, DetailConstants.DETAIL_KEY_NULL);
       return DetailConstants.DETAIL_KEY_NULL;
       //清除内容
-      //setTimeout(()=>{this.cache[UserConstants.SELL_ORDERS_KEY] = null; }, 5000);//cache for 5 sec
     }
     else{
       return item;
@@ -84,6 +84,8 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
             detail,
             nickname
           });
+          //删除缓存内容
+          setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 60 * 2);
         }
         else{
           _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_FAILURE);
@@ -105,8 +107,11 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
       case AppConstants.TRANSITION:
         if(action.data.path.startsWith('/detail'))
         {
-          _curId = action.data.params.id;
-          DetailStore.emitChange();
+          let id = parseInt(action.data.params.id);
+          if(_curId!==id){
+            _curId = id;
+            DetailStore.emitChange();
+          }
         }
         break;
       case DetailConstants.DETAIL_NEW:
