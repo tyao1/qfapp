@@ -105,7 +105,7 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType){
       case AppConstants.TRANSITION:
-        if(action.data.path.startsWith('/detail'))
+        if(action.data.path&&action.data.path.indexOf('/detail')>=0)
         {
           let id = parseInt(action.data.params.id);
           if(_curId!==id){

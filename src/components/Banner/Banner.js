@@ -17,6 +17,7 @@ import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
 import Cart from '../Cart';
 
+import PageActions from '../../actions/PageActions';
 
 require('./Banner.scss');
 
@@ -33,10 +34,6 @@ const Banner = React.createClass({
     this.setState(tmp);
     if(tmp.isHome) {
       this._onScroll();
-      //window.addEventListener('scroll', this._onScroll);
-    }
-    else{
-      //window.removeEventListener('scroll', this._onScroll);
     }
   },
   _onUserChange(){
@@ -71,7 +68,8 @@ const Banner = React.createClass({
       isHome: AppStore.getIsHome(),
       userData: UserStore.getUserData(),
       itemsCount: CartStore.getItemsCount(),
-      cartOpen: false
+      cartOpen: false,
+      searchText: ''
     };
   },
 
@@ -136,6 +134,18 @@ const Banner = React.createClass({
   handleLogout(){
     UserActions.logout();
   },
+  handleSearchChange(e){
+    this.setState({searchText: e.target.value});
+  },
+  handleSearchKey(e){
+    if(e.keyCode===13){
+     if(this.state.searchText.length>20){
+       let text = this.state.searchText.substr(0,20);
+       this.setState({searchText: text});
+       PageActions.getNewKeyword(text);
+     }
+    }
+  },
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -181,7 +191,7 @@ const Banner = React.createClass({
         <div className="inner">
           <div className="left">
             <Link to="home">{logo}</Link>
-            <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup}/>
+            <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey}/>
           </div>
           <div className="right">
             {controls}

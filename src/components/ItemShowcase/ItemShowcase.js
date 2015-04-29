@@ -18,7 +18,8 @@ const ItemShowcase = React.createClass({
   _onPageChange(){
     console.log('page change');
     this.setState({
-      items: PageStore.getHome()
+      items: PageStore.getHome(),
+      failMsg: PageStore.getFailMsg()
     });
   },
 
@@ -48,6 +49,7 @@ const ItemShowcase = React.createClass({
     else if(items===PageConstants.PAGE_KEY_FAILURE){
       elem = <div className="failure">
           <p>啊哦，加载失败了</p>
+          <p>this.state.failMsg</p>
           <ButtonNormal text="重试" onClick={this.handleRetry}/>
         </div>;
     }

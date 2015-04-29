@@ -32,6 +32,11 @@ $navWidth: 200px;
 
 
       >.items {
+        min-height:400px;
+        >.failure{
+          margin: 84px auto 34px;
+          text-align: center;
+        }
         >img{
           margin: auto;
           display: block;
@@ -41,6 +46,7 @@ $navWidth: 200px;
           display: inline-block;
           margin: 0 0 30px 24px;
         }
+
       }
     }
   }

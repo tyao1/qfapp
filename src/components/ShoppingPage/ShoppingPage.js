@@ -20,7 +20,8 @@ const ShoppingPage = React.createClass({
     console.log('shopping change');
 
     this.setState({
-      items: PageStore.getItems()
+      items: PageStore.getItems(),
+      failMsg: PageStore.getFailMsg()
     });
   },
 
@@ -52,12 +53,18 @@ const ShoppingPage = React.createClass({
     else if(items===PageConstants.PAGE_KEY_FAILURE){
       elem = <div className="failure">
         <p>啊哦，加载失败了</p>
+        <p>this.state.failMsg</p>
         <ButtonNormal text="重试" onClick={this.handleRetry}/>
       </div>;
     }
     else
     {
-      elem = items.map(data => <BookCard item={data}/>);
+      if(items.length) {
+        elem = items.map(data => <BookCard item={data}/>);
+      }
+      else{
+        elem = <div className="failure">{'>_<没有找到物品'}</div>;
+      }
     }
     console.log(items);
     return (

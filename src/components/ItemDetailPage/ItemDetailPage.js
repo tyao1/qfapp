@@ -21,7 +21,6 @@ require('./ItemDetailPage.scss');
 const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
   _onDetailChange(){
-    console.log('detail change');
     const detail = DetailStore.getDetail();
     if(detail!==this.state.detail){
       this.setState({

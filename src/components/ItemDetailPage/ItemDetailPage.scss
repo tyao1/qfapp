@@ -4,13 +4,14 @@ $briefHeight:260px;
 $briefPadding:48px;
 $controlsWidth:340px;
 .itemDetailPage {
-  padding:$bannerHeight 0;
+  padding:0 0 $bannerHeight 0;
   >.brief{
 
     width:100%;
-    height:$briefHeight;
+    height:$briefHeight + $bannerHeight;
     background:$fontColor;
     color:#fff;
+    padding:$bannerHeight 0 0 0;
     >.inner{
       @include maxWidth;
       padding:$briefPadding 0 $briefPadding 12px;

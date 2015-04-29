@@ -49,7 +49,8 @@ const AppStore = assign({}, EventEmitter.prototype, {
   requireLogin(){
     console.log('requireLogin');
     setTimeout(()=>{
-      AppActions.needLogin(AppStore.getTransition().path);
+      let trans = AppStore.getTransition();
+      AppActions.needLogin(trans?trans.path:'/' );
       NotificationActions.addNotification(
         `>_<需要登录`
       );

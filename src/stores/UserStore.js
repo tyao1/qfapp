@@ -186,7 +186,8 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType){
       case AppConstants.TRANSITION:
-        if(action.data.path.startsWith('/my'))
+        console.log(action.data);
+        if(action.data.path&&action.data.path.indexOf('/my')>=0)
         {
           _section = action.data.params.section;
           UserStore.emitChange();
