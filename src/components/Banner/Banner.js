@@ -7,6 +7,7 @@ import InputNormal from '../InputNormal';
 import AppStore from '../../stores/AppStore';
 import UserStore from '../../stores/UserStore';
 import CartStore from '../../stores/CartStore';
+import PageStore from '../../stores/PageStore';
 import UserActions from '../../actions/UserActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
@@ -54,6 +55,13 @@ const Banner = React.createClass({
       isChanged
     });
   },
+
+  _onPageChange(){
+    this.setState({
+      searchText: PageStore.getKeyWord()
+    })
+  },
+
   yOffset:0,
   _onScroll(){
     const yOff = window.pageYOffset;
@@ -79,14 +87,13 @@ const Banner = React.createClass({
     AppStore.addChangeListener(this._onAppChange);
     UserStore.addChangeListener(this._onUserChange);
     CartStore.addChangeListener(this._onCartChange);
+    PageStore.addChangeListener(this._onPageChange);
   },
   componentWillUnmount(){
     AppStore.removeChangeListener(this._onAppChange);
     UserStore.removeChangeListener(this._onUserChange);
     CartStore.removeChangeListener(this._onCartChange);
-
-    //in case
-    //window.removeEventListener('scroll', this._onScroll);
+    PageStore.removeChangeListener(this._onPageChange);
     if(this.keyListener){
       window.removeEventListener('keydown', this.handleKeyPress);
     }
@@ -140,13 +147,7 @@ const Banner = React.createClass({
   handleSearchKey(e){
     if(e.keyCode===13){
       let text = this.state.searchText.substr(0,20);
-      if(this.state.searchText.length>20){
-         this.setState({searchText: text});
-         PageActions.getNewKeyword(text);
-      }
-      else{
-        PageActions.getNewKeyword(text);
-      }
+      PageActions.setNewKeyword(text);
     }
   },
   render() {

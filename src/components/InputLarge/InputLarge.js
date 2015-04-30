@@ -11,7 +11,7 @@ export default class InputLarge extends React.Component {
     var { svg, btnText, ...others } = this.props;
     let img, btn;
     if(btnText){
-      btn = <button data-text={btnText}><span>{btnText}</span></button>;
+      btn = <button data-text={btnText} onClick={this.props.buttonOnClick}><span>{btnText}</span></button>;
     }
     if(svg){
       img = <div className="svgWrapper">{svg}</div>;

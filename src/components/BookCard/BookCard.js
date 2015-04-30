@@ -6,6 +6,7 @@ import {shoppingcart} from '../SVGs';
 import CartActions from '../../actions/CartActions';
 import DetailActions from '../../actions/DetailActions';
 import router from '../../router';
+import Types from '../../utils/Types';
 
 require('./BookCard.scss');
 
@@ -23,6 +24,7 @@ const BookCard = React.createClass({
   },
   render() {
     const item = this.props.item;
+    console.log('Book Card', item);
     return (
       <div className="bookCard">
         <div className="top" onClick={this.handleDetailClick}>
@@ -38,7 +40,7 @@ const BookCard = React.createClass({
               {item.nickname}
             </div>
           </div>
-          <span>{item.type_id}</span>
+          <span>{Types[item.type_id]||'未知'}</span>
           <p>{item.name}</p>
           <div className="shop">
             <span className="price">¥{item.price.toFixed(2)}</span>

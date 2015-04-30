@@ -4,6 +4,7 @@ import PageActions from '../actions/PageActions';
 import PageConstants from '../constants/PageConstants';
 const PageAPIUtils = {
 
+
   Id(keyWord, type_id, page){
     return (keyWord + '##&' + type_id + '#&&' + page);
   },

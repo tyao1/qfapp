@@ -20,17 +20,17 @@ let _typeId = '000000';
 let _failMsg ='';
 
 function trans(){
-  let keyWOrd = _keyWord;
-  if(keyWOrd){
+  let keyWord = _keyWord;
+  if(keyWord){
     router.transitionTo('shop',null,{
-      keyWord: _keyWord,
-      typeId: _typeId,
-      page: _page
+      q: _keyWord,
+      t: _typeId,
+      p: _page
     });
   }else{
     router.transitionTo('shop',null,{
-      typeId: _typeId,
-      page: _page
+      t: _typeId,
+      p: _page
     });
   }
 
@@ -51,6 +51,12 @@ function refresh(){
 
 const PageStore = assign({}, EventEmitter.prototype, {
 
+  getType(){
+    return _typeId;
+  },
+  getKeyWord(){
+    return _keyWord;
+  },
   getFailMsg(){
     return _failMsg;
   },
@@ -164,7 +170,8 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         //PageStore.emitChange();
         break;
       case PageConstants.PAGE_CHANGE_TYPE:
-        _typeId = action.type_id || '000000';
+        console.log('change type',action);
+        _typeId = action.typeId || '000000';
         _page = 1;
         trans();
         //PageStore.emitChange();
@@ -174,13 +181,13 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         PageStore.emitChange();
         break;
       case AppConstants.TRANSITION:
-        if(action.data.path&&action.data.pathname===('/shop')>=0)
+        if(action.data.path&&action.data.pathname===('/shop'))
         {
           console.log('go query!!!');
           const query = action.data.query;
-          _page = query.page || 1;
-          _keyWord = query.keyWord || '';
-          _typeId = query.typeId || '000000';
+          _page = query.p || 1;
+          _keyWord = query.q || '';
+          _typeId = query.t || '000000';
         }
         PageStore.emitChange();
         break;

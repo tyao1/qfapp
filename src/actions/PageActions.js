@@ -18,10 +18,17 @@ export default {
     });
   },
 
-  getNewKeyword(keyword){
+  setNewKeyword(keyword){
     Dispatcher.handleViewAction({
       actionType: PageConstants.PAGE_NEW_KEY_WORD,
       keyword
+    });
+  },
+
+  setNewType(typeId){
+    Dispatcher.handleViewAction({
+      actionType: PageConstants.PAGE_CHANGE_TYPE,
+      typeId
     });
   },
 

@@ -7,8 +7,8 @@ import ButtonNormal from '../ButtonNormal';
 import WordsFlasher from '../WordsFlasher';
 import RegForm from '../RegForm';
 import Modal from '../Modal';
-import AppStore from '../../stores/AppStore.js';
-import AppActions from '../../actions/AppActions.js';
+import AppStore from '../../stores/AppStore';
+import AppActions from '../../actions/AppActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import router from '../../router';
 
@@ -16,7 +16,8 @@ import BookCard from '../BookCard';
 import ItemShowcase from '../ItemShowcase';
 
 import {coffecup, shoppingbag, truck} from '../SVGs';
-
+import PageStore from '../../stores/PageStore';
+import PageActions from '../../actions/PageActions';
 
 require('./HomePage.scss');
 
@@ -24,6 +25,21 @@ require('./HomePage.scss');
 
 const HomePage = React.createClass({
   mixins: [PureRenderMixin],
+
+  _onPageChange(){
+    this.setState({
+      searchText: PageStore.getKeyWord()
+    })
+  },
+
+  componentWillMount(){
+    PageStore.addChangeListener(this._onPageChange);
+
+  },
+  componentWillUnmount(){
+    PageStore.removeChangeListener(this._onPageChange);
+  },
+
   getInitialState(){
     return {
       openedHow: false,
@@ -49,6 +65,20 @@ const HomePage = React.createClass({
     //this.setState({isGoShopping:true});
     router.transitionTo('shop');
   },
+  handleSearchKey(e){
+    if(e.keyCode===13){
+      let text = this.state.searchText.substr(0,20);
+      PageActions.setNewKeyword(text);
+    }
+  },
+  handleSearchChange(e){
+    this.setState({searchText: e.target.value});
+  },
+  handleSearchButton(){
+    let text = this.state.searchText.substr(0,20);
+    PageActions.getNewKeyword(text);
+  },
+
 
   render() {
     return (
@@ -57,7 +87,7 @@ const HomePage = React.createClass({
           <div className="inner">
             <h3 className="subtle">最便捷二手物品交易平台</h3>
             <h1 className="main">轻松购买闲置的<WordsFlasher/></h1>
-            <InputLarge placeholder="键入你想买或想卖的物品" btnText="搜索" svg={coffecup}/>
+            <InputLarge placeholder="键入你想买或想卖的物品" btnText="搜索" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} buttonOnClick={this.handleSearchButton}/>
             <div className={`how${this.state.openedHow?' active':''}`}>
               <ul className="inner">
                 <li>

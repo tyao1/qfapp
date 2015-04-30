@@ -4,6 +4,7 @@ import React from 'react';
 import Counter from '../Counter';
 import ButtonNormal from '../ButtonNormal';
 import DetailActions from '../../actions/DetailActions';
+import Types from '../../utils/Types';
 
 require('./CartListItem.scss');
 
@@ -34,7 +35,7 @@ const CartListItem = React.createClass({
       <div className="cartListItem">
         <img src={item.path} onClick={this.handleItemClick} />
         <section className="big" onClick={this.handleItemClick}>
-          <span>{item.type_id}</span>
+          <span>{Types[item.type_id]||'未知'}</span>
           <p>{item.name}</p>
         </section>
         <section className="small">
