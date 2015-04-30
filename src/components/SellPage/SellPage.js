@@ -50,14 +50,10 @@ const SellPage = React.createClass({
     };
   },
   componentWillMount(){
-    console.log('sell mount');
-
     SellStore.addChangeListener(this._onSellChange);
 
   },
   componentWillUnmount(){
-    console.log('sell unmount');
-
     SellStore.removeChangeListener(this._onSellChange);
   },
 

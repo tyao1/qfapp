@@ -34,8 +34,8 @@ const Cart = React.createClass({
     return {
       items: CartStore.getItems(),
       aboutToOrder: false,
-      b_NO: '',
-      NO: '',
+      //b_NO: '',
+      //NO: '',
       realErrMsg: CartStore.getSubmitMsg(),
       isSubmitting: CartStore.getIsSubmitting(),
       isSuccessful: CartStore.getSuccess()
@@ -66,7 +66,7 @@ const Cart = React.createClass({
   handleCloseOrder(){
     this.setState({aboutToOrder: false});
   },
-
+/*
   handleBNOChange(e){
     this.setState({b_NO: e.target.value});
 
@@ -74,7 +74,7 @@ const Cart = React.createClass({
   handleNOChange(e){
     this.setState({NO: e.target.value});
   },
-
+*/
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       this.setState({
@@ -84,20 +84,31 @@ const Cart = React.createClass({
       setTimeout(()=>{CartActions.cartOrderNew(); }, 430);
     }
     else{
-      if(!this.state.NO.length)
+     /* if(!this.state.NO.length)
       {
         this.setState({realErrMsg: '宿舍号不能为空'});
         return;
       }
-      else
-      if(!this.state.b_NO.length)
+      else if(!this.state.b_NO.length)
       {
         this.setState({realErrMsg: '宿舍楼号不能为空'});
         return;
       }
-      CartActions.cartOrderSubmit(this.state.items.toJS());
+      */
+      let items = this.state.items.toJS();
+      let submitItems = [];
+      Object.keys(items).map((key)=> {
+        let data = items[key];
+        if (data) {
+          submitItems.push({
+            gid: data.goods_id,
+            num: data.num
+          });
+        }
+      });
+      console.log('submitItems', submitItems);
+      CartActions.cartOrderSubmit({bookInfo: submitItems});
     }
-
   },
   render() {
     let elem;
@@ -140,21 +151,11 @@ const Cart = React.createClass({
                       <span className="price">物品总价：${price.toFixed(2)}元</span>
                     </p>
 
-                    <div className="inputEffectAgain">
-                      <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
-                      <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
-                    </div>
-
-                    <div className="inputEffectAgain">
-                      <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
-                      <label className={this.state.NO.length?'active':null}>宿舍号</label>
-                    </div>
-
                     <p>{this.state.realErrMsg}</p>
                     <div className="controls">
                       <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
                                     svg={paperplane} onClick={this.handleRealSubmitClick}/>
-                      <ButtonNormal className="ButtonNormal cancel" text="关闭"
+                      <ButtonNormal className="ButtonNormal cancel" text="返回"
                                     onClick={this.handleCloseOrder}/>
                     </div>
                   </div>
@@ -185,3 +186,17 @@ const Cart = React.createClass({
 });
 
 export default Cart;
+
+/*
+ <!--
+ <div className="inputEffectAgain">
+ <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
+ <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
+ </div>
+
+ <div className="inputEffectAgain">
+ <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
+ <label className={this.state.NO.length?'active':null}>宿舍号</label>
+ </div>
+ -->
+ */

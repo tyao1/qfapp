@@ -1,38 +1,38 @@
 'use strict';
 
 import React from 'react';
-import UserStore from '../../stores/UserStore'
+import OrderStore from '../../stores/OrderStore'
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-import UserConstants from '../../constants/UserConstants';
+import OrderConstants from '../../constants/OrderConstants';
 import OrderItem from '../OrderItem';
 require('./SellOrders.scss');
 
 const SellOrders = React.createClass({
-  _onUserChange(){
+  _onOrderChange(){
     this.setState({
-      sellOrders: UserStore.getSellOrders()
+      sellOrders: OrderStore.getSellOrders()
     });
   },
 
   mixins: [PureRenderMixin],
   getInitialState(){
     return {
-      sellOrders: UserStore.getSellOrders()
+      sellOrders: OrderStore.getSellOrders()
     };
   },
   componentWillMount(){
-    UserStore.addChangeListener(this._onUserChange);
+    OrderStore.addChangeListener(this._onOrderChange);
 
   },
   componentWillUnmount(){
-    UserStore.removeChangeListener(this._onUserChange);
+    OrderStore.removeChangeListener(this._onOrderChange);
 
   },
   render(){
     let elem;
     const sellOrders = this.state.sellOrders;
     console.log(sellOrders);
-    if(sellOrders===UserConstants.SELL_ORDERS_NULL){
+    if(sellOrders===OrderConstants.SELL_ORDERS_NULL){
       elem = <img src="./facebook.svg" />;
     }
     else if(sellOrders.length){
@@ -45,10 +45,7 @@ const SellOrders = React.createClass({
     return (<div className="sellOrders">
       {elem}
     </div>);
-
   }
-
-
 
 });
 

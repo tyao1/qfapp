@@ -72,25 +72,6 @@ export default {
     UserAPIUtils.logout();
   },
 
-
-
-  /*
-   * 卖单
-   */
-  getSellOrdersFailure(data){
-    Dispatcher.handleServerAction({
-      actionType: UserConstants.SELL_ORDERS_FAILURE,
-      data
-    });
-  },
-  getSellOrdersSuccess(data){
-    Dispatcher.handleServerAction({
-      actionType: UserConstants.SELL_ORDERS_SUCCESS,
-      data
-    });
-  },
-
-
   applySellSubmit(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.APPLY_SELL_SUBMIT,

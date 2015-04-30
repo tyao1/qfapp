@@ -11,7 +11,7 @@ $buttonHeight:42px;
   background:#fff;
   padding:32px;
   border-radius:$borderRadius;
-
+  overflow-y:auto;
   >.cartList{
    >.cartListItem{
      margin:34px 0;
@@ -30,7 +30,6 @@ $buttonHeight:42px;
         text-align: center;
       }
       >.orderWrapper {
-
         > .ButtonNormal {
           margin: 0 auto;
           display: block;
@@ -65,10 +64,8 @@ $buttonHeight:42px;
           width:$buttonWidth;
           background: $mainColorTint;
           border-radius: 0 0 $borderRadius $borderRadius;
+
           z-index:0;
-
-
-
           >.submitForm {
             padding:36px;
             text-align: center;
@@ -77,6 +74,7 @@ $buttonHeight:42px;
               font-size:$LargeFontSize;
               margin: 0 0 40px 0;
               >.price{
+                margin:6px 0 0 0;
                 display: block;
                 font-size:$fontSize;
                 color:$subtleFontColor2;
@@ -137,9 +135,7 @@ $buttonHeight:42px;
 
         &.active{
           >.ButtonNormal{
-
               opacity: 0;
-
           }
 
           >.morph{
@@ -150,7 +146,7 @@ $buttonHeight:42px;
             opacity:1;
             z-index:2;
             margin:0 0-$morphRight 0-$morphBottom 0;
-            transition:opacity .3s ease,width .24s ease .8s, height .24s ease .8s, margin .24s ease .8s,z-index 0 .14s;
+            transition:opacity .3s ease,width .24s ease, height .24s ease, margin .24s ease,z-index 0s .14s;
           }
         }
       }

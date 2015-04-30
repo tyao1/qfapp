@@ -17,7 +17,7 @@ $navWidth: 200px;
       border-radius:$borderRadius;
 
       >h3{
-        margin:0 0 7px 0;
+        margin:12px 0;
         padding:0 0 7px 0;
         font-size: $bigFontSize;
       }
@@ -30,35 +30,44 @@ $navWidth: 200px;
         >.ButtonNormal{
           border-radius:0;
           color: rgba($fontColor,.8);
-          padding-bottom:2px;
-          &:before{
-            content:'';
-            bottom:0;
-            left:50%;
-            right:0;
-            height:2px;
-            position: absolute;
-            background:$mainColorTint;
-            width:0;
-            visibility:hidden;
-            transition: color .1s ease, left .13s ease, width .13s ease;
-          }
-          margin:6px auto;
+          margin:13px auto;
           font-size: $bigFontSize - 2px;
           border:none;
           display: block;
+          overflow: visible;
+          &:before{
+            content:'';
+            top:0;
+            bottom:0;
+            left:50%;
+            right:0;
+            position: absolute;
+            border-top:2px solid $mainColorTint;
+            border-bottom:2px solid $mainColorTint;
+            width:0;
+            opacity:0;
+            visibility:hidden;
+            transition: opacity .2s ease, left .13s ease, width .13s ease, top .13s ease, bottom .13s ease, visibility 0s .2s;
+          }
+
           >span, &:after{
             padding: 2px 0;
+          }
+          &:after{
+            color:#000;
           }
 
 
           &.active {
             color: #000;
             &:before {
-              padding:0 4px;
-              left:0;
-              width: 100%;
+              opacity:1;
+              top:-4px;
+              bottom:-4px;
+              left:-10%;
+              width: 120%;
               visibility: visible;
+              transition: opacity .2s ease, left .13s ease, width .13s ease, top .13s ease, bottom .13s ease;
             }
           }
         }
@@ -89,6 +98,10 @@ $navWidth: 200px;
           margin: 0 0 30px 24px;
         }
 
+      }
+
+      >.pagination{
+        text-align: center;
       }
     }
   }

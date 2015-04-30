@@ -5,15 +5,15 @@ import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 
-import PageAPIUtils from '../utils/PageAPIUtils';
-import PageConstants from '../constants/PageConstants';
+import OrderAPIUtils from '../utils/OrderAPIUtils';
+import OrderConstants from '../constants/OrderConstants';
 import Immutable from 'immutable';
 import AppConstants from '../constants/AppConstants';
 import router from '../router';
 
 import AppStore from '../stores/AppStore';
 
-const CHANGE_EVENT = 'CHANGE_PageStore';
+const CHANGE_EVENT = 'CHANGE_OrderStore';
 
 let _items = Immutable.Map();
 let _keyWord = '';
@@ -42,16 +42,16 @@ function cleanCache(key, second = 60){
   setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 60 min
 }
 function refresh(){
-  let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
-  if (!item || item === PageConstants.PAGE_KEY_FAILURE) {
+  let item = _items.get(OrderAPIUtils.Id(_keyWord, _typeId, _page));
+  if (!item || item === OrderConstants.ORDER_KEY_FAILURE) {
     //设置无内容标志
-    _items = _items.set(PageAPIUtils.Id(_keyWord, _typeId, _page), PageConstants.PAGE_KEY_NULL);
+    _items = _items.set(OrderAPIUtils.Id(_keyWord, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
     //开始异步获取数据
-    PageAPIUtils.getItems(_keyWord, _typeId, _page);
+    OrderAPIUtils.getItems(_keyWord, _typeId, _page);
   }
 }
 
-const PageStore = assign({}, EventEmitter.prototype, {
+const OrderStore = assign({}, EventEmitter.prototype, {
 
   getType(){
     return _typeId;
@@ -59,7 +59,7 @@ const PageStore = assign({}, EventEmitter.prototype, {
   getKeyWord(){
     return _keyWord;
   },
-  getPage(){
+  getOrder(){
     return parseInt(_page);
   },
   getFailMsg(){
@@ -67,14 +67,14 @@ const PageStore = assign({}, EventEmitter.prototype, {
   },
 
   getItems() {
-    let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
+    let item = _items.get(OrderAPIUtils.Id(_keyWord, _typeId, _page));
     console.log('getItems', item);
-    if (!item || item === PageConstants.PAGE_KEY_NULL) {
+    if (!item || item === OrderConstants.ORDER_KEY_NULL) {
       //设置无内容标志
-      _items = _items.set(PageAPIUtils.Id(_keyWord, _typeId, _page), PageConstants.PAGE_KEY_NULL);
+      _items = _items.set(OrderAPIUtils.Id(_keyWord, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
       //开始异步获取数据
-      PageAPIUtils.getItems(_keyWord, _typeId, _page);
-      return PageConstants.PAGE_KEY_NULL;
+      OrderAPIUtils.getItems(_keyWord, _typeId, _page);
+      return OrderConstants.ORDER_KEY_NULL;
     }
     else{
       return item;
@@ -83,14 +83,14 @@ const PageStore = assign({}, EventEmitter.prototype, {
 
 
   getHome() {
-    let item = _items.get(PageConstants.PAGE_KEY_HOME);
+    let item = _items.get(OrderConstants.ORDER_KEY_HOME);
     console.log('get home', item);
-    if (!item || item === PageConstants.PAGE_KEY_NULL) {
+    if (!item || item === OrderConstants.ORDER_KEY_NULL) {
       //设置无内容标志
-      _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);
+      _items = _items.set(OrderConstants.ORDER_KEY_HOME, OrderConstants.ORDER_KEY_NULL);
       //开始异步获取数据
-      PageAPIUtils.getHome();
-      return PageConstants.PAGE_KEY_NULL;
+      OrderAPIUtils.getHome();
+      return OrderConstants.ORDER_KEY_NULL;
       //清除内容
     }
     else{
@@ -111,12 +111,12 @@ const PageStore = assign({}, EventEmitter.prototype, {
 
 });
 
-PageStore.dispatcherToken = Dispatcher.register((payload) => {
+OrderStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
   if(payload.source==='SERVER_ACTION')
   {
     switch (action.actionType) {
-      case PageConstants.PAGE_SUCCESS:
+      case OrderConstants.ORDER_SUCCESS:
         console.log('page success',action.data);
         if(action.data.isHome){
           //HOME
@@ -145,13 +145,13 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
           }
         }
 
-        PageStore.emitChange();
+        OrderStore.emitChange();
         break;
-      case PageConstants.PAGE_FAILURE:
+      case OrderConstants.ORDER_FAILURE:
         console.log('page failure',action.data);
-        _items = _items.set(action.data.key, PageConstants.PAGE_KEY_FAILURE);
+        _items = _items.set(action.data.key, OrderConstants.ORDER_KEY_FAILURE);
         _failMsg = '网络错误';
-        PageStore.emitChange();
+        OrderStore.emitChange();
         break;
       default:
       // Do nothing
@@ -162,12 +162,12 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
     switch (action.actionType) {
 
 
-      case PageConstants.PAGE_CHANGE_PAGE:
+      case OrderConstants.ORDER_CHANGE_ORDER:
         _page = action.page;
         trans();
-        //PageStore.emitChange();
+        //OrderStore.emitChange();
         break;
-      case PageConstants.PAGE_NEW_KEY_WORD:
+      case OrderConstants.ORDER_NEW_KEY_WORD:
         _keyWord = action.keyword || '';
         let transition = AppStore.getTransition();
         console.log('transition',transition);
@@ -177,18 +177,18 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         }
         _page = 1;
         trans();
-        //PageStore.emitChange();
+        //OrderStore.emitChange();
         break;
-      case PageConstants.PAGE_CHANGE_TYPE:
+      case OrderConstants.ORDER_CHANGE_TYPE:
         console.log('change type',action);
         _typeId = action.typeId || '000000';
         _page = 1;
         trans();
-        //PageStore.emitChange();
+        //OrderStore.emitChange();
         break;
-      case PageConstants.PAGE_REFRESH:
+      case OrderConstants.ORDER_REFRESH:
         refresh();
-        PageStore.emitChange();
+        OrderStore.emitChange();
         break;
       case AppConstants.TRANSITION:
         if(action.data.path&&action.data.pathname===('/shop'))
@@ -199,13 +199,13 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
           _keyWord = query.q || '';
           _typeId = query.t || '000000';
         }
-        PageStore.emitChange();
+        OrderStore.emitChange();
         break;
       default:
-         //
+      //
     }
 
   }
 });
 
-export default PageStore;
+export default OrderStore;

@@ -76,7 +76,7 @@ const HomePage = React.createClass({
   },
   handleSearchButton(){
     let text = this.state.searchText.substr(0,20);
-    PageActions.getNewKeyword(text);
+    PageActions.setNewKeyword(text);
   },
 
 

@@ -39,9 +39,17 @@ function cartChangeFunc(data, num, backup){
 
 const CartAPIUtils = {
 
+  /*
+   bookInfo: [
+      {
+         gid,
+         num
+      }
+    ]
+   */
   submitOrder(data){
     request
-      .get('mockapplysell.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
+      .post('index.php/Manager/Book.json')//.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){

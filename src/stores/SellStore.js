@@ -58,7 +58,10 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         if (action.data.Code === 0) {
           _success = true;
         }
-        else{
+        else if (action.data.Code === 1001) {
+          _submitMsg = action.data.Msg + '请返回检查~';
+        }
+        else {
           _submitMsg = action.data.Msg;
         }
         _isSubmitting = false;

@@ -50,6 +50,14 @@ export default {
     });
   },
 
+  /*
+   bookInfo: [
+   {
+   gid,
+   num
+   }
+   ]
+   */
   cartOrderSubmit(data){
     Dispatcher.handleServerAction({
       actionType: CartConstants.CART_ORDER_SUBMIT,
