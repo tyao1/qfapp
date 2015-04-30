@@ -49,7 +49,7 @@ const CartAPIUtils = {
    */
   submitOrder(data){
     request
-      .post('index.php/Manager/Book.json')//.get('mockapplysell.json')
+      .post('http://10.60.136.39/index.php/Manager/Book.json')//.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -57,7 +57,9 @@ const CartAPIUtils = {
           CartActions.cartOrderFailure(err);
         }
         else{
-          CartActions.cartOrderSuccess(res.body);
+          CartActions.cartOrderSuccess({
+            body: res.body
+          });
         }
       });
   },

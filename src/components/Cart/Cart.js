@@ -107,13 +107,13 @@ const Cart = React.createClass({
         }
       });
       console.log('submitItems', submitItems);
-      CartActions.cartOrderSubmit({bookInfo: submitItems});
+      CartActions.cartOrderSubmit({bookInfo: JSON.stringify(submitItems)});
     }
   },
   render() {
     let elem;
     //let cartList = [];
-    if(this.state.isSuccessful || this.state.items.size){
+    if(this.state.items.size || this.state.isSuccessful){
       let items = this.state.items.toJS();
       let price = 0;
       elem = <div className="cart">
@@ -139,9 +139,10 @@ const Cart = React.createClass({
             <div className={`orderWrapper${this.state.aboutToOrder?' active':''}`}>
               <ButtonNormal text="下单" svg={shoppingcart} onClick={this.handleOrder}/>
               <div className="morph">
-                {this.state.isSuccessful?
+                {
+                  this.state.isSuccessful?
                   <div className="submitForm">
-                    <p className="main">哇呼～<br/>订单已经成功提交~<br/>请等待我们发货</p>
+                    <p className="main">哇呼～<br/>订单已经成功提交~<br/>请等待我们打包物品</p>
                     <ButtonNormal className="ButtonNormal submit" text="关闭"
                                   svg={paperplane} onClick={this.handleRealSubmitClick}/>
                   </div>
@@ -150,7 +151,6 @@ const Cart = React.createClass({
                     <p className="main">确认订单
                       <span className="price">物品总价：${price.toFixed(2)}元</span>
                     </p>
-
                     <p>{this.state.realErrMsg}</p>
                     <div className="controls">
                       <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}

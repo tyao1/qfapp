@@ -85,6 +85,9 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
           //删除缓存内容
           setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 60 * 2);
         }
+        else if(action.data.body.Code===1041) {
+          _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_NOT_FOUND);
+        }
         else{
           _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_FAILURE);
         }

@@ -142,33 +142,48 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         else if (action.data.body.Code === 1040) {
           _submitMsg = '订单中的物品数量太多了>_<，请返回删除一些物品后再试'
         }
-        else if (action.data.body.Code === 1040) {
+        else if (action.data.body.Code === 1043) {
           _submitMsg = '购物车中物品发生变动，请重新确认';
-          let amounts = action.data.body.amount;
-          let tokens = action.data.body.tokens;
+          let amounts = action.data.body.over;
+          let tokens = action.data.body.tokenOff;
           if(amounts){
             amounts.forEach( data => {
-              let count = parseInt(data.quality);
+              let count = data.quality;
               let goods_id = parseInt(data.goods_id);
               let name = _items.getIn([goods_id, 'name']);
-
-              if(count) {
-                _items = _items.updateIn([goods_id, 'quality'], count);
-                fireNotification(`${name}存货已不足，已修改至最大数量`);
+              if(goods_id) {
+                if (count) {
+                  _items = _items.updateIn([goods_id, 'quality'], () => count);
+                  _items = _items.updateIn([goods_id, 'num'], () => count);
+                  fireNotification(`${name}存货已不足，已修改至最大数量`);
+                }
+                else {
+                  _items = _items.delete(data.goods_id);
+                  fireNotification(`${name}没有存货了，已从购物车中移除`);
+                }
               }
-              else {
-                _items = _items.delete(data.goods_id);
-                fireNotification(`${name}没有存货了，已从购物车中移除`);
+              else{
+                fireNotification(`${name}额，谜之错误`);
               }
             });
           }
           if(tokens){
             tokens.forEach( data =>{
+              let goods_id = parseInt(data);
               let name = _items.getIn([goods_id, 'name']);
-              let goods_id = parseInt(data.goods_id);
-              _items = _items.delete(goods_id);
-              fireNotification(`${name}已经售完或下架，已从购物车中移除`);
+              if(goods_id) {
+                _items = _items.delete(goods_id);
+                fireNotification(`${name}已经售完或下架，已从购物车中移除`);
+              }
+              else{
+                fireNotification(`${name}额，谜之错误`);
+              }
             });
+
+          }
+          if(_items.size){
+            //这里有点丑陋
+            _submitMsg = '';
           }
           CartStore.emitChange();
         }

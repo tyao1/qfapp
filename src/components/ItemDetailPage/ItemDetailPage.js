@@ -84,6 +84,18 @@ const ItemDetailPage = React.createClass({
           </div>
         </div>;
     }
+    else if(detail === DetailConstants.DETAIL_KEY_NOT_FOUND)
+    {
+      elem = <div className="itemDetailPage">
+        <div className="brief">
+          <div className="inner">
+            <div className="words">
+              <p className="itemName">咦，没有这个物品</p>
+            </div>
+          </div>
+        </div>
+      </div>;
+    }
     else if(detail === DetailConstants.DETAIL_KEY_FAILURE)
     {
       elem = <div className="itemDetailPage">
