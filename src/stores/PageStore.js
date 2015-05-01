@@ -195,7 +195,7 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         {
           console.log('go query!!!');
           const query = action.data.query;
-          _page = query.p || 1;
+          _page = (query.p>0?query.p:1) || 1;
           _keyWord = query.q || '';
           _typeId = query.t || '000000';
         }

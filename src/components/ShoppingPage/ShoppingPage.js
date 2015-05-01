@@ -56,6 +56,7 @@ const ShoppingPage = React.createClass({
     };
   },
   handlePageChange(page){
+
     PageActions.changePage(page);
   },
   render() {
@@ -75,7 +76,12 @@ const ShoppingPage = React.createClass({
     {
       if(items.length) {
         elem = items.map(data => <BookCard key={data.goods_id} item={data}/>);
-        max = 99999999999;
+        if(items.length>=18){
+          max = 99999999999;
+        }
+        else {
+          max = this.state.currentPage;
+        }
       }
       else{
         elem = <div className="failure">{'>_<没有找到物品'}</div>;
@@ -101,7 +107,7 @@ const ShoppingPage = React.createClass({
               {elem}
             </div>
             <div className="pagination">
-              <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max}/>
+              <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
             </div>
           </div>
         </div>

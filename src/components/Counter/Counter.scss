@@ -6,6 +6,7 @@
   background: white;
   display: inline-block;
   border-radius:$borderRadius;
+
   >.plus {
     display:inline-block;
     width: 32px;
@@ -38,5 +39,10 @@
     border:none;
     outline:none;
     background:none;
+  }
+
+  >.notAllowed{
+    cursor:not-allowed;
+    color:$mainColor;
   }
 }

@@ -16,6 +16,8 @@ import AppStore from '../stores/AppStore';
 const CHANGE_EVENT = 'CHANGE_OrderStore';
 
 let _items = Immutable.Map();
+
+//买家订单
 let _keyWord = '';
 let _page = 1;
 let _typeId = '000000';
@@ -66,14 +68,13 @@ const OrderStore = assign({}, EventEmitter.prototype, {
     return _failMsg;
   },
 
-  getItems() {
-    let item = _items.get(OrderAPIUtils.Id(_keyWord, _typeId, _page));
-    console.log('getItems', item);
+  getItems(keyword) {
+    let item = _items.get(OrderAPIUtils.Id(keyword, _typeId, _page));
     if (!item || item === OrderConstants.ORDER_KEY_NULL) {
       //设置无内容标志
-      _items = _items.set(OrderAPIUtils.Id(_keyWord, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
+      _items = _items.set(OrderAPIUtils.Id(keyword, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
       //开始异步获取数据
-      OrderAPIUtils.getItems(_keyWord, _typeId, _page);
+      OrderAPIUtils.getItems(keyword, _typeId, _page);
       return OrderConstants.ORDER_KEY_NULL;
     }
     else{
@@ -81,22 +82,6 @@ const OrderStore = assign({}, EventEmitter.prototype, {
     }
   },
 
-
-  getHome() {
-    let item = _items.get(OrderConstants.ORDER_KEY_HOME);
-    console.log('get home', item);
-    if (!item || item === OrderConstants.ORDER_KEY_NULL) {
-      //设置无内容标志
-      _items = _items.set(OrderConstants.ORDER_KEY_HOME, OrderConstants.ORDER_KEY_NULL);
-      //开始异步获取数据
-      OrderAPIUtils.getHome();
-      return OrderConstants.ORDER_KEY_NULL;
-      //清除内容
-    }
-    else{
-      return item;
-    }
-  },
   emitChange() {
     return this.emit(CHANGE_EVENT);
   },
@@ -144,7 +129,6 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
             _failMsg = action.data.body.Msg;
           }
         }
-
         OrderStore.emitChange();
         break;
       case OrderConstants.ORDER_FAILURE:
@@ -167,18 +151,6 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         trans();
         //OrderStore.emitChange();
         break;
-      case OrderConstants.ORDER_NEW_KEY_WORD:
-        _keyWord = action.keyword || '';
-        let transition = AppStore.getTransition();
-        console.log('transition',transition);
-        if(!transition || transition.pathname!==('/shop'))
-        {
-          _typeId = '000000';
-        }
-        _page = 1;
-        trans();
-        //OrderStore.emitChange();
-        break;
       case OrderConstants.ORDER_CHANGE_TYPE:
         console.log('change type',action);
         _typeId = action.typeId || '000000';
@@ -190,6 +162,9 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         refresh();
         OrderStore.emitChange();
         break;
+
+
+
       case AppConstants.TRANSITION:
         if(action.data.path&&action.data.pathname===('/shop'))
         {

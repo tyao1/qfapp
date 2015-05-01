@@ -30,9 +30,10 @@ const Counter = React.createClass({
 
   handleChange: function(e) {
     let value = e.target.value ? parseInt(e.target.value) : (this.props.min||1);
-    if(value>(this.props.max||1)) {
-      value = this.props.max || 1;
+    if(value>(this.props.max || 1)) {
+      value = (this.props.max || 1);
     }
+    console.log('counter',value);
     //this.setState({amount: value});
     this.onValueChange(value);
   },
@@ -42,10 +43,10 @@ const Counter = React.createClass({
   render: function(){
     return (
       <div className="counter">
-        <button className="minus" type="button" onClick={this.minusOne}>-</button>
+        <button className={`minus${this.props.initValue===this.props.min?' notAllowed':''}`} type="button" onClick={this.minusOne}>-</button>
         <input className="number" type="text" pattern="[0-9]*" value={this.props.initValue}
                onChange={this.handleChange}></input>
-        <button className="plus" type="button" onClick={this.plusOne}>+</button>
+        <button className={`plus${this.props.initValue===this.props.max?' notAllowed':''}`} type="button" onClick={this.plusOne}>+</button>
       </div>
     );
   }

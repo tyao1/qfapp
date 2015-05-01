@@ -5,7 +5,7 @@ import cn from 'classnames';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import {close, must} from '../SVGs';
 import UserStore from '../../stores/UserStore';
-import NotificationActions from '../../actions/NotificationActions';
+import NotificationiActions from '../../actions/NotificationActions';
 require('./Feedback.scss');
 
 //css动画时间

@@ -58,7 +58,7 @@ $controlsWidth:340px;
         height:$briefHeight - $briefPadding*2;
         background:$secondaryColorTint;
         border-radius:$borderRadius;
-        box-shadow:0 2px 4px $subtleFontColor2;
+        box-shadow:0 1px 3px $subtleFontColor2;
         padding:24px;
 
         margin:24px 0 0 0 ;
@@ -107,11 +107,11 @@ $controlsWidth:340px;
       display: inline-block;
       vertical-align: top;
       h2{
-        font-size:$LargeFontSize;
+        font-size:$bigFontSize;
         color:$boldFontColor;
       }
       >.gallery{
-        margin-top:-29px;
+        margin-top:29px;
         >img{
           height:230px;
           width:auto;

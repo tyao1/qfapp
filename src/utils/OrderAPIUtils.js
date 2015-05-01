@@ -6,7 +6,7 @@ const OrderAPIUtils = {
 
 
   Id(keyWord, type_id, page){
-    return (keyWord + '##&' + type_id + '#&&' + page);
+    return (keyWord + '#' + type_id + '#' + page);
   },
   getItems(keyWord, type_id, page){
     request

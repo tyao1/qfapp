@@ -44,7 +44,8 @@ WordsFlasher.defaultProps = {
     '书籍课本',
     '生活电器',
     '手机数码',
-    '体育用具']
+    '体育用具',
+    '衣服鞋帽']
 };
 
 export default WordsFlasher;
