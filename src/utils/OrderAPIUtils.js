@@ -145,25 +145,49 @@ const OrderAPIUtils = {
     }
 
   },
-
   /*
     id,
     reason
    */
-  cancelOrder(data){
+  cancelOrder(id, reason){
     request
-      .put('http://10.60.136.39/index.php/Manager/Application.json')//.get('mockadditem.json')//put
+      .put('http://10.60.136.39/index.php/Manager/Application.json')
       .type('form')
-      .send(data)
+      .send({
+        app_id: id,
+        content: reason
+      })
       .end(function(err, res){
         if(err){
           //就返回之前的物品backup呗
-          OrderActions.cartAddFailure({
+          OrderActions.cancelOrderFailure({
             err
           });
         }
         else{
-          OrderActions.cartAddSuccess({
+          OrderActions.cancelOrderSuccess({
+            body: res.body
+          });
+        }
+      });
+
+  },
+  cancelNormalOrder(id){
+    request
+      .put('http://10.60.136.39/index.php/Manager/BookCancel.json')
+      .type('form')
+      .send({
+        book_id: id
+      })
+      .end(function(err, res){
+        if(err){
+          //就返回之前的物品backup呗
+          OrderActions.cancelOrderFailure({
+            err
+          });
+        }
+        else{
+          OrderActions.cancelOrderSuccess({
             body: res.body
           });
         }

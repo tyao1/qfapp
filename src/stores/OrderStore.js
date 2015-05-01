@@ -94,10 +94,10 @@ function refresh(keyword){
   let status = options[keyword].status;
   let page = options[keyword].page;
   let item = _items.get(OrderAPIUtils.Id(keyword, status, page));
-  if (!item || item === OrderConstants.PAGE_KEY_FAILURE) {
+  //if (!item || item === OrderConstants.PAGE_KEY_FAILURE) {
     _items = _items.set(OrderAPIUtils.Id(keyword, status, page), OrderConstants.ORDER_KEY_NULL);
     OrderAPIUtils.getItems(keyword, status, page);
-  }
+  //}
 }
 
 function processSuccessAction(action, key, process){
@@ -249,20 +249,20 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         OrderStore.emitChange();
         break;
 
-      case OrderConstants.CACNEL_ORDER_SUBMIT:
+      case OrderConstants.CANCEL_ORDER_SUBMIT:
         _isSubmitting = true;
         _success = false;
         _submitMsg = '';
         OrderStore.emitChange();
         break;
 
-      case OrderConstants.CACNEL_ORDER_FAILURE:
+      case OrderConstants.CANCEL_ORDER_FAILURE:
         _submitMsg = '啊哦，网络出错辣！';
         _isSubmitting = false;
         OrderStore.emitChange();
         break;
 
-      case OrderConstants.CACNEL_ORDER_SUCCESS:
+      case OrderConstants.CANCEL_ORDER_SUCCESS:
         if (action.data.body.Code === 0) {
           _success = true;
         }
@@ -270,6 +270,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
           _submitMsg = action.data.body.Msg;
         }
         _isSubmitting = false;
+        refresh(_curKey);
         OrderStore.emitChange();
         break;
       default:
@@ -322,6 +323,12 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         OrderStore.emitChange();
         break;
 
+      case OrderConstants.CANCEL_ORDER_NEW:
+        _submitMsg = '';
+        _success = false;
+        _isSubmitting = false;
+        OrderStore.emitChange();
+        break;
       default:
         break;
       //

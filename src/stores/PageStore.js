@@ -43,12 +43,12 @@ function cleanCache(key, second = 60){
 }
 function refresh(){
   let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
-  if (!item || item === PageConstants.PAGE_KEY_FAILURE) {
+  //if (!item || item === PageConstants.PAGE_KEY_FAILURE) {
     //设置无内容标志
     _items = _items.set(PageAPIUtils.Id(_keyWord, _typeId, _page), PageConstants.PAGE_KEY_NULL);
     //开始异步获取数据
     PageAPIUtils.getItems(_keyWord, _typeId, _page);
-  }
+  //}
 }
 
 const PageStore = assign({}, EventEmitter.prototype, {

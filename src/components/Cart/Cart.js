@@ -84,30 +84,21 @@ const Cart = React.createClass({
       setTimeout(()=>{CartActions.cartOrderNew(); }, 430);
     }
     else{
-     /* if(!this.state.NO.length)
-      {
-        this.setState({realErrMsg: '宿舍号不能为空'});
-        return;
+      if(!this.state.isSubmitting){
+        let items = this.state.items.toJS();
+        let submitItems = [];
+        Object.keys(items).map((key)=> {
+         let data = items[key];
+         if (data) {
+           submitItems.push({
+             gid: data.goods_id,
+             num: data.num
+           });
+         }
+        });
+        console.log('submitItems', submitItems);
+        CartActions.cartOrderSubmit({bookInfo: JSON.stringify(submitItems)});
       }
-      else if(!this.state.b_NO.length)
-      {
-        this.setState({realErrMsg: '宿舍楼号不能为空'});
-        return;
-      }
-      */
-      let items = this.state.items.toJS();
-      let submitItems = [];
-      Object.keys(items).map((key)=> {
-        let data = items[key];
-        if (data) {
-          submitItems.push({
-            gid: data.goods_id,
-            num: data.num
-          });
-        }
-      });
-      console.log('submitItems', submitItems);
-      CartActions.cartOrderSubmit({bookInfo: JSON.stringify(submitItems)});
     }
   },
   render() {

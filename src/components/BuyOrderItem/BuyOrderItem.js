@@ -3,10 +3,15 @@
 import React from 'react';
 import OrderAPIUtils from '../../utils/OrderAPIUtils';
 import Types from '../../utils/Types';
+import ButtonNormal from '../ButtonNormal';
 require('./BuyOrderItem.scss');
 
 const BuyOrderItem = React.createClass({
-
+  handleCancelClick(id){
+    return ()=> {
+      this.props.cancelClick(id);
+    }
+  },
   render() {
     const data = this.props.data;
     let time;
@@ -34,7 +39,7 @@ const BuyOrderItem = React.createClass({
               {remains}
             </p>
           </li>
-          <li className="two">
+          <li className="one">
             <p className="minor">
               订单编号
             </p>
@@ -42,6 +47,16 @@ const BuyOrderItem = React.createClass({
               {data.b_mid==='000000'?'无':data.b_mid}
             </p>
           </li>
+          {
+            (data.status==1||data.status==6)? <li className="one">
+              <p className="minor">
+                取消订单
+              </p>
+              <p className="main">
+                <ButtonNormal className="ButtonNormal cancel" text="取消" onClick={this.handleCancelClick(data.book_id)}/>
+              </p>
+            </li>:<li className="one"><p className="main"></p></li>
+          }
           <li className="one">
             <p className="minor">
               订单状态

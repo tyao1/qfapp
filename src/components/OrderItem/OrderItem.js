@@ -46,12 +46,13 @@ const OrderItem = React.createClass({
                 {data.reason}
               </p>
             </li>:data.status==1?
-              <li className="two">
-                <p className="minor">  </p>
+              <div><li className="one"><p className="main"></p></li>
+              <li className="one">
+                <p className="minor">取消订单</p>
                 <p className="main">
                   <ButtonNormal className="ButtonNormal cancel" text="申请取消" onClick={this.handleCancelClick(data.app_id)}/>
                 </p>
-              </li> :
+              </li></div> :
               <li className="two">
                 <p className="minor">
                 </p>

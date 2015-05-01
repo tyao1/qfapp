@@ -2,7 +2,7 @@
 
 import Dispatcher from '../core/Dispatcher';
 import OrderConstants from '../constants/OrderConstants';
-import OrderAPIUtils from '../actions/OrderActions';
+import OrderAPIUtils from '../utils/OrderAPIUtils';
 export default {
 
   getItemsFailure1(data){
@@ -82,13 +82,20 @@ export default {
   },
 
 
-  cancelOrderSubmit(id,reason){
+  cancelOrderSubmit(id, reason){
     Dispatcher.handleServerAction({
       actionType: OrderConstants.CANCEL_ORDER_SUBMIT,
       id,
       reason
     });
-    OrderAPIUtils.cancelOrder({id,reason});
+    OrderAPIUtils.cancelOrder(id, reason);
+  },
+  cancelOrderNormalSubmit(id){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.CANCEL_ORDER_SUBMIT,
+      id
+    });
+    OrderAPIUtils.cancelNormalOrder(id);
   },
   cancelOrderSuccess(data){
     Dispatcher.handleServerAction({
