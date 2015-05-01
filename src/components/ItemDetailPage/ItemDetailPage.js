@@ -90,7 +90,7 @@ const ItemDetailPage = React.createClass({
         <div className="brief">
           <div className="inner">
             <div className="words">
-              <p className="itemName">咦，没有这个物品</p>
+              <p className="itemName">咦，找不到这个物品ლ(・∀・ )ლ</p>
             </div>
           </div>
         </div>

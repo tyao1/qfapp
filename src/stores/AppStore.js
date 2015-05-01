@@ -74,8 +74,6 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
 
     default:
-      console.log('AppStore Default');
-      console.log('AppStore Default', action.data);
       if(action.data&&action.data.body&&action.data.body.Code===1007&&UserStore.getUserData()){
         AppStore.requireLogin();
       }

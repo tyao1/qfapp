@@ -165,10 +165,11 @@ const Banner = React.createClass({
       controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
-        <li><Link to="my" data-text="我的订单" params={{section: 'sell'}}><span>我的订单</span></Link></li>
+        <li><Link to="my" data-text="我的订单" params={{section: 'buy'}}><span>我的订单</span></Link></li>
         <li className="user">
           <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path}/></Link>
           <ul className="controls">
+            <li><Link to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link></li>
             <li onClick={this.handleLogout}>登出</li>
           </ul>
         </li>

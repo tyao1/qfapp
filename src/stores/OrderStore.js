@@ -17,69 +17,131 @@ const CHANGE_EVENT = 'CHANGE_OrderStore';
 
 let _items = Immutable.Map();
 
-//买家订单
-let _keyWord = '';
-let _page = 1;
-let _typeId = '000000';
-let _failMsg ='';
 
-function trans(){
-  let keyWord = _keyWord;
-  if(keyWord){
-    router.transitionTo('shop',null,{
-      q: _keyWord,
-      t: _typeId,
-      p: _page
-    });
-  }else{
-    router.transitionTo('shop',null,{
-      t: _typeId,
-      p: _page
-    });
-  }
+let options = {};
+options[OrderConstants.ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: 'my/buy'
+};
+options[OrderConstants.APPLY_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: 'my/apply'
+};
+options[OrderConstants.ON_SALE_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: 'my/sell'
+};
+options[OrderConstants.OFF_SALE_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: 'my/end'
+};
 
+let _curKey = OrderConstants.ORDER_KEY;
+
+function updateFromQuery(key, query){
+  _curKey = key;
+  options[_curKey].page = (query.p>0?query.p:1) || 1;
+  options[_curKey].status = query.t || 0;
+  options[_curKey].failMsg ='';
 }
 
-function cleanCache(key, second = 60){
-  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 60 min
-}
-function refresh(){
-  let item = _items.get(OrderAPIUtils.Id(_keyWord, _typeId, _page));
-  if (!item || item === OrderConstants.ORDER_KEY_FAILURE) {
-    //设置无内容标志
-    _items = _items.set(OrderAPIUtils.Id(_keyWord, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
-    //开始异步获取数据
-    OrderAPIUtils.getItems(_keyWord, _typeId, _page);
+function trans(key){
+  let status = options[_curKey].status;
+  let path = options[_curKey].path;
+  let page = options[_curKey].page;
+  if(status){
+    router.transitionTo(path, null, {
+      t: status,
+      p: page
+    });
   }
+  else{
+    router.transitionTo(path, null, {
+      p: page
+    });
+  }
+}
+
+
+function cleanCache(key, second = 30){
+  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);
+}
+function getItems(keyword) {
+  let page = options[keyword].page;
+  let status = options[keyword].status;
+  let item = _items.get(OrderAPIUtils.Id(keyword, status, page));
+  if (!item) {
+    _items = _items.set(OrderAPIUtils.Id(keyword, status, page), OrderConstants.ORDER_KEY_NULL);
+    OrderAPIUtils.getItems(keyword, status, page);
+    return OrderConstants.ORDER_KEY_NULL;
+  }
+  else{
+    return item;
+  }
+}
+
+function refresh(keyword){
+  let status = options[keyword].status;
+  let page = options[keyword].page;
+  let item = _items.get(OrderAPIUtils.Id(keyword, status, page));
+  if (!item || item === OrderConstants.PAGE_KEY_FAILURE) {
+    _items = _items.set(OrderAPIUtils.Id(keyword, status, page), OrderConstants.ORDER_KEY_NULL);
+    OrderAPIUtils.getItems(keyword, status, page);
+  }
+}
+
+function processSuccessAction(action, key, process){
+  if(action.data.body.Code===0){
+    let items = action.data.body.Info;
+    if(items) {
+      items.forEach(data=> {
+        process(data);
+      });
+    }
+    else{
+      items = [];
+    }
+    _items = _items.set(action.data.key, items);
+    cleanCache(action.data.key);
+  }
+  else{
+    _items = _items.set(action.data.key, OrderConstants.ORDER_KEY_FAILURE);
+    options[key].failMsg = action.data.body.Msg;
+  }
+  //OrderStore.emitChange();
+}
+
+function processFailureAction(action, key){
+  _items = _items.set(action.data.key, OrderConstants.ORDER_KEY_FAILURE);
+  options[key].failMsg = '网络错误';
 }
 
 const OrderStore = assign({}, EventEmitter.prototype, {
 
-  getType(){
-    return _typeId;
+  getKey(){
+    return _curKey;
   },
-  getKeyWord(){
-    return _keyWord;
+  getStatus(key = _curKey){
+    return options[key].status;
   },
-  getOrder(){
-    return parseInt(_page);
-  },
-  getFailMsg(){
-    return _failMsg;
+  getPage(key = _curKey){
+    return parseInt(options[key].page);
   },
 
-  getItems(keyword) {
-    let item = _items.get(OrderAPIUtils.Id(keyword, _typeId, _page));
-    if (!item || item === OrderConstants.ORDER_KEY_NULL) {
-      //设置无内容标志
-      _items = _items.set(OrderAPIUtils.Id(keyword, _typeId, _page), OrderConstants.ORDER_KEY_NULL);
-      //开始异步获取数据
-      OrderAPIUtils.getItems(keyword, _typeId, _page);
-      return OrderConstants.ORDER_KEY_NULL;
-    }
-    else{
-      return item;
-    }
+  getFailMsg(key = _curKey){
+    return options[key].failMsg;
+  },
+
+  getItems(key = _curKey){
+    return getItems(key);
   },
 
   emitChange() {
@@ -102,39 +164,74 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
   {
     switch (action.actionType) {
       case OrderConstants.ORDER_SUCCESS:
-        console.log('page success',action.data);
-        if(action.data.isHome){
-          //HOME
-          _items = _items.set(action.data.key, action.data.body);
-          cleanCache(action.data.key);
-        }
-        else{//搜索页
-          if(action.data.body.Code===0){
-            let items = action.data.body.Info;
-
-            items.forEach(data=> {
-              data.goods_id = parseInt(data.goods_id);
-              data.quality = parseInt(data.quality);
-              data.price = parseFloat(data.price);
-              data.status = parseInt(data.status);
-              data.t_limit = parseInt(data.t_limit);
-              data.user_id = parseInt(data.user_id);
-            });
-
-
-            _items = _items.set(action.data.key, items);
-            cleanCache(action.data.key);
-          }
-          else{
-            _failMsg = action.data.body.Msg;
-          }
-        }
+        //买家
+        processSuccessAction(action, OrderConstants.ORDER_KEY, (data)=> {
+          data.time = parseInt(data.time) * 1000;
+          data.f_time = parseInt(data.f_time) * 1000;
+          data.detail.forEach(item =>{
+            item.price = parseFloat(item.price);
+          });
+        });
         OrderStore.emitChange();
         break;
+      case OrderConstants.APPLY_ORDER_SUCCESS:
+        //卖家申请
+        processSuccessAction(action, OrderConstants.APPLY_ORDER_KEY, (data)=> {
+          data.time = parseInt(data.time) * 1000;
+          data.detail.forEach(item =>{
+            item.price = parseFloat(item.price);
+            item.t_limit = parseInt(item.t_limit) * 1000;
+          });
+        });
+        OrderStore.emitChange();
+        break;
+
+      case OrderConstants.ON_SALE_ORDER_SUCCESS:
+        //卖家在线订单
+        processSuccessAction(action, OrderConstants.ON_SALE_ORDER_KEY, (data)=>{
+          data.goods_id = parseInt(data.goods_id);
+          if(data.img&&data.img.length) {
+            data.path = data.img[0].path;
+          }
+          data.price = parseFloat(data.price);
+          data.start_time = parseInt(data.start_time)  * 1000;
+          data.t_limit = parseInt(data.t_limit) * 1000;
+        });
+
+        OrderStore.emitChange();
+        break;
+
+      case OrderConstants.OFF_SALE_ORDER_SUCCESS:
+        //卖家下线订单
+        processSuccessAction(action, OrderConstants.OFF_SALE_ORDER_KEY, (data)=>{
+          data.goods_id = parseInt(data.goods_id);
+          if(data.img&&data.img.length) {
+            data.path = data.img[0].path;
+          }
+          data.price = parseFloat(data.price);
+          data.start_time = parseInt(data.start_time)  * 1000;
+          data.t_time = parseInt(data.t_time) * 1000;
+          data.t_limit = parseInt(data.t_limit) * 1000;
+          data.pay = data.is_pay!=='N';
+        });
+
+        OrderStore.emitChange();
+        break;
+
       case OrderConstants.ORDER_FAILURE:
-        console.log('page failure',action.data);
-        _items = _items.set(action.data.key, OrderConstants.ORDER_KEY_FAILURE);
-        _failMsg = '网络错误';
+        processFailureAction(action, OrderConstants.ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.APPLY_ORDER_FAILURE:
+        processFailureAction(OrderConstants.APPLY_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.ON_SALE_ORDER_FAILURE:
+        processFailureAction(OrderConstants.ON_SALE_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.OFF_SALE_ORDER_FAILURE:
+        processFailureAction(OrderConstants.OFF_SALE_ORDER_KEY);
         OrderStore.emitChange();
         break;
       default:
@@ -144,39 +241,49 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
   }
   else{
     switch (action.actionType) {
+      case AppConstants.TRANSITION:
+        console.log('order store', action.data);
+        if(action.data.path){
+          switch(action.data.pathname){
+            case '/my/buy':
+              updateFromQuery(OrderConstants.ORDER_KEY, action.data.query, '/my/buy');
+              OrderStore.emitChange();
+              break;
+            case '/my/apply':
+              updateFromQuery(OrderConstants.APPLY_ORDER_KEY, action.data.query, '/my/apply');
+              OrderStore.emitChange();
+              break;
+            case '/my/sell':
+              updateFromQuery(OrderConstants.ON_SALE_ORDER_KEY, action.data.query, '/my/sell');
+              OrderStore.emitChange();
+              break;
+            case '/my/end':
+              updateFromQuery(OrderConstants.OFF_SALE_ORDER_KEY, action.data.query, '/my/end');
+              OrderStore.emitChange();
+              break;
+          }
+        }
 
+        break;
 
       case OrderConstants.ORDER_CHANGE_ORDER:
-        _page = action.page;
-        trans();
-        //OrderStore.emitChange();
+        let key = action.data.key || _curKey;
+        options[key].page = action.data.page>0?action.data.page:1;
+        trans(key);
         break;
       case OrderConstants.ORDER_CHANGE_TYPE:
-        console.log('change type',action);
-        _typeId = action.typeId || '000000';
-        _page = 1;
-        trans();
-        //OrderStore.emitChange();
+        let key = action.data.key || _curKey;
+        options[key].status = action.data.status;
+        options[key].page = 1;
+        trans(key);
         break;
+
       case OrderConstants.ORDER_REFRESH:
-        refresh();
-        OrderStore.emitChange();
-        break;
-
-
-
-      case AppConstants.TRANSITION:
-        if(action.data.path&&action.data.pathname===('/shop'))
-        {
-          console.log('go query!!!');
-          const query = action.data.query;
-          _page = query.p || 1;
-          _keyWord = query.q || '';
-          _typeId = query.t || '000000';
-        }
+        refresh(_curKey);
         OrderStore.emitChange();
         break;
       default:
+        break;
       //
     }
 

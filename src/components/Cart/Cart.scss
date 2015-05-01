@@ -81,6 +81,9 @@ $buttonHeight:42px;
                 color:$subtleFontColor2;
               }
             }
+            >.err{
+              min-height: 19px;
+            }
             >.inputEffectAgain {
               &:first-of-type{
                 padding: 0 12px 0 0;

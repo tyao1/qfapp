@@ -84,14 +84,20 @@ $navWidth: 200px;
       >.items {
         min-height:400px;
         >.failure{
-          padding: 23vh 0 34px;
+          padding: 20vh 0 34px;
           text-align: center;
-          font-size:$LargeFontSize;
+          >p{
+            margin: 0;
+            font-size:$LargeFontSize;
+          }
+          .ButtonNormal{
+            margin-top:6px;
+          }
         }
         >img{
           margin: auto;
           display: block;
-          padding-top: 23vh;
+          padding-top: 20vh;
         }
         > .bookCard {
           display: inline-block;

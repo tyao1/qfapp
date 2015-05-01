@@ -1,0 +1,66 @@
+@import '../../styles/variables.scss';
+$_itemHeight:166px;
+.orderItem{
+  border:2px solid $mainColor;
+  border-radius:9px;
+  width: 644px;
+  margin:0 0 36px 0;
+
+  >.title{
+    height:$_itemHeight / 2;
+    background:$mainColor;
+    padding:12px 20px;
+    margin: 0;
+    .main{
+      color:#fff;
+    }
+
+  }
+  >.detail{
+    height:$_itemHeight / 2;
+    padding:12px 20px;
+    margin: 0;
+    .three{
+      >.main{
+        font-size:$bigFontSize - 2px;
+        @include textClip();
+        &:hover{
+
+        }
+      }
+    }
+  }
+  li{
+    float:left;
+    padding:0 6px;
+    >img{
+      float:left;
+      height:45px;
+      width:45px;
+      border-radius:50%;
+      border:1px solid $subtleFontColor1;
+      margin:0 9px 0 0;
+      overflow:hidden;
+    }
+  }
+  .minor{
+    margin:0;
+    color:$subtleFontColor2;
+  }
+  .main{
+    margin:3px 0 0 0;
+    white-space: nowrap;
+    font-size:$bigFontSize;
+  }
+
+  .three{
+    width:100%/6*3 - 5%;
+
+  }
+  .two{
+    width:100%/6*2;
+  }
+  .one{
+    width:100%/6*1;
+  }
+}

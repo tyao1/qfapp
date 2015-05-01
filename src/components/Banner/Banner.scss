@@ -174,15 +174,22 @@ $bannerHeightSmall:50px;
               transition:all .21s ease;
               box-shadow:0 1px 2px $subtleFontColor2;
               position:absolute;
-              bottom: -46px;
-              left: -12px;
-              right: -12px;
+              bottom: -69px;
+              left: -24px;
+              right: -24px;
               background: white;
               padding: 9px 12px;
               color: $fontColor;
               border-radius: $borderRadius;
               >li{
                 cursor:pointer;
+                margin:3px 0;
+                transform:translate3d(0,0,0);
+                transition: transform .12s ease;
+
+                &:hover{
+                  transform:translate3d(5px,0,0);
+                }
               }
             }
           }

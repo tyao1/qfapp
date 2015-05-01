@@ -5,43 +5,77 @@ import OrderConstants from '../constants/OrderConstants';
 
 export default {
 
-  getItemsFailure(data){
+  getItemsFailure1(data){
     Dispatcher.handleServerAction({
       actionType: OrderConstants.ORDER_FAILURE,
       data
     });
   },
-  getItemsSuccess(data){
+  getItemsSuccess1(data){
     Dispatcher.handleServerAction({
       actionType: OrderConstants.ORDER_SUCCESS,
       data
     });
   },
 
-  setNewKeyword(keyword){
-    Dispatcher.handleViewAction({
-      actionType: OrderConstants.ORDER_NEW_KEY_WORD,
-      keyword
+  getItemsFailure2(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.APPLY_ORDER_FAILURE,
+      data
+    });
+  },
+  getItemsSuccess2(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.APPLY_ORDER_SUCCESS,
+      data
     });
   },
 
-  setNewType(typeId){
+  getItemsFailure3(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.ON_SALE_ORDER_FAILURE,
+      data
+    });
+  },
+  getItemsSuccess3(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.ON_SALE_ORDER_SUCCESS,
+      data
+    });
+  },
+  getItemsFailure4(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.OFF_SALE_ORDER_FAILURE,
+      data
+    });
+  },
+  getItemsSuccess4(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.OFF_SALE_ORDER_SUCCESS,
+      data
+    });
+  },
+
+
+
+  setNewType(key, typeId){
     Dispatcher.handleViewAction({
       actionType: OrderConstants.ORDER_CHANGE_TYPE,
       typeId
     });
   },
 
-  changeOrder(page){
+  changeOrder(key, page){
     Dispatcher.handleViewAction({
       actionType: OrderConstants.ORDER_CHANGE_ORDER,
       page
     });
   },
 
-  refresh(){
+  refresh(key){
     Dispatcher.handleViewAction({
-      actionType: OrderConstants.ORDER_REFRESH
+      actionType: OrderConstants.ORDER_REFRESH,
+      key
     });
   }
 }

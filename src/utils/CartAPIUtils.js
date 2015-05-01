@@ -18,20 +18,20 @@ function cartChangeFunc(data, num, backup){
       })
       .end(function(err, res){
         if(err){
-          cartChangeNumber[data] = null;
           //就返回之前的物品backup呗
           CartActions.changeNumFailure({
             goods_id: data,
-            backup
+            backup: cartChangeNumber[data].backup
           });
+          cartChangeNumber[data] = null;
         }
         else{
-          cartChangeNumber[data] = null;
           CartActions.changeNumSuccess({
             body: res.body,
             goods_id: data,
-            backup
+            backup: cartChangeNumber[data].backup
           });
+          cartChangeNumber[data] = null;
         }
       });
   }
@@ -118,11 +118,14 @@ const CartAPIUtils = {
   //data:id  num  ,backup:number
   changeNum(data, num, backup){
     if(cartChangeNumber[data]){
+      console.log('there is cache!');
       clearTimeout(cartChangeNumber[data].handler);
       cartChangeNumber[data].handler = setTimeout(
         cartChangeFunc(data, num, backup), 2000);
     }
     else{
+      console.log('there NO cache!', backup);
+
       cartChangeNumber[data] = {
         handler: setTimeout(cartChangeFunc(data, num, backup), 2000),
         backup

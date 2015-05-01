@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+.daOrders{
+  padding:0 0 32px 0;
+  >.failure{
+    padding: 20vh 0 34px;
+    text-align: center;
+    >p{
+      margin: 0;
+      font-size:$LargeFontSize;
+    }
+    .ButtonNormal{
+      margin-top:6px;
+    }
+  }
+  >img{
+    margin: auto;
+    display: block;
+    padding-top: 20vh;
+  }
+
+
+  >.pagination{
+    text-align: center;
+  }
+}

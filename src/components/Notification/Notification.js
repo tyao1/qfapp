@@ -42,7 +42,7 @@ const Notification = React.createClass({
           <ReactCSSTransitionGroup transitionName="t">
           {
             notifications.map((data, key)=>
-                <div className="item" key={key} onClick={this.handleClose(key)}>{data}
+                <div className="item" key={data[0]+data[1]+key} onClick={this.handleClose(key)}>{data}
                   <div className="close">{close}</div>
                 </div>
             )

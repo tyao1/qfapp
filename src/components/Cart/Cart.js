@@ -151,7 +151,7 @@ const Cart = React.createClass({
                     <p className="main">确认订单
                       <span className="price">物品总价：${price.toFixed(2)}元</span>
                     </p>
-                    <p>{this.state.realErrMsg}</p>
+                    <p className="err">{this.state.realErrMsg}</p>
                     <div className="controls">
                       <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
                                     svg={paperplane} onClick={this.handleRealSubmitClick}/>

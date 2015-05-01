@@ -179,6 +179,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           UserStore.emitChange();
           localStorage.setItem('userData', '');
         break;
+
       default:
         break;
     }

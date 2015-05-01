@@ -181,14 +181,14 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
             });
 
           }
-          if(_items.size){
+          if(!_items.size){
             //这里有点丑陋
             _submitMsg = '';
           }
-          CartStore.emitChange();
+          //CartStore.emitChange();
         }
         else{
-          _submitMsg = action.data.Msg;
+          _submitMsg = action.data.body.Msg;
         }
         _isSubmitting = false;
         CartStore.emitChange();
@@ -339,12 +339,12 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           //该物品已经在购物车，增加数量
           const quality = checkItem.get('quality');
           let num = checkItem.get('num');
-          num = num===quality?quality:num+1;
+          num = (num===quality?quality:num+1);
           action.data.num = num;
           //更改数量Action
-          //TODO setTimeout(()=>{
-          CartActions.changeNum(action.data);
-          //});
+          setTimeout(()=>{
+            CartActions.changeNum(action.data);
+          });
 
           //_items = _items.set(item.goods_id, action.data);
           //_items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));

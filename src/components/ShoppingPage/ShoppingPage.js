@@ -68,7 +68,7 @@ const ShoppingPage = React.createClass({
     else if(items===PageConstants.PAGE_KEY_FAILURE){
       elem = <div className="failure">
         <p>啊哦，加载失败了</p>
-        <p>this.state.failMsg</p>
+        <p>{this.state.failMsg}</p>
         <ButtonNormal text="重试" onClick={this.handleRetry}/>
       </div>;
     }
@@ -84,7 +84,7 @@ const ShoppingPage = React.createClass({
         }
       }
       else{
-        elem = <div className="failure">{'>_<没有找到物品'}</div>;
+        elem = <div className="failure"><p>{'>_<没有找到物品'}</p></div>;
         max = this.state.currentPage;
       }
     }

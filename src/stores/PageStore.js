@@ -69,7 +69,7 @@ const PageStore = assign({}, EventEmitter.prototype, {
   getItems() {
     let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
     console.log('getItems', item);
-    if (!item || item === PageConstants.PAGE_KEY_NULL) {
+    if (!item) {
       //设置无内容标志
       _items = _items.set(PageAPIUtils.Id(_keyWord, _typeId, _page), PageConstants.PAGE_KEY_NULL);
       //开始异步获取数据
@@ -85,7 +85,7 @@ const PageStore = assign({}, EventEmitter.prototype, {
   getHome() {
     let item = _items.get(PageConstants.PAGE_KEY_HOME);
     console.log('get home', item);
-    if (!item || item === PageConstants.PAGE_KEY_NULL) {
+    if (!item) {
       //设置无内容标志
       _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);
       //开始异步获取数据
@@ -126,21 +126,25 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         else{//搜索页
           if(action.data.body.Code===0){
             let items = action.data.body.Info;
+            if(items){
+              items.forEach(data=> {
+                data.goods_id = parseInt(data.goods_id);
+                data.quality = parseInt(data.quality);
+                data.price = parseFloat(data.price);
+                data.status = parseInt(data.status);
+                data.t_limit = parseInt(data.t_limit);
+                data.user_id = parseInt(data.user_id);
+              });
+            }else{
+              items = [];
+            }
 
-            items.forEach(data=> {
-              data.goods_id = parseInt(data.goods_id);
-              data.quality = parseInt(data.quality);
-              data.price = parseFloat(data.price);
-              data.status = parseInt(data.status);
-              data.t_limit = parseInt(data.t_limit);
-              data.user_id = parseInt(data.user_id);
-            });
+              _items = _items.set(action.data.key, items);
+              cleanCache(action.data.key);
 
-
-            _items = _items.set(action.data.key, items);
-            cleanCache(action.data.key);
           }
           else{
+            _items = _items.set(action.data.key, PageConstants.PAGE_KEY_FAILURE);
             _failMsg = action.data.body.Msg;
           }
         }
@@ -160,8 +164,17 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
   }
   else{
     switch (action.actionType) {
-
-
+      case AppConstants.TRANSITION:
+        if(action.data.path&&action.data.pathname===('/shop'))
+        {
+          console.log('go query!!!');
+          const query = action.data.query;
+          _page = (query.p>0?query.p:1) || 1;
+          _keyWord = query.q || '';
+          _typeId = query.t || '000000';
+        }
+        PageStore.emitChange();
+        break;
       case PageConstants.PAGE_CHANGE_PAGE:
         _page = action.page;
         trans();
@@ -190,17 +203,7 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         refresh();
         PageStore.emitChange();
         break;
-      case AppConstants.TRANSITION:
-        if(action.data.path&&action.data.pathname===('/shop'))
-        {
-          console.log('go query!!!');
-          const query = action.data.query;
-          _page = (query.p>0?query.p:1) || 1;
-          _keyWord = query.q || '';
-          _typeId = query.t || '000000';
-        }
-        PageStore.emitChange();
-        break;
+
       default:
          //
     }

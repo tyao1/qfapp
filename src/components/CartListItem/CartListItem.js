@@ -40,7 +40,7 @@ const CartListItem = React.createClass({
         </section>
         <section className="small">
           <span>总量：{item.quality}</span>
-          <Counter initValue={item.num} OnValueChange={this.handleCounterChange} max={item.quality}/>
+          <Counter initValue={item.num} OnValueChange={this.handleCounterChange} max={item.quality} min={1}/>
         </section>
         <section>
           <span>卖家</span>

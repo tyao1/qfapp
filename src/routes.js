@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Route, DefaultRoute } from 'react-router';
+import { Route, DefaultRoute, NotFoundRoute} from 'react-router';
 import App from './components/App';
 import HomePage from './components/HomePage';
 import SellPage from './components/SellPage';
@@ -19,6 +19,8 @@ export default (
     <Route name='my' handler={DashboardPage} path="my/:section"/>
     <Route name='detail' handler={ItemDetailPage} path="detail/:id"/>
     <DefaultRoute name="home" handler={HomePage}/>
+    <NotFoundRoute handler={HomePage}/>
+
   </Route>
 );
 //{HomePage}

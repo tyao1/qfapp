@@ -23,7 +23,7 @@ const DetailStore = assign({}, EventEmitter.prototype, {
   getDetail() {
     if(_curId<0){return DetailConstants.DETAIL_KEY_NULL; }
     let item = _items.get(_curId);
-    if (!item || item === DetailConstants.DETAIL_KEY_NULL || item.isTemp) {
+    if (!item || item.isTemp) {
       //开始异步获取数据
       _items = _items.set(_curId, DetailConstants.DETAIL_KEY_NULL);
       DetailAPIUtils.getDetail(_curId);

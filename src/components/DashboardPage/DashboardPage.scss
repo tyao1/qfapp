@@ -4,27 +4,32 @@
 
   >.inner {
     @include maxWidth();
-    margin-top:$bannerHeight;
-    padding:36px 0 0 0;
-
+    padding:$bannerHeight + 36px 0 0 0;
+    @include clearfix();
     >.left {
-      float: left;
-      width: 36%;
-
+      position:fixed;
+      width: 340px;
+      padding-left:12px;
       >ul{
         margin:0;
         >li{
           margin:0 0 42px 0;
-          >p{
+          >.subtle{
             color:$subtleFontColor2;
-            margin:0;
+            margin:0 0 7px 0;
           }
           >a{
+            display: block;
+            position:relative;
+            z-index:1;
             font-size:$bigFontSize;
             color:$subtleFontColor2;
-            >h3{
-              margin:0;
-              padding:0 0 9px 0;
+            clear:both;
+            max-width: 120px;
+            >span{
+              display: inline-block;
+              margin:3px 0 1px;
+              padding:0 0 2px 0;
 
             }
             &.active{
@@ -34,11 +39,14 @@
           }
           >.controls{
             position:absolute;
+            z-index:0;
+            visibility: hidden;
             padding:0;
             opacity:0;
             transition:all .3s $bounceTiming;
           }
           >a.active + .controls{
+            visibility:visible;
             box-shadow: 0 -2px $mainColor;
             padding:9px 12px 0 183px;
             opacity:1;
@@ -50,8 +58,7 @@
     }
 
     >.right{
-      float:left;
-      width:55%;
+      padding-left: 360px;
     }
 
 

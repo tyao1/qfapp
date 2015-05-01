@@ -1,0 +1,6 @@
+{
+  "name": "SellOrderItem",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SellOrderItem.js"
+}

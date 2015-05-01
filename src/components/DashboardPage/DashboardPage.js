@@ -5,18 +5,19 @@ import OrderItem from '../OrderItem';
 import RequireLogin from '../../mixins/RequireLogin';
 import {Link} from 'react-router';
 import UserStore from '../../stores/UserStore';
+//import OrderStore from '../../stores/OrderStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
-import SellOrders from '../SellOrders';
+import Orders from '../Orders';
 import MyInfo from '../MyInfo';
+import OrderConstants from '../../constants/OrderConstants';
+import ButtonNormal from '../ButtonNormal';
 
 require('./DashboardPage.scss');
 
 const DashboardPage = React.createClass({
   mixins: [RequireLogin, PureRenderMixin],
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+
   getInitialState(){
     return ({
       section: UserStore.getSection()
@@ -38,13 +39,14 @@ const DashboardPage = React.createClass({
   },
 
   render() {
+    console.log('section', this.state.section);
     let elem;
     switch(this.state.section){
       case 'info':
         elem = <MyInfo/>;
         break;
       default:
-        elem = <SellOrders/>;
+        elem = <Orders/>;
         break;
     }
     return (
@@ -53,16 +55,30 @@ const DashboardPage = React.createClass({
           <div className="left">
               <ul>
                 <li>
-                  <p>卖卖卖</p>
-                  <Link to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link>
+                  <p className="subtle">买买买</p>
+                  <Link to="my" params={{section: 'buy'}}><span>我的订单</span></Link>
                   <div className="controls">
-                    <div>所有</div>
-
+                    <ButtonNormal text="所有"/>
                   </div>
                 </li>
                 <li>
-                  <p>我的清风</p>
-                  <Link to="my" data-text="个人信息" params={{section: 'info'}}><span>个人信息</span></Link>
+                  <p  className="subtle">卖卖卖</p>
+                  <Link to="my" params={{section: 'sell'}}><span>我的售卖</span></Link>
+                  <div className="controls">
+                    <ButtonNormal text="所有"/>
+                  </div>
+                  <Link to="my" params={{section: 'end'}}><span>历史物品</span></Link>
+                  <div className="controls">
+                    <ButtonNormal text="所有"/>
+                  </div>
+                  <Link to="my" params={{section: 'apply'}}><span>我的申请</span></Link>
+                  <div className="controls">
+                    <ButtonNormal text="所有"/>
+                  </div>
+                </li>
+                <li>
+                  <p  className="subtle">我的清风</p>
+                  <Link to="my" params={{section: 'info'}}><span>个人信息</span></Link>
                 </li>
               </ul>
           </div>
