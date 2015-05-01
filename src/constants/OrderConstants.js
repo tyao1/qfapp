@@ -11,7 +11,7 @@ export default keyMirror({
   //买家订单
   ORDER_FAILURE: null,
   ORDER_SUCCESS: null,
-  ORDER_NEW_KEY_WORD: null,
+  ORDER_KEY: null,
   ORDER_CHANGE_ORDER: null,
   ORDER_CHANGE_TYPE: null,
   ORDER_REFRESH: null,
@@ -19,7 +19,7 @@ export default keyMirror({
   //卖家申请
   APPLY_ORDER_FAILURE: null,
   APPLY_ORDER_SUCCESS: null,
-  APPLY_ORDER_NEW_KEY_WORD: null,
+  APPLY_KEY: null,
   APPLY_ORDER_CHANGE_ORDER: null,
   APPLY_ORDER_CHANGE_TYPE: null,
   APPLY_ORDER_REFRESH: null,
@@ -28,7 +28,7 @@ export default keyMirror({
   //卖家在线
   ON_SALE_ORDER_FAILURE: null,
   ON_SALE_ORDER_SUCCESS: null,
-  ON_SALE_ORDER_NEW_KEY_WORD: null,
+  ON_SALE_ORDER_KEY: null,
   ON_SALE_ORDER_CHANGE_ORDER: null,
   ON_SALE_ORDER_CHANGE_TYPE: null,
   ON_SALE_ORDER_REFRESH: null,
@@ -37,7 +37,7 @@ export default keyMirror({
   //卖家完成
   OFF_SALE_ORDER_FAILURE: null,
   OFF_SALE_ORDER_SUCCESS: null,
-  OFF_SALE_ORDER_NEW_KEY_WORD: null,
+  OFF_SALE_ORDER_KEY: null,
   OFF_SALE_ORDER_CHANGE_ORDER: null,
   OFF_SALE_ORDER_CHANGE_TYPE: null,
   OFF_SALE_ORDER_REFRESH: null
