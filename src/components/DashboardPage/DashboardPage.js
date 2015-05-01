@@ -104,7 +104,7 @@ const DashboardPage = React.createClass({
                   <div className="controls">
                     {
                       buySections.map( (data) =>
-                        <ButtonNormal className={`ButtonNormal ${this.state.status1===data.code?' active':''}`} text={data.name} onClick = {this.handleBuySection(data.code)}/>
+                        <ButtonNormal key={data.code} className={`ButtonNormal ${this.state.status1===data.code?' active':''}`} text={data.name} onClick = {this.handleBuySection(data.code)}/>
                       )
                     }
                   </div>

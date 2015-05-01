@@ -68,7 +68,7 @@ const BuyOrderItem = React.createClass({
         </ul>
         {
           data.detail.map( item =>
-            <ul className="detail">
+            <ul key={item.goods_id} className="detail">
               <li className="three">
                 <img src={item.path} />
                 <p className="minor">

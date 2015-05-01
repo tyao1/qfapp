@@ -76,7 +76,7 @@ const OrderItem = React.createClass({
         </ul>
         {
           data.detail.map( item =>
-              <ul className="detail">
+              <ul key={item.process_id} className="detail">
                 <li className="three">
                   <p className="minor">
                     {'过期时间：' + OrderAPIUtils.dateToString(new Date(item.t_limit))}
