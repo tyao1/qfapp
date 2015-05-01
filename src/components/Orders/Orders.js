@@ -8,7 +8,10 @@ import OrderItem from '../OrderItem';
 import SellOrderItem from '../SellOrderItem';
 import BuyOrderItem from '../BuyOrderItem';
 import OrderActions from '../../actions/OrderActions';
-import Counter from '../../components/Counter';
+import Counter from '../Counter';
+import Modal from '../Modal';
+import ButtonNormal from '../ButtonNormal';
+import {paperplane} from '../SVGs';
 require('./Orders.scss');
 
 const SellOrders = React.createClass({
@@ -18,8 +21,10 @@ const SellOrders = React.createClass({
     this.setState({
       key,
       items: OrderStore.getItems(),
-      currentPage: OrderStore.getPage()
-
+      currentPage: OrderStore.getPage(),
+      isSubmitting: OrderStore.getSubmitMsg(),
+      isSuccessful: OrderStore.getSuccess(),
+      realErrMsg: OrderStore.getSubmitMsg()
     });
   },
 
@@ -27,7 +32,12 @@ const SellOrders = React.createClass({
     let key = OrderStore.getKey();
     return {
       key,
-      items: OrderStore.getItems(key)
+      items: OrderStore.getItems(key),
+      modalCancelIsOpen: false,
+      applyReason: '',
+      isSubmitting: OrderStore.getSubmitMsg(),
+      isSuccessful: OrderStore.getSuccess(),
+      realErrMsg: OrderStore.getSubmitMsg()
     };
   },
   componentWillMount(){
@@ -41,7 +51,32 @@ const SellOrders = React.createClass({
     OrderActions.retry(this.state.key);
   },
   handlePageChange(page){
-    OrderActions.changeOrder(page);
+    OrderActions.changePage(page);
+  },
+  handleApplyCancel(id){
+    OrderActions.newSubmit();
+    this.setState({
+      cancelBook: id,
+      modalCancelIsOpen: true
+    })
+  },
+  handleCloseModal(){
+    this.setState({
+      modalCancelIsOpen: false
+    })
+  },
+  handleApplyReasonChange(e){
+    this.setState({
+      applyReason: e.target.value
+    })
+  },
+  handleRealSubmitClick(){
+    if(this.state.applyReason.length<6){
+      this.setState({realErrMsg: '理由最少6个字额'});
+    }
+    else{
+      OrderActions.cancelOrderSubmit(this.state.cancelBook, this.state.applyReason);
+    }
   },
   render(){
     let elem, max, pagination;
@@ -60,7 +95,7 @@ const SellOrders = React.createClass({
     else{
       pagination = <div className="pagination">
         <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
-      </div>
+      </div>;
       if(items && items.length<10){
         max = this.state.currentPage;
       }
@@ -70,7 +105,7 @@ const SellOrders = React.createClass({
       switch (this.state.key){
         case OrderConstants.ORDER_KEY:
           if(items.length){
-            elem = items.map( order => <BuyOrderItem key={order.app_id} data={order}/>);
+            elem = items.map( order => <BuyOrderItem key={order.book_id} data={order}/>);
           }
           else{
             elem = <div className="failure"><p>没有订单 ʅ(‾◡◝)ʃ</p></div>
@@ -98,7 +133,7 @@ const SellOrders = React.createClass({
           break;
         case OrderConstants.APPLY_ORDER_KEY:
           if(items.length){
-            elem = items.map( order => <OrderItem key={order.book_id} data={order}/>);
+            elem = items.map( order => <OrderItem key={order.app_id} data={order}  cancelClick={this.handleApplyCancel}/>);
           }
           else{
             elem = <div className="failure"><p>没有申请ಠ_ಠ</p></div>
@@ -109,6 +144,26 @@ const SellOrders = React.createClass({
     return (<div className="daOrders">
       {elem}
       {pagination}
+      <Modal  isOpen={this.state.modalCancelIsOpen} onClose={this.handleCloseModal}>
+        {this.state.isSuccessful?
+          <div className="submitForm">
+            <p className="main">提交申请成功，我们将会审核(✪ω✪)</p>
+            <ButtonNormal className="ButtonNormal submit" text="关闭"
+                          svg={paperplane} onClick={this.handleRealSubmitClick}/>
+          </div>
+          :
+          <div className="submitForm">
+            <p className="main">确认要取消这个申请吗？</p>
+            <div className="inputEffectAgain">
+              <input type="text" value={this.state.applyReason} onChange={this.handleApplyReasonChange}/>
+              <label className={this.state.applyReason.length?'active':null}>申请理由</label>
+            </div>
+            <p>{this.state.realErrMsg}</p>
+            <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'提交申请'}
+                          svg={paperplane} onClick={this.handleRealSubmitClick}/>
+          </div>
+        }
+      </Modal>
     </div>);
   }
 

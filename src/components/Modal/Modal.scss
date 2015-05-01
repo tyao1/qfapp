@@ -1,6 +1,9 @@
 @import '../../styles/variables.scss';
 
 .modal{
+  .ButtonNormal {
+    overflow: visible;
+  }
   color:$fontColor;
   position:fixed;
   display:none;

@@ -3,11 +3,17 @@
 import React from 'react';
 import OrderAPIUtils from '../../utils/OrderAPIUtils';
 import Types from '../../utils/Types';
+import ButtonNormal from '../ButtonNormal';
 require('./OrderItem.scss');
 
 
 const OrderItem = React.createClass({
+  handleCancelClick(id){
+    return ()=>{
+      this.props.cancelClick(id);
+    }
 
+  },
   render() {
     const data = this.props.data;
     let time;
@@ -39,7 +45,13 @@ const OrderItem = React.createClass({
               <p className="main">
                 {data.reason}
               </p>
-            </li>:
+            </li>:data.status==1?
+              <li className="two">
+                <p className="minor">  </p>
+                <p className="main">
+                  <ButtonNormal className="ButtonNormal cancel" text="申请取消" onClick={this.handleCancelClick(data.app_id)}/>
+                </p>
+              </li> :
               <li className="two">
                 <p className="minor">
                 </p>
@@ -56,6 +68,10 @@ const OrderItem = React.createClass({
               {OrderAPIUtils.applyStatus[data.status]}
             </p>
           </li>
+
+          {
+
+          }
         </ul>
         {
           data.detail.map( item =>

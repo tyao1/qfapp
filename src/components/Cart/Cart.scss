@@ -67,74 +67,7 @@ $buttonHeight:42px;
           border-radius: 0 0 $borderRadius $borderRadius;
 
           z-index:0;
-          >.submitForm {
-            padding:36px;
-            text-align: center;
-            >.main{
-              color:#fff;
-              font-size:$LargeFontSize;
-              margin: 0 0 40px 0;
-              >.price{
-                margin:6px 0 0 0;
-                display: block;
-                font-size:$fontSize;
-                color:$subtleFontColor2;
-              }
-            }
-            >.err{
-              min-height: 19px;
-            }
-            >.inputEffectAgain {
-              &:first-of-type{
-                padding: 0 12px 0 0;
-              }
-              position: relative;
-              margin: 0;
-              width: 142px;
-              display: inline-block;
 
-              label {
-                color: $subtleFontColor;
-                font-size: $bigFontSize;
-                font-weight: normal;
-                position: absolute;
-                pointer-events: none;
-                left: 5px;
-                top: 10px;
-                transition: 0.2s $normalTiming all;
-              }
-
-              input:focus ~ label, label.active {
-                top: -20px;
-                font-size: $bigFontSize - 2px;
-                color: $subtleFontColor;
-              }
-
-              input {
-                color:#fff;
-                font-size: $bigFontSize;
-                padding: 10px 10px 10px 5px;
-                display: block;
-                width: 100%;
-                border: none;
-                border-bottom: 1px solid $subtleFontColor2;
-                background: none;
-                outline: none;
-              }
-            }
-            >.controls{
-              display: block;
-              margin:72px auto 0;
-              >.cancel{
-                border:none
-              }
-              >.ButtonNormal{
-
-
-              }
-            }
-
-          }
         }
 
         &.active{
@@ -174,4 +107,76 @@ $buttonHeight:42px;
       padding: 0 0 0 17px;
     }
   }
+}
+
+/*
+  Global submitForm
+*/
+.submitForm {
+  padding:36px;
+  text-align: center;
+  >.main{
+    color:#fff;
+    font-size:$LargeFontSize;
+    margin: 0 0 40px 0;
+    >.price{
+      margin:6px 0 0 0;
+      display: block;
+      font-size:$fontSize;
+      color:$subtleFontColor2;
+    }
+  }
+  >.err{
+    min-height: 19px;
+  }
+  >.inputEffectAgain {
+    &:first-of-type{
+      padding: 0 12px 0 0;
+    }
+    position: relative;
+    margin: 0;
+    width: 142px;
+    display: inline-block;
+
+    label {
+      color: $subtleFontColor;
+      font-size: $bigFontSize;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 5px;
+      top: 10px;
+      transition: 0.2s $normalTiming all;
+    }
+
+    input:focus ~ label, label.active {
+      top: -20px;
+      font-size: $bigFontSize - 2px;
+      color: $subtleFontColor;
+    }
+
+    input {
+      color:#fff;
+      font-size: $bigFontSize;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $subtleFontColor2;
+      background: none;
+      outline: none;
+    }
+  }
+  >.controls{
+    display: block;
+    margin:72px auto 0;
+    >.cancel{
+      border:none
+    }
+    >.ButtonNormal{
+
+
+    }
+  }
+
 }

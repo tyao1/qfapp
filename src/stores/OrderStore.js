@@ -16,7 +16,9 @@ import AppStore from '../stores/AppStore';
 const CHANGE_EVENT = 'CHANGE_OrderStore';
 
 let _items = Immutable.Map();
-
+let _success= false;
+let _isSubmitting = false;
+let _submitMsg ='';
 
 let options = {};
 options[OrderConstants.ORDER_KEY] = {
@@ -126,6 +128,15 @@ function processFailureAction(action, key){
 
 const OrderStore = assign({}, EventEmitter.prototype, {
 
+  getSubmitMsg(){
+    return _submitMsg;
+  },
+  getSuccess(){
+    return _success;
+  },
+  getIsSubmitting(){
+    return _isSubmitting;
+  },
   getOptions(){
     return options;
   },
@@ -237,6 +248,30 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         processFailureAction(OrderConstants.OFF_SALE_ORDER_KEY);
         OrderStore.emitChange();
         break;
+
+      case OrderConstants.CACNEL_ORDER_SUBMIT:
+        _isSubmitting = true;
+        _success = false;
+        _submitMsg = '';
+        OrderStore.emitChange();
+        break;
+
+      case OrderConstants.CACNEL_ORDER_FAILURE:
+        _submitMsg = '啊哦，网络出错辣！';
+        _isSubmitting = false;
+        OrderStore.emitChange();
+        break;
+
+      case OrderConstants.CACNEL_ORDER_SUCCESS:
+        if (action.data.body.Code === 0) {
+          _success = true;
+        }
+        else{
+          _submitMsg = action.data.body.Msg;
+        }
+        _isSubmitting = false;
+        OrderStore.emitChange();
+        break;
       default:
       // Do nothing
 
@@ -286,6 +321,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         refresh(key);
         OrderStore.emitChange();
         break;
+
       default:
         break;
       //

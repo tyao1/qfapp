@@ -52,16 +52,20 @@
             transition:all .3s $bounceTiming;
             >.ButtonNormal{
               border:none;
-              overflow: visible;
               display: block;
               color:rgba($fontColor,.8);
+              padding-left: 12px;
+              margin-left: -12px;
               >span, &:after{
                 padding:3px;
+              }
+              &:after{
+                left:6px;
               }
               &:before{
                 visibility:hidden;
                 content:'';
-                left:-12px;
+                left:1px;
                 top:9px;
                 height:0;
                 width:0;
@@ -85,7 +89,7 @@
           >a.active + .controls{
             visibility:visible;
             box-shadow: 0 -2px $mainColor;
-            padding:9px 12px 0 183px;
+            padding:3px 12px 0 183px;
             opacity:1;
           }
         }

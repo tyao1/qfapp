@@ -144,6 +144,31 @@ const OrderAPIUtils = {
         break;
     }
 
+  },
+
+  /*
+    id,
+    reason
+   */
+  cancelOrder(data){
+    request
+      .put('http://10.60.136.39/index.php/Manager/Application.json')//.get('mockadditem.json')//put
+      .type('form')
+      .send(data)
+      .end(function(err, res){
+        if(err){
+          //就返回之前的物品backup呗
+          OrderActions.cartAddFailure({
+            err
+          });
+        }
+        else{
+          OrderActions.cartAddSuccess({
+            body: res.body
+          });
+        }
+      });
+
   }
 
 

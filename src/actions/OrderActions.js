@@ -2,7 +2,7 @@
 
 import Dispatcher from '../core/Dispatcher';
 import OrderConstants from '../constants/OrderConstants';
-
+import OrderAPIUtils from '../actions/OrderActions';
 export default {
 
   getItemsFailure1(data){
@@ -66,7 +66,7 @@ export default {
     });
   },
 
-  changePage(key, page){
+  changePage(page, key){
     Dispatcher.handleViewAction({
       actionType: OrderConstants.ORDER_CHANGE_ORDER,
       key,
@@ -79,5 +79,34 @@ export default {
       actionType: OrderConstants.ORDER_REFRESH,
       key
     });
+  },
+
+
+  cancelOrderSubmit(id,reason){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.CANCEL_ORDER_SUBMIT,
+      id,
+      reason
+    });
+    OrderAPIUtils.cancelOrder({id,reason});
+  },
+  cancelOrderSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.CANCEL_ORDER_SUCCESS,
+      data
+    });
+  },
+  cancelOrderFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.CANCEL_ORDER_FAILURE,
+      data
+    });
+  },
+  newSubmit(){
+    Dispatcher.handleViewAction({
+      actionType: OrderConstants.CANCEL_ORDER_NEW
+    });
   }
+
+
 }
