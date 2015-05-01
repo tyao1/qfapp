@@ -23,25 +23,25 @@ options[OrderConstants.ORDER_KEY] = {
   page: 1,
   status: 0,
   failMsg: '',
-  path: 'my/buy'
+  path: '/my/buy'
 };
 options[OrderConstants.APPLY_ORDER_KEY] = {
   page: 1,
   status: 0,
   failMsg: '',
-  path: 'my/apply'
+  path: '/my/apply'
 };
 options[OrderConstants.ON_SALE_ORDER_KEY] = {
   page: 1,
   status: 0,
   failMsg: '',
-  path: 'my/sell'
+  path: '/my/sell'
 };
 options[OrderConstants.OFF_SALE_ORDER_KEY] = {
   page: 1,
   status: 0,
   failMsg: '',
-  path: 'my/end'
+  path: '/my/end'
 };
 
 let _curKey = OrderConstants.ORDER_KEY;
@@ -60,12 +60,12 @@ function trans(key){
   if(status){
     router.transitionTo(path, null, {
       t: status,
-      p: page
+      p: page||1
     });
   }
   else{
     router.transitionTo(path, null, {
-      p: page
+      p: page||1
     });
   }
 }
@@ -126,6 +126,9 @@ function processFailureAction(action, key){
 
 const OrderStore = assign({}, EventEmitter.prototype, {
 
+  getOptions(){
+    return options;
+  },
   getKey(){
     return _curKey;
   },
@@ -267,19 +270,20 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case OrderConstants.ORDER_CHANGE_ORDER:
-        let key = action.data.key || _curKey;
-        options[key].page = action.data.page>0?action.data.page:1;
+        let key = action.key || _curKey;
+        options[key].page = action.page>0?action.page:1;
         trans(key);
         break;
       case OrderConstants.ORDER_CHANGE_TYPE:
-        let key = action.data.key || _curKey;
-        options[key].status = action.data.status;
+        let key = action.key || _curKey;
+        options[key].status = action.status;
         options[key].page = 1;
         trans(key);
         break;
 
       case OrderConstants.ORDER_REFRESH:
-        refresh(_curKey);
+        let key = action.key || _curKey;
+        refresh(key);
         OrderStore.emitChange();
         break;
       default:

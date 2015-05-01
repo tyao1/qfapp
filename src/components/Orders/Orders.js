@@ -44,7 +44,7 @@ const SellOrders = React.createClass({
     OrderActions.changeOrder(page);
   },
   render(){
-    let elem, max;
+    let elem, max, pagination;
     const items = this.state.items;
     console.log(items);
     if(items===OrderConstants.ORDER_KEY_NULL){
@@ -58,6 +58,9 @@ const SellOrders = React.createClass({
       </div>;
     }
     else{
+      pagination = <div className="pagination">
+        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+      </div>
       if(items && items.length<10){
         max = this.state.currentPage;
       }
@@ -70,7 +73,7 @@ const SellOrders = React.createClass({
             elem = items.map( order => <BuyOrderItem key={order.app_id} data={order}/>);
           }
           else{
-            elem = <div className="failure"><p>还没有订单 ʅ(‾◡◝)ʃ</p></div>
+            elem = <div className="failure"><p>没有订单 ʅ(‾◡◝)ʃ</p></div>
           }
           break;
         case OrderConstants.ON_SALE_ORDER_KEY:
@@ -80,7 +83,7 @@ const SellOrders = React.createClass({
             );
           }
           else{
-            elem = <div className="failure"><p>还没有在售的物品 (＠゜▽゜@)ノ</p></div>
+            elem = <div className="failure"><p>没有在售物品 (＠゜▽゜@)ノ</p></div>
           }
           break;
         case OrderConstants.OFF_SALE_ORDER_KEY:
@@ -90,7 +93,7 @@ const SellOrders = React.createClass({
             );
           }
           else{
-            elem = <div className="failure"><p>还没有下架的物品ヾ(○゜▽゜○)</p></div>
+            elem = <div className="failure"><p>没有历史物品ヾ(○゜▽゜○)</p></div>
           }
           break;
         case OrderConstants.APPLY_ORDER_KEY:
@@ -98,16 +101,14 @@ const SellOrders = React.createClass({
             elem = items.map( order => <OrderItem key={order.book_id} data={order}/>);
           }
           else{
-            elem = <div className="failure"><p>还没有进行中的申请ಠ_ಠ</p></div>
+            elem = <div className="failure"><p>没有申请ಠ_ಠ</p></div>
           }
       }
     }
 
     return (<div className="daOrders">
       {elem}
-      <div className="pagination">
-        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
-      </div>
+      {pagination}
     </div>);
   }
 

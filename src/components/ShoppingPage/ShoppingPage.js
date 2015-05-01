@@ -61,7 +61,7 @@ const ShoppingPage = React.createClass({
   },
   render() {
     const items = this.state.items;
-    let elem, max;
+    let elem, max, pagination;
     if(items===PageConstants.PAGE_KEY_NULL){
       elem = <img src="./facebook.svg" />;
     }
@@ -74,6 +74,9 @@ const ShoppingPage = React.createClass({
     }
     else
     {
+      pagination = <div className="pagination">
+        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+      </div>;
       if(items.length) {
         elem = items.map(data => <BookCard key={data.goods_id} item={data}/>);
         if(items.length>=18){
@@ -106,9 +109,8 @@ const ShoppingPage = React.createClass({
             <div className="items">
               {elem}
             </div>
-            <div className="pagination">
-              <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
-            </div>
+            {pagination}
+
           </div>
         </div>
 

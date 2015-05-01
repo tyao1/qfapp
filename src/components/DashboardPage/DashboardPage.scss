@@ -8,9 +8,15 @@
     @include clearfix();
     >.left {
       position:fixed;
-      width: 340px;
-      padding-left:12px;
+      width: 318px;
+      background:white;
+      border:1px solid $mainColorTint;
+      border-radius: $borderRadius;
+      padding: 24px;
+      overflow-y: auto;
+      max-height: calc(100% - 100px);
       >ul{
+        overflow-y: auto;
         margin:0;
         >li{
           margin:0 0 42px 0;
@@ -28,7 +34,7 @@
             max-width: 120px;
             >span{
               display: inline-block;
-              margin:3px 0 1px;
+              margin:3px 0 3px;
               padding:0 0 2px 0;
 
             }
@@ -44,6 +50,37 @@
             padding:0;
             opacity:0;
             transition:all .3s $bounceTiming;
+            >.ButtonNormal{
+              border:none;
+              overflow: visible;
+              display: block;
+              color:rgba($fontColor,.8);
+              >span, &:after{
+                padding:3px;
+              }
+              &:before{
+                visibility:hidden;
+                content:'';
+                left:-12px;
+                top:9px;
+                height:0;
+                width:0;
+                background:$mainColorTint;
+                border-radius: 50%;
+                position:absolute;
+                box-shadow: 0 0 2px rgba(0,0,0,.9);
+                transition: all .3s;
+              }
+              &.active{
+                color:$fontColor;
+                &:before{
+                  visibility: visible;
+                  height:7px;
+                  width:7px;
+                }
+
+              }
+            }
           }
           >a.active + .controls{
             visibility:visible;

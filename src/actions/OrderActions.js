@@ -58,16 +58,18 @@ export default {
 
 
 
-  setNewType(key, typeId){
+  setNewStatus(key, status){
     Dispatcher.handleViewAction({
       actionType: OrderConstants.ORDER_CHANGE_TYPE,
-      typeId
+      key,
+      status
     });
   },
 
-  changeOrder(key, page){
+  changePage(key, page){
     Dispatcher.handleViewAction({
       actionType: OrderConstants.ORDER_CHANGE_ORDER,
+      key,
       page
     });
   },
