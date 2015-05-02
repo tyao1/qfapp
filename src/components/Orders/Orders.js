@@ -111,7 +111,7 @@ const SellOrders = React.createClass({
       elem = <img src="./facebook.svg" />;
       document.title='载入中 - 清风';
     }
-    else if(items===OrderConstants.PAGE_KEY_FAILURE){
+    else if(items===OrderConstants.ORDER_KEY_FAILURE){
       document.title='加载失败(ง •̀_•́)ง┻━┻ - 清风';
       elem = <div className="failure">
         <p>啊哦，加载失败了</p>
