@@ -315,7 +315,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         let key2 = action.key || _curKey;
         options[key2].status = action.status;
         options[key2].page = 1;
-        trans(key);
+        trans(key2);
         break;
 
       case OrderConstants.ORDER_REFRESH:

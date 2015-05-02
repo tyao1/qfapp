@@ -32,9 +32,11 @@ const HomePage = React.createClass({
     })
   },
 
+  componentDidMount(){
+    document.title='清风 | 轻松交易闲置物品';
+  },
   componentWillMount(){
     PageStore.addChangeListener(this._onPageChange);
-
   },
   componentWillUnmount(){
     PageStore.removeChangeListener(this._onPageChange);

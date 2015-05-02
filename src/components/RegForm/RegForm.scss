@@ -51,5 +51,12 @@
     width:100%;
     background:$fontColor;
     color:#fff;
+
+    &.minor{
+      background:none;
+      border:none;
+      color:$subtleFontColor2;
+      margin:9px 0 0 0;
+    }
   }
 }

@@ -69,6 +69,9 @@ const ItemDetailPage = React.createClass({
       num: this.state.num
     });
   },
+  handleRetry(){
+    DetailActions.refresh();
+  },
   render() {
 
     const detail = this.state.detail;
@@ -76,6 +79,7 @@ const ItemDetailPage = React.createClass({
     let elem;
     if(detail === DetailConstants.DETAIL_KEY_NULL)
     {
+      document.title = '载入中 - 清风';
       elem = <div className="itemDetailPage">
           <div className="brief">
             <div className="inner">
@@ -86,6 +90,7 @@ const ItemDetailPage = React.createClass({
     }
     else if(detail === DetailConstants.DETAIL_KEY_NOT_FOUND)
     {
+      document.title = '咦，找不到ლ(・∀・ )ლ - 清风';
       elem = <div className="itemDetailPage">
         <div className="brief">
           <div className="inner">
@@ -98,17 +103,20 @@ const ItemDetailPage = React.createClass({
     }
     else if(detail === DetailConstants.DETAIL_KEY_FAILURE)
     {
+      document.title = '加载失败ლ(・∀・ )ლ - 清风';
       elem = <div className="itemDetailPage">
           <div className="brief">
             <div className="inner">
               <div className="words">
-                <p className="itemName">加载出错了~<br/>请返回重试~</p>
+                <p className="itemName">加载出错了~</p>
+                <ButtonNormal text="重试" onClick={this.handleRetry}/>
               </div>
             </div>
           </div>
         </div>;
     }
     else if(detail.isTemp){
+      document.title = detail.name + ' - 清风';
       elem = <div className="itemDetailPage">
         <div className="brief">
           <div className="inner">
@@ -138,6 +146,7 @@ const ItemDetailPage = React.createClass({
       </div>;
     }
     else{
+      document.title = detail.name + ' - 清风';
       elem = <div className="itemDetailPage">
         <div className="brief">
           <div className="inner">

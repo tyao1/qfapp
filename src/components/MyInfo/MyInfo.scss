@@ -28,7 +28,10 @@
         transform: scale(1);
         visibility: visible;
       }
-
+      >.err{
+        color:#fff;
+        margin:0 12px 0 0;
+      }
       >.ButtonNormal{
 
         border-color:#fff;
@@ -81,6 +84,11 @@
          >.subtle{
            margin:0;
            color:$subtleFontColor2;
+         }
+         >p{
+           margin: 3px 0 0 0;
+           white-space: nowrap;
+           font-size: $bigFontSize;
          }
 
        }

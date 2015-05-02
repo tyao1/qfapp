@@ -84,7 +84,6 @@ const PageStore = assign({}, EventEmitter.prototype, {
 
   getHome() {
     let item = _items.get(PageConstants.PAGE_KEY_HOME);
-    console.log('get home', item);
     if (!item) {
       //设置无内容标志
       _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);

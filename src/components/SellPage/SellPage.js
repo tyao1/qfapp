@@ -1,7 +1,9 @@
 'use strict';
 
 import React from 'react';
-import SellStore from '../../stores/SellStore'
+import SellStore from '../../stores/SellStore';
+import UserStore from '../../stores/SellStore';
+
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import UserConstants from '../../constants/UserConstants';
 
@@ -36,6 +38,13 @@ const SellPage = React.createClass({
     });
   },
 
+  _onUserChange(){
+    this.setState({
+      phone: UserStore.getPhone(),
+      alipay: UserStore.getAli()
+    });
+  },
+
   mixins: [PureRenderMixin, RequireLogin],
   getInitialState(){
     return {
@@ -46,15 +55,20 @@ const SellPage = React.createClass({
       b_NO: '',
       NO: '',
       modalSubmitIsOpen: false,
-      showSuccess: false
+      showSuccess: false,
+      phone: UserStore.getPhone(),
+      alipay: UserStore.getAli()
     };
   },
+
   componentWillMount(){
     SellStore.addChangeListener(this._onSellChange);
+    UserStore.addChangeListener(this._onUserChange);
 
   },
   componentWillUnmount(){
     SellStore.removeChangeListener(this._onSellChange);
+    UserStore.removeChangeListener(this._onUserChange);
   },
 
   handleAddClick(){
@@ -141,8 +155,13 @@ const SellPage = React.createClass({
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       this.setState({
-        modalSubmitIsOpen: false
+        modalSubmitIsOpen: false,
       });
+      setTimeout(()=>{
+        this.setState({
+          isSuccessful: false,
+        });
+      },500);
       return;
     }
     if(!this.state.isSubmitting){
@@ -168,69 +187,86 @@ const SellPage = React.createClass({
     }
   },
   render(){
+    if(this.state.isSuccessful){
+      document.title='提交成功.(｡￫‿￩｡) - 清风';
+    }
+    else if(this.state.modalSubmitIsOpen){
+      document.title='即将提交(ﾟ∀ﾟ )ิ  - 清风';
+    }
+    else{
+      document.title='出售物品 - 清风';
+    }
     const items = this.state.items;
     let titleClass = `title${items.length?' active':''}`;
     return (
-      <div className="sellPage">
-        <div className="inner">
-          <div className={titleClass} >
-            {boxface}
-            <span>
-              只需填写闲置物品信息，<br/>
-              即可轻松售卖物品。
-            </span>
+      {
+        this.state.phone?
+        <div className="sellPage">
+          <div className="inner">
+            <div className={titleClass} >
+              {boxface}
+              <span>
+                只需填写闲置物品信息，<br/>
+                即可轻松售卖物品。
+              </span>
+            </div>
+            <ul className="items">
+              <ReactCSSTransitionGroup transitionName="t">
+              {
+                items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
+              }
+              </ReactCSSTransitionGroup>
+            </ul>
+            <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
+            <div className="controls">
+              <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
+              {
+                items.length?
+                <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
+                  :null
+              }
+            </div>
           </div>
-          <ul className="items">
-            <ReactCSSTransitionGroup transitionName="t">
-            {
-              items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
+          <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
+            {this.state.isSuccessful?
+              <div className="submitForm">
+                <p className="main">提交成功～通过申请后，我们就会前来取货！~</p>
+                <ButtonNormal className="ButtonNormal submit" text="关闭"
+                              svg={paperplane} onClick={this.handleRealSubmitClick}/>
+              </div>
+              :
+              <div className="submitForm">
+                <p className="main">马上就好，还差一些信息</p>
+
+                <div className="inputEffectAgain">
+                  <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
+                  <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
+                </div>
+
+                <div className="inputEffectAgain">
+                  <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
+                  <label className={this.state.NO.length?'active':null}>宿舍号</label>
+                </div>
+                <p>{this.state.realErrMsg}</p>
+                <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
+                              svg={paperplane} onClick={this.handleRealSubmitClick}/>
+              </div>
             }
-            </ReactCSSTransitionGroup>
-          </ul>
+          </Modal>
+        </div>
+        :
+        <div className="sellPage">
+          <div className="inner">
+            <div className="title" >
+              {boxface}
+              <span>
+                提交申请前请先填写手机号ʅ(‾◡◝)ʃ <br/>
 
-          <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
-
-          <div className="controls">
-
-            <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
-
-            {
-              items.length?
-              <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
-                :null
-            }
+              </span>
+            </div>
           </div>
         </div>
-
-
-        <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
-          {this.state.isSuccessful?
-            <div className="submitForm">
-              <p className="main">提交成功～通过申请后，我们就会前来取货！~</p>
-              <ButtonNormal className="ButtonNormal submit" text="关闭"
-                            svg={paperplane} onClick={this.handleRealSubmitClick}/>
-            </div>
-            :
-            <div className="submitForm">
-              <p className="main">马上就好，还差一些信息</p>
-
-              <div className="inputEffectAgain">
-                <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
-                <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
-              </div>
-
-              <div className="inputEffectAgain">
-                <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
-                <label className={this.state.NO.length?'active':null}>宿舍号</label>
-              </div>
-              <p>{this.state.realErrMsg}</p>
-              <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
-                            svg={paperplane} onClick={this.handleRealSubmitClick}/>
-            </div>
-          }
-        </Modal>
-      </div>
-    );
+      });
 
   }
 

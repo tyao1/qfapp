@@ -26,5 +26,12 @@ export default {
     });
     //react-router action
     router.transitionTo('detail', {id: data.goods_id});
+  },
+
+  refresh(){
+    Dispatcher.handleViewAction({
+      actionType: DetailConstants.DETAIL_REFRESH,
+      data
+    });
   }
 }

@@ -31,7 +31,10 @@ export default keyMirror({
 
   CHANGE_INFO_SUBMIT: null,
   CHANGE_INFO_SUCCESS: null,
-  CHANGE_INFO_FAILURE: null
+  CHANGE_INFO_FAILURE: null,
 
+  FIND_PASSWORD_SUBMIT: null,
+  FIND_PASSWORD_SUCCESS: null,
+  FIND_PASSWORD_FAILURE: null
 
 });

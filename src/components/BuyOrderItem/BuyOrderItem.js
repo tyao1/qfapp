@@ -22,6 +22,9 @@ const BuyOrderItem = React.createClass({
       date = new Date(data.t_time);
       remains = '完成时间：' + OrderAPIUtils.dateToString(date);
     }
+    else if(data.status==6){
+      remains = '取货时间' + data.delivery;
+    }
     else{
       remains = '订单未完成';
     }
@@ -55,7 +58,9 @@ const BuyOrderItem = React.createClass({
               <p className="main">
                 <ButtonNormal className="ButtonNormal cancel" text="取消" onClick={this.handleCancelClick(data.book_id)}/>
               </p>
-            </li>:<li className="one"><p className="main"></p></li>
+            </li>
+              :
+              <li className="one"><p className="main"></p></li>
           }
           <li className="one">
             <p className="minor">

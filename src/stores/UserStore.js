@@ -34,14 +34,36 @@ let _regVerify = 0;
 let _loginVerify = 0;
 let _needActivation = 0;
 
-
+let _isForgetting;
+let _forgetMsg;
 
 let _infoMsg;
 let _isInfoing;
 let _submitData = Immutable.Map();
 
+function saveUserData(){
+  setTimeout(()=> {
+    localStorage.setItem('userData', JSON.stringify(_userData));
+  }, 0);
+}
+
+
 const UserStore = assign({}, EventEmitter.prototype, {
 
+
+  getPhone(){
+    return _userData.telephone;
+  },
+  getAli(){
+    return _userData.alipay;
+  },
+  getForgetMsg(){
+    return _forgetMsg;
+  },
+
+  getIsForgetting(){
+    return _isForgetting;
+  },
 
   getIsInfoing(){
     return _isInfoing;
@@ -157,9 +179,10 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
             router.transitionTo(trans);
           }
           _userData = action.data.Info;
-          setTimeout(()=> {
-            localStorage.setItem('userData', JSON.stringify(_userData));
-          }, 0);
+          if(_userData.telephone==='00000000000'){
+            _userData.telephone = '';
+          }
+          saveUserData();
         }
         else{
           _loginMsg = action.data.Msg;
@@ -183,13 +206,34 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case UserConstants.CHANGE_INFO_SUCCESS:
         if(action.data.Code ===0){
+          _submitData.map((v,k)=>{
+            _userData[k] = v;
+          });
           _submitData = _submitData.clear();
           _infoMsg = '';
+          saveUserData();
         }
         else{
-          _infoMsg = 'action.data.Msg';
+          _infoMsg = action.data.Msg;
         }
         _isInfoing = false;
+        UserStore.emitChange();
+        break;
+
+      case UserConstants.FIND_PASSWORD_SUBMIT:
+        _isForgetting = true;
+        _forgetMsg = '';
+        UserStore.emitChange();
+        break;
+
+      case UserConstants.FIND_PASSWORD_FAILURE:
+        _forgetMsg = '啊哦，网络出错辣！';
+        _isForgetting = false;
+        UserStore.emitChange();
+        break;
+      case UserConstants.FIND_PASSWORD_SUCCESS:
+        _forgetMsg = action.data.Msg;
+        _isForgetting = false;
         UserStore.emitChange();
         break;
       default:

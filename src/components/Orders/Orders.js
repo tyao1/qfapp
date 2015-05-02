@@ -41,6 +41,9 @@ const SellOrders = React.createClass({
       isNormalOrder: false
     };
   },
+  componentDidMount(){
+    document.title='订单信息 - 清风';
+  },
   componentWillMount(){
     OrderStore.addChangeListener(this._onOrderChange);
 
@@ -106,8 +109,10 @@ const SellOrders = React.createClass({
     const items = this.state.items;
     if(items===OrderConstants.ORDER_KEY_NULL){
       elem = <img src="./facebook.svg" />;
+      document.title='载入中 - 清风';
     }
     else if(items===OrderConstants.PAGE_KEY_FAILURE){
+      document.title='加载失败(ง •̀_•́)ง┻━┻ - 清风';
       elem = <div className="failure">
         <p>啊哦，加载失败了</p>
         <p>{this.state.failMsg}</p>
@@ -123,6 +128,7 @@ const SellOrders = React.createClass({
       }
       switch (this.state.key){
         case OrderConstants.ORDER_KEY:
+          document.title='我的订单 - 清风';
           if(items.length){
             elem = items.map( order => <BuyOrderItem key={order.book_id} data={order} cancelClick={this.handleApplyCancelNormal}/>);
           }
@@ -131,6 +137,7 @@ const SellOrders = React.createClass({
           }
           break;
         case OrderConstants.ON_SALE_ORDER_KEY:
+          document.title='上线 - 清风';
           if(items.length){
             elem = items.map((order)=>
                 <SellOrderItem key={order.goods_id} data={order}/>
@@ -141,6 +148,7 @@ const SellOrders = React.createClass({
           }
           break;
         case OrderConstants.OFF_SALE_ORDER_KEY:
+          document.title='历史物品 - 清风';
           if(items.length){
             elem = items.map((order)=>
                 <SellOrderItem key={order.goods_id} data={order}/>
@@ -151,6 +159,7 @@ const SellOrders = React.createClass({
           }
           break;
         case OrderConstants.APPLY_ORDER_KEY:
+          document.title='我的申请 - 清风';
           if(items.length){
             elem = items.map( order => <OrderItem key={order.app_id} data={order}  cancelClick={this.handleApplyCancel}/>);
           }

@@ -105,6 +105,16 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
   else
   {
     switch (action.actionType){
+      case AppConstants.TRANSITION:
+        if(action.data.path&&action.data.path.indexOf('/detail')>=0)
+        {
+          let id = parseInt(action.data.params.id);
+          if(_curId!==id){
+            _curId = id;
+            DetailStore.emitChange();
+          }
+        }
+        break;
       case DetailConstants.DETAIL_NEW:
         //填充来自之前的缓存数据，有则跳过，无则填充
         const tempItem = action.data;
@@ -116,22 +126,12 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
           DetailStore.emitChange();
         }
         break;
-      case AppConstants.TRANSITION:
-        if(action.data.path&&action.data.path.indexOf('/detail')>=0)
-        {
-          let id = parseInt(action.data.params.id);
-          if(_curId!==id){
-            _curId = id;
-            DetailStore.emitChange();
-          }
-        }
-        break;
-      /*case DetailConstants.DETAIL_REFRESH:
-        //填充来自之前的缓存数据，有则跳过，无则填充
-        _curId = action.data
-        DetailStore.emitChange();
 
-        break;*/
+      case DetailConstants.DETAIL_REFRESH:
+        _items = _items.set(_curId, DetailConstants.DETAIL_KEY_NULL);
+        DetailAPIUtils.getDetail(_curId);
+        DetailStore.emitChange();
+        break;
       default:
         break;
     }

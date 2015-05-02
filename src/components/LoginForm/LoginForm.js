@@ -24,7 +24,10 @@ const LoginForm = React.createClass({
       verifyCode: '',
       msg: UserStore.getLoginMsg(),
       userData: UserStore.getUserData(),
-      isLogining: UserStore.getIsLogining()
+      isLogining: UserStore.getIsLogining(),
+      forget: false,
+      isForgetting: UserStore.getIsForgetting(),
+      forgetMsg: UserStore.getForgetMsg()
 
     };
   },
@@ -32,7 +35,9 @@ const LoginForm = React.createClass({
     this.setState({
       msg: UserStore.getLoginMsg(),
       userData: UserStore.getUserData(),
-      needVerify: UserStore.getLoginVerify()
+      needVerify: UserStore.getLoginVerify(),
+      isForgetting: UserStore.getIsForgetting(),
+      forgetMsg: UserStore.getForgetMsg()
     });
   },
   componentWillMount() {
@@ -43,25 +48,6 @@ const LoginForm = React.createClass({
   },
   handleChange1(event) {
     this.setState({username: event.target.value});
-  },
-  handleBlur1() {
-    //邮箱登陆
-    let res = LoginForm.isValidEmail(this.state.username);
-    let status;
-    if(res){
-      status = {
-        isValid1: true,
-        msg: ''
-      };
-    }
-    else{
-      status = {
-        isValid1: false,
-        msg: '用户名格式不符合要求'
-      };
-    }
-
-    this.setState(status);
   },
   handleChange2(event) {
     this.setState({password: event.target.value});
@@ -88,19 +74,21 @@ const LoginForm = React.createClass({
     this.setState({email: event.target.value});
   },
   handleBlur3(){
-    //用户名检验
+    //邮箱校验
     let res = LoginForm.isValidEmail(this.state.email);
     let status;
     if(res){
       status = {
         isValid3: true,
-        msg: ''
+        msg: '',
+        forgetMsg: ''
       };
     }
     else{
       status = {
         isValid3: false,
-        msg: '用户名格式不符合要求'
+        msg: '邮箱格式不正确',
+        forgetMsg: '邮箱格式不正确'
       };
     }
 
@@ -128,9 +116,8 @@ const LoginForm = React.createClass({
     this.setState(status);
   },
   handleClick(){
-    //fire User action
     if(!this.state.isLogining) {
-      if(true===this.state.isValid3===this.state.isValid2===true) {
+      if(this.state.isValid3===true&&this.state.isValid2===true) {
         let {password, email, verifyCode} = this.state;
         UserAction.login({password, email, verifyCode});
       }
@@ -145,8 +132,19 @@ const LoginForm = React.createClass({
       }
     }
   },
+  handleClickForget(){
+    if(!this.state.isLogining) {
+      if(this.state.isValid3===true) {
+        let {email} = this.state;
+        UserAction.findPasswordSubmit({email});
+      }
+    }
+  },
   handleVerifyImgClick(){
     UserAction.refreshLoginVerify();
+  },
+  handleChangeType(){
+    this.setState({forget: !this.state.forget});
   },
   render(){
     let regForm;
@@ -156,23 +154,48 @@ const LoginForm = React.createClass({
       </div>;
     }
     else{
-      regForm = <div className="regForm">
-        <span>{this.state.msg}</span>
-        <h3>登录</h3>
-        <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
-        <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2}/>
-        {this.state.needVerify?
-          <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode}
-                       onChange={this.handleChange4}>
-            <img className="verify"
-                 src={'http://10.60.136.39/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
-                 onClick={this.handleVerifyImgClick}/>
-          </InputNormal>
-          :
-          null
-        }
-        <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
-      </div>;
+      if(this.state.forget){
+        regForm = <div className="regForm">
+          <span>{this.state.forgetMsg}</span>
+          <h3>找回密码</h3>
+          <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
+          {this.state.needVerify?
+            <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode}
+                         onChange={this.handleChange4}>
+            </InputNormal>
+            :
+            null
+          }
+          <ButtonNormal text={this.state.isForgetting?'找回中……':'找回密码'} onClick={this.handleClickForget}/>
+          <ButtonNormal className="ButtonNormal minor" text="返回登录" onClick={this.handleChangeType}/>
+
+        </div>;
+      }
+      else {
+        regForm = <div className="regForm">
+          <span>{this.state.msg}</span>
+          <h3>登录</h3>
+          <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email}
+                       value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
+          <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码"
+                       svg={passkey} value={this.state.password} onChange={this.handleChange2}
+                       onBlur={this.handleBlur2}/>
+          {this.state.needVerify ?
+            <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码"
+                         svg={email} value={this.state.verifyCode}
+                         onChange={this.handleChange4}>
+              <img className="verify"
+                   src={'http://10.60.136.39/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
+                   onClick={this.handleVerifyImgClick}/>
+            </InputNormal>
+            :
+            null
+          }
+          <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
+          <ButtonNormal className="ButtonNormal minor" text="忘记密码" onClick={this.handleChangeType}/>
+
+        </div>;
+      }
     }
     return (
       <div className="container">

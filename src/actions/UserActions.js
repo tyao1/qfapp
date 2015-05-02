@@ -126,6 +126,26 @@ export default {
       actionType: UserConstants.CHANGE_INFO_FAILURE,
       data
     });
+  },
+
+  findPasswordSubmit(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.FIND_PASSWORD_SUBMIT,
+      data
+    });
+    UserAPIUtils.findPassword(data);
+  },
+  findPasswordSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.FIND_PASSWORD_SUCCESS,
+      data
+    });
+  },
+  findPasswordFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.FIND_PASSWORD_FAILURE,
+      data
+    });
   }
 
 };

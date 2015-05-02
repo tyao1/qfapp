@@ -27,7 +27,8 @@ const ShoppingPage = React.createClass({
       items: PageStore.getItems(),
       failMsg: PageStore.getFailMsg(),
       currentType: PageStore.getType(),
-      currentPage: PageStore.getPage()
+      currentPage: PageStore.getPage(),
+      currentKeyword: PageStore.getKeyWord()
     });
   },
 
@@ -35,11 +36,10 @@ const ShoppingPage = React.createClass({
     return {
       items: PageStore.getItems(),
       currentType: PageStore.getType(),
-      currentPage: PageStore.getPage()
+      currentPage: PageStore.getPage(),
+      currentKeyword: PageStore.getKeyWord()
     };
   },
-
-
   componentWillMount(){
     PageStore.addChangeListener(this._onPageChange);
 
@@ -56,10 +56,10 @@ const ShoppingPage = React.createClass({
     };
   },
   handlePageChange(page){
-
     PageActions.changePage(page);
   },
   render() {
+    document.title = (this.state.currentKeyword?this.state.currentKeyword+' - ':'' ) + Types[this.state.currentType] + ' - 清风';
     const items = this.state.items;
     let elem, max;
     if(items===PageConstants.PAGE_KEY_NULL){
@@ -88,8 +88,8 @@ const ShoppingPage = React.createClass({
         max = this.state.currentPage;
       }
     }
-    console.log(items);
     return (
+
       <div className="shoppingPage">
         <div className="inner">
           <div className="nav">

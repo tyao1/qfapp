@@ -30,19 +30,7 @@ const UserAPIUtils = {
         }
       });
   },
-  logout(data){
 
-    //request
-    //  .get('http://10.60.136.39/index.php/Home/LogOut.json')  //SHOULD BE POST //.get('mocklogin.json')
-    //  .end(function(err, res){
-        /*if(err){
-          UserActions.loginFailure(err);
-        }
-        else{
-          UserActions.loginSuccess(res.body);
-        }*/
-    //  });
-  },
   getSellOrders(data){
     request
       .get('/mocksellorders.json')
@@ -75,7 +63,7 @@ const UserAPIUtils = {
 
   changeInfo(data){
     request
-      .post('http://10.60.136.39/index.php/Manager/Application.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .put('http://10.60.136.39/index.php/Manager/UserData.json')  //SHOULD BE POST //.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -86,6 +74,26 @@ const UserAPIUtils = {
           UserActions.changeInfoSuccess(res.body);
         }
       });
+  },
+
+  findPassword(data){
+    request
+      .post('http://10.60.136.39/index.php/Home/Forget.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .type('form')
+      .send(data)
+      .end(function(err, res){
+        if(err){
+          UserActions.findPasswordFailure(err);
+        }
+        else{
+          UserActions.findPasswordSuccess(res.body);
+        }
+      });
+  },
+  logout(){
+    request
+      .put('http://10.60.136.39/index.php/Home/Logout.json')
+      .end(function(){});
   }
 
 

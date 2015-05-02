@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 .dashboard{
-
+  padding:0 0 32px 0;
   >.inner {
     @include maxWidth();
     padding:$bannerHeight + 36px 0 0 0;

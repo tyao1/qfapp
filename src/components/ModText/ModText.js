@@ -53,7 +53,7 @@ const ModText = React.createClass({
         <div className="text">
           {this.state.editing?
             <input {...others} autoFocus={this.state.editing} value={this.state.val} onChange={this.handleChange} onKeyUp={this.handleKeyUp}/>:
-            <p>{this.state.val}</p>
+            <p>{this.state.val?this.state.val:'暂无'}</p>
           }
         </div>
         {this.state.editing?
