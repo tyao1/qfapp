@@ -85,7 +85,7 @@ const MyInfo = React.createClass({
                 <span className="subtle">
                   邮箱号
                 </span>
-                <p>1383838438</p>
+                <ModText type="text" text="" getEdited={this.handleGetTaobao}/>
               </li>
 
             </ul>
