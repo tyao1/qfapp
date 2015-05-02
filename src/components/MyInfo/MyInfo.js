@@ -10,6 +10,7 @@ import UserActions from '../../actions/UserActions';
 import Modal from '../Modal';
 import {paperplane} from '../SVGs';
 import request from 'superagent';
+import RequireLogin from '../../mixins/RequireLogin';
 require('./MyInfo.scss');
 
 const MyInfo = React.createClass({
@@ -22,7 +23,7 @@ const MyInfo = React.createClass({
     });
   },
 
-  mixins: [PureRenderMixin],
+  mixins: [PureRenderMixin, RequireLogin],
 
   getInitialState(){
     return {
@@ -71,8 +72,7 @@ const MyInfo = React.createClass({
   },
   handleChangeClose(){
     this.setState({
-      isChangePasswordOpen: false,
-      successful: false
+      isChangePasswordOpen: false
     });
   },
   handleOldChange(e){

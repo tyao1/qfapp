@@ -9,6 +9,7 @@ import ButtonNormal from '../ButtonNormal';
 
 import PageConstants from '../../constants/PageConstants';
 import PageActions from '../../actions/PageActions';
+
 require('./ItemShowcase.scss');
 
 
@@ -49,12 +50,14 @@ const ItemShowcase = React.createClass({
     else if(items===PageConstants.PAGE_KEY_FAILURE){
       elem = <div className="failure">
           <p>啊哦，加载失败了</p>
-          <p>this.state.failMsg</p>
+          <p>{this.state.failMsg}</p>
           <ButtonNormal text="重试" onClick={this.handleRetry}/>
         </div>;
     }
-    else
-    {
+    else if(!items.length){
+      elem = <div className="failure"><p>ლ(＾ω＾ლ)新东西都被卖完啦</p></div>
+    }
+    else{
       elem = items.map(data => <BookCard key={data.goods_id} item={data}/>);
     }
     return (

@@ -35,6 +35,9 @@
         padding:6px 0 0 24px;
         vertical-align: top;
         transition:height .3s ,width .3s ,visibility 0s;
+        >a>.ButtonNormal{
+          font-size: 14px;
+        }
       }
     }
 

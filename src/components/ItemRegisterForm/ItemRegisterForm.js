@@ -16,15 +16,12 @@ function priceToFloat(price){
 const ItemRegisterForm = React.createClass({
 
   getInitialState(){
-
     return {
       name: '',
       price: '0.0',
       num: 1,
       timeSpan: 5,
       detail: ''
-
-
     };
   },
 
@@ -70,7 +67,9 @@ const ItemRegisterForm = React.createClass({
     this.setState({timeSpan: e.target.value});
   },
   handleDetailChange(e){
-    this.setState({detail: e.target.value});
+    if(e.target.value.length<=300) {
+      this.setState({detail: e.target.value});
+    }
   },
   addAmount(){
 
@@ -142,6 +141,7 @@ const ItemRegisterForm = React.createClass({
           <div className="textareaEffect">
             <textarea value={this.state.detail} onChange={this.handleDetailChange}/>
             <label className={this.state.detail.length?'active':null} >详细描述</label>
+            <span className="wordsCount">{this.state.detail.length}/300</span>
           </div>
         </div>
 

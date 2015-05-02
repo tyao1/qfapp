@@ -148,7 +148,21 @@
         outline: none;
         border-radius: $borderRadius;
       }
+      >textarea:focus ~ label ~.wordsCount{
+        opacity:1;
+        right:8px;
+        bottom:3px;
+      }
+      >.wordsCount{
+        opacity:0;
+        pointer-events: none;
+        color:$subtleFontColor2;
+        position:absolute;
+        right:4px;
+        bottom:2px;
+        transition:all .2s ease;
 
+      }
     }
   }
 

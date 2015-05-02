@@ -77,7 +77,7 @@ $navWidth: 200px;
 
     >.main{
 
-      padding-left:$navWidth + 32px;
+      padding:0 0 32px $navWidth + 32px;
 
 
       >.items {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SellStore from '../../stores/SellStore';
-import UserStore from '../../stores/SellStore';
+import UserStore from '../../stores/UserStore';
 
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import UserConstants from '../../constants/UserConstants';
@@ -11,6 +11,7 @@ import {boxface, additem, paperplane} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
 import Modal from '../Modal';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import {Link} from 'react-router';
 
 
 import ItemRegisterForm from '../ItemRegisterForm';
@@ -155,11 +156,11 @@ const SellPage = React.createClass({
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       this.setState({
-        modalSubmitIsOpen: false,
+        modalSubmitIsOpen: false
       });
       setTimeout(()=>{
         this.setState({
-          isSuccessful: false,
+          isSuccessful: false
         });
       },500);
       return;
@@ -186,7 +187,15 @@ const SellPage = React.createClass({
       UserAction.applySellSubmit(realData);
     }
   },
+
+  handleGoToMyInfo(){
+
+  },
+
   render(){
+    console.log('alipay:',this.state.alipay);
+    console.log('alipay??',this.state.alipay);
+
     if(this.state.isSuccessful){
       document.title='提交成功.(｡￫‿￩｡) - 清风';
     }
@@ -198,23 +207,22 @@ const SellPage = React.createClass({
     }
     const items = this.state.items;
     let titleClass = `title${items.length?' active':''}`;
-    return (
-      {
-        this.state.phone?
+    if(this.state.phone){
+      return (
         <div className="sellPage">
           <div className="inner">
             <div className={titleClass} >
               {boxface}
-              <span>
-                只需填写闲置物品信息，<br/>
-                即可轻松售卖物品。
-              </span>
+            <span>
+              只需填写闲置物品信息，<br/>
+              即可轻松售卖物品。
+            </span>
             </div>
             <ul className="items">
               <ReactCSSTransitionGroup transitionName="t">
-              {
-                items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
-              }
+                {
+                  items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
+                }
               </ReactCSSTransitionGroup>
             </ul>
             <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
@@ -222,7 +230,7 @@ const SellPage = React.createClass({
               <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
               {
                 items.length?
-                <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
+                  <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
                   :null
               }
             </div>
@@ -231,6 +239,7 @@ const SellPage = React.createClass({
             {this.state.isSuccessful?
               <div className="submitForm">
                 <p className="main">提交成功～通过申请后，我们就会前来取货！~</p>
+                {this.state.alipay?'':<p className="main">记得在个人信息页填写支付宝账号(￣▽￣)/</p>}
                 <ButtonNormal className="ButtonNormal submit" text="关闭"
                               svg={paperplane} onClick={this.handleRealSubmitClick}/>
               </div>
@@ -254,19 +263,23 @@ const SellPage = React.createClass({
             }
           </Modal>
         </div>
-        :
-        <div className="sellPage">
+      );
+    }
+    else{
+      return <div className="sellPage">
           <div className="inner">
             <div className="title" >
               {boxface}
               <span>
-                提交申请前请先填写手机号ʅ(‾◡◝)ʃ <br/>
-
+                发布物品前，需要先填好手机号<br/>
+                <Link to="my" params={{section: 'info'}}><ButtonNormal className="ButtonNormal goMy" text="前去填写" onClick={this.handleGoToMyInfo}/></Link>
               </span>
+
             </div>
           </div>
         </div>
-      });
+    }
+
 
   }
 

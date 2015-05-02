@@ -83,7 +83,6 @@ const DashboardPage = React.createClass({
     }
   },
   render() {
-    console.log('section', this.state.section);
     let elem;
     switch(this.state.section){
       case 'info':

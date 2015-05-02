@@ -119,7 +119,7 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         console.log('page success',action.data);
         if(action.data.isHome){
           //HOME
-          _items = _items.set(action.data.key, action.data.body);
+          _items = _items.set(action.data.key, action.data.body.Info);
           cleanCache(action.data.key);
         }
         else{//搜索页

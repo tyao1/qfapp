@@ -219,7 +219,6 @@ const ItemDetailPage = React.createClass({
             </div>
           </main>
           <div className="side">
-            这里应该有标签
           </div>
         </div>
       </div>;

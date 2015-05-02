@@ -109,9 +109,12 @@
     }
     > main {
       margin: 36px 0;
-      >.itemShowcase{
-        margin:0 auto;
+      @include maxWidth();
+      .failure {
+        min-height: 180px;
+        margin: 64px 0 0 0;
       }
+
       >span {
         font-size: $xLargeFontSize;
         color: $subtleFontColor1;

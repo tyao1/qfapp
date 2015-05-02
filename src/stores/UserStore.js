@@ -50,7 +50,6 @@ function saveUserData(){
 
 const UserStore = assign({}, EventEmitter.prototype, {
 
-
   getPhone(){
     return _userData.telephone;
   },
@@ -232,7 +231,12 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         UserStore.emitChange();
         break;
       case UserConstants.FIND_PASSWORD_SUCCESS:
-        _forgetMsg = action.data.Msg;
+        if(action.data.Code===0){
+          _forgetMsg = '操作成功，请前往您的邮箱收取修改密码链接';
+        }
+        else {
+          _forgetMsg = action.data.Msg;
+        }
         _isForgetting = false;
         UserStore.emitChange();
         break;
@@ -262,7 +266,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case AppConstants.NEED_LOGIN:
         _userData = null;
         UserStore.emitChange();
-        localStorage.setItem('userData', '');
+        localStorage.removeItem('userData');
         break;
 
       case UserConstants.ADD_TO_SUBMIT:

@@ -1,11 +1,11 @@
 'use strict';
 
+import router from '../router';
 import Dispatcher from '../core/Dispatcher';
 import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import AppConstants from '../constants/AppConstants';
-import router from '../router';
 import NotificationActions from '../actions/NotificationActions';
 import AppActions from '../actions/AppActions';
 
@@ -65,11 +65,13 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
   switch (action.actionType) {
     case AppConstants.TRANSITION:
       _transition = action.data;
+      console.log('transition',action.data);
+
       AppStore.emitChange();
       break;
     case AppConstants.NEED_LOGIN:
       _toTrans = action.data;
-      router.transitionTo('home');
+      router.transitionTo('/');
       AppStore.emitChange();
       break;
 

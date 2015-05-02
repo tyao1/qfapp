@@ -159,13 +159,6 @@ const LoginForm = React.createClass({
           <span>{this.state.forgetMsg}</span>
           <h3>找回密码</h3>
           <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3}/>
-          {this.state.needVerify?
-            <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode}
-                         onChange={this.handleChange4}>
-            </InputNormal>
-            :
-            null
-          }
           <ButtonNormal text={this.state.isForgetting?'找回中……':'找回密码'} onClick={this.handleClickForget}/>
           <ButtonNormal className="ButtonNormal minor" text="返回登录" onClick={this.handleChangeType}/>
 

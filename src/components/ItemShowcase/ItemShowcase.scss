@@ -1,7 +1,9 @@
+@import '../../styles/variables.scss';
 .itemShowcase{
-  margin:0 24px;
+  @include clearfix();
   >.bookCard{
     display:inline-block;
-    margin:12px 12px;
+    margin:24px 6px 32px 6px;
+    float:left;
   }
 }

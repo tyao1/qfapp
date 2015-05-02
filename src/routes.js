@@ -20,7 +20,6 @@ export default (
     <Route name='detail' handler={ItemDetailPage} path="detail/:id"/>
     <DefaultRoute name="home" handler={HomePage}/>
     <NotFoundRoute handler={HomePage}/>
-
   </Route>
 );
 //{HomePage}

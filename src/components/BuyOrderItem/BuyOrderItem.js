@@ -38,7 +38,7 @@ const BuyOrderItem = React.createClass({
             <p className="minor">
               {time}
             </p>
-            <p className="main">
+            <p className={`main${data.status==6?' small':''}`}>
               {remains}
             </p>
           </li>

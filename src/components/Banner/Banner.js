@@ -1,8 +1,7 @@
 'use strict';
 
 import React from 'react';
-import invariant from 'react/lib/invariant';
-import {RouteHandler, Link} from 'react-router';
+import {Link} from 'react-router';
 import InputNormal from '../InputNormal';
 import AppStore from '../../stores/AppStore';
 import UserStore from '../../stores/UserStore';

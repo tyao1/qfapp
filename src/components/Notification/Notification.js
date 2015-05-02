@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import cn from 'classnames';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import {close, must} from '../SVGs';
 import NotificationStore from '../../stores/NotificationStore';
