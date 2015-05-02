@@ -3,7 +3,7 @@ import request from 'superagent';
 import OrderActions from '../actions/OrderActions';
 import OrderConstants from '../constants/OrderConstants';
 
-const NUMBER = 10;
+const NUMBER = 8;
 const OrderAPIUtils = {
 
   dateToString(date){

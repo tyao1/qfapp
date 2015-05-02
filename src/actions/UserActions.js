@@ -96,7 +96,36 @@ export default {
     Dispatcher.handleViewAction({
       actionType: UserConstants.APPLY_SELL_NEW
     });
-  }
+  },
 
+  addToSubmit(key, value){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.ADD_TO_SUBMIT,
+      key,
+      value
+    });
+  },
+
+
+
+  changeInfoSubmit(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.CHANGE_INFO_SUBMIT,
+      data
+    });
+    UserAPIUtils.changeInfo(data);
+  },
+  changeInfoSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.CHANGE_INFO_SUCCESS,
+      data
+    });
+  },
+  changeInfoFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.CHANGE_INFO_FAILURE,
+      data
+    });
+  }
 
 };

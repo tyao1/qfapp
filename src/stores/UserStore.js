@@ -11,6 +11,8 @@ import AppConstants from '../constants/AppConstants';
 import CartConstants from '../constants/CartConstants';
 import AppStore from './AppStore';
 import router from '../router';
+import Immutable from 'immutable';
+
 const CHANGE_EVENT = 'CHANGE_UserStore';
 
 
@@ -32,7 +34,25 @@ let _regVerify = 0;
 let _loginVerify = 0;
 let _needActivation = 0;
 
+
+
+let _infoMsg;
+let _isInfoing;
+let _submitData = Immutable.Map();
+
 const UserStore = assign({}, EventEmitter.prototype, {
+
+
+  getIsInfoing(){
+    return _isInfoing;
+  },
+  getInfoMsg(){
+    return _infoMsg;
+  },
+  getSubmitData(){
+    return _submitData;
+  },
+
 
   getUserName(){
     return _userData?_userData.nickname:'';
@@ -150,7 +170,28 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isLogining = false;
         UserStore.emitChange();
         break;
+      case UserConstants.CHANGE_INFO_SUBMIT:
+        _isInfoing = true;
+        _infoMsg = '';
+        UserStore.emitChange();
+        break;
 
+      case UserConstants.CHANGE_INFO_FAILURE:
+        _infoMsg = '啊哦，网络出错辣！';
+        _isInfoing = false;
+        UserStore.emitChange();
+        break;
+      case UserConstants.CHANGE_INFO_SUCCESS:
+        if(action.data.Code ===0){
+          _submitData = _submitData.clear();
+          _infoMsg = '';
+        }
+        else{
+          _infoMsg = 'action.data.Msg';
+        }
+        _isInfoing = false;
+        UserStore.emitChange();
+        break;
       default:
       // Do nothing
 
@@ -167,19 +208,23 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         }
         break;
       case UserConstants.REFRESH_REGV:
-          _regVerify++;
-          UserStore.emitChange();
+        _regVerify++;
+        UserStore.emitChange();
         break;
       case UserConstants.REFRESH_LOGINV:
-          _loginVerify++;
-          UserStore.emitChange();
+        _loginVerify++;
+        UserStore.emitChange();
         break;
       case AppConstants.NEED_LOGIN:
-          _userData = null;
-          UserStore.emitChange();
-          localStorage.setItem('userData', '');
+        _userData = null;
+        UserStore.emitChange();
+        localStorage.setItem('userData', '');
         break;
 
+      case UserConstants.ADD_TO_SUBMIT:
+        _submitData = _submitData.set(action.key, action.value);
+        UserStore.emitChange();
+        break;
       default:
         break;
     }

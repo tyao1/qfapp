@@ -25,7 +25,13 @@ export default keyMirror({
   APPLY_SELL_SUBMIT: null,
   APPLY_SELL_SUCCESS: null,
   APPLY_SELL_FAILURE: null,
-  APPLY_SELL_NEW: null
+  APPLY_SELL_NEW: null,
+
+  ADD_TO_SUBMIT: null,
+
+  CHANGE_INFO_SUBMIT: null,
+  CHANGE_INFO_SUCCESS: null,
+  CHANGE_INFO_FAILURE: null
 
 
 });

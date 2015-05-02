@@ -306,20 +306,21 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case OrderConstants.ORDER_CHANGE_ORDER:
-        let key = action.key || _curKey;
-        options[key].page = action.page>0?action.page:1;
-        trans(key);
+        let key1 = action.key || _curKey;
+        options[key1].page = action.page>0?action.page:1;
+        trans(key1);
         break;
+
       case OrderConstants.ORDER_CHANGE_TYPE:
-        let key = action.key || _curKey;
-        options[key].status = action.status;
-        options[key].page = 1;
+        let key2 = action.key || _curKey;
+        options[key2].status = action.status;
+        options[key2].page = 1;
         trans(key);
         break;
 
       case OrderConstants.ORDER_REFRESH:
-        let key = action.key || _curKey;
-        refresh(key);
+        let key3 = action.key || _curKey;
+        refresh(key3);
         OrderStore.emitChange();
         break;
 

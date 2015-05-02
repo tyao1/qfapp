@@ -12,9 +12,7 @@ $navWidth: 200px;
       padding:14px;
       width: $navWidth;
       position:fixed;
-      background:#fff;
       border:1px solid $mainColorTint;
-      border-radius:$borderRadius;
       overflow-y: auto;
       max-height: calc(100% - 100px);
       >h3{

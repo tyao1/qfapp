@@ -6,16 +6,46 @@
   min-height:220px;
   width:100%;
   background:white;
-  padding:32px;
-  >.headline{
+  >header{
+    height:84px;
+    background:$mainColor;
+    padding:12px 48px;
+    >h3{
+      color:#fff;
+      font-size:$bigFontSize;
+      float:left;
+    }
+    >.submit{
+      float:right;
+      margin:12px 0 0 0;
+      opacity:0;
+      transform: scale(0.8);
+      transition: transform .2s $bounceTiming, opacity .23s $normalTiming;
+      visibility: hidden;
+
+      &.active{
+        opacity:1;
+        transform: scale(1);
+        visibility: visible;
+      }
+
+      >.ButtonNormal{
+
+        border-color:#fff;
+        color:#fff;
+      }
+    }
+  }
+  >.content{
+    padding:32px 48px;
     >.avartar{
-      height:124px;
-      width:124px;
+      height:185px;
+      width:185px;
       border-radius:50%;
       border:1px solid $subtleFontColor2;
       overflow: hidden;
-      float:left;
-      position:relative;
+      display: inline-block;
+      position:absolute;
       &:hover > span{
         opacity:1;
       }
@@ -32,7 +62,7 @@
         right:0;
         bottom:0;
         display: block;
-        padding:50px 5px 0;
+        padding:80px 5px 0;
         border-radius:50%;
         color:#fff;
         text-align: center;
@@ -42,46 +72,23 @@
       }
     }
     >.info{
-      float:left;
-      padding:0 0 0 36px;
-      >.name{
-        font-size:$bigFontSize;
-        padding:0 0 14px 0;
-        margin:0 0 8px 0;
-        border-bottom:2px solid $mainColor;
-        display:block;
-        width:307px;
-      }
-      >p{
-        margin:0;
-        >.value{
-          color:$subtleFontColor2;
-        }
-        &.earning{
-          position:relative;
-          &:before{
-            content:'';
-            display:block;
-            position:absolute;
-            top:0;
-            height:1px;
-            width:64px;
-            border-top:1px solid $subtleFontColor1;
 
-          }
+      padding:0 0 0 48+185px;
+      vertical-align: top;
+      >ul{
+       >li{
+         margin:0 0 21px 0;
+         >.subtle{
+           margin:0;
+           color:$subtleFontColor2;
+         }
 
-          margin:6px 0 0 0;
-          padding:6px 0 0 0;
-          >.value{
-            color:$subtleFontColor2;
-          }
-        }
+       }
       }
+
     }
   }
 
-  >.content{
-    clear:both;
-    padding:32px 0 0 0;
-  }
+
+
 }

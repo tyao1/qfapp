@@ -102,7 +102,7 @@ const SellOrders = React.createClass({
     }
   },
   render(){
-    let elem, max, pagination;
+    let elem, max;
     const items = this.state.items;
     if(items===OrderConstants.ORDER_KEY_NULL){
       elem = <img src="./facebook.svg" />;
@@ -115,10 +115,7 @@ const SellOrders = React.createClass({
       </div>;
     }
     else{
-      pagination = <div className="pagination">
-        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
-      </div>;
-      if(items && items.length<10){
+      if(items && items.length<8){
         max = this.state.currentPage;
       }
       else{
@@ -164,8 +161,12 @@ const SellOrders = React.createClass({
     }
 
     return (<div className="daOrders">
-      {elem}
-      {pagination}
+      <div className="main">
+        {elem}
+      </div>
+      <div className="pagination">
+        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+      </div>
       <Modal isOpen={this.state.modalCancelIsOpen} onClose={this.handleCloseModal}>
         {this.state.isSuccessful?
           <div className="submitForm">

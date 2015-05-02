@@ -9,9 +9,7 @@
     >.left {
       position:fixed;
       width: 318px;
-      background:white;
       border:1px solid $mainColorTint;
-      border-radius: $borderRadius;
       padding: 24px;
       overflow-y: auto;
       max-height: calc(100% - 100px);
@@ -99,7 +97,7 @@
     }
 
     >.right{
-      padding-left: 360px;
+      padding-left: 372px;
     }
 
 

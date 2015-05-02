@@ -1,0 +1,56 @@
+@import '../../styles/variables.scss';
+
+
+.modText{
+  position:relative;
+  >.text{
+    padding:0 26px 0 0;
+    width:100%;
+    >p, >input{
+      margin:3px 0 0 0;
+      white-space: nowrap;
+      font-size:$bigFontSize;
+    }
+    >p{
+      border-bottom:1px solid transparent;
+    }
+    >input{
+      border:none;
+      border-bottom:1px solid $subtleFontColor2;
+      outline:none;
+      padding:0;
+    }
+  }
+
+  >.controls{
+    position:absolute;
+    right:0;
+    top:2px;
+    &:hover{
+      >.svgWrapper>svg{
+        fill: $fontColor;
+      }
+    }
+    >.svgWrapper{
+      cursor: pointer;
+      >svg{
+        margin:0 0 0 0;
+        fill:$subtleFontColor2;
+        height:20px;
+        width:18px;
+        transition:.24s ease;
+      }
+    }
+
+    >.ButtonNormal{
+      &.confirm{
+        color:$mainColor;
+        margin:0 7px 0 0;
+      }
+      border:none;
+      >span,&:after{
+        padding:0;
+      }
+    }
+  }
+}

@@ -71,6 +71,21 @@ const UserAPIUtils = {
           UserActions.applySellSuccess(res.body);
         }
       });
+  },
+
+  changeInfo(data){
+    request
+      .post('http://10.60.136.39/index.php/Manager/Application.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .type('form')
+      .send(data)
+      .end(function(err, res){
+        if(err){
+          UserActions.changeInfoFailure(err);
+        }
+        else{
+          UserActions.changeInfoSuccess(res.body);
+        }
+      });
   }
 
 
