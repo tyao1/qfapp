@@ -201,8 +201,12 @@ $bannerHeightSmall:50px;
             padding:9px 12px;
             margin:0 18px;
             border-radius: $borderRadius;
+            >a{
+              color:#fff;
+            }
           }
           >a{
+
             position:relative;
             display: inline-block;
 

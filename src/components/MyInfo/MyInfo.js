@@ -156,7 +156,7 @@ const MyInfo = React.createClass({
                 <span className="subtle">
                   支付宝账号
                 </span>
-                <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} regex={false}/>
+                <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} regex={/(^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$)|(^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)/}/>
               </li>
               <li>
                 <span className="subtle">
