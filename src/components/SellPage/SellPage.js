@@ -18,24 +18,16 @@ import ItemRegisterForm from '../ItemRegisterForm';
 import RequireLogin from '../../mixins/RequireLogin';
 
 
-import UserAction from '../../actions/UserActions';
+import UserActions from '../../actions/UserActions';
 require('./SellPage.scss');
 
 const SellPage = React.createClass({
   _onSellChange(){
-
-    let successful = SellStore.getSuccess();
-    if(successful){
-      this.setState({
-        items: [],
-        itemsCount: 0
-      });
-      this.goodsInfo = null;
-    }
     this.setState({
       realErrMsg: SellStore.getSubmitMsg(),
       isSubmitting: SellStore.getIsSubmitting(),
-      isSuccessful: successful
+      isSuccessful: SellStore.getSuccess(),
+      items: SellStore.getItems()
     });
   },
 
@@ -49,14 +41,15 @@ const SellPage = React.createClass({
   mixins: [PureRenderMixin, RequireLogin],
   getInitialState(){
     return {
-      items: ['d1'],
-      itemsCount: 1,
       errMsg: '',
-      realErrMsg: '',
       b_NO: '',
       NO: '',
       modalSubmitIsOpen: false,
       showSuccess: false,
+      realErrMsg: SellStore.getSubmitMsg(),
+      isSubmitting: SellStore.getIsSubmitting(),
+      isSuccessful: SellStore.getSuccess(),
+      items: SellStore.getItems(),
       phone: UserStore.getPhone(),
       alipay: UserStore.getAli()
     };
@@ -73,36 +66,32 @@ const SellPage = React.createClass({
   },
 
   handleAddClick(){
-    let count = this.state.itemsCount+1;
-    this.setState({
-      itemsCount: count,
-      items: this.state.items.concat('d'+count)
-    });
+    UserActions.addNewSell();
   },
-  goodsInfo: null,
+
   handleSubmitClick(){
     let errMsg = '';
 
-    const items = this.state.items;
-    console.log(items);
-    this.goodsInfo = [];
+    const items = this.state.items.toJS();
     let goodToGo = true;
-    items.map((data, i) => {
-      const state = this.refs[data].state;
+    let i=0;
+    for(let key in items){
+      let state = items[key];
+      i++;
       if(!state.name||state.name.length<4){
-        errMsg += `${i+1}号物品，物品名至少需要4个字<br/>`;
+        errMsg += `${i}号物品，物品名至少需要4个字<br/>`;
         goodToGo = false;
       }
       else if(state.num<1){
-        console.log(state);
-        errMsg += `${i+1}号物品，物品数量需要至少为1<br/>`;
+        errMsg += `${i}号物品，物品数量需要至少为1<br/>`;
         goodToGo = false;
       }
+    }
+      /* 修改物品数据类型
       else{
         if(goodToGo) {
           //提交
-          console.log(state);
-          let t_limit = Math.round(Date.now() / 1000) + parseInt(state.timeSpan) * 60 * 60 * 24 * 30;
+          //不需要 let t_limit = Math.round(Date.now() / 1000) + parseInt(state.timeSpan) * 60 * 60 * 24 * 30;
           let {name, price, detail, num} = state;
           if(price[price.length-1]==='.'){
             price.substring(0,price.length-1)
@@ -112,35 +101,23 @@ const SellPage = React.createClass({
           this.goodsInfo.push(good);
         }
       }
+      */
 
-    });
 
     if(goodToGo){
-      UserAction.applySellNew();
+      UserActions.applySellNew();
       this.setState({
-        errMsg: '',
-        isSuccessful: false,
         modalSubmitIsOpen: true
       });
-      //call submit action
-
     }
-    else{
-      this.setState({errMsg});
-    }
+    //else{
+    this.setState({errMsg});
+    //}
 
   },
-  handleFormClose(data){
+  handleFormClose(id){
     return ()=> {
-      let items = this.state.items;
-      let index = items.indexOf(data);
-      if (index > -1) {
-        items.splice(index, 1);
-        this.setState({
-          items,
-          itemsCount: this.state.itemsCount+1
-        });
-      }
+      UserActions.removeSell(id);
     };
   },
   handleModalSubmitClose(){
@@ -153,8 +130,14 @@ const SellPage = React.createClass({
   handleNOChange(e){
     this.setState({NO: e.target.value});
   },
+  handleValueChange(id){
+    return (key, value)=> {
+      UserActions.changeData(id, key, value);
+    };
+  },
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
+      //关闭Modal
       this.setState({
         modalSubmitIsOpen: false
       });
@@ -179,23 +162,35 @@ const SellPage = React.createClass({
         this.setState({realErrMsg: '宿舍楼号不能为空'});
         return;
       }
+      let items = this.state.items.toJS();
+
+      let toSubmit = [];
+
+      for(let key in items) {
+        let state = items[key];
+        let {price, time, detail, num, name} = state;
+        if(price[price.length-1]==='.'){
+          price.substring(0,price.length-1)
+        }
+        price = parseFloat(price);
+        let t_limit = time;
+        toSubmit.push({
+          name, price, num, detail, t_limit
+        });
+      }
+
+      console.log('about to submit', toSubmit);
       let realData = {
         b_NO: this.state.b_NO,
         NO: this.state.NO,
-        info: JSON.stringify(this.goodsInfo)
+        info: JSON.stringify(toSubmit)
       };
-      UserAction.applySellSubmit(realData);
+
+      UserActions.applySellSubmit(realData);
     }
   },
 
-  handleGoToMyInfo(){
-
-  },
-
-  render(){
-    console.log('alipay:',this.state.alipay);
-    console.log('alipay??',this.state.alipay);
-
+    render(){
     if(this.state.isSuccessful){
       document.title='提交成功.(｡￫‿￩｡) - 清风';
     }
@@ -205,8 +200,9 @@ const SellPage = React.createClass({
     else{
       document.title='出售物品 - 清风';
     }
-    const items = this.state.items;
-    let titleClass = `title${items.length?' active':''}`;
+    const items = this.state.items.toJS();
+    const size =  this.state.items.size;
+    let titleClass = `title${size?' active':''}`;
     if(this.state.phone){
       return (
         <div className="sellPage">
@@ -221,7 +217,14 @@ const SellPage = React.createClass({
             <ul className="items">
               <ReactCSSTransitionGroup transitionName="t">
                 {
-                  items.map((data) => <ItemRegisterForm key={data} onClose={this.handleFormClose(data)} ref={data}/>)
+                  Object.keys(items).map((key)=>{
+                    let data = items[key];
+                    if(!data) {
+                      return;
+                    }
+                    let id = data.id;
+                    return <ItemRegisterForm key={id} data={data} onClose={this.handleFormClose(id)} onValueChange={this.handleValueChange(id)}/>;
+                  })
                 }
               </ReactCSSTransitionGroup>
             </ul>
@@ -229,7 +232,7 @@ const SellPage = React.createClass({
             <div className="controls">
               <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
               {
-                items.length?
+                size?
                   <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
                   :null
               }

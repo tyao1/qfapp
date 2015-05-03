@@ -6,7 +6,7 @@
     margin-top:$bannerHeight;
     padding:24px;
     min-height:480px;
-    @include verticalCenter();
+    @include verticalCenter1();
     >.title{
       text-align:center;
 
@@ -82,6 +82,7 @@
 
     >.controls{
       margin:24px auto 0;
+      text-align: center;
       >.ButtonNormal{
         margin: 0 21px 0 0;
         >span{

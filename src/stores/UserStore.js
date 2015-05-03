@@ -51,10 +51,14 @@ function saveUserData(){
 const UserStore = assign({}, EventEmitter.prototype, {
 
   getPhone(){
-    return _userData.telephone;
+    if(_userData) {
+      return _userData.telephone;
+    }
   },
   getAli(){
-    return _userData.alipay;
+    if(_userData) {
+      return _userData.alipay;
+    }
   },
   getForgetMsg(){
     return _forgetMsg;
@@ -271,6 +275,10 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case UserConstants.ADD_TO_SUBMIT:
         _submitData = _submitData.set(action.key, action.value);
+        UserStore.emitChange();
+        break;
+      case UserConstants.REMOVE_FROM_SUBMIT:
+        _submitData = _submitData.delete(action.key);
         UserStore.emitChange();
         break;
       default:

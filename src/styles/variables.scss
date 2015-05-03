@@ -89,12 +89,25 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
   transition:$transition .3s ease-in;
 }
 
-//竖直方向剧中 (flex way)
+//竖直方向剧中
 @mixin verticalCenter(){
+
+  display:table;
+  >.inner{
+    display:table-cell;
+    vertical-align: middle;
+  }
+}
+@mixin verticalCenter1(){
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+//(flex way)
+//display: flex;
+//flex-direction: column;
+//justify-content: center;
+
 
 //增加transition-timing-func
 @mixin transTimingBounce(){

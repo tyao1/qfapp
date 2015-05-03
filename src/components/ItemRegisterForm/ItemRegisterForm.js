@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Banner from '../Banner';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import {close} from '../SVGs';
 
@@ -15,18 +16,37 @@ function priceToFloat(price){
 }
 const ItemRegisterForm = React.createClass({
 
+
+  /*
+    props: onValueChange func(key, value)
+   */
+
+  mixins: [PureRenderMixin],
+  returnPriceChange(val){
+    this.props.onValueChange('price', val);
+  },
+  returnNameChange(val){
+    this.props.onValueChange('name', val);
+  },
+  returnDetailChange(val){
+    this.props.onValueChange('detail', val);
+  },
+  returnTimeChange(val){
+    this.props.onValueChange('time', val);
+  },
+  returnNumChange(val){
+    this.props.onValueChange('num', val);
+  },
+
   getInitialState(){
     return {
-      name: '',
-      price: '0.0',
-      num: 1,
-      timeSpan: 5,
-      detail: ''
+
     };
   },
 
   handleNameChange(e){
-    this.setState({name: e.target.value});
+    //this.setState({name: e.target.value});
+    this.returnNameChange(e.target.value);
   },
 
   handlePriceChange(e){
@@ -34,7 +54,8 @@ const ItemRegisterForm = React.createClass({
     let price = e.target.value||0;
     if(price==='.'){
       //0.
-      this.setState({price: '0.'});
+      //this.setState({price: '0.'});
+      this.returnPriceChange(price);
     }
     else {
       const priceOnly = /^\d+\.?\d{0,2}$/;
@@ -44,7 +65,8 @@ const ItemRegisterForm = React.createClass({
           price = price.substring(1);
         }
         //if (!isNaN(price)) {
-        this.setState({price: price});
+        //this.setState({price: price});
+        this.returnPriceChange(price);
         //}
       }
     }
@@ -53,56 +75,66 @@ const ItemRegisterForm = React.createClass({
   handleAmountChange(e){
     let num = e.target.value;
     if(!num){
-      this.setState({num: 0});
-      }
+      //this.setState({num: 0});
+      this.returnNumChange(0);
+    }
     else {
       const numOnly = /^\d+$/;
       if (numOnly.test(num)) {
         //因为是数字，所以parseInt肯定工作，保留int状态
-        this.setState({num: parseInt(e.target.value)});
+        //this.setState({num: parseInt(e.target.value)});
+        this.returnNumChange(parseInt(e.target.value));
+
       }
     }
   },
   handleTimeSpanChange(e){
-    this.setState({timeSpan: e.target.value});
+    //this.setState({timeSpan: e.target.value});
+    this.returnTimeChange(e.target.value);
   },
   handleDetailChange(e){
     if(e.target.value.length<=300) {
-      this.setState({detail: e.target.value});
+      //this.setState({detail: e.target.value});
+      this.returnDetailChange(e.target.value);
     }
   },
   addAmount(){
-
-    this.setState({num: this.state.num+1});
-
+    //this.setState({num: data.num+1});
+    this.returnNumChange(this.props.data.num + 1);
   },
   reduceAmount(){
-    if(this.state.num>1){
-      this.setState({num: this.state.num-1});
+    if(this.props.data.num>1){
+      //this.setState({num: data.num-1});
+      this.returnNumChange(this.props.data.num-1);
     }
   },
 
   addPrice(){
-    this.setState({price: (priceToFloat(this.state.price)+1).toFixed(2)});
+    let price = (priceToFloat(this.props.data.price)+1).toFixed(2);
+    //this.setState({price});
+    this.returnPriceChange(price);
   },
   reducePrice(){
-    if(this.state.price>=1){
-      this.setState({price: (priceToFloat(this.state.price)-1).toFixed(2)});
+    if(this.props.data.price>=1){
+      let price = (priceToFloat(this.props.data.price)+1).toFixed(2);
+      //this.setState({price});
+      this.returnPriceChange(price);
     }
   },
 
   render: function() {
+    const data = this.props.data;
     return (
       <div className="itemRegisterForm">
         <div className="left">
           <div className="inputEffectLong">
-            <input type="text" value={this.state.name} onChange={this.handleNameChange}/>
-            <label className={this.state.name.length?'active':null} >物品名称</label>
+            <input type="text" value={data.name} onChange={this.handleNameChange}/>
+            <label className={data.name.length?'active':null} >物品名称</label>
           </div>
 
           <div className="inputEffect price">
             <span>¥</span>
-            <input type="text" value={this.state.price} onChange={this.handlePriceChange}/>
+            <input type="text" value={data.price} onChange={this.handlePriceChange}/>
             <label className='active'>价格</label>
               <div className="controls">
                 <button onClick={this.addPrice}>+</button>
@@ -112,7 +144,7 @@ const ItemRegisterForm = React.createClass({
 
 
           <div className="inputEffect">
-            <input type="text" value={this.state.num} onChange={this.handleAmountChange}/>
+            <input type="text" value={data.num} onChange={this.handleAmountChange}/>
             <label className='active'>数量</label>
             <div className="controls">
               <button onClick={this.addAmount}>+</button>
@@ -121,7 +153,7 @@ const ItemRegisterForm = React.createClass({
           </div>
 
           <div className="inputEffect">
-            <select value={this.state.timeSpan} onChange={this.handleTimeSpanChange}>
+            <select value={data.timeSpan} onChange={this.handleTimeSpanChange}>
               <option value="5">5个月</option>
               <option value="4">4个月</option>
               <option value="3">3个月</option>
@@ -139,9 +171,9 @@ const ItemRegisterForm = React.createClass({
 
         <div className="right">
           <div className="textareaEffect">
-            <textarea value={this.state.detail} onChange={this.handleDetailChange}/>
-            <label className={this.state.detail.length?'active':null} >详细描述</label>
-            <span className="wordsCount">{this.state.detail.length}/300</span>
+            <textarea value={data.detail} onChange={this.handleDetailChange}/>
+            <label className={data.detail.length?'active':null} >详细描述</label>
+            <span className="wordsCount">{data.detail.length}/300</span>
           </div>
         </div>
 

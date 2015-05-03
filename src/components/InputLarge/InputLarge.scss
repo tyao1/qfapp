@@ -1,7 +1,8 @@
 @import '../../styles/variables.scss';
 
 .InputLarge {
-  margin: 98px 0;
+  width: 492px;
+  margin: 98px auto;
   font-size: $bigFontSize;
   >Input {
     width: 492px;

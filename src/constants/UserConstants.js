@@ -26,8 +26,12 @@ export default keyMirror({
   APPLY_SELL_SUCCESS: null,
   APPLY_SELL_FAILURE: null,
   APPLY_SELL_NEW: null,
+  SELL_NEW_ITEM:null,
+  SELL_CHANGE_DATA: null,
+  SELL_REMOVE_ITEM: null,
 
   ADD_TO_SUBMIT: null,
+  REMOVE_FROM_SUBMIT:null,
 
   CHANGE_INFO_SUBMIT: null,
   CHANGE_INFO_SUCCESS: null,

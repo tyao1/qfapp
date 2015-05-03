@@ -2,7 +2,6 @@
 
 import React from 'react';
 import UserStore from '../../stores/UserStore'
-import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import UserConstants from '../../constants/UserConstants';
 import ButtonNormal from '../../components/ButtonNormal';
 import ModText from '../ModText';
@@ -11,10 +10,13 @@ import Modal from '../Modal';
 import {paperplane} from '../SVGs';
 import request from 'superagent';
 import RequireLogin from '../../mixins/RequireLogin';
-require('./MyInfo.scss');
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
+require('./MyInfo.scss');
+//PureRenderMixin,
 const MyInfo = React.createClass({
   _onUserChange(){
+    console.log('submitData', UserStore.getSubmitData());
     this.setState({
       userData: UserStore.getUserData(),
       submitData: UserStore.getSubmitData(),
@@ -53,11 +55,20 @@ const MyInfo = React.createClass({
   handleGetPhone(val){
     UserActions.addToSubmit('telephone', val);
   },
+  handleCancelPhone(){
+    UserActions.removeFromSubmit('telephone');
+  },
   handleGetAlipay(val){
     UserActions.addToSubmit('alipay', val);
   },
+  handleCancelAlipay(){
+    UserActions.removeFromSubmit('alipay');
+  },
   handleGetRealName(val){
     UserActions.addToSubmit('name', val);
+  },
+  handleCancelRealName(){
+    UserActions.removeFromSubmit('name');
   },
   handleSubmitClick(){
     if(!this.state.isSubmitting){
@@ -131,7 +142,7 @@ const MyInfo = React.createClass({
         <div className="content">
           <div className="avartar">
             <span>暂不支持更换头像</span>
-            <img src={this.state.userData.avartar}/>
+            <img src={this.state.userData.path}/>
           </div>
           <div className="info">
             <ul>
@@ -139,19 +150,19 @@ const MyInfo = React.createClass({
                 <span className="subtle">
                   手机号
                 </span>
-                <ModText type="text" text={this.state.userData.telephone} getEdited={this.handleGetPhone}/>
+                <ModText key={this.state.userData.telephone} type="text" text={this.state.userData.telephone} getEdited={this.handleGetPhone} cancelEdit={this.handleCancelPhone} regex={/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/}/>
               </li>
               <li>
                 <span className="subtle">
                   支付宝账号
                 </span>
-                <ModText type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay}/>
+                <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} regex={false}/>
               </li>
               <li>
                 <span className="subtle">
                   真实姓名
                 </span>
-                <ModText type="text" text={this.state.userData.name} getEdited={this.handleGetRealName}/>
+                <ModText key={this.state.userData.name} type="text" text={this.state.userData.name} getEdited={this.handleGetRealName} cancelEdit={this.handleCancelRealName} regex={false}/>
               </li>
               <li>
                 <span className="subtle">

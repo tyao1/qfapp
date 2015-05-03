@@ -10,10 +10,11 @@
 import React from 'react';
 import {edit} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 require('./ModText.scss');
 
 const ModText = React.createClass({
-
+  mixins: [PureRenderMixin],
   getInitialState(){
     return {
       editing: false,
@@ -22,8 +23,23 @@ const ModText = React.createClass({
   },
 
   handleChange(e){
-    this.setState({val: e.target.value});
+    let val = e.target.value;
+    this.setState({val: val});
+    console.log(!this.props.regex);
+    if(!this.props.regex||this.props.regex.test(val)){
+      this.setState({valid: true});
+      if(e.target.value!==this.props.text) {
+        this.props.getEdited(e.target.value);
+      }
+      else{
+        this.props.cancelEdit();
+      }
+    }else{
+      this.setState({valid: false});
+      this.props.cancelEdit();
+    }
   },
+
   handleKeyUp(e){
     if(e.keyCode===13){
       this.handleConfirm();
@@ -37,28 +53,21 @@ const ModText = React.createClass({
       editing: false,
       val: this.props.text
     });
+    this.props.cancelEdit();
   },
-  handleConfirm(){
-    this.setState({
-      editing: false
-    });
-    if(this.state.val!==this.props.text) {
-      this.props.getEdited(this.state.val);
-    }
-  },
+
   render() {
     let { text, ...others } = this.props;
     return (
       <div className="modText">
         <div className="text">
           {this.state.editing?
-            <input {...others} autoFocus={this.state.editing} value={this.state.val} onChange={this.handleChange} onKeyUp={this.handleKeyUp}/>:
+            <input className={this.state.valid?'':'invalid'} {...others} autoFocus={this.state.editing} value={this.state.val} onChange={this.handleChange} onKeyUp={this.handleKeyUp}/>:
             <p>{this.state.val?this.state.val:'暂无'}</p>
           }
         </div>
         {this.state.editing?
         <div className="controls">
-          <ButtonNormal className="ButtonNormal confirm" text="确认" onClick={this.handleConfirm}/>
           <ButtonNormal text="取消" onClick={this.handleCancelEdit}/>
         </div>:
         <div className="controls">
@@ -71,7 +80,18 @@ const ModText = React.createClass({
     );
   }
 });
+//          <ButtonNormal className="ButtonNormal confirm" text="确认" onClick={this.handleConfirm}/>
+/*
+ handleConfirm(){
+ this.setState({
+ editing: false
+ });
+ if(this.state.val!==this.props.text) {
+ this.props.getEdited(this.state.val);
+ }
+ },
 
+ */
 ModText.propTypes = {
 };
 

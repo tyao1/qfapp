@@ -19,6 +19,10 @@
       border-bottom:1px solid $subtleFontColor2;
       outline:none;
       padding:0;
+      &.invalid{
+        box-shadow: 0 2px rgba($thirdColor,.6);
+        border-bottom: 1px solid $thirdColor;
+      }
     }
   }
 

@@ -72,6 +72,10 @@ export default {
     UserAPIUtils.logout();
   },
 
+  /*
+    出售物品页面(Page Store)
+   */
+
   applySellSubmit(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.APPLY_SELL_SUBMIT,
@@ -98,9 +102,23 @@ export default {
     });
   },
 
-  addToSubmit(key, value){
+  addNewSell(){
     Dispatcher.handleViewAction({
-      actionType: UserConstants.ADD_TO_SUBMIT,
+      actionType: UserConstants.SELL_NEW_ITEM
+    });
+  },
+
+  removeSell(id){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.SELL_REMOVE_ITEM,
+      id
+    });
+  },
+
+  changeData(id, key, value){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.SELL_CHANGE_DATA,
+      id,
       key,
       value
     });
@@ -108,6 +126,22 @@ export default {
 
 
 
+  /*
+    个人信息修改
+   */
+  addToSubmit(key, value){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.ADD_TO_SUBMIT,
+      key,
+      value
+    });
+  },
+  removeFromSubmit(key){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.REMOVE_FROM_SUBMIT,
+      key
+    });
+  },
   changeInfoSubmit(data){
     Dispatcher.handleServerAction({
       actionType: UserConstants.CHANGE_INFO_SUBMIT,

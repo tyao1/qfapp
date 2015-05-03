@@ -110,6 +110,7 @@ const Cart = React.createClass({
       elem = <div className="cart">
         <div className="cartList">
           {
+
             Object.keys(items).map((key)=>{
               let data = items[key];
               if(!data) {

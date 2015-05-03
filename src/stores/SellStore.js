@@ -5,6 +5,8 @@ import PayloadSources from '../constants/PayloadSources';
 import EventEmitter from 'eventemitter3';
 import assign from 'react/lib/Object.assign';
 import UserConstants from '../constants/UserConstants';
+import Immutable from 'immutable';
+
 
 const CHANGE_EVENT = 'CHANGE_SellStore';
 
@@ -12,8 +14,69 @@ const CHANGE_EVENT = 'CHANGE_SellStore';
 let _isSubmitting = false;
 let _submitMsg = '';
 let _success = false;
+
+
+
+
+
+let _items = Immutable.OrderedMap();
+
+console.log('items', _items);
+let _lastId = 0;
+function genNextId(){
+  _lastId+= 1;
+  return _lastId;
+}
+
+let fromCache = JSON.parse(localStorage.getItem('sellItems'));
+console.log('fromCache', fromCache);
+for(let cache in fromCache){
+  let data = fromCache[cache];
+  if(_lastId<data.id){
+    _lastId = data.id;
+  }
+  _items = _items.set(data.id, Immutable.fromJS(data));
+
+}
+
+let _storeTimeout;
+
+function saveItems(remove = false){
+  if(_storeTimeout){
+    clearTimeout(_storeTimeout);
+  }
+  if(remove){
+    setTimeout(()=>{
+      localStorage.removeItem('sellItems');
+      _storeTimeout = null;
+    });
+  }
+  else{
+    if(_items.size) {
+      _storeTimeout = setTimeout(()=> {
+        console.log('save item');
+        localStorage.setItem('sellItems', JSON.stringify(_items.toJS()));
+        _storeTimeout = null;
+      }, 10000);
+    }
+    else{
+      console.log('about to remove');
+      _storeTimeout = setTimeout(()=>{
+        console.log('removed');
+        localStorage.removeItem('sellItems');
+        _storeTimeout = null;
+      });
+
+    }
+  }
+}
+
+
 const SellStore = assign({}, EventEmitter.prototype, {
 
+  getItems(){
+    return _items;
+  },
   getIsSubmitting(){
     return _isSubmitting;
   },
@@ -57,9 +120,11 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.APPLY_SELL_SUCCESS:
         if (action.data.Code === 0) {
           _success = true;
+          _items = _items.clear();
+          saveItems(true);//删除
         }
         else if (action.data.Code === 1001) {
-          _submitMsg = action.data.Msg + '请返回检查~';
+          _submitMsg = action.data.Msg + ',请返回检查~';
         }
         else {
           _submitMsg = action.data.Msg;
@@ -79,6 +144,30 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         _submitMsg = '';
         SellStore.emitChange();
         break;
+      case UserConstants.SELL_NEW_ITEM:
+        let nextId = genNextId();
+        _items = _items.set(nextId,Immutable.fromJS({
+          id: nextId,
+          name: '',
+          price: '0.0',
+          num: 1,
+          time: 5,
+          detail: ''
+        }));
+        SellStore.emitChange();
+        break;
+      case UserConstants.SELL_CHANGE_DATA:
+        _items = _items.updateIn([action.id, action.key], () => action.value);
+        SellStore.emitChange();
+        saveItems();
+        break;
+      case UserConstants.SELL_REMOVE_ITEM:
+        _items = _items.delete(action.id);
+        SellStore.emitChange();
+        saveItems();
+        break;
+
+      default:
     }
   }
 
