@@ -9,7 +9,7 @@ import DetailConstants from '../../constants/DetailConstants';
 import Counter from '../Counter';
 
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart, time, itemsleft} from '../SVGs';
+import {shoppingcart, time, itemsleft, renren, weibo, tencent, douban} from '../SVGs';
 
 import BookCard from '../BookCard';
 
@@ -19,9 +19,15 @@ import DetailActions from '../../actions/DetailActions';
 import ImageView from '../ImageView';
 require('./ItemDetailPage.scss');
 
+function thisUrl(){
+  return encodeURIComponent(window.location.href);
+}
 
 const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
+  getTitle(){
+    return encodeURIComponent('在清风上看到了一件好东西：' + this.state.detail.name + '，一起来看看？');
+  },
   _onDetailChange(){
     const detail = DetailStore.getDetail();
     if(detail!==this.state.detail){
@@ -73,6 +79,23 @@ const ItemDetailPage = React.createClass({
   },
   handleRetry(){
     DetailActions.refresh();
+  },
+
+  handleRenren(){
+    let url = `http://share.renren.com/share/buttonshare?link=${thisUrl()}&title=${this.getTitle()}`;
+    window.open(url, '_blank');
+  },
+  handleSina(){
+    let url = `http://v.t.sina.com.cn/share/share.php?url=${thisUrl()}&title=${this.getTitle()}`;
+    window.open(url, '_blank');
+  },
+  handleTencent(){
+    let url = `http://v.t.qq.com/share/share.php?title=${this.getTitle()}&url=${thisUrl()}&site=清风`;
+    window.open(url, '_blank');
+  },
+  handleDouban(){
+    let url = `http://www.douban.com/recommend/?url=${thisUrl()}&title=${this.getTitle()}`;
+    window.open(url, '_blank');
   },
   render() {
 
@@ -210,6 +233,10 @@ const ItemDetailPage = React.createClass({
               </div>
               <div className="share">
                 <span>分享</span>
+                <ul>
+                  <li onClick={this.handleRenren}>{renren}</li><li onClick={this.handleSina}>{weibo}</li>
+                  <li onClick={this.handleTencent}>{tencent}</li><li onClick={this.handleDouban}>{douban}</li>
+                </ul>
               </div>
             </div>
           </div>

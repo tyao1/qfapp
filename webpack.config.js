@@ -115,7 +115,7 @@ var config = {
 var appConfig = _.merge({}, config, {
   entry: {
     app:'./src/app.js',
-    vendor:['react','react-router','react-proxy-loader']
+    vendor:['react','react-router','react-proxy-loader','flux','react/lib/Object.assign','react/lib/ReactCSSTransitionGroup','react/lib/ReactComponentWithPureRenderMixin']
   },
   output: {
     filename: "[name].js"

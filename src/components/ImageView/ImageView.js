@@ -15,7 +15,10 @@ const ImageView = React.createClass({
   getInitialState(){
 
     let imgArray = [];
-     ///for(let img in this.props.image){
+     for(let i=0;i<this.props.images.length;i++){
+       let img = this.props.images[i].path;
+
+       /*
        imgArray.push({
          original: 'https://a1.muscache.com/ic/pictures/73134841/c90b9ef5_original.jpg',
          thumbnail: 'https://a1.muscache.com/ic/pictures/73134841/c90b9ef5_original.jpg'
@@ -28,11 +31,12 @@ const ImageView = React.createClass({
       original: 'https://a1.muscache.com/ic/pictures/73134841/c90b9ef5_original.jpg',
       thumbnail: 'https://a1.muscache.com/ic/pictures/73134841/c90b9ef5_original.jpg'
     });
-      // imgArray.push({
-       //   original: img,
-       //   thumbnail: img
-      //  });
-     //}
+    */
+       imgArray.push({
+          original: img,
+          thumbnail: img
+        });
+     }
     return{
       viewOpen: false,
       imgArray

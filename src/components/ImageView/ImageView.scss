@@ -44,9 +44,11 @@ $height: 684/16*9px;
     &.active{
       visibility:visible;
       opacity:1;
+      transition:opacity .23s ease;
+
     }
 
-    transition:opacity .23s ease;
+    transition:opacity .23s ease, visibility 0s .23s;
     opacity:0;
     visibility: hidden;
     position:fixed;

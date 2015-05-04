@@ -181,12 +181,14 @@ $sellerHeight: 100px;
     bottom:0;
     left:0;
     right:0;
-    padding:24px 0;
+    padding:0;
     height: $sellerHeight;
     background: $secondBgColor;
     border-top:1px solid $borderColor;
     >.inner {
       @include maxWidth();
+      @include clearfix();
+      padding: 24px 0;
       > .info {
         float:left;
         > img {
@@ -201,7 +203,7 @@ $sellerHeight: 100px;
         }
         >.words{
           display:inline-block;
-        vertical-align: middle;
+          vertical-align: middle;
 
           > p {
             &.user{
@@ -221,6 +223,36 @@ $sellerHeight: 100px;
       }
       >.share{
         float:right;
+        >span{
+          display:inline-block;
+          vertical-align: middle;
+          margin: 0 12px 0 0;
+        }
+        >ul{
+          display:inline-block;
+          vertical-align: middle;
+          margin: 0;
+
+          >li{
+            width:28px;
+            height:28px;
+            display: inline-block;
+            margin:0 18px 0 0;
+            cursor:pointer;
+            >svg{
+              >path {
+                transition: fill .23s ease;
+              }
+            }
+            &:hover{
+              >svg{
+                >path {
+                  fill: $thirdColor;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
