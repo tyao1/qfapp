@@ -9,20 +9,34 @@ import OrderStore from '../../stores/OrderStore';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 import Orders from '../Orders';
-import MyInfo from '../MyInfo';
+//import MyInfo from '../MyInfo';
 import OrderConstants from '../../constants/OrderConstants';
 import ButtonNormal from '../ButtonNormal';
 import OrderActions from '../../actions/OrderActions';
 
 require('./DashboardPage.scss');
 
+
+const MyInfoMixin = require("react-proxy!../MyInfo").Mixin;
+const MyInfo = React.createClass({
+  mixins: [MyInfoMixin],
+  renderUnavailable: function() {
+    return <div className="proxyLoading">
+      <div className="inner">
+        <img src="facebook.svg"/>
+      </div>
+    </div>;
+  }
+});
+
+
 const buySections = [
-  {name:'所有订单', code:0},
-  {name:'等待收货', code:6},
-  {name:'交易完成', code:4},
-  {name:'处理中', code:1},
-  {name:'已取消', code:2}
-]
+  {name: '所有订单', code: 0},
+  {name: '等待收货', code: 6},
+  {name: '交易完成', code: 4},
+  {name: '处理中', code: 1},
+  {name: '已取消', code: 2}
+];
 
 
 const DashboardPage = React.createClass({

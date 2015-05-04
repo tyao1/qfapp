@@ -6,6 +6,9 @@ import Notification from '../Notification';
 import {RouteHandler} from 'react-router';
 import Feedback from '../Feedback';
 
+//保证某些stores已经在页面中
+import DetailStore from '../../stores/DetailStore';
+
 const App = React.createClass({
 
   render() {

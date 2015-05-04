@@ -115,7 +115,7 @@ var config = {
 var appConfig = _.merge({}, config, {
   entry: {
     app:'./src/app.js',
-    vendor:['react','react-router']
+    vendor:['react','react-router','react-proxy-loader']
   },
   output: {
     filename: "[name].js"
@@ -123,10 +123,10 @@ var appConfig = _.merge({}, config, {
   plugins: config.plugins.concat([
 
       new webpack.DefinePlugin(_.merge(GLOBALS, {'__SERVER__': false})),
-      new ChunkManifestPlugin({
+      /*new ChunkManifestPlugin({
         filename: "manifest.json",
         manifestVariable: "webpackManifest"
-      }),
+      }),*/
       new webpack.optimize.CommonsChunkPlugin({
         name:"vendor",
         //filename:'common.js',
