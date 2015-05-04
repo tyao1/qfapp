@@ -13,6 +13,7 @@
       padding: 24px;
       overflow-y: auto;
       max-height: calc(100% - 100px);
+      @include customFont();
       >ul{
         overflow-y: auto;
         margin:0;
