@@ -52,7 +52,7 @@ const SellOrders = React.createClass({
     OrderStore.removeChangeListener(this._onOrderChange);
   },
   handleRetry(){
-    OrderActions.retry(this.state.key);
+    OrderActions.refresh(this.state.key);
   },
   handlePageChange(page){
     OrderActions.changePage(page);

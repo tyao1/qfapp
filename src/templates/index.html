@@ -24,16 +24,23 @@
     <meta name="msapplication-TileColor" content="#53DAB0">
     <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
     <meta name="theme-color" content="#53DAB0">
+    <!--[if IE 9]>
+      <script src="html5shiv.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <div id="react">
       <div class="table">
-        <!--[if lt IE 8]>
-        <p class="browserupgrade"><a href="http://browsehappy.com/">您好！您正在使用一款过时的浏览器！清风不再支持老浏览器了，为了保证您的安全和浏览体验，点我升级您的浏览器吧！</a></p>
-        <![endif]-->
         <p class="logo">清风</p>
+        <!--[if lt IE 9]>
+        <p class="browserupgrade"><a href="http://browsehappy.com/"> o(￣ヘ￣o＃) 还在用老版本IE？清风不再支持老浏览器了~<br/>为了保证您的安全和浏览体验，点我升级您的浏览器吧！</a>
+        <br/>如果你不幸是360浏览器的用户。(;￢д￢) <a href="http://chrome.360.cn/">可以升级到360浏览器的最新版</a>
+        </p>
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
         <img src="facebook.svg">
         <p class="loading">请稍等，精彩马上呈现</p>
+        <!--<![endif]-->
       </div>
     </div>
     <script src="vendor.js"></script>

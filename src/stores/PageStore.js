@@ -202,7 +202,11 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         refresh();
         PageStore.emitChange();
         break;
-
+      case PageConstants.PAGE_REFRESH_HOME:
+        _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);
+        //开始异步获取数据
+        PageAPIUtils.getHome();
+        break;
       default:
          //
     }

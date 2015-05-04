@@ -38,10 +38,14 @@ export default {
       page
     });
   },
-
   refresh(){
     Dispatcher.handleViewAction({
       actionType: PageConstants.PAGE_REFRESH
+    });
+  },
+  refreshHome(){
+    Dispatcher.handleViewAction({
+      actionType: PageConstants.PAGE_REFRESH_HOME
     });
   }
 }

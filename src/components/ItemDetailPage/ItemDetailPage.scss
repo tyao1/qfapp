@@ -3,15 +3,25 @@
 $briefHeight:260px;
 $briefPadding:48px;
 $controlsWidth:340px;
-.itemDetailPage {
-  padding:0 0 $bannerHeight 0;
-  >.brief{
 
+$secondBgColor: #FEFEFE;
+$borderColor: #EFEFEF;
+$secondBgColor: #FCFCFC;
+
+$sellerHeight: 100px;
+
+.itemDetailPage {
+  padding:0 0 $sellerHeight + $bannerHeight 0;
+  min-height: 100vh;
+  position: relative;
+  >.brief{
     width:100%;
     height:$briefHeight + $bannerHeight;
-    background:$fontColor;
-    color:#fff;
+    background:$secondBgColor;
+    color:$fontColor;
     padding:$bannerHeight 0 0 0;
+    border-bottom: 1px solid $borderColor;
+    position:relative;
     >.inner{
       @include maxWidth;
       padding:$briefPadding 0 $briefPadding 12px;
@@ -22,8 +32,13 @@ $controlsWidth:340px;
       >.words {
         width: 1024px - $controlsWidth - 24px;
         padding-right:24px;
-        display: inline-block;
+        display: block;
         float: left;
+        position:absolute;
+        bottom:48px;
+        >.ButtonNormal{
+          margin:6px 0 0 0;
+        }
         > .itemName {
           margin: 0;
           font-size: $LargeFontSize - 2px;
@@ -37,31 +52,22 @@ $controlsWidth:340px;
           margin: 7px 0 0;
         }
       }
-      >.amounts{
-        float:right;
-        font-size:$bigFontSize;
-        padding:0 13px 0 0;
-        color:rgba(#fff,.8);
-        >.title{
-          margin:0 12px 6px 0;
-        }
-      }
       >.controls{
-
         &.isScrolled{
           position: fixed;
-          top: 45px;
+          top: 90px;
         }
-        color:$fontColor;
-        display: inline-block;
+        color:$fontColor1;
+        display: block;
         width:340px;
         height:$briefHeight - $briefPadding*2;
-        background:$secondaryColorTint;
+        background:#FFF;
         border-radius:$borderRadius;
-        box-shadow:0 1px 3px $subtleFontColor2;
+        box-shadow:0 1px 2px $subtleFontColor2;
+        border:1px solid $borderColor;
         padding:24px;
+        margin:0 0 0 1024px - $controlsWidth - 12px ;
 
-        margin:24px 0 0 0 ;
         >.off{
           text-align: center;
           margin: 44px 0 0 0;
@@ -95,21 +101,25 @@ $controlsWidth:340px;
       }
     }
   }
-  >.inner{
-    @include maxWidth();
-    >.loading{
-      display:block;
+
+  main{
+    padding:17px 48px 0 0;
+    display: inline-block;
+    vertical-align: top;
+    width:100%;
+    >.inner{
+      @include maxWidth();
       margin:auto;
-    }
-    >main{
-      width: 1024px - $controlsWidth;
-      padding:0 48px 0 0;
-      display: inline-block;
-      vertical-align: top;
+      >.loading{
+        display:block;
+        margin:auto;
+      }
+
       h2{
         font-size:$bigFontSize;
       }
       >.gallery{
+        width:1024px - $controlsWidth;
         margin-top:29px;
         >img{
           height:230px;
@@ -121,35 +131,97 @@ $controlsWidth:340px;
           background: #fff;
         }
       }
-      >.detail{
-        margin:30px 0 0 0;
+
+      >.brief{
+        padding:32px 0;
+        >li{
+          margin:0 70px 0 0;
+          display:inline-block;
+          svg{
+            height:38px;
+            fill:$fontColor2;
+            display: inline-block;
+            margin:0 9px 0 0;
+          }
+          >.words{
+            display:inline-block;
+            >p{
+              margin:0;
+              &.title{
+                color:$fontColor2;
+              }
+              &.value{
+                color:$fontColor1;
+              }
+            }
+          }
+
+        }
       }
-      >.seller{
-        margin:42px 0 0 0;
-        >.info{
-          >img{
-            display:inline-block;
-            width:50px;
-            height:50px;
-            border-radius:50%;
-            border:1px solid $subtleFontColor2;
-            vertical-align:middle;
-            margin: 0 12px 0 0;
-          }
-          >p{
-            display:inline-block;
-            vertical-align:middle;
-          }
+
+      >.detail{
+        position:relative;
+        padding:24px 0 0 24px;
+        color:$fontColor1;
+        >.quote{
+          font-size:$xxLargeFontSize;
+          position:absolute;
+          color:$mainColorTint;
+          top: 0;
+          left: 0;
+          margin: 0;
+          font-family:$headingFontFamilyChn;
         }
       }
 
     }
-    >.side{
-      display: inline-block;
-      vertical-align: top;
-      width: $controlsWidth;
-      padding:32px 0 0 0;
-      color:$subtleFontColor;
+  }
+  .seller{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:24px 0;
+    height: $sellerHeight;
+    background: $secondBgColor;
+    border-top:1px solid $borderColor;
+    >.inner {
+      @include maxWidth();
+      > .info {
+        float:left;
+        > img {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          border: 1px solid $subtleFontColor2;
+          vertical-align: middle;
+          margin: 0 12px 0 0;
+          overflow: hidden;
+        }
+        >.words{
+          display:inline-block;
+        vertical-align: middle;
+
+          > p {
+            &.user{
+              font-size:$bigFontSize;
+              margin:0;
+              color:$fontColor1
+
+            }
+            &.subtle{
+              color: $fontColor2;
+              margin:0;
+
+            }
+          }
+        }
+
+      }
+      >.share{
+        float:right;
+      }
     }
   }
 }

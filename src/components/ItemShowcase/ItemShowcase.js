@@ -39,7 +39,7 @@ const ItemShowcase = React.createClass({
     PageStore.removeChangeListener(this._onPageChange);
   },
   handleRetry(){
-    PageActions.refresh();
+    PageActions.refreshHome();
   },
   render() {
     const items = this.state.items;

@@ -1,0 +1,85 @@
+@import '../../styles/variables.scss';
+
+$width: 684px;
+$height: 684/16*9px;
+.imageView{
+
+
+
+  >.images{
+    width:$width;
+    height:$height;
+    >img{
+      padding:6px;
+      cursor: pointer;
+    }
+    >img:nth-child(1){
+      height:100%;
+      width: 100/3*2%;
+      display:inline-block;
+      float:left;
+    }
+    >img:nth-child(2), >img:nth-child(3){
+      height:50%;
+      width: 1/3*100%;
+      float:right;
+    }
+
+  }
+  >.count{
+    float:right;
+    color:$fontColor2;
+    padding:6px;
+    >.ButtonNormal{
+      padding:0;
+      border:none;
+      >span,&:after{
+        padding:0;
+      }
+    }
+  }
+
+  >.galleryWrapper{
+
+    &.active{
+      visibility:visible;
+      opacity:1;
+    }
+
+    transition:opacity .23s ease;
+    opacity:0;
+    visibility: hidden;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index:90;
+    background:#000;
+    >.inner{
+      height:80%;
+      width:100%;
+      position:relative;
+    }
+    >.close{
+      z-index:50;
+      position: absolute;
+      right: 44px;
+      top: 24px;
+      stroke-width: 2px;
+      cursor: pointer;
+      >svg{
+        transition:all .3s $normalTiming;
+      }
+      &:hover{
+        stroke-width:5px;
+      }
+      &:active{
+        >svg{
+          transform:rotate(90deg);
+        }
+      }
+    }
+  }
+
+}

@@ -339,12 +339,19 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           //该物品已经在购物车，增加数量
           const quality = checkItem.get('quality');
           let num = checkItem.get('num');
-          num = (num===quality?quality:num+1);
-          action.data.num = num;
+          if(num===quality){
+            fireNotification(`${action.data.name}已在购物车中，并已达到最大数量`);
+          }
+          else{
+            num = num+1;
+            action.data.num = num;
+            setTimeout(()=>{
+              CartActions.changeNum(action.data);
+            });
+            fireNotification(`${action.data.name}已在购物车中，数量加一`);
+          }
           //更改数量Action
-          setTimeout(()=>{
-            CartActions.changeNum(action.data);
-          });
+
 
           //_items = _items.set(item.goods_id, action.data);
           //_items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));

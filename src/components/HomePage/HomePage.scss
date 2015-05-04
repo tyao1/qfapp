@@ -18,12 +18,14 @@
         color: #CFCFCF;
         margin-bottom: 7px;
         @include customFont();
+        font-weight: normal;
       }
       > .main {
         font-size: $xLargeFontSize;
         color: white;
         margin: 0 0 0 36px;
         @include customFont();
+        font-weight: normal;
       }
       > button {
         color: #F2F2F2;
@@ -90,7 +92,6 @@
   }
 
   .SecondSection {
-    min-height: 560px;
     text-align: center;
     padding-bottom: 72px;
     > header {
@@ -115,8 +116,7 @@
       margin: 36px 0;
       @include maxWidth();
       .failure {
-        min-height: 64px + $fontSize + 2px;
-        margin: 64px 0 0 0;
+        margin: 64px auto;
       }
 
       >span {
@@ -166,7 +166,7 @@
         position: relative;
         > .minor {
           font-size: $LargeFontSize;
-          color: $subtleFontColor2;
+          color: $fontColor2;
           margin: 11px 0;
           @include customFont();
         }

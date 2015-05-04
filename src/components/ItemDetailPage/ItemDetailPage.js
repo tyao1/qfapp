@@ -9,12 +9,14 @@ import DetailConstants from '../../constants/DetailConstants';
 import Counter from '../Counter';
 
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart} from '../SVGs';
+import {shoppingcart, time, itemsleft} from '../SVGs';
 
 import BookCard from '../BookCard';
 
 import CartActions from '../../actions/CartActions';
 import DetailActions from '../../actions/DetailActions';
+
+import ImageView from '../ImageView';
 require('./ItemDetailPage.scss');
 
 
@@ -36,7 +38,7 @@ const ItemDetailPage = React.createClass({
   },
   _onScroll(){
     this.setState({
-      isScrolled: window.pageYOffset > 113
+      isScrolled: window.pageYOffset > 42
       });
   },
   getInitialState(){
@@ -115,36 +117,6 @@ const ItemDetailPage = React.createClass({
           </div>
         </div>;
     }
-    else if(detail.isTemp){
-      document.title = detail.name + ' - 清风';
-      elem = <div className="itemDetailPage">
-        <div className="brief">
-          <div className="inner">
-            <div className="words">
-              <p className="itemName">{detail.name}</p>
-              <p className="price">¥ {detail.price.toFixed(2)}</p>
-            </div>
-          </div>
-
-        </div>
-        <div className="inner">
-          <img className="loading" src="./facebook.svg" />
-          <main>
-            <div className="detail">
-              <h2>详细描述</h2>
-              <p>{detail.detail}</p>
-            </div>
-            <div className="seller">
-              <h2>卖家信息</h2>
-              <div className="info">
-                <img src={detail.upath}/>
-                <p>{detail.nickname}</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>;
-    }
     else{
       document.title = detail.name + ' - 清风';
       elem = <div className="itemDetailPage">
@@ -154,73 +126,96 @@ const ItemDetailPage = React.createClass({
               <p className="itemName">{detail.name}</p>
               <p className="price">¥ {detail.price.toFixed(2)}</p>
             </div>
-            <div className="amounts">
-              <span className="title">总量：{detail.quality}件</span>
-              <span className="title">已售出：{detail.sold_num}件</span>
-              <span className="title">已预定：{detail.book_num}件</span>
-            </div>
-
-              {
-                detail.tokenoff?
-                  <div className={`controls${this.state.isScrolled?' isScrolled':''}`}><p className="off">{'抱歉>_<，该物品已经下架'}</p></div>
-                  :
-                  <div className={`controls${this.state.isScrolled?' isScrolled':''}`}>
-                    <div className="amount">
-                      <span className="title">剩余数量：{max}</span>
-                      {
-                        max?
-                          <Counter initValue={this.state.num} OnValueChange={this.handleCounterChange} max={max}/>
-                          :
-                          <Counter initValue={0} max={0}/>
-                      }
-
-                    </div>
-                    <div className="totalPrice">
-                      <span className="title">总价</span>
-                        {
-                          max?
-                          <p>¥{(detail.price * this.state.num).toFixed(2)}</p>
-                          :
-                          <p>0.00</p>
-
-                      }
-                    </div>
+            {
+              detail.tokenoff?
+                <div className={`controls${this.state.isScrolled?' isScrolled':''}`}><p className="off">{'抱歉>_<，该物品已经下架'}</p></div>
+                :
+                <div className={`controls${this.state.isScrolled?' isScrolled':''}`}>
+                  <div className="amount">
+                    <span className="title">剩余数量：{max}</span>
                     {
                       max?
-                        <ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>
+                        <Counter initValue={this.state.num} OnValueChange={this.handleCounterChange} max={max} min={1}/>
                         :
-                        <ButtonNormal text="没有存货" svg={shoppingcart} />
+                        <Counter initValue={0} max={0}/>
+                    }
+
+                  </div>
+                  <div className="totalPrice">
+                    <span className="title">总价</span>
+                      {
+                        max?
+                        <p>¥{(detail.price * this.state.num).toFixed(2)}</p>
+                        :
+                        <p>0.00</p>
+
                     }
                   </div>
-              }
+                  {
+                    max?
+                      <ButtonNormal text="加入购物车" svg={shoppingcart} onClick={this.handleBuyClick}/>
+                      :
+                      <ButtonNormal text="没有存货" svg={shoppingcart} />
+                  }
+                </div>
+            }
 
           </div>
 
         </div>
-        <div className="inner">
-          <main>
-            <div className="gallery">
-              {
-                detail.img.map((img,i) =>
-                  <img key={i} src={img.path}/>
-                )
-              }
-            </div>
-            <div className="detail">
-              <h2>详细描述</h2>
-              <p>{detail.detail}</p>
-            </div>
-            <div className="seller">
-              <h2>卖家信息</h2>
+        {
+          detail.isTemp?
+            <main>
+              <div className="inner">
+                <img src="./facebook.svg" />
+              </div>
+            </main>:
+          <div>
+            <main>
+              <div className="inner">
+                <div className="gallery">
+                  <ImageView images={detail.img} />
+                </div>
+                <ul className="brief">
+                  <li>
+                    {time}
+                    <div className="words">
+                      <p className="title">剩余时间</p>
+                      <p className="value">{Math.round((parseInt(detail.t_limit) - Date.now()/1000) / (60 * 60 * 24))}天</p>
+                    </div>
+                  </li>
+                  <li>
+                    {itemsleft}
+                    <div className="words">
+                      <p className="title">剩余数量</p>
+                      <p className="value">{max}件</p>
+                    </div>
+                  </li>
+
+                </ul>
+                <div className="detail">
+                  <p className="quote">"</p>
+                  <p>{detail.detail?detail.detail:'(ง •̀_•́)ง┻━┻卖家很懒，什么介绍都没写～'}</p>
+                </div>
+              </div>
+            </main>
+          <div className="seller">
+            <div className="inner">
               <div className="info">
                 <img src={detail.upath}/>
-                <p>{detail.nickname}</p>
+                <div className="words">
+                  <p className="user">{detail.nickname}</p>
+                  <p className="subtle">没签名，没个性</p>
+                </div>
+              </div>
+              <div className="share">
+                <span>分享</span>
               </div>
             </div>
-          </main>
-          <div className="side">
           </div>
-        </div>
+            </div>
+        }
+
       </div>;
     }
     return (

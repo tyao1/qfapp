@@ -148,6 +148,13 @@ const Banner = React.createClass({
       let text = this.state.searchText.substr(0,20);
       PageActions.setNewKeyword(text);
     }
+    else if(e.keyCode===27){
+      PageActions.setNewKeyword('');
+    }
+  },
+  handleSearchBlur(e){
+    let text = this.state.searchText.substr(0,20);
+    PageActions.setNewKeyword(text);
   },
   render() {
     let isHome = this.state.isHome;
@@ -195,7 +202,7 @@ const Banner = React.createClass({
         <div className="inner">
           <div className="left">
             <Link to="home">{logo}</Link>
-            <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey}/>
+            <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}/>
           </div>
           <div className="right">
             {controls}

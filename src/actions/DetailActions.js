@@ -31,7 +31,6 @@ export default {
   refresh(){
     Dispatcher.handleViewAction({
       actionType: DetailConstants.DETAIL_REFRESH,
-      data
     });
   }
 }
