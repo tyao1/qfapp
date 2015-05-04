@@ -6,7 +6,7 @@ import Types from '../../utils/Types';
 import ButtonNormal from '../ButtonNormal';
 require('./OrderItem.scss');
 
-
+//申请物品
 const OrderItem = React.createClass({
   handleCancelClick(id){
     return ()=>{

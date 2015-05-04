@@ -37,6 +37,14 @@ const buySections = [
   {name: '处理中', code: 1},
   {name: '已取消', code: 2}
 ];
+const applySections = [
+  {name: '所有申请', code: 0},
+  {name: '已完成', code: 5},
+  {name: '处理中', code: 1},
+  {name: '待收取', code: 2},
+  {name: '用户取消', code: 3},
+  {name: '官方取消', code: 4}
+];
 
 
 const DashboardPage = React.createClass({
@@ -81,6 +89,7 @@ const DashboardPage = React.createClass({
       OrderActions.setNewStatus(OrderConstants.ORDER_KEY,code);
     }
   },
+
   handleOnSaleSection(code){
     return () =>{
       OrderActions.setNewStatus(OrderConstants.ON_SALE_ORDER_KEY,code);
@@ -134,7 +143,11 @@ const DashboardPage = React.createClass({
                   </div>
                   <Link to="my" params={{section: 'apply'}}><span>我的申请</span></Link>
                   <div className="controls">
-                    <ButtonNormal className={`ButtonNormal ${this.state.status2===0?' active':''}`} text="我的申请" onClick = {this.handleApplySection(0)}/>
+                    {
+                      applySections.map( (data) =>
+                        <ButtonNormal className={`ButtonNormal ${this.state.status2===0?' active':''}`} text={data.name} onClick = {this.handleApplySection(data.code)}/>
+                      )
+                    }
                   </div>
                 </li>
                 <li>
