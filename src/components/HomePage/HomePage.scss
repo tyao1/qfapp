@@ -23,6 +23,7 @@
         font-size: $xLargeFontSize;
         color: white;
         margin: 0 0 0 36px;
+        @include customFont();
       }
       > button {
         color: #F2F2F2;

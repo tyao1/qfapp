@@ -20,6 +20,7 @@ $navWidth: 200px;
         margin:12px 0;
         padding:0 0 7px 0;
         font-size: $bigFontSize;
+        @include customFont();
       }
       >p{
         margin:3px 0;
