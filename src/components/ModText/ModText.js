@@ -18,14 +18,28 @@ const ModText = React.createClass({
   getInitialState(){
     return {
       editing: false,
-      val: this.props.text
+      val: this.props.text,
+      valid: true
     }
   },
 
   handleChange(e){
     let val = e.target.value;
     this.setState({val: val});
-    console.log(!this.props.regex);
+    if(this.props.valide(val)){
+      this.setState({valid: true});
+      if(val!==this.props.text) {
+        this.props.getEdited(e.target.value);
+      }
+      else{
+        this.props.cancelEdit();
+      }
+    }
+    else{
+      this.setState({valid: false});
+      this.props.cancelEdit();
+    }
+    /*
     if(!this.props.regex||this.props.regex.test(val)){
       this.setState({valid: true});
       if(e.target.value!==this.props.text) {
@@ -38,11 +52,12 @@ const ModText = React.createClass({
       this.setState({valid: false});
       this.props.cancelEdit();
     }
+    */
   },
 
   handleKeyUp(e){
     if(e.keyCode===13){
-      this.handleConfirm();
+      this.props.onConfirm();
     }
   },
   handleStartEdit(){

@@ -10,13 +10,33 @@
     height:84px;
     background:$mainColor;
     padding:12px 48px;
-    >h3{
-      color:#fff;
-      font-size:$bigFontSize;
+    position:relative;
+    >.personal{
       float:left;
+      >h3{
+        color:#fff;
+        font-size:$bigFontSize;
+        margin:0;
+      }
+      >.modText{
+        >.text{
+          margin:2px 8px 0 0;
+          p, input{
+            font-size:$fontSize;
+            color:$fontColor1;
+          }
+          input{
+            background:none;
+            width: 300px;
+            margin: 0 12px 0 0;
+          }
+        }
+      }
     }
     >.submit{
       float:right;
+      position:absolute;
+      right:24px;
       margin:12px 0 0 0;
       opacity:0;
       transform: scale(0.8);

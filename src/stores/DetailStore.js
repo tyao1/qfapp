@@ -58,7 +58,7 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
         if(action.data.body.Code===0)
         {
           //转义内容
-          let {goods_id, type_id, name, quality, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname, t_limit} = action.data.body.Info;
+          let {goods_id, type_id, name, quality, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname, t_limit, signature} = action.data.body.Info;
           goods_id = parseInt(goods_id);
           quality = parseInt(quality);
           price = parseFloat(price);
@@ -81,7 +81,8 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
             upath,
             detail,
             nickname,
-            t_limit
+            t_limit,
+            signature
           });
           //删除缓存内容
           setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 60 * 2);

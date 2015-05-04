@@ -228,7 +228,7 @@ const ItemDetailPage = React.createClass({
                 <img src={detail.upath}/>
                 <div className="words">
                   <p className="user">{detail.nickname}</p>
-                  <p className="subtle">没签名，没个性</p>
+                  <p className="subtle">{detail.signature}</p>
                 </div>
               </div>
               <div className="share">

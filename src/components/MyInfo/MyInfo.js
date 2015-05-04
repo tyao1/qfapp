@@ -58,11 +58,17 @@ const MyInfo = React.createClass({
   handleCancelPhone(){
     UserActions.removeFromSubmit('telephone');
   },
+  handleCheckPhone(val){
+    return /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(val);
+  },
   handleGetAlipay(val){
     UserActions.addToSubmit('alipay', val);
   },
   handleCancelAlipay(){
     UserActions.removeFromSubmit('alipay');
+  },
+  handleCheckAlipay(val){
+    return /(^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$)|(^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)/.test(val);
   },
   handleGetRealName(val){
     UserActions.addToSubmit('name', val);
@@ -70,8 +76,20 @@ const MyInfo = React.createClass({
   handleCancelRealName(){
     UserActions.removeFromSubmit('name');
   },
+  handleCheckRealName(val){
+    return val.length<9;
+  },
+  handleGetSignature(val){
+    UserActions.addToSubmit('signature', val);
+  },
+  handleCancelSignature(){
+    UserActions.removeFromSubmit('signature');
+  },
+  handleCheckSignature(val){
+    return val.length<23;
+  },
   handleSubmitClick(){
-    if(!this.state.isSubmitting){
+    if(!this.state.isSubmitting&&this.state.submitData.size){
       UserActions.changeInfoSubmit(this.state.submitData.toJS());
     }
   },
@@ -131,7 +149,11 @@ const MyInfo = React.createClass({
     return (
       <div className="myInfo">
         <header>
-          <h3>{this.state.userData.nickname}</h3>
+          <div className="personal">
+            <h3>{this.state.userData.nickname}</h3>
+            <ModText key={this.state.userData.signature} type="text" text={this.state.userData.signature} getEdited={this.handleGetSignature} cancelEdit={this.handleCancelSignature} valide={this.handleCheckSignature} onConfirm={this.handleSubmitClick}/>
+
+          </div>
           <div className={`submit${this.state.submitData.size?' active':''}`}>
             <span className="err">{this.state.errMsg}</span>
             <ButtonNormal className="ButtonNormal" text={this.state.isSubmitting?'正在保存...':'保存信息'} onClick={this.handleSubmitClick}/>
@@ -150,19 +172,19 @@ const MyInfo = React.createClass({
                 <span className="subtle">
                   手机号
                 </span>
-                <ModText key={this.state.userData.telephone} type="text" text={this.state.userData.telephone} getEdited={this.handleGetPhone} cancelEdit={this.handleCancelPhone} regex={/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/}/>
+                <ModText key={this.state.userData.telephone} type="text" text={this.state.userData.telephone} getEdited={this.handleGetPhone} cancelEdit={this.handleCancelPhone} valide={this.handleCheckPhone} onConfirm={this.handleSubmitClick}/>
               </li>
               <li>
                 <span className="subtle">
                   支付宝账号
                 </span>
-                <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} regex={/(^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$)|(^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)/}/>
+                <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} valide={this.handleCheckAlipay} onConfirm={this.handleSubmitClick}/>
               </li>
               <li>
                 <span className="subtle">
                   真实姓名
                 </span>
-                <ModText key={this.state.userData.name} type="text" text={this.state.userData.name} getEdited={this.handleGetRealName} cancelEdit={this.handleCancelRealName} regex={false}/>
+                <ModText key={this.state.userData.name} type="text" text={this.state.userData.name} getEdited={this.handleGetRealName} cancelEdit={this.handleCancelRealName} valide={this.handleCheckRealName} onConfirm={this.handleSubmitClick}/>
               </li>
               <li>
                 <span className="subtle">

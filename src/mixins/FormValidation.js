@@ -4,7 +4,7 @@
 const FormValidation = {
   statics: {
     isValidUserName: function(username) {
-      return (username.length<20&&username.length>1);
+      return (username.length<16&&username.length>1);
     },
     isValidPassword: function(password) {
       return password.length>5&&password.length<20;
