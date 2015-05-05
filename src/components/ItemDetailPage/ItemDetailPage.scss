@@ -11,6 +11,7 @@ $secondBgColor: #FCFCFC;
 $sellerHeight: 100px;
 
 .itemDetailPage {
+  animation:entering .3s ease;
   padding:0 0 $sellerHeight + $bannerHeight 0;
   min-height: 100vh;
   position: relative;
@@ -49,7 +50,7 @@ $sellerHeight: 100px;
         > .price {
           color: $mainColor;
           font-size: $xxLargeFontSize;
-          margin: 7px 0 0;
+          margin: 0;
         }
       }
       >.controls{
@@ -139,6 +140,7 @@ $sellerHeight: 100px;
           display:inline-block;
           svg{
             height:38px;
+            max-width:40px;
             fill:$fontColor2;
             display: inline-block;
             margin:0 9px 0 0;

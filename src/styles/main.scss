@@ -22,6 +22,9 @@
   .table {
     display: table-cell;
     vertical-align: middle;
+    a{
+      border-bottom:1px dotted $fontColor2;
+    }
   }
   .browserupgrade {
     max-width: 50%;
@@ -85,5 +88,15 @@ a{
   >.inner{
     display: table-cell;
     vertical-align: middle;
+  }
+}
+
+
+@keyframes entering {
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity:1;
   }
 }

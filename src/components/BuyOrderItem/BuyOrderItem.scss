@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 $_itemHeight:166px;
 .orderItem{
+  animation:entering .3s ease;
   border:2px solid $mainColor;
   border-radius:9px;
   width: 100%;

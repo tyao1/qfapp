@@ -1,9 +1,10 @@
 @import '../../styles/variables.scss';
 
 .homePage {
+  animation:entering .3s ease;
   .FirstSection {
     width: 100%;
-    min-height: 574px;
+    height: 574px;
     @include verticalCenter();
     background: #0E5869 url('./welcomebg.png') no-repeat fixed center;
     background-size: cover;
@@ -78,6 +79,7 @@
               display: inline-block;
               width: 160px;
               vertical-align: middle;
+              text-align: left;
             }
           }
 
@@ -98,18 +100,19 @@
       margin-top: 84px;
       > svg {
         width: 34px;
-        height: auto;
+        height: 35px;
+        margin:0 0 6px 0;
         fill: $subtleFontColor;
       }
       > h2 {
         font-size: $LargeFontSize;
-        color: $boldFontColor;
+        color: $fontColor1;
         margin: 0;
         @include customFont();
       }
       > p {
         color: $subtleFontColor2;
-        margin: 5px 0;
+        margin: 5px auto 14px;
       }
     }
     > main {
@@ -127,6 +130,7 @@
     > button {
       @include customFont();
       font-size: $bigFontSize;
+      margin: 24px 0 0 0;
 
     }
   }
@@ -220,15 +224,13 @@
 
       }
 
-      >.left{
-        float:left;
-        padding:0 120px 0 0;
+      >.left,>.right{
+        display: inline-block;
+        vertical-align: top;
+        width:33%;
+        padding:0;
       }
 
-      >.right{
-        float:right;
-        padding:0 0 0 0;
-      }
       >.copyright{
         position:absolute;
         right:0;

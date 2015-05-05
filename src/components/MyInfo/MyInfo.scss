@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .myInfo{
+  animation:entering .3s ease;
   border:2px solid $mainColor;
   border-radius:$borderRadius;
   min-height:220px;
@@ -16,7 +17,7 @@
       >h3{
         color:#fff;
         font-size:$bigFontSize;
-        margin:0;
+        margin:6px 0 0;
       }
       >.modText{
         >.text{

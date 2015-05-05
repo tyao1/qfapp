@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 .orderItem{
-
+  animation:entering .3s ease;
 
   .ButtonNormal.cancel{
     border:none;

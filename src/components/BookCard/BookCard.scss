@@ -9,6 +9,7 @@ $avartarSize:44px;
   height:$mainHeight;
   overflow: hidden;
   transition:box-shadow .24s ease;
+  animation:entering .3s ease;
   &:hover{
     box-shadow: 0 0 8px rgba(0,0,0,.6);
   }
@@ -32,14 +33,16 @@ $avartarSize:44px;
       right:0;
       bottom:0;
       background:rgba(#000,.5);
-      display: flex;
+
       text-align:center;
+
       >span{
         font-size:$bigFontSize;
-        margin:auto;
+        margin:77px auto 0;
         color:#fff;
         padding:6px 27px;
         border:2px solid #fff;
+        display: inline-block;
       }
       transition:all .23s ease;
     }

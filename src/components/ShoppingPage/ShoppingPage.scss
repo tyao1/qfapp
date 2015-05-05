@@ -3,6 +3,7 @@
 
 $navWidth: 200px;
 .shoppingPage{
+  animation:entering .3s ease;
   >.inner{
     @include maxWidth();
     padding-top: $bannerHeight + 32px;

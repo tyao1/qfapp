@@ -133,7 +133,7 @@ const LoginForm = React.createClass({
     }
   },
   handleClickForget(){
-    if(!this.state.isLogining) {
+    if(!this.state.isForgetting) {
       if(this.state.isValid3===true) {
         let {email} = this.state;
         UserAction.findPasswordSubmit({email});

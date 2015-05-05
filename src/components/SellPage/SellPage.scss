@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .sellPage{
+  animation:entering .3s ease;
   >.inner{
     @include maxWidth();
     margin-top:$bannerHeight;
@@ -43,6 +44,7 @@
 
 
     >.items{
+      width:100%;
       counter-reset: dacounter;
       .itemRegisterForm {
         &:before{
