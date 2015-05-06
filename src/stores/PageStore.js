@@ -68,7 +68,6 @@ const PageStore = assign({}, EventEmitter.prototype, {
 
   getItems() {
     let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
-    console.log('getItems', item);
     if (!item) {
       //设置无内容标志
       _items = _items.set(PageAPIUtils.Id(_keyWord, _typeId, _page), PageConstants.PAGE_KEY_NULL);

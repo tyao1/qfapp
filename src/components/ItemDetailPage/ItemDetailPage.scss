@@ -109,6 +109,7 @@ $sellerHeight: 100px;
     vertical-align: top;
     width:100%;
     >.inner{
+      padding:0 340px 0 0;
       @include maxWidth();
       margin:auto;
       >.loading{
@@ -120,7 +121,7 @@ $sellerHeight: 100px;
         font-size:$bigFontSize;
       }
       >.gallery{
-        width:1024px - $controlsWidth;
+        width:1024px - $controlsWidth - 12px;
         margin-top:29px;
         >img{
           height:230px;

@@ -8,10 +8,10 @@ import React from 'react';
 import { Route, DefaultRoute, NotFoundRoute} from 'react-router';
 import App from './components/App';
 import HomePage from './components/HomePage';
-//import SellPage from './components/SellPage';
-//import ShoppingPage from './components/ShoppingPage';
-//import DashboardPage from './components/DashboardPage';
-//import ItemDetailPage from './components/ItemDetailPage';
+import SellPage from './components/SellPage';
+import ShoppingPage from './components/ShoppingPage';
+import DashboardPage from './components/DashboardPage';
+import ItemDetailPage from './components/ItemDetailPage';
 
 /*
 const HomePageMixin = require("react-proxy!./components/HomePage").Mixin;
@@ -26,6 +26,7 @@ const HomePage = React.createClass({
   }
 });
 */
+/*
 const ShoppingPageMixin = require("react-proxy!./components/ShoppingPage").Mixin;
 const ShoppingPage = React.createClass({
   mixins: [ShoppingPageMixin],
@@ -37,6 +38,8 @@ const ShoppingPage = React.createClass({
     </div>;
   }
 });
+*/
+/*
 const SellPageMixin = require("react-proxy!./components/SellPage").Mixin;
 const SellPage = React.createClass({
   mixins: [SellPageMixin],
@@ -48,6 +51,8 @@ const SellPage = React.createClass({
     </div>;
   }
 });
+*/
+/*
 const ItemDetailPageMixin = require("react-proxy!./components/ItemDetailPage").Mixin;
 const ItemDetailPage = React.createClass({
   mixins: [ItemDetailPageMixin],
@@ -70,6 +75,7 @@ const DashboardPage = React.createClass({
     </div>;
   }
 });
+*/
 
 export default (
   <Route name="app" path='/' handler={App}>

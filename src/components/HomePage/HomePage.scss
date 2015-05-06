@@ -136,7 +136,7 @@
   }
 
   .ThirdSection {
-    height: 380px;
+    height: 400px;
     background-color: $mainColor;
     position: relative;
     padding: 24px 0;
@@ -182,8 +182,8 @@
           @include customFont();
         }
         > .more {
-          max-width: 80%;
-          margin: 90px 0 0 0;
+          max-width: 81%;
+          margin: 120px 0 0;
           color: $subtleFontColor2;
         }
       }

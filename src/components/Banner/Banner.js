@@ -40,7 +40,6 @@ const Banner = React.createClass({
     this.setState({
       userData: UserStore.getUserData()
     });
-    console.log(UserStore.getUserData());
   },
 
   _onCartChange(){
@@ -202,7 +201,7 @@ const Banner = React.createClass({
         <div className="inner">
           <div className="left">
             <Link to="home">{logo}</Link>
-            <InputNormal placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}/>
+            <InputNormal type="text" autocomplete="off" placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}/>
           </div>
           <div className="right">
             {controls}

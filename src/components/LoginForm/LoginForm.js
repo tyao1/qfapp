@@ -54,6 +54,7 @@ const LoginForm = React.createClass({
   },
   handleBlur2() {
     //密码检验
+
     let res = LoginForm.isValidPassword(this.state.password);
     let status;
     if(res){
@@ -65,9 +66,10 @@ const LoginForm = React.createClass({
     else{
       status = {
         isValid2: false,
-        msg: '密码格式不符合要求'
+        msg: '密码需要在6-20位之间'
       };
     }
+    console.log('check password', status);
     this.setState(status);
   },
   handleChange3(event) {
@@ -75,6 +77,7 @@ const LoginForm = React.createClass({
   },
   handleBlur3(){
     //邮箱校验
+    console.log('check email');
     let res = LoginForm.isValidEmail(this.state.email);
     let status;
     if(res){
@@ -117,11 +120,42 @@ const LoginForm = React.createClass({
   },
   handleClick(){
     if(!this.state.isLogining) {
-      if(this.state.isValid3===true&&this.state.isValid2===true) {
+      //check valid
+      let status = {};
+      let msg = '';
+      if(LoginForm.isValidPassword(this.state.password)){
+        status.isValid2 = true;
+      }
+      else {
+        status.isValid2 = false;
+        msg = '密码需要在6-20位之间';
+      }
+      if(LoginForm.isValidEmail(this.state.email)){
+        status.isValid3 = true;
+      }
+      else {
+        status.isValid3 = false;
+        msg = '邮箱格式不正确';
+      }
+      if(this.state.needVerify){
+        if(LoginForm.isValidVerify(this.state.verifyCode)){
+          status.isValid4 = true;
+        }
+        else{
+          status.isValid4 = false;
+          msg = '验证码格式不正确';
+        }
+      }
+      status.msg = msg;
+      console.log('status', status);
+      if(status.isValid3&&status.isValid2&&(!this.state.needVerify||status.isValid3)) {
         let {password, email, verifyCode} = this.state;
         UserAction.login({password, email, verifyCode});
       }
       else{
+        this.setState(status);
+
+        /*
         let obj = {};
         for(let i = 1; i<5; i++){
           if(this.state['isValid'+i]!==true){
@@ -129,14 +163,29 @@ const LoginForm = React.createClass({
           }
         }
         this.setState(obj);
+        */
       }
     }
   },
   handleClickForget(){
     if(!this.state.isForgetting) {
-      if(this.state.isValid3===true) {
+      //check valid
+      let status = {};
+      let msg = '';
+      if(LoginForm.isValidEmail(this.state.email)){
+        status.isValid3 = true;
+        status.forgetMsg ='';
+      }
+      else {
+        status.isValid3 = false;
+        status.forgetMsg = '邮箱格式不正确';
+      }
+      if(status.isValid3===true) {
         let {email} = this.state;
         UserAction.findPasswordSubmit({email});
+      }
+      else{
+        this.setState(status);
       }
     }
   },
@@ -154,6 +203,7 @@ const LoginForm = React.createClass({
   handleEnterClickForget(e){
     if(e.keyCode===13){
       this.handleClickForget();
+
     }
   },
   render(){

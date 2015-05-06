@@ -16,7 +16,6 @@ require('./MyInfo.scss');
 //PureRenderMixin,
 const MyInfo = React.createClass({
   _onUserChange(){
-    console.log('submitData', UserStore.getSubmitData());
     this.setState({
       userData: UserStore.getUserData(),
       submitData: UserStore.getSubmitData(),

@@ -21,7 +21,6 @@ let _success = false;
 
 let _items = Immutable.OrderedMap();
 
-console.log('items', _items);
 let _lastId = 0;
 function genNextId(){
   _lastId+= 1;
@@ -29,7 +28,6 @@ function genNextId(){
 }
 
 let fromCache = JSON.parse(localStorage.getItem('sellItems'));
-console.log('fromCache', fromCache);
 for(let cache in fromCache){
   let data = fromCache[cache];
   if(_lastId<data.id){

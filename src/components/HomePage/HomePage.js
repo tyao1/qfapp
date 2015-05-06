@@ -87,7 +87,7 @@ const HomePage = React.createClass({
       <div className="homePage">
         <section className="FirstSection">
           <div className="inner">
-            <h3 className="subtle">最便捷二手物品交易平台</h3>
+            <h3 className="subtle">最便捷二手物品交易平台，仅在同济大学嘉定校区</h3>
             <h1 className="main">轻松购买闲置的<WordsFlasher/></h1>
             <InputLarge placeholder="找找看闲置的物品" btnText="搜索" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} buttonOnClick={this.handleSearchButton}/>
             <div className={`how${this.state.openedHow?' active':''}`}>

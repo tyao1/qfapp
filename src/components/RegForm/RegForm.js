@@ -138,11 +138,45 @@ const RegForm = React.createClass({
   handleClick(){
     //fire User action
     if(!this.state.isRegistering) {
-      if(true===this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4===true) {
+      //check valid
+      let status = {};
+      let msg = '';
+      if(RegForm.isValidUserName(this.state.nickname)){
+        status.isValid1 = true;
+      }
+      else {
+        status.isValid1 = false;
+        msg = '用户名长度需要在2-15位之间';
+      }
+      if(RegForm.isValidPassword(this.state.password)){
+        status.isValid2 = true;
+      }
+      else {
+        status.isValid2 = false;
+        msg = '密码需要在6-20位之间';
+      }
+      if(RegForm.isValidEmail(this.state.email)){
+        status.isValid3 = true;
+      }
+      else {
+        status.isValid3 = false;
+        msg = '邮箱格式不正确';
+      }
+      if(RegForm.isValidVerify(this.state.verifyCode)){
+        status.isValid4 = true;
+      }
+      else {
+        status.isValid4 = false;
+        msg = '验证码格式不正确';
+      }
+      status.msg = msg;
+      if(status.isValid1&&status.isValid2&&status.isValid3&&status.isValid4) {
         let {password, nickname, email, verifyCode} = this.state;
         UserAction.register({password, nickname, email, verifyCode});
       }
       else{
+        this.setState(status);
+        /*
         let obj = {};
         for(let i = 1; i<5; i++){
           if(this.state['isValid'+i]!==true){
@@ -150,6 +184,7 @@ const RegForm = React.createClass({
           }
         }
         this.setState(obj);
+        */
       }
     }
   },

@@ -19,9 +19,7 @@ let _key = 0;
 function pushNotification(data){
   let key = _key++;
   _notifications = _notifications.set(key, data);
-  console.log(_notifications);
   setTimeout(()=>{
-    console.log('delete notic', key, _notifications.get('key'));
     _notifications = _notifications.delete(key);
     NotificationStore.emitChange();
   }, TIMEOUT);

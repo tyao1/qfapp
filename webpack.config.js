@@ -36,7 +36,7 @@ var strip = DEBUG?
   test: /\.js$/,
   exclude: /node_modules/,
   loader: 'strip-loader?strip[]=console.log'
-}
+};
 
 var config = {
   output: {
@@ -121,7 +121,6 @@ var appConfig = _.merge({}, config, {
     filename: "[name].js"
   },
   plugins: config.plugins.concat([
-
       new webpack.DefinePlugin(_.merge(GLOBALS, {'__SERVER__': false})),
       /*new ChunkManifestPlugin({
         filename: "manifest.json",
@@ -129,7 +128,6 @@ var appConfig = _.merge({}, config, {
       }),*/
       new webpack.optimize.CommonsChunkPlugin({
         name:"vendor",
-        //filename:'common.js',
         minChunks: Infinity
       })
     ].concat(DEBUG ? [] : [
