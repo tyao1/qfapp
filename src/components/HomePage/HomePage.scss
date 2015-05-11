@@ -205,11 +205,12 @@
     height:340px;
     background:$footerBg url('./footerbg.svg') repeat-x;
     color:#D8D8D8;
-    padding:24px;
+    border-top: 1px solid #696;
     >.inner{
         height:100%;
         position:relative;
         @include maxWidth();
+        padding:24px;
       h3{
         font-size:$bigFontSize;
         padding-bottom:9px;
@@ -233,8 +234,8 @@
 
       >.copyright{
         position:absolute;
-        right:0;
-        bottom:0;
+        right:24px;
+        bottom:12px;
       }
     }
   }

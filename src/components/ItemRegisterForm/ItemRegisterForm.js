@@ -116,7 +116,7 @@ const ItemRegisterForm = React.createClass({
   },
   reducePrice(){
     if(this.props.data.price>=1){
-      let price = (priceToFloat(this.props.data.price)+1).toFixed(2);
+      let price = (priceToFloat(this.props.data.price)-1).toFixed(2);
       //this.setState({price});
       this.returnPriceChange(price);
     }

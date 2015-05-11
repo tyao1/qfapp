@@ -10,7 +10,7 @@ const OrderAPIUtils = {
     return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + (date.getDay() + 1) + ' '+ date.getHours() + ':' + date.getMinutes();
   },
   buyStatus:{
-    1:'订单处理中',
+    1:'正在打包',
     2:'用户取消',
     3:'官方取消',
     4:'交易成功',
@@ -28,7 +28,7 @@ const OrderAPIUtils = {
     3:'销售完毕'
   },
   applyStatus:{
-    1:'申请处理中',
+    1:'正在审核',
     2:'等待收取',
     3:'用户取消',
     4:'官方取消',

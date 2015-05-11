@@ -44,11 +44,11 @@ const RegForm = React.createClass({
     UserStore.removeChangeListener(this._onUserChange);
   },
   handleChange1(event) {
-    //用户名
+    //昵称
     this.setState({nickname: event.target.value});
   },
   handleBlur1() {
-    //用户名检验
+    //昵称检验
     let res = RegForm.isValidUserName(this.state.nickname);
     let status;
     if(res){
@@ -60,7 +60,7 @@ const RegForm = React.createClass({
     else{
       status = {
         isValid1: false,
-        msg: '用户名长度需要在2-15位之间'
+        msg: '昵称长度需要在2-15位之间'
       };
     }
 
@@ -146,7 +146,7 @@ const RegForm = React.createClass({
       }
       else {
         status.isValid1 = false;
-        msg = '用户名长度需要在2-15位之间';
+        msg = '昵称长度需要在2-15位之间';
       }
       if(RegForm.isValidPassword(this.state.password)){
         status.isValid2 = true;
@@ -221,9 +221,9 @@ const RegForm = React.createClass({
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
         <h3>快速注册</h3>
-        <InputNormal type="text" className={this.state.isValid1===false?'invalid': null} placeholder="用户名" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1} onKeyUp={this.handleEnterClick}/>
-        <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
         <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClick}/>
+        <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
+        <InputNormal type="text" className={this.state.isValid1===false?'invalid': null} placeholder="昵称" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1} onKeyUp={this.handleEnterClick}/>
         <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode} onChange={this.handleChange4} onBlur={this.handleBlur4} onKeyUp={this.handleEnterClick}>
           <img className="verify" src={'http://10.60.136.39/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
         </InputNormal>

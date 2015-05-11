@@ -150,7 +150,7 @@ const MyInfo = React.createClass({
         <header>
           <div className="personal">
             <h3>{this.state.userData.nickname}</h3>
-            <ModText key={this.state.userData.signature} type="text" text={this.state.userData.signature} getEdited={this.handleGetSignature} cancelEdit={this.handleCancelSignature} valide={this.handleCheckSignature} onConfirm={this.handleSubmitClick}/>
+            <ModText key={this.state.userData.signature} myPlaceholder="暂无签名" type="text" text={this.state.userData.signature} getEdited={this.handleGetSignature} cancelEdit={this.handleCancelSignature} valide={this.handleCheckSignature} onConfirm={this.handleSubmitClick}/>
 
           </div>
           <div className={`submit${this.state.submitData.size?' active':''}`}>
@@ -175,13 +175,13 @@ const MyInfo = React.createClass({
               </li>
               <li>
                 <span className="subtle">
-                  支付宝账号
+                  支付宝账号（用来接收收入，不要填错哦～）
                 </span>
                 <ModText key={this.state.userData.alipay} type="text" text={this.state.userData.alipay} getEdited={this.handleGetAlipay} cancelEdit={this.handleCancelAlipay} valide={this.handleCheckAlipay} onConfirm={this.handleSubmitClick}/>
               </li>
               <li>
                 <span className="subtle">
-                  真实姓名
+                  真实姓名（选填，仅用来验证支付宝账号）
                 </span>
                 <ModText key={this.state.userData.name} type="text" text={this.state.userData.name} getEdited={this.handleGetRealName} cancelEdit={this.handleCancelRealName} valide={this.handleCheckRealName} onConfirm={this.handleSubmitClick}/>
               </li>

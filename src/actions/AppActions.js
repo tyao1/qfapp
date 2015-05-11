@@ -2,8 +2,8 @@
 
 import Dispatcher from '../core/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
-import http from 'superagent';
+//import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+//import http from 'superagent';
 
 import AppConstants from '../constants/AppConstants.js';
 export default {

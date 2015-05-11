@@ -230,10 +230,10 @@ const SellPage = React.createClass({
             </ul>
             <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
             <div className="controls">
-              <ButtonNormal text="添加物品" svg={additem} onClick={this.handleAddClick}/>
+              <ButtonNormal text={size?'继续添加':'添加物品'} svg={additem} onClick={this.handleAddClick}/>
               {
                 size?
-                  <ButtonNormal className="ButtonNormal submit" text="提交详单" svg={paperplane} onClick={this.handleSubmitClick}/>
+                  <ButtonNormal className="ButtonNormal submit" text="提交申请" svg={paperplane} onClick={this.handleSubmitClick}/>
                   :null
               }
             </div>
@@ -241,7 +241,7 @@ const SellPage = React.createClass({
           <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
             {this.state.isSuccessful?
               <div className="submitForm">
-                <p className="main">提交成功～通过申请后，我们就会前来取货！~</p>
+                <p className="main">提交成功～审核通过后，我们就会前来取货！~</p>
                 {this.state.alipay?'':<p className="main">记得在个人信息页填写支付宝账号(￣▽￣)/</p>}
                 <ButtonNormal className="ButtonNormal submit" text="关闭"
                               svg={paperplane} onClick={this.handleRealSubmitClick}/>

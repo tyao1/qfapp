@@ -3,7 +3,10 @@
   @include clearfix();
   >.bookCard{
     display:inline-block;
-    margin:24px 6px 32px 6px;
+    margin:24px 9px 32px 6px;
     float:left;
+  }
+  .bookCard:nth-child(4n) {
+    margin-right: 0;
   }
 }

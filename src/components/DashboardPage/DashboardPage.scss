@@ -21,7 +21,7 @@
         >li{
           margin:0 0 42px 0;
           >.subtle{
-            color:$subtleFontColor2;
+            color:$fontColor3;
             margin:0 0 7px 0;
           }
           >a{
@@ -29,18 +29,18 @@
             position:relative;
             z-index:1;
             font-size:$bigFontSize;
-            color:$subtleFontColor2;
+            color:$fontColor2;
             clear:both;
             max-width: 120px;
+            transition: color .23s ease;
             >span{
               display: inline-block;
               margin:3px 0 3px;
               padding:0 0 2px 0;
 
             }
-            &.active{
+            &.active, &:hover{
               color:#000;
-
             }
           }
           >.controls{
@@ -66,7 +66,7 @@
                 visibility:hidden;
                 content:'';
                 left:1px;
-                top:9px;
+                top:7px;
                 height:0;
                 width:0;
                 background:$mainColorTint;

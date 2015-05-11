@@ -31,7 +31,7 @@ $navWidth: 200px;
 
         >.ButtonNormal{
           border-radius:0;
-          color: rgba($fontColor,.8);
+          color: $fontColor2;
           margin:13px auto;
           font-size: $bigFontSize - 2px;
           border:none;

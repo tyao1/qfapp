@@ -34,14 +34,14 @@ const buySections = [
   {name: '所有订单', code: 0},
   {name: '等待收货', code: 6},
   {name: '交易完成', code: 4},
-  {name: '处理中', code: 1},
+  {name: '打包中', code: 1},
   {name: '已取消', code: 2}
 ];
 const applySections = [
   {name: '所有申请', code: 0},
-  {name: '已完成', code: 5},
-  {name: '处理中', code: 1},
+  {name: '审核中', code: 1},
   {name: '待收取', code: 2},
+  {name: '已完成', code: 5},
   {name: '用户取消', code: 3},
   {name: '官方取消', code: 4}
 ];
