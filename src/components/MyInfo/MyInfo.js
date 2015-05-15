@@ -11,6 +11,8 @@ import {paperplane} from '../SVGs';
 import request from 'superagent';
 import RequireLogin from '../../mixins/RequireLogin';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+import AvatarEditor from '../../components/AvatarEditor';
+import {edit} from '../SVGs';
 
 require('./MyInfo.scss');
 //PureRenderMixin,
@@ -20,7 +22,11 @@ const MyInfo = React.createClass({
       userData: UserStore.getUserData(),
       submitData: UserStore.getSubmitData(),
       errMsg: UserStore.getInfoMsg(),
-      isSubmitting: UserStore.getIsInfoing()
+      isSubmitting: UserStore.getIsInfoing(),
+      isChangingAvatar: UserStore.getIsChangingAvatar(),
+      isUploadingAvatar: UserStore.getIsUploadingAvatar(),
+      avatarErrMsg: UserStore.getAvatarErrMsg()
+
     });
   },
 
@@ -36,7 +42,12 @@ const MyInfo = React.createClass({
       old:'',
       new:'',
       successful: false,
-      isChanging: false
+      isChanging: false,
+      avatarUri: '',
+      avatarScale: 1.0,
+      isChangingAvatar: UserStore.getIsChangingAvatar(),
+      isUploadingAvatar: UserStore.getIsUploadingAvatar(),
+      avatarErrMsg: UserStore.getAvatarErrMsg()
     };
   },
 
@@ -49,6 +60,9 @@ const MyInfo = React.createClass({
   },
   componentWillUnmount(){
     UserStore.removeChangeListener(this._onUserChange);
+  },
+  componentDidUnmount(){
+    UserActions.uploadAvatarEnd();
 
   },
   handleGetPhone(val){
@@ -144,6 +158,40 @@ const MyInfo = React.createClass({
     }
 
   },
+  handleAvatarClick(){
+    React.findDOMNode(this.refs.avatarUpload).click();
+  },
+  handleAvatarFile(e){
+    var reader = new FileReader();
+    var file = e.target.files[0];
+    reader.onload = upload => {
+      UserActions.uploadAvatarStart();
+      this.setState({
+        avatarUri: upload.target.result
+      });
+    };
+    reader.readAsDataURL(file);
+  },
+  handleChangeScale(e){
+    this.setState({avatarScale: e.target.value});
+  },
+  handleSaveAvatar(){
+    if(!this.state.isUploadingAvatar){
+      let dataUri = this.refs.avatarEditor.getImage();
+      let index = dataUri.indexOf(',');
+      if(index>0)  dataUri = dataUri.substring(index+1);
+      UserActions.uploadAvatarSubmit(dataUri);
+    }
+  },
+  handleCancelAvatar(){
+    UserActions.uploadAvatarEnd();
+    /*
+    this.setState({
+      avatarUri: ''
+    });
+    */
+  },
+
   render(){
     return (
       <div className="myInfo">
@@ -161,10 +209,32 @@ const MyInfo = React.createClass({
 
 
         <div className="content">
-          <div className="avartar">
-            <span>暂不支持更换头像</span>
-            <img src={this.state.userData.path}/>
-          </div>
+          {this.state.isChangingAvatar?
+            <div className="avartarEditor">
+              <AvatarEditor ref="avatarEditor"
+                image={this.state.avatarUri}
+                width={200}
+                height={200}
+                border={15}
+                scale={this.state.avatarScale} />
+              <input type="range" min={1} max={2.5} step={0.01} value={this.state.avatarScale} onChange={this.handleChangeScale}/>
+              <div className="controls">
+                <p>{this.state.avatarErrMsg}</p>
+                <ButtonNormal text={this.state.isUploadingAvatar?'上传中……':'保存'} onClick={this.handleSaveAvatar}/>
+                {this.state.isUploadingAvatar?
+                  null:
+                  <ButtonNormal className="ButtonNormal cancel" text="取消" onClick={this.handleCancelAvatar}/>
+                }
+              </div>
+            </div>
+              :
+            <div className="avartar" onClick={this.handleAvatarClick}>
+              <input ref="avatarUpload" type="file" onChange={this.handleAvatarFile} />
+              <span>{edit}</span>
+              <img key={this.state.userData.path} src={this.state.userData.path} />
+            </div>
+          }
+
           <div className="info">
             <ul>
               <li>

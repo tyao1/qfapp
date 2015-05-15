@@ -10,8 +10,9 @@ $avartarSize:44px;
   overflow: hidden;
   transition:box-shadow .24s ease;
   animation:entering .3s ease;
+  box-shadow: 0 0 3px rgba(0,0,0,.1);
   &:hover{
-    box-shadow: 0 0 8px rgba(0,0,0,.6);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   }
   >.top{
     height:$topHeight;

@@ -23,6 +23,7 @@ $bannerHeightSmall:50px;
             border: none;
             border-bottom: 1px solid $subtleFontColor;
             box-shadow:none;
+            border-radius:3px;
           }
         }
       }
@@ -142,6 +143,25 @@ $bannerHeightSmall:50px;
         transition: opacicty .24s $normalTiming, margin-top .24s ease;
         >input{
           width:330px;
+          padding-right:30px;
+        }
+        >.searchButton{
+          position:absolute;
+          right:0;
+          top:0;
+          bottom:0;
+          display:flex;
+          cursor:pointer;
+          &:hover >svg{
+            fill: rgba(0, 0, 0, 0.5);
+          }
+          >svg{
+            width: 24px;
+            max-height: 24px;
+            fill: rgba(0, 0, 0, 0.25);
+            margin: auto 6px;
+            transition: fill .2s ease-in;
+          }
         }
       }
     }

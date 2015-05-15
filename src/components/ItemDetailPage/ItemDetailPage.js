@@ -9,14 +9,16 @@ import DetailConstants from '../../constants/DetailConstants';
 import Counter from '../Counter';
 
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart, time, itemsleft, renren, weibo, tencent, douban} from '../SVGs';
+import {shoppingcart, time, itemsleft, renren, weibo, tencent, douban, qzone, wechat} from '../SVGs';
 
 import BookCard from '../BookCard';
-
+import QRCode from 'qrcode.react';
 import CartActions from '../../actions/CartActions';
 import DetailActions from '../../actions/DetailActions';
 
 import ImageView from '../ImageView';
+import Modal from '../Modal';
+
 require('./ItemDetailPage.scss');
 
 function thisUrl(){
@@ -26,7 +28,10 @@ function thisUrl(){
 const ItemDetailPage = React.createClass({
   mixins: [PureRenderMixin],
   getTitle(){
-    return encodeURIComponent('在清风上看到了一件好东西：' + this.state.detail.name + '，一起来看看？');
+    return encodeURIComponent('在清风上看到了一件好东西：' + this.state.detail.price + '元的' + this.state.detail.name + '，买买买！');
+  },
+  getImgPath(){
+    return encodeURIComponent('http://qfplan.com' + this.state.detail.img[0].path);
   },
   _onDetailChange(){
     const detail = DetailStore.getDetail();
@@ -50,7 +55,8 @@ const ItemDetailPage = React.createClass({
   getInitialState(){
     return {
       detail: DetailStore.getDetail(),
-      num: 1
+      num: 1,
+      wechatOpen: false
     };
   },
 
@@ -82,20 +88,30 @@ const ItemDetailPage = React.createClass({
   },
 
   handleRenren(){
-    let url = `http://share.renren.com/share/buttonshare?link=${thisUrl()}&title=${this.getTitle()}`;
+    let url = `http://widget.renren.com/dialog/share?resourceUrl=${thisUrl()}&title=${this.getTitle()}&pic=${this.getImgPath()}&description=${this.state.detail.detail}`;
     window.open(url, '_blank');
   },
   handleSina(){
-    let url = `http://v.t.sina.com.cn/share/share.php?url=${thisUrl()}&title=${this.getTitle()}`;
+    let url = `http://v.t.sina.com.cn/share/share.php?url=${thisUrl()}&title=${this.getTitle()}&pic=${this.getImgPath()}`;
     window.open(url, '_blank');
   },
   handleTencent(){
-    let url = `http://v.t.qq.com/share/share.php?title=${this.getTitle()}&url=${thisUrl()}&site=清风`;
+    let url = `http://v.t.qq.com/share/share.php?title=${this.getTitle()}&url=${thisUrl()}&site=清风&pic=${this.getImgPath()}`;
     window.open(url, '_blank');
   },
   handleDouban(){
-    let url = `http://www.douban.com/recommend/?url=${thisUrl()}&title=${this.getTitle()}`;
+    let url = `http://www.douban.com/recommend/?url=${thisUrl()}&title=${this.getTitle()}&image=${this.getImgPath()}`;
     window.open(url, '_blank');
+  },
+  handleTencentZone(){
+    let url = `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${thisUrl()}&title=${this.getTitle()}&site=清风&pics=${this.getImgPath()}&desc=${this.state.detail.detail}`;
+    window.open(url, '_blank');
+  },
+  handleWechatClose(){
+    this.setState({wechatOpen: false});
+  },
+  handleWechat(){
+    this.setState({wechatOpen: true});
   },
   render() {
 
@@ -225,7 +241,7 @@ const ItemDetailPage = React.createClass({
           <div className="seller">
             <div className="inner">
               <div className="info">
-                <img src={detail.upath}/>
+                <img src={detail.upath.replace('Uploads/','Uploads/Thumb/')}/>
                 <div className="words">
                   <p className="user">{detail.nickname}</p>
                   <p className="subtle">{detail.signature}</p>
@@ -234,9 +250,19 @@ const ItemDetailPage = React.createClass({
               <div className="share">
                 <span>分享</span>
                 <ul>
-                  <li onClick={this.handleRenren}>{renren}</li><li onClick={this.handleSina}>{weibo}</li>
-                  <li onClick={this.handleTencent}>{tencent}</li><li onClick={this.handleDouban}>{douban}</li>
+                  <li onClick={this.handleSina}>{weibo}</li>
+                  <li onClick={this.handleTencentZone}>{qzone}</li>
+                  <li onClick={this.handleWechat}>{wechat}</li>
+                  <li onClick={this.handleTencent}>{tencent}</li>
+                  <li onClick={this.handleDouban}>{douban}</li>
+                  <li onClick={this.handleRenren}>{renren}</li>
                 </ul>
+                <Modal isOpen={this.state.wechatOpen} onClose={this.handleWechatClose}>
+                  <div className="wechatShare">
+                    <h2>扫一扫，分享给好友</h2>
+                    <QRCode value={window.location.href} size={200}/>,
+                  </div>
+                </Modal>
               </div>
             </div>
           </div>

@@ -6,7 +6,6 @@ import InputLarge from '../InputLarge';
 import ButtonNormal from '../ButtonNormal';
 import WordsFlasher from '../WordsFlasher';
 import RegForm from '../RegForm';
-import Modal from '../Modal';
 import AppStore from '../../stores/AppStore';
 import AppActions from '../../actions/AppActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
@@ -92,18 +91,23 @@ const HomePage = React.createClass({
             <InputLarge placeholder="找找看闲置的物品" btnText="搜索" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} buttonOnClick={this.handleSearchButton}/>
             <div className={`how${this.state.openedHow?' active':''}`}>
               <ul className="inner">
+                <h2>出售</h2>
                 <li>
                   <h2>收</h2>
                   <p>您在清风发布闲置物品，我们派专人上门收取物件</p>
                 </li>
                 <li>
                   <h2>存</h2>
-                  <p>我们将您的物件拍照，小心存放在我们的仓库中</p>
+                  <p>我们将您的物件拍照发布，存放于我们的仓库中</p>
                 </li>
                 <li>
                   <h2>售</h2>
-                  <p>在我们的网站上购买您喜欢的闲置物品；而卖家在物品售出后，将会获得自己的收入</p>
+                  <p>在物品售出后，您将会获得属于自己的收入</p>
                 </li>
+                <div className="buyer">
+                  <h2>购买</h2>
+                  <p>买买买！尽快下单，以免好东西被别人先买走～<br/>购物车下单后，我们一旦打包完成，将联系您中午至F楼取货～</p>
+                </div>
               </ul>
             </div>
             <ButtonNormal className={`ButtonNormal${this.state.openedHow?' opened':''}`} text={this.state.textHow} onClick={this.handleHowClick}/>

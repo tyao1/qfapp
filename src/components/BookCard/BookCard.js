@@ -31,11 +31,11 @@ const BookCard = React.createClass({
           <div className="detail">
             <span>查看详情</span>
           </div>
-          <img src={item.path}/>
+          <img src={item.path.replace('Uploads/','Uploads/Thumb/')}/>
         </div>
         <div className="content">
           <div className="seller">
-            <img src={item.upath}/>
+            <img src={item.upath.replace('Uploads/','Uploads/Thumb/')}/>
             <div className="controls">
               {item.nickname}
             </div>

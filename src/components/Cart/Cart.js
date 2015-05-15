@@ -127,7 +127,7 @@ const Cart = React.createClass({
 
         <div className="checkout">
           <div className="controls">
-            <p className="total">总价：${price.toFixed(2)}元</p>
+            <p className="total">总价：¥{price.toFixed(2)}元</p>
             <div className={`orderWrapper${this.state.aboutToOrder?' active':''}`}>
               <ButtonNormal text="下单" svg={shoppingcart} onClick={this.handleOrder}/>
               <div className="morph">
@@ -141,7 +141,7 @@ const Cart = React.createClass({
                   :
                   <div className="submitForm">
                     <p className="main">确认订单
-                      <span className="price">物品总价：${price.toFixed(2)}元</span>
+                      <span className="price">物品总价：¥{price.toFixed(2)}元</span>
                     </p>
                     <p className="err">{this.state.realErrMsg}</p>
                     <div className="controls">

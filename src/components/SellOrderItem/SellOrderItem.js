@@ -75,7 +75,7 @@ const SellOrderItem = React.createClass({
         </ul>
         <ul className="detail">
           <li className="three">
-            <img src={data.path} />
+            <img src={data.path.replace('Uploads/','Uploads/Thumb/')} />
             <p className="minor">
               {Types[data.type_id]||'未知'}
             </p>

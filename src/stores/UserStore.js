@@ -41,6 +41,10 @@ let _infoMsg;
 let _isInfoing;
 let _submitData = Immutable.Map();
 
+let _isUploadingAvatar;
+let _avatarErrMsg;
+let _isChangingAvatar;
+
 function saveUserData(){
   setTimeout(()=> {
     localStorage.setItem('userData', JSON.stringify(_userData));
@@ -50,6 +54,15 @@ function saveUserData(){
 
 const UserStore = assign({}, EventEmitter.prototype, {
 
+  getIsChangingAvatar(){
+    return _isChangingAvatar;
+  },
+  getAvatarErrMsg(){
+    return _avatarErrMsg;
+  },
+  getIsUploadingAvatar(){
+    return _isUploadingAvatar;
+  },
   getPhone(){
     if(_userData) {
       return _userData.telephone;
@@ -182,6 +195,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
             router.transitionTo(trans);
           }
           _userData = action.data.Info;
+          _userData.path = _userData.path + '?' + Date.now();
           if(_userData.telephone==='00000000000'){
             _userData.telephone = '';
           }
@@ -244,6 +258,34 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isForgetting = false;
         UserStore.emitChange();
         break;
+
+      case UserConstants.UPLOAD_AVATAR_SUBMIT:
+        _isUploadingAvatar = true;
+        _avatarErrMsg = '';
+        UserStore.emitChange();
+        break;
+
+      case UserConstants.UPLOAD_AVATAR_FAILURE:
+        _avatarErrMsg = '啊哦，网络出错辣！';
+        _isUploadingAvatar = false;
+        UserStore.emitChange();
+        break;
+      case UserConstants.UPLOAD_AVATAR_SUCCESS:
+        if(action.data.Code===0){
+          _avatarErrMsg = '';
+          _isChangingAvatar = false;
+          //更新用户url
+          _userData.path = action.data.Info + '?' + Date.now();;
+          saveUserData();
+        }
+        else {
+          _avatarErrMsg = action.data.Msg;
+        }
+        _isUploadingAvatar = false;
+        UserStore.emitChange();
+        break;
+
+
       default:
       // Do nothing
 
@@ -279,6 +321,14 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case UserConstants.REMOVE_FROM_SUBMIT:
         _submitData = _submitData.delete(action.key);
+        UserStore.emitChange();
+        break;
+      case UserConstants.UPLOAD_AVATAR_START:
+        _isChangingAvatar = true;
+        UserStore.emitChange();
+        break;
+      case UserConstants.UPLOAD_AVATAR_END:
+        _isChangingAvatar = false;
         UserStore.emitChange();
         break;
       default:

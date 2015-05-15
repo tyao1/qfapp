@@ -23,6 +23,12 @@ const Feedback = React.createClass({
     this.setState({
       feedOpen: false
     });
+    setTimeout(()=>{
+      this.setState({
+        successful: false,
+        text: ''
+      });
+    })
   },
   handleTextChange(e){
     this.setState({

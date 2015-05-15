@@ -180,6 +180,37 @@ export default {
       actionType: UserConstants.FIND_PASSWORD_FAILURE,
       data
     });
-  }
+  },
 
+
+  uploadAvatarSubmit(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.UPLOAD_AVATAR_SUBMIT,
+      data
+    });
+    UserAPIUtils.uploadAvatar(data);
+  },
+  uploadAvatarSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.UPLOAD_AVATAR_SUCCESS,
+      data
+    });
+  },
+  uploadAvatarFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.UPLOAD_AVATAR_FAILURE,
+      data
+    });
+  },
+
+  uploadAvatarStart(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.UPLOAD_AVATAR_START
+    });
+  },
+  uploadAvatarEnd(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.UPLOAD_AVATAR_END
+    });
+  }
 };

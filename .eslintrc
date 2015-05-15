@@ -9,9 +9,8 @@
     "__SERVER__": true
   },
   "rules": {
-
-    // ES6 import
     "sourceType": "module",
+    "environment": "es6",
 
     // Strict mode
     "strict": [2, "global"],

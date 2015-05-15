@@ -13,7 +13,6 @@ $navWidth: 200px;
       padding:14px;
       width: $navWidth;
       position:fixed;
-      border:2px solid $mainColorTint;
       overflow-y: auto;
       max-height: calc(100% - 100px);
       @include customFont();
@@ -80,7 +79,7 @@ $navWidth: 200px;
 
     >.main{
 
-      padding:0 0 32px $navWidth + 32px;
+      padding:0 0 32px 202px;
 
 
       >.items {

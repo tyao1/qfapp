@@ -11,7 +11,7 @@ import UserActions from '../../actions/UserActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
-import {coffecup, logo, shoppingcart, close} from '../SVGs';
+import {coffecup, logo, shoppingcart, close, search} from '../SVGs';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
@@ -166,13 +166,15 @@ const Banner = React.createClass({
     }
 
     let controls;
+
     if(this.state.userData){
+      let avatar = this.state.userData.path.replace('Uploads/','Uploads/Thumb/');
       controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
         <li><Link to="my" data-text="我的订单" params={{section: 'buy'}}><span>我的订单</span></Link></li>
         <li className="user">
-          <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path}/></Link>
+          <Link to="my" params={{section: 'info'}}><img key={avatar} src={avatar}/></Link>
           <ul className="controls">
             <li><Link to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link></li>
             <li onClick={this.handleLogout}>登出</li>
@@ -201,7 +203,9 @@ const Banner = React.createClass({
         <div className="inner">
           <div className="left">
             <Link to="home">{logo}</Link>
-            <InputNormal type="text" autocomplete="off" placeholder="输入你想要买或者卖的内容" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}/>
+            <InputNormal type="text" autocomplete="off" placeholder="找找看闲置的物品" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}>
+              <div className="searchButton" onClick={this.handleSearchBlur}>{search}</div>
+            </InputNormal>
           </div>
           <div className="right">
             {controls}

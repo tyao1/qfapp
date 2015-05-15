@@ -2,13 +2,15 @@
 
 $briefHeight:260px;
 $briefPadding:48px;
-$controlsWidth:340px;
+$controlsWidth:300px;
 
 $secondBgColor: #FEFEFE;
 $borderColor: #EFEFEF;
 $secondBgColor: #FCFCFC;
 
 $sellerHeight: 100px;
+
+$aroundPadding: 12px;
 
 .itemDetailPage {
   animation:entering .3s ease;
@@ -60,14 +62,12 @@ $sellerHeight: 100px;
         }
         color:$fontColor1;
         display: block;
-        width:340px;
+        width:$controlsWidth;
         height:$briefHeight - $briefPadding*2;
         background:#FFF;
-        border-radius:$borderRadius;
         box-shadow:0 1px 2px $subtleFontColor2;
-        border:1px solid $borderColor;
-        padding:24px;
-        margin:0 0 0 1024px - $controlsWidth - 12px ;
+        padding:24px 20px;
+        margin:0 0 0 1024px - $controlsWidth - 32px;
 
         >.off{
           text-align: center;
@@ -81,13 +81,13 @@ $sellerHeight: 100px;
         >.amount{
           display: inline-block;
           vertical-align: top;
-          width:40%;
+          width:50%;
         }
         >.totalPrice{
           display: inline-block;
           vertical-align: top;
           width:40%;
-          margin:0 0 0 20%;
+          margin:0 0 0 10%;
           >p{
             font-size:$bigFontSize;
             margin: 0;
@@ -109,7 +109,7 @@ $sellerHeight: 100px;
     vertical-align: top;
     width:100%;
     >.inner{
-      padding:0 340px 0 0;
+      padding:0 356px 0 $aroundPadding;
       @include maxWidth();
       margin:auto;
       >.loading{
@@ -121,7 +121,7 @@ $sellerHeight: 100px;
         font-size:$bigFontSize;
       }
       >.gallery{
-        width:1024px - $controlsWidth - 12px;
+        width:647px;
         margin-top:29px;
         >img{
           height:230px;
@@ -191,7 +191,7 @@ $sellerHeight: 100px;
     >.inner {
       @include maxWidth();
       @include clearfix();
-      padding: 24px 0;
+      padding: 24px $aroundPadding;
       > .info {
         float:left;
         > img {
@@ -225,6 +225,11 @@ $sellerHeight: 100px;
 
       }
       >.share{
+
+        .wechatShare{
+          text-align: center;
+        }
+
         float:right;
         >span{
           display:inline-block;
@@ -238,7 +243,7 @@ $sellerHeight: 100px;
 
           >li{
             width:28px;
-            height:28px;
+            vertical-align: middle;
             display: inline-block;
             margin:0 18px 0 0;
             cursor:pointer;
@@ -249,7 +254,7 @@ $sellerHeight: 100px;
             }
             &:hover{
               >svg{
-                >path {
+                g, path {
                   fill: $thirdColor;
                 }
               }

@@ -94,7 +94,24 @@ const UserAPIUtils = {
     request
       .put('http://10.60.136.39/index.php/Home/Logout.json')
       .end(function(){});
+  },
+
+
+  uploadAvatar(data){
+    request
+      .put('http://10.60.136.39/index.php/Manager/ImgModify.json')
+      .type('form')
+      .send({imgData:data})
+      .end(function(err, res){
+        if(err){
+          UserActions.uploadAvatarFailure(err);
+        }
+        else{
+          UserActions.uploadAvatarSuccess(res.body);
+        }
+      });
   }
+
 
 
 };

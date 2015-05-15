@@ -61,7 +61,33 @@
     }
   }
   >.content{
+    position: relative;
     padding:32px 48px;
+    >.avartarEditor{
+      position:absolute;
+      left:32px;
+      box-shadow: 0 0 3px rgba(0,0,0,.4);
+      >canvas{
+        display:block;
+        cursor:move;
+      }
+      >input{
+        display: block;
+        width: 165px;
+        margin: 12px auto;
+      }
+      >.controls{
+        text-align: center;
+        margin: 12px auto;
+        >.ButtonNormal.cancel{
+          border:none;
+          margin:0 0 0 14px;
+          >span, &:after{
+            padding:7px 0;
+          }
+        }
+      }
+    }
     >.avartar{
       height:185px;
       width:185px;
@@ -70,6 +96,12 @@
       overflow: hidden;
       display: inline-block;
       position:absolute;
+      cursor: pointer;
+      >input{
+        display:none;
+      }
+
+
       &:hover > span{
         opacity:1;
       }
@@ -92,7 +124,9 @@
         text-align: center;
         background:$subtleFontColor2;
         transition:all .3s ease;
-
+        >svg{
+          fill: #fff;
+        }
       }
     }
     >.info{

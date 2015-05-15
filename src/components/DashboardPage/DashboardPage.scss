@@ -10,7 +10,6 @@
     >.left {
       position:fixed;
       width: 318px;
-      border:2px solid $mainColorTint;
       padding: 24px;
       overflow-y: auto;
       max-height: calc(100% - 100px);
@@ -99,7 +98,7 @@
     }
 
     >.right{
-      padding-left: 372px;
+      padding-left: 348px;
     }
 
 

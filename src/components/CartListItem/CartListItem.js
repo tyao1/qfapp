@@ -33,7 +33,7 @@ const CartListItem = React.createClass({
     const item = this.props.data;
     return (
       <div className="cartListItem">
-        <img src={item.path} onClick={this.handleItemClick} />
+        <img src={item.path.replace('Uploads/','Uploads/Thumb/')} onClick={this.handleItemClick} />
         <section className="big" onClick={this.handleItemClick}>
           <span>{Types[item.type_id]||'未知'}</span>
           <p>{item.name}</p>

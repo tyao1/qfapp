@@ -8,6 +8,7 @@
 var _ = require('lodash');
 var webpack = require('webpack');
 var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+var StringReplacePlugin = require("string-replace-webpack-plugin");
 
 var argv = require('minimist')(process.argv.slice(2));
 
@@ -36,6 +37,33 @@ var strip = DEBUG?
   test: /\.js$/,
   exclude: /node_modules/,
   loader: 'strip-loader?strip[]=console.log'
+};
+
+var replace = DEBUG?{
+  test: /nothing/,
+  exclude: /node_modules/,
+  loader: StringReplacePlugin.replace({
+  replacements: [
+    {
+      pattern: /<!-- @secret (\w*?) -->/ig,
+      replacement: function (match, p1, offset, string) {
+        return '';
+      }
+    }
+  ]})
+}
+  :{
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: StringReplacePlugin.replace({
+    replacements: [
+      {
+        pattern: /http:\/\/10\.60\.136\.39/ig,
+        replacement: function (match, p1, offset, string) {
+          return '';
+        }
+      }
+    ]})
 };
 
 var config = {

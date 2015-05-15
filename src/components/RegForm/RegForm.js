@@ -204,7 +204,7 @@ const RegForm = React.createClass({
     if(this.state.userData){
       regForm = <div className="regForm">
         <div className="center">
-          <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path} /></Link>
+          <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path.replace('Uploads/','Uploads/Thumb/')} /></Link>
           <p>欢迎回来,{this.state.userData.nickname}</p>
           <ButtonNormal text={'出售物品'} onClick={this.handleSellClick}/>
         </div>
