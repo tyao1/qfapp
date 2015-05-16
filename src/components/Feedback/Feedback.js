@@ -28,7 +28,7 @@ const Feedback = React.createClass({
         successful: false,
         text: ''
       });
-    })
+    }, 500);
   },
   handleTextChange(e){
     this.setState({

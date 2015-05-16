@@ -93,7 +93,7 @@ const ImageView = React.createClass({
         <div className={`galleryWrapper${this.state.viewOpen?' active':''}`}>
           <a className="close" onClick={this.handleCloseClick}>{close}</a>
           <div className="inner">
-            <ImageGallery ref="gallery" items={this.state.imgArray} showThumbnails={true} showBullets={true}/>
+            <ImageGallery key={this.props.images.path} ref="gallery" items={this.state.imgArray} showThumbnails={true} showBullets={true}/>
           </div>
         </div>
       </div>
