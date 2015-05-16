@@ -260,7 +260,7 @@ const ItemDetailPage = React.createClass({
                 <Modal isOpen={this.state.wechatOpen} onClose={this.handleWechatClose}>
                   <div className="wechatShare">
                     <h2>扫一扫，分享给好友</h2>
-                    <QRCode value={window.location.href} size={200}/>,
+                    <QRCode value={window.location.href} size={200}/>
                   </div>
                 </Modal>
               </div>

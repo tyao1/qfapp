@@ -158,7 +158,7 @@ const HomePage = React.createClass({
             </div>
 
             <div className="copyright">
-              Copyright © 2015 清风
+              沪ICP备14028921号-2  Copyright © 2015 清风
             </div>
           </div>
 

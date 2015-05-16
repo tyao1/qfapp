@@ -12,6 +12,7 @@ $ig-blue: $mainColorTint;
   -ms-user-select: none;
   -webkit-user-select: none;
   height:100%;
+  padding:24px 0 0 0;
   .ImageGallery_content {
     height:100%;
     position: relative;
@@ -145,7 +146,7 @@ $ig-blue: $mainColorTint;
   .ImageGallery_thumbnail_container {
     overflow: hidden;
     position: absolute;
-    padding: 20px 0 0;
+    padding: 32px 0 0;
     left: 0;
     right: 0;
     .ImageGallery_thumbnail_container_thumbnails {

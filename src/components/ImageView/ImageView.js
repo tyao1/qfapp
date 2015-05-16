@@ -34,7 +34,7 @@ const ImageView = React.createClass({
     */
        imgArray.push({
           original: img,
-          thumbnail: img
+          thumbnail: img.replace('Uploads/','Uploads/Thumb/')
         });
      }
     return{
@@ -81,7 +81,8 @@ const ImageView = React.createClass({
         <div className="images">
           {
             images.map((img,i) => {
-                if(i<3) return <img key={i} src={img.path} onClick={this.handleImgClick(i)}/>;
+                if(i===0) return <img key={i} src={img.path} onClick={this.handleImgClick(i)}/>;
+                if(i<3) return <img key={i} src={img.path.replace('Uploads/','Uploads/Thumb/')} onClick={this.handleImgClick(i)}/>;
               }
             )
           }
