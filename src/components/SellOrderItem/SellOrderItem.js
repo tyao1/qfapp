@@ -69,7 +69,7 @@ const SellOrderItem = React.createClass({
               销售状态
             </p>
             <p className="main">
-              {OrderAPIUtils.offStatus[data.status]}
+              {data.t_time?OrderAPIUtils.offStatus[data.status]:OrderAPIUtils.sellStatus[data.status]}
             </p>
           </li>
         </ul>
