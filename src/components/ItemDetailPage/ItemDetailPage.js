@@ -88,7 +88,7 @@ const ItemDetailPage = React.createClass({
   },
 
   handleRenren(){
-    let url = `http://widget.renren.com/dialog/share?resourceUrl=${thisUrl()}&title=${this.getTitle()}&pic=${this.getImgPath()}&description=${this.state.detail.detail}`;
+    let url = `http://widget.renren.com/dialog/share?resourceUrl=${thisUrl()}&srcUrl=${thisUrl()}&title=${this.getTitle()}&pic=${this.getImgPath()}&description=${this.state.detail.detail}`;
     window.open(url, '_blank');
   },
   handleSina(){
@@ -251,11 +251,11 @@ const ItemDetailPage = React.createClass({
                 <span>分享</span>
                 <ul>
                   <li onClick={this.handleSina}>{weibo}</li>
+                  <li onClick={this.handleRenren}>{renren}</li>
                   <li onClick={this.handleTencentZone}>{qzone}</li>
                   <li onClick={this.handleWechat}>{wechat}</li>
                   <li onClick={this.handleTencent}>{tencent}</li>
                   <li onClick={this.handleDouban}>{douban}</li>
-                  <li onClick={this.handleRenren}>{renren}</li>
                 </ul>
                 <Modal isOpen={this.state.wechatOpen} onClose={this.handleWechatClose}>
                   <div className="wechatShare">

@@ -66,7 +66,7 @@ const LoginForm = React.createClass({
     else{
       status = {
         isValid2: false,
-        msg: '密码需要在6-20位之间'
+        msg: '密码需要在6-16位之间，且仅含英文字母、数字、@'
       };
     }
     console.log('check password', status);
@@ -128,7 +128,7 @@ const LoginForm = React.createClass({
       }
       else {
         status.isValid2 = false;
-        msg = '密码需要在6-20位之间';
+        msg = '密码需要在6-16位之间，且仅含英文字母、数字、@';
       }
       if(LoginForm.isValidEmail(this.state.email)){
         status.isValid3 = true;

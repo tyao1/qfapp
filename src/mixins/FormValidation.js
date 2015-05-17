@@ -7,7 +7,8 @@ const FormValidation = {
       return (username.length<16&&username.length>1);
     },
     isValidPassword: function(password) {
-      return password.length>5&&password.length<20;
+      var re = /^[a-zA-Z0-9@]{6,16}$/;
+      return re.test(password);
     },
     isValidEmail: function(email) {
       var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;

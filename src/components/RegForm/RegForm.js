@@ -83,7 +83,7 @@ const RegForm = React.createClass({
     else{
       status = {
         isValid2: false,
-        msg: '密码需要在6-20位之间'
+        msg: '密码需要在6-16位之间，且仅含英文字母、数字、@'
       };
     }
     this.setState(status);
@@ -131,7 +131,7 @@ const RegForm = React.createClass({
     this.setState(status);
   },
   checkAndClearMsg(){
-    if(true===this.state.isValid1===this.state.isValid2===this.state.isValid3===this.state.isValid4===true){
+    if(this.state.isValid1&&this.state.isValid2&&this.state.isValid3&&this.state.isValid4){
       this.setState({msg: null});
     }
   },
@@ -153,7 +153,7 @@ const RegForm = React.createClass({
       }
       else {
         status.isValid2 = false;
-        msg = '密码需要在6-20位之间';
+        msg = '密码需要在6-16位之间，且仅含英文字母、数字、@';
       }
       if(RegForm.isValidEmail(this.state.email)){
         status.isValid3 = true;
