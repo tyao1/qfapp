@@ -86,9 +86,9 @@ const HomePage = React.createClass({
       <div className="homePage">
         <section className="FirstSection">
           <div className="inner">
-            <h3 className="subtle">最便捷二手物品交易平台，仅在同济大学嘉定校区</h3>
+            <h3 className="subtle">最便捷闲置物品交易平台，仅在同济大学嘉定校区</h3>
             <h1 className="main">轻松购买闲置的<WordsFlasher/></h1>
-            <InputLarge placeholder="找找看闲置的物品" btnText="搜索" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} buttonOnClick={this.handleSearchButton}/>
+            <InputLarge placeholder="找找闲置的宝贝" btnText="搜索" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} buttonOnClick={this.handleSearchButton}/>
             <div className={`how${this.state.openedHow?' active':''}`}>
               <ul className="inner">
                 <h2>出售</h2>
@@ -144,7 +144,7 @@ const HomePage = React.createClass({
             <div className="left">
               <h3>关于清风</h3>
               <p>欢迎关注我们的公众号</p>
-              <img className="qr" src={require('./code.png')}/>
+              <img className="qr" src={require('./code.jpg')}/>
             </div>
 
             <div className="left">
@@ -154,7 +154,8 @@ const HomePage = React.createClass({
 
             <div className="right">
               <h3>联系我们</h3>
-              <p>直接用公众号吧，或者可以联系文科：<br/>wenke@qfplan.com</p>
+              <p>可以通过公众号直接联系我们</p>
+              <p>或者联系文科：wenke@qfplan.com<br/>天宇：yaotianyu0512@gmail.com</p>
             </div>
 
             <div className="copyright">

@@ -45,7 +45,10 @@ WordsFlasher.defaultProps = {
     '生活电器',
     '手机数码',
     '体育用具',
-    '衣服鞋帽']
+    '衣服鞋帽',
+    '优惠券',
+    '抵值券'
+  ]
 };
 
 export default WordsFlasher;

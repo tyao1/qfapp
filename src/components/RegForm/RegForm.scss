@@ -32,15 +32,14 @@
   >h3{
     font-size:$bigFontSize;
   }
-  >.InputNormal{
-    margin:8px 0;
+  >.inputEffect{
+    margin:34px 0;
 
 
 
     >.verify{
       position: absolute;
       right: 2px;
-      top: 2px;
       bottom: 2px;
       border-radius: 9px;
       cursor: pointer;

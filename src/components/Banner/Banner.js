@@ -203,7 +203,7 @@ const Banner = React.createClass({
         <div className="inner">
           <div className="left">
             <Link to="home">{logo}</Link>
-            <InputNormal type="text" autocomplete="off" placeholder="找找看闲置的物品" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}>
+            <InputNormal type="text" autocomplete="off" placeholder="找找闲置的宝贝" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}>
               <div className="searchButton" onClick={this.handleSearchBlur}>{search}</div>
             </InputNormal>
           </div>

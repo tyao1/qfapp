@@ -12,7 +12,7 @@ import PageActions from '../../actions/PageActions';
 import Types from '../../utils/Types';
 import Counter from '../Counter';
 
-const TypeIDs = ['000000', '100000', '110000', '120000', '130000', '140000', '150000'];
+const TypeIDs = ['000000', '100000', '110000', '120000', '130000', '140000', '150000', '160000'];
 
 require('./ShoppingPage.scss');
 

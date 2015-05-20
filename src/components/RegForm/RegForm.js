@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
-import InputNormal from '../InputNormal';
+import InputEffect from '../InputEffect';
 import ButtonNormal from '../ButtonNormal';
 import {user, passkey, email} from '../SVGs';
 import UserAction from '../../actions/UserActions.js';
@@ -221,12 +221,13 @@ const RegForm = React.createClass({
       regForm = <div className="regForm">
         <span>{this.state.msg}</span>
         <h3>快速注册</h3>
-        <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClick}/>
-        <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
-        <InputNormal type="text" className={this.state.isValid1===false?'invalid': null} placeholder="昵称" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1} onKeyUp={this.handleEnterClick}/>
-        <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码" svg={email} value={this.state.verifyCode} onChange={this.handleChange4} onBlur={this.handleBlur4} onKeyUp={this.handleEnterClick}>
+
+        <InputEffect type="email" className={this.state.isValid3===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 输入常用邮箱" label="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClick}/>
+        <InputEffect type="password" className={this.state.isValid2===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 仅含字母数字@，6-16位" label="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
+        <InputEffect type="text" className={this.state.isValid1===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 小于16位" label="昵称" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1} onKeyUp={this.handleEnterClick}/>
+        <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"  svg={email} value={this.state.verifyCode} onChange={this.handleChange4} onBlur={this.handleBlur4} onKeyUp={this.handleEnterClick}>
           <img className="verify" src={'http://10.60.136.39/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
-        </InputNormal>
+        </InputEffect>
         <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>
 
       </div>;

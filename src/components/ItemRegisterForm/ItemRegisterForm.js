@@ -3,6 +3,7 @@
 import React from 'react';
 import Banner from '../Banner';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+import InputEffect from '../InputEffect';
 
 import {close} from '../SVGs';
 
@@ -128,8 +129,8 @@ const ItemRegisterForm = React.createClass({
       <div className="itemRegisterForm">
         <div className="left">
           <div className="inputEffectLong">
-            <input type="text" value={data.name} onChange={this.handleNameChange}/>
-            <label className={data.name.length?'active':null} >物品名称</label>
+            <InputEffect tmpPlaceHolder="╰(*°▽°*)╯ 至少4个字" label="物品名称" type="text" value={data.name} onChange={this.handleNameChange}/>
+
           </div>
 
           <div className="inputEffect price">

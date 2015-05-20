@@ -8,6 +8,7 @@ import UserAction from '../../actions/UserActions.js';
 import UserStore from '../../stores/UserStore.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import FormValidation from '../../mixins/FormValidation';
+import InputEffect from '../InputEffect';
 
 //require('./LoginForm.scss');
 
@@ -27,7 +28,8 @@ const LoginForm = React.createClass({
       isLogining: UserStore.getIsLogining(),
       forget: false,
       isForgetting: UserStore.getIsForgetting(),
-      forgetMsg: UserStore.getForgetMsg()
+      forgetMsg: UserStore.getForgetMsg(),
+      findPassWordSuccess: UserStore.getFindPassWordSuccess()
 
     };
   },
@@ -37,7 +39,8 @@ const LoginForm = React.createClass({
       userData: UserStore.getUserData(),
       needVerify: UserStore.getLoginVerify(),
       isForgetting: UserStore.getIsForgetting(),
-      forgetMsg: UserStore.getForgetMsg()
+      forgetMsg: UserStore.getForgetMsg(),
+      findPassWordSuccess: UserStore.getFindPassWordSuccess()
     });
   },
   componentWillMount() {
@@ -193,7 +196,7 @@ const LoginForm = React.createClass({
     UserAction.refreshLoginVerify();
   },
   handleChangeType(){
-    this.setState({forget: !this.state.forget});
+    this.setState({forget: !this.state.forget, findPassWordSuccess: false});
   },
   handleEnterClick(e){
     if(e.keyCode===13){
@@ -215,32 +218,42 @@ const LoginForm = React.createClass({
     }
     else{
       if(this.state.forget){
-        regForm = <div className="regForm">
-          <span>{this.state.forgetMsg}</span>
-          <h3>找回密码</h3>
-          <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email} value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClickForget}/>
-          <ButtonNormal text={this.state.isForgetting?'找回中……':'找回密码'} onClick={this.handleClickForget}/>
-          <ButtonNormal className="ButtonNormal minor" text="返回登录" onClick={this.handleChangeType}/>
-
-        </div>;
+       if(this.state.findPassWordSuccess) {
+          regForm = <div className="regForm">
+            <div className="center">
+              <p>找回密码成功,请先前往邮箱查看修改密码链接！</p>
+              <ButtonNormal className="ButtonNormal minor" text="返回登录" onClick={this.handleChangeType}/>
+            </div>
+          </div>;
+        } else {
+         regForm = <div className="regForm">
+           <span>{this.state.forgetMsg}</span>
+           <h3>找回密码</h3>
+           <InputEffect type="email" className={this.state.isValid3===false?'invalid': null}
+                        tmpPlaceHolder="╰(*°▽°*)╯ 输入注册的邮箱" label="邮箱" svg={email} value={this.state.email}
+                        onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClickForget}/>
+           <ButtonNormal text={this.state.isForgetting?'找回中……':'找回密码'} onClick={this.handleClickForget}/>
+           <ButtonNormal className="ButtonNormal minor" text="返回登录" onClick={this.handleChangeType}/>
+         </div>;
+       }
       }
       else {
         regForm = <div className="regForm">
           <span>{this.state.msg}</span>
           <h3>登录</h3>
-          <InputNormal type="email" className={this.state.isValid3===false?'invalid': null} placeholder="邮箱" svg={email}
+          <InputEffect type="email" className={this.state.isValid3===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 输入注册的邮箱" label="邮箱" svg={email}
                        value={this.state.email} onChange={this.handleChange3} onBlur={this.handleBlur3} onKeyUp={this.handleEnterClick}/>
-          <InputNormal type="password" className={this.state.isValid2===false?'invalid': null} placeholder="密码"
+          <InputEffect type="password" className={this.state.isValid2===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 仅含字母数字@，6-16位" label="密码"
                        svg={passkey} value={this.state.password} onChange={this.handleChange2}
                        onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
           {this.state.needVerify ?
-            <InputNormal type="text" className={this.state.isValid4===false?'invalid': null} placeholder="验证码"
+            <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"
                          svg={email} value={this.state.verifyCode}
                          onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
               <img className="verify"
                    src={'http://10.60.136.39/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
                    onClick={this.handleVerifyImgClick}/>
-            </InputNormal>
+            </InputEffect>
             :
             null
           }
