@@ -25,6 +25,7 @@ if(localdata)
     _userData = JSON.parse(localdata);
   }
 }
+let _findPassWordSuccess = false;
 let _loginMsg;
 let _regMsg;
 let _isRegistering;
@@ -54,6 +55,9 @@ function saveUserData(){
 
 const UserStore = assign({}, EventEmitter.prototype, {
 
+  getFindPassWordSuccess(){
+    return _findPassWordSuccess;
+  },
   getIsChangingAvatar(){
     return _isChangingAvatar;
   },
@@ -250,7 +254,8 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case UserConstants.FIND_PASSWORD_SUCCESS:
         if(action.data.Code===0){
-          _forgetMsg = '操作成功，请前往您的邮箱收取修改密码链接';
+          _forgetMsg = '';
+          _findPassWordSuccess = true;
         }
         else {
           _forgetMsg = action.data.Msg;

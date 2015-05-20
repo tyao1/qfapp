@@ -1,13 +1,12 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
-
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Front-End Designer and Developer: Yaotianyu
+    Back-End Developer: Chenlunzhao
+    Other Members: Shangwenke, Zhuangjiangnan
+    Location: Shanghai, China
 
 # THANKS
 
-    <name>
 
 # TECHNOLOGY COLOPHON
 
