@@ -132,7 +132,8 @@ const HomePage = React.createClass({
             <div className="left">
               <h3 className="minor">拥有闲置物品？</h3>
               <h2 className="huge">在清风上出售<br/>享受前所未有的便利</h2>
-              <p className="more">只需轻敲键盘，我们的工作人员就会上门收件，替您完成闲置物品的保管和运送，一旦交易成功，我们就会将收入支付给您。</p>
+              <p className="more">
+                *只想处理闲置的旧物，懒得注册？<br/>欢迎关注我们的微信公众号:qfplan，一键回收功能开放中～</p>
             </div>
             <div className="right">
               <RegForm/>
@@ -141,20 +142,25 @@ const HomePage = React.createClass({
         </section>
         <footer>
           <div className="inner">
-            <div className="left">
-              <h3>关于清风</h3>
-              <p>欢迎关注我们的公众号</p>
+            <div className="leftOne">
+              <h3>关注清风</h3>
+              <p>欢迎关注我们的公众号:qfplan</p>
               <img className="qr" src={require('./code.jpg')}/>
             </div>
 
             <div className="left">
               <h3>清风福利</h3>
-              <p>我们目前正在为毕业季学生提供寄存服务！ <br/>关注我们的公众号了解详情<br/>欢迎尝试！</p>
+              <p>我们在微信公众号上为毕业季学生提供了更多服务 <br/>
+                清风寄存：为保研考研成功的同学提供物品书架寄存 <br/>
+                清风代邮：为异地读研，工作的同学进行物品邮寄 <br/>
+                一键回收：一分钟处理自己根本用不上的闲置物品 <br/>
+                宝贝推送：每周精选含金量极高的物品推送给您 <br/>
+                一切精彩，尽在清风平台</p>
             </div>
 
             <div className="right">
               <h3>联系我们</h3>
-              <p>可以通过公众号直接联系我们</p>
+              <p>可以通过微信直接联系我们</p>
               <p>或者联系文科：wenke@qfplan.com<br/>天宇：yaotianyu0512@gmail.com</p>
             </div>
 

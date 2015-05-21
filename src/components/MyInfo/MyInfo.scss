@@ -54,9 +54,9 @@
         margin:0 12px 0 0;
       }
       >.ButtonNormal{
-
-        border-color:#fff;
-        color:#fff;
+        background: $secondaryColor;
+        border:none;
+        color:$fontColor1;
       }
     }
   }
@@ -139,6 +139,22 @@
          >.subtle{
            margin:0;
            color:$subtleFontColor2;
+
+           >.svgWrapper{
+             float:right;
+             cursor: pointer;
+             display: inline-block;
+             &:hover >svg{
+               fill: #4A4A4A;
+             }
+             >svg{
+               margin: 0 0 0 0;
+               fill: rgba(0, 0, 0, 0.42);
+               height: 20px;
+               width: 18px;
+
+             }
+           }
          }
          >p{
            margin: 3px 0 0 0;

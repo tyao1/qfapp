@@ -264,8 +264,10 @@ const MyInfo = React.createClass({
               <li>
                 <span className="subtle">
                   修改密码
+                  <div className="svgWrapper" onClick={this.handleChangePassword}>
+                    {edit}
+                  </div>
                 </span>
-                <div><ButtonNormal text="修改" onClick={this.handleChangePassword}/></div>
               </li>
 
             </ul>

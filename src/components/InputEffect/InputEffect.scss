@@ -50,12 +50,12 @@
   label.active, input:focus ~ label{
     top: -19px;
     font-size: $bigFontSize - 2px;
-    color: $fontColor1;
+    color: $subtleFontColor2;
     >.svgWrapper {
       >svg{
         width: 18px;
         max-height: 22px;
-        fill:$fontColor1;
+        fill:$subtleFontColor2;
       }
 
     }

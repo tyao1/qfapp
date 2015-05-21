@@ -150,7 +150,7 @@
 
   .ThirdSection {
     height: 500px;
-    background-color: $mainColor;
+    background-color: $mainColorTint;
     position: relative;
     padding: 24px 0;
     > svg {
@@ -159,7 +159,7 @@
       top: -40px;
       left: 0;
       right: 0;
-      fill: $mainColor;
+      fill: $mainColorTint;
       pointer-events: none;
     }
     > .inner {
@@ -180,6 +180,7 @@
       > .left {
         float: left;
         width: 50%;
+        padding: 24px 0 0 0;
         position: relative;
         > .minor {
           font-size: $LargeFontSize;
@@ -238,13 +239,18 @@
 
       }
 
-      >.left,>.right{
+      >.left,>.leftOne,>.right{
         display: inline-block;
         vertical-align: top;
-        width:33%;
+        width:46%;
         padding:0;
       }
-
+      >.leftOne{
+        width:33%
+      }
+      >.right{
+        width:20%;
+      }
       >.copyright{
         position:absolute;
         right:24px;

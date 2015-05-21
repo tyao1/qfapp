@@ -25,6 +25,9 @@ if(localdata)
     _userData = JSON.parse(localdata);
   }
 }
+
+let _localEmail = localStorage.getItem('tyn') || '';
+let _localPassword = localStorage.getItem('typ') || '';
 let _findPassWordSuccess = false;
 let _loginMsg;
 let _regMsg;
@@ -55,6 +58,12 @@ function saveUserData(){
 
 const UserStore = assign({}, EventEmitter.prototype, {
 
+  getEmail(){
+    return _localEmail;
+  },
+  getPassword(){
+    return _localPassword;
+  },
   getFindPassWordSuccess(){
     return _findPassWordSuccess;
   },
@@ -94,7 +103,6 @@ const UserStore = assign({}, EventEmitter.prototype, {
   getSubmitData(){
     return _submitData;
   },
-
 
   getUserName(){
     return _userData?_userData.nickname:'';
@@ -156,9 +164,12 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
     switch (action.actionType) {
       case UserConstants.REG_SUBMIT:
         _isRegistering = true;
+        _localEmail = action.data.email;
+        _localPassword = action.data.password;
         UserStore.emitChange();
+        localStorage.setItem('tyn', _localEmail);
+        localStorage.setItem('typ', _localPassword);
         break;
-
       case UserConstants.REG_FAILURE:
         _regMsg = '啊哦，网络出错辣！';
         _isRegistering = false;
@@ -181,7 +192,11 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case UserConstants.LOGIN_SUBMIT:
         _isLogining = true;
+        _localEmail = action.data.email;
+        _localPassword = action.data.password;
         UserStore.emitChange();
+        localStorage.setItem('tyn', _localEmail);
+        localStorage.setItem('typ', _localPassword);
         break;
 
       case UserConstants.LOGIN_FAILURE:
@@ -240,16 +255,16 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isInfoing = false;
         UserStore.emitChange();
         break;
-
       case UserConstants.FIND_PASSWORD_SUBMIT:
         _isForgetting = true;
         _forgetMsg = '';
+        _findPassWordSuccess = false;
         UserStore.emitChange();
         break;
-
       case UserConstants.FIND_PASSWORD_FAILURE:
         _forgetMsg = '啊哦，网络出错辣！';
         _isForgetting = false;
+        _findPassWordSuccess = false;
         UserStore.emitChange();
         break;
       case UserConstants.FIND_PASSWORD_SUCCESS:

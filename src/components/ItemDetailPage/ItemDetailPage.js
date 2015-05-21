@@ -163,7 +163,7 @@ const ItemDetailPage = React.createClass({
           <div className="inner">
             <div className="words">
               <p className="itemName">{detail.name}</p>
-              <p className="price">¥ {detail.price.toFixed(2)}</p>
+              <p className="price">{detail.price?'¥ ' + detail.price.toFixed(2):'免费'}</p>
             </div>
             {
               detail.tokenoff?

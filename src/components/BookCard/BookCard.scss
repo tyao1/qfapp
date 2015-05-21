@@ -121,12 +121,17 @@ $avartarSize:44px;
         font-size: $LargeFontSize;
         color:$mainColor;
       }
-
+      > .soldOut{
+        display: inline-block;
+        float:right;
+        color:$fontColor2;
+        height: 31px;
+        vertical-align: middle;
+        line-height: 31px;
+      }
       > .ButtonNormal {
         display: inline-block;
-
         float:right;
-
         >span{
           padding: 3px 8px 3px 15px;
           >span{

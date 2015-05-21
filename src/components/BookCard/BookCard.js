@@ -43,8 +43,11 @@ const BookCard = React.createClass({
           <span>{Types[item.type_id]||'未知'}</span>
           <p>{item.name}</p>
           <div className="shop">
-            <span className="price">¥{item.price.toFixed(2)}</span>
-            <ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>
+            <span className="price">{item.price?'¥' + item.price.toFixed(2):'免费'}</span>
+            {
+              item.quality?<ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>:
+                <span className="soldOut">已售空</span>
+            }
           </div>
         </div>
       </div>

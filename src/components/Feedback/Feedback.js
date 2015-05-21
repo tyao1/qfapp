@@ -1,10 +1,12 @@
 'use strict';
 import React from 'react';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-import {close, paperplane} from '../SVGs';
+import {close, paperplane, email} from '../SVGs';
 import ButtonNormal from '../ButtonNormal';
 import Modal from '../Modal';
 import request from 'superagent';
+import InputEffect from '../InputEffect';
+import UserStore from '../../stores/UserStore';
 
 require('./Feedback.scss');
 
@@ -13,7 +15,8 @@ const Feedback = React.createClass({
   getInitialState(){
     return {
       feedOpen: false,
-      text: ''
+      text: '',
+      email: UserStore.getEmail()
     }
   },
   handleShow(){
@@ -41,14 +44,18 @@ const Feedback = React.createClass({
     }
     else if(!this.state.isSubmitting) {
       if (this.state.text.length < 6) {
-        this.setState({realErrMsg: '反馈至少写6个字吧ヾ(✿❛ω❛ฺฺ）ﾉ '});
+        this.setState({realErrMsg: '反馈至少写6个字吧'});
+      }
+      else if(!/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(this.state.email)){
+        this.setState({realErrMsg: '邮箱格式不正确'});
       }
       else {
-        this.setState({isSubmitting: true});
+        this.setState({isSubmitting: true, realErrMsg: ''});
         request
           .post('http://10.60.136.39/index.php/Home/Feedback.json')
           .type('form')
           .send({
+            email: this.state.email,
             content: this.state.text
           })
           .end((err, res) => {
@@ -73,6 +80,9 @@ const Feedback = React.createClass({
     React.unmountComponentAtNode(node);
     node.outerHTML='';
   },
+  handleEmailChange(e){
+    this.setState({email: e.target.value, realErrMsg: ''});
+  },
   render() {
 
     console.log('feedopen', this.state.feedOpen);
@@ -94,7 +104,8 @@ const Feedback = React.createClass({
               <div className="submitForm">
                 <p className="main">提交反馈</p>
                 <p>我们刚刚起步，您的反馈对我们至关重要</p>
-                <textarea value={this.state.text} onChange={this.handleTextChange}></textarea>
+                <InputEffect type="email" tmpPlaceHolder="╰(*°▽°*)╯ 输入邮箱，用于我们给您反馈" label="邮箱" svg={email} value={this.state.email} onChange={this.handleEmailChange}/>
+                <textarea placeholder="输入您的反馈" value={this.state.text} onChange={this.handleTextChange}></textarea>
                 <p>{this.state.realErrMsg}</p>
                 <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'提交反馈'} svg={paperplane} onClick={this.handleRealSubmitClick}/>
               </div>

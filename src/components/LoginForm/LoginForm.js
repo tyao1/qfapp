@@ -20,8 +20,8 @@ const LoginForm = React.createClass({
 
     return {
       username: '',
-      password: '',
-      email: '',
+      password: UserStore.getPassword(),
+      email: UserStore.getEmail(),
       verifyCode: '',
       msg: UserStore.getLoginMsg(),
       userData: UserStore.getUserData(),

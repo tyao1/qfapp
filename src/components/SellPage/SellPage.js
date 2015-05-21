@@ -237,6 +237,9 @@ const SellPage = React.createClass({
                   :null
               }
             </div>
+            <div className="more">
+              懒得一件件输入物品?<br/>关注我们微信公众号qfplan，试试上面的一键回收功能吧～
+            </div>
           </div>
           <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
             {this.state.isSuccessful?
@@ -279,6 +282,9 @@ const SellPage = React.createClass({
               </span>
 
             </div>
+
+
+
           </div>
         </div>
     }
