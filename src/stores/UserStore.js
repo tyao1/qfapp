@@ -166,6 +166,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isRegistering = true;
         _localEmail = action.data.email;
         _localPassword = action.data.password;
+        _regMsg = '';
         UserStore.emitChange();
         localStorage.setItem('tyn', _localEmail);
         localStorage.setItem('typ', _localPassword);
@@ -180,6 +181,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.REG_SUCCESS:
         if (action.data.Code === 0) {
           //成功
+          _regMsg = '';
           _needActivation = true;
         }
         else{
@@ -192,6 +194,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case UserConstants.LOGIN_SUBMIT:
         _isLogining = true;
+        _loginMsg = '';
         _localEmail = action.data.email;
         _localPassword = action.data.password;
         UserStore.emitChange();

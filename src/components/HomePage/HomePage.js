@@ -102,7 +102,7 @@ const HomePage = React.createClass({
                 </li>
                 <li>
                   <h2>售</h2>
-                  <p>在物品售出后，您将会获得属于自己的收入</p>
+                  <p>在物品售出后，您将会获得属于自己的收入（推广期100%哦～）</p>
                 </li>
                 <div className="buyer">
                   <h2>购买</h2>
