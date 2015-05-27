@@ -35,6 +35,10 @@ const AppStore = assign({}, EventEmitter.prototype, {
     return _toTrans;
   },
 
+  getPath(){
+    return _transition?_transition.path:null;
+  },
+
   emitChange() {
     return this.emit(CHANGE_EVENT);
   },

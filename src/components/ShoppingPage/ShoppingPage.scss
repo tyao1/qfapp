@@ -80,7 +80,10 @@ $navWidth: 200px;
     >.main{
 
       padding:0 0 32px 202px;
-
+      >.info{
+        color:$fontColor2;
+        padding:0 0 0 24px;
+      }
 
       >.items {
         min-height:400px;

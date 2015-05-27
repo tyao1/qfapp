@@ -1,63 +1,178 @@
 @import '../../styles/variables.scss';
 $bannerHeightSmall:50px;
+@mixin minibar(){
+  height: $bannerHeightSmall;
 
-.banner{
-  &.miniBanner:not(.notScrolled){
-    height: $bannerHeightSmall;
-    .shoppingCart{
-      width:86px;
+  >.inner{
+    .shoppingCart {
+      width: 86px;
     }
-    >.inner{
-      > .left{
-        > a > svg{
-          height: $bannerHeightSmall;
+    @media only screen and (max-width: $point) {
+
+      .shoppingCart {
+        width: 70px;
+        &.active{
+          width:100%;
         }
-        >.InputNormal{
-          margin-top:($bannerHeightSmall - $inputHeight)/2;
-          padding-top:1px;
-          padding-bottom:1px;
-          >input{
+      }
+    }
+    > .left{
+      > a > svg{
+        height: $bannerHeightSmall;
+      }
+      >.InputNormal{
+        margin-top:($bannerHeightSmall - $inputHeight)/2;
+        padding-top:1px;
+        padding-bottom:1px;
+        >input{
+          height: 32px;
+          line-height: 32px;
+          margin-top: 3px;
+          border: none;
+          border-bottom: 1px solid $subtleFontColor;
+          box-shadow:none;
+          border-radius:3px;
+        }
+      }
+    }
+    >.right{
+      >ul>li{
+        &.user{
+          height: 32px;
+          width: 32px;
+          img{
             height: 32px;
-            line-height: 32px;
-            margin-top: 3px;
-            border: none;
-            border-bottom: 1px solid $subtleFontColor;
-            box-shadow:none;
-            border-radius:3px;
+            width: 32px;
+          }
+        }
+        >a{
+          >span{
+            height:$bannerHeightSmall;
+            line-height:$bannerHeightSmall;
+          }
+          &:after{
+            height:$bannerHeightSmall;
+            line-height:$bannerHeightSmall;
+          }
+
+        }
+      }
+
+    }
+    >.shoppingCart{
+      height:$bannerHeightSmall;
+      line-height:$bannerHeightSmall;
+      >.close{
+        top: 6px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: $point){
+  div.banner {
+    @include minibar();
+
+    >.inner{
+
+      >.left{
+        .hamburger{
+          height:$bannerHeightSmall;
+          width:$bannerHeightSmall;
+          z-index:2;
+          cursor: pointer;
+          padding:0 6px;
+
+          >svg{
+            margin: 8px 0 0 0;
+            fill: #4a4a4a;
+          }
+        }
+        >a{
+          >svg{
+            margin-left: -12px;
+          }
+        }
+        display: flex;
+        padding:0 70px 0 0;
+        .InputNormal{
+          margin-left: 12px;
+          margin-right: 12px;
+
+          width:100%;
+          height:34px;
+          >input{
+            width:100%;
           }
         }
       }
       >.right{
-        >ul>li{
-          &.user{
-            height: 32px;
-            width: 32px;
-            img{
-              height: 32px;
-              width: 32px;
-            }
-          }
-          >a{
-            >span{
-              height:$bannerHeightSmall;
-              line-height:$bannerHeightSmall;
-            }
-            &:after{
-              height:$bannerHeightSmall;
-              line-height:$bannerHeightSmall;
-            }
+        position:fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background:rgba(0,0,0,.8);
+        visibility: hidden;
+        opacity:0;
+        z-index: 9;
+        transition:opacity .23s ease, visibility 0s .23s;
+        &.active{
+          opacity:1;
+          visibility: visible;
+          transition:opacity .23s ease;
+          >ul{
 
+            transform:translate3d(0,0,0);
           }
         }
-        >.shoppingCart{
-          height:$bannerHeightSmall;
-          line-height:$bannerHeightSmall;
-          >.close{
-            top: 6px;
+        >ul{
+          background:$bgColor;
+          height:100%;
+          text-align: center;
+          padding: 17px 10vw;
+          transform:translate3d(-100%,0,0);
+          transition:transform .23s $normalTiming;
+          >li{
+            display:block;
+            margin:3px 0;
+            >a{
+              color:$fontColor!important;
+              &:after{
+                color:$fontColor!important;
+              }
+            }
+            >a.onThis{
+              box-shadow: inset 4px 0 #53DAB0;
+            }
+          }
+          >li.sidebar{
+            display:block;
+          }
+          >li.user{
+            width: 50px!important;
+            height: 50px!important;
+            img{
+              width: 50px!important;
+              height: 50px!important;
+            }
+            >.controls{
+              display: none;
+            }
           }
         }
       }
     }
+
+
+
+
+
+  }
+}
+.banner{
+
+  &.miniBanner:not(.notScrolled){
+    @include minibar();
   }
   &.isHome{
     &.notScrolled{
@@ -84,7 +199,7 @@ $bannerHeightSmall:50px;
         }
 
 
-        .shoppingCart{
+        >.shoppingCart{
           background:none;
           &.active{
             background:$mainColorTint;
@@ -109,6 +224,9 @@ $bannerHeightSmall:50px;
     }
 
   }
+
+
+
 
   background: $bannerBg;
   height:$bannerHeight;
@@ -175,12 +293,20 @@ $bannerHeightSmall:50px;
           display: inline-block;
           padding-right: $bannerHeight;
         >li{
-
+          &.sidebar{
+            display:none;
+          }
           &.user{
             display:inline-block;
             position:relative;
             height: 50px;
             width: 50px;
+            >a{
+              border-radius: 50%;
+            }
+            >a.onThis{
+              box-shadow:0 0 3px $mainColor;
+            }
             &:hover{
               >.controls{
                 visibility:visible;
@@ -232,7 +358,10 @@ $bannerHeightSmall:50px;
             display: inline-block;
 
             @include buttonEffect1(0 12px,25%,$bannerHeight,$normalTiming);
-
+            transition: box-shadow .2s ease-in;
+            &.onThis{
+              box-shadow: inset 0 -4px #53DAB0;
+            }
           }
           >a>img{
             height: ($bannerHeight - 34px);
@@ -246,85 +375,82 @@ $bannerHeightSmall:50px;
         }
       }
 
-      >.shoppingCart{
-        position: absolute;
-        right: 0;
-        height: $bannerHeight;
-        width: $bannerHeight;
+    }
+    >.shoppingCart{
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: $bannerHeight;
+      width: $bannerHeight;
+      display: inline-block;
+      line-height: $bannerHeight;
+      background:$mainColor;
+      margin-left:12px;
+      text-align:center;
+      border:none;
+      outline:none;
+      padding:0 0 0 6px;
+      overflow: hidden;
+      transition: width .1s ease-in-out .3s, height .24s ease, background .23s ease;
+      >span{
+        font-size: $bigFontSize + 2px;
+        color:#fff;
         display: inline-block;
-        line-height: $bannerHeight;
-        background:$mainColor;
-        margin-left:12px;
-        text-align:center;
-        border:none;
-        outline:none;
+        vertical-align: baseline;
         padding:0 0 0 6px;
-        overflow: hidden;
-        transition: width .1s ease-in-out .3s, height .24s ease, background .23s ease;
-        >span{
-          font-size: $bigFontSize + 2px;
-          color:#fff;
-          display: inline-block;
-          vertical-align: baseline;
-          padding:0 0 0 6px;
-          transition:font-size .24s ease;
-        }
+        transition:font-size .24s ease;
+      }
 
+      >.svgWrapper {
+        vertical-align: middle;
+        display: inline-block;
+        > svg {
+          stroke: #fff;
+          width: 20px;
+          height: 18px;
+        }
+        transition:all .24s ease;
+      }
+
+      &:hover{
+        background:$mainColorTint;
+      }
+
+      >.close{
+        visibility: hidden;
+        position:absolute;
+        right: -30px;
+        top: 12px;
+        transition:all .1s ease;
+      }
+      &.active{
+        transition: all .1s ease;
+        padding:0;
+        width:100%;
+        >span {
+          font-size: $LargeFontSize;
+        }
+        >.close{
+          right: 12px;
+          visibility: visible;
+        }
         >.svgWrapper {
           vertical-align: middle;
           display: inline-block;
           > svg {
             stroke: #fff;
-            width: 20px;
-            height: 18px;
-          }
-          transition:all .24s ease;
-        }
-
-        &:hover{
-          background:$mainColorTint;
-        }
-
-        >.close{
-          visibility: hidden;
-          position:absolute;
-          right: -30px;
-          top: 12px;
-          transition:all .1s ease;
-        }
-        &.active{
-          transition: all .1s ease;
-          padding:0;
-          width:100%;
-          >span {
-            font-size: $LargeFontSize;
-          }
-          >.close{
-            right: 12px;
-            visibility: visible;
-          }
-          >.svgWrapper {
-            vertical-align: middle;
-            display: inline-block;
-            > svg {
-              stroke: #fff;
-              width: 30px;
-              height: 27px;
-            }
-          }
-          &.changed{
-            animation:none;
+            width: 30px;
+            height: 27px;
           }
         }
-
         &.changed{
-          animation: cartChanged .3s ease;
+          animation:none;
         }
-
       }
 
-
-
+      &.changed{
+        animation: cartChanged .3s ease;
+      }
 
     }
   }

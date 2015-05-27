@@ -1,11 +1,13 @@
 @import '../../styles/variables.scss';
-
+//  width: 492px;
 .InputLarge {
-  width: 492px;
+  width: 80vw;
+  max-width:492px;
   margin: 98px auto;
   font-size: $bigFontSize;
   >Input {
-    width: 492px;
+    width: 80vw;
+    max-width:492px;
     border: $borderProperty;
     border-radius: 4px;
     line-height: $inputHeight+9;

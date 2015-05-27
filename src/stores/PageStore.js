@@ -180,6 +180,7 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case PageConstants.PAGE_NEW_KEY_WORD:
         _keyWord = action.keyword || '';
+        _keyWord = _keyWord.trim();
         let transition = AppStore.getTransition();
         console.log('transition',transition);
         if(!transition || transition.pathname!==('/shop'))

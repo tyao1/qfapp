@@ -11,7 +11,7 @@ import UserActions from '../../actions/UserActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import cn from 'classnames';
 
-import {coffecup, logo, shoppingcart, close, search} from '../SVGs';
+import {coffecup, logo, shoppingcart, close, search, hamburger} from '../SVGs';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import RegForm from '../RegForm';
@@ -21,18 +21,17 @@ import PageActions from '../../actions/PageActions';
 
 require('./Banner.scss');
 
-function getIsHome(){
-  return {isHome: AppStore.getIsHome()};
-}
-
 const Banner = React.createClass({
   //不用担心不必要的rerender辣
   mixins: [PureRenderMixin],
 
   _onAppChange(){
-    let tmp = getIsHome();
-    this.setState(tmp);
-    if(tmp.isHome) {
+    let isHome = AppStore.getIsHome();
+    this.setState({
+      isHome,
+      path: AppStore.getPath()
+    });
+    if(isHome) {
       this._onScroll();
     }
   },
@@ -72,20 +71,24 @@ const Banner = React.createClass({
   getInitialState(){
     return {
       isHome: AppStore.getIsHome(),
+      path: AppStore.getPath(),
       userData: UserStore.getUserData(),
       itemsCount: CartStore.getItemsCount(),
       cartOpen: false,
-      searchText: ''
+      searchText: '',
+      sidebar: false
     };
   },
 
 
   componentWillMount() {
-    window.addEventListener('scroll', this._onScroll);
     AppStore.addChangeListener(this._onAppChange);
     UserStore.addChangeListener(this._onUserChange);
     CartStore.addChangeListener(this._onCartChange);
     PageStore.addChangeListener(this._onPageChange);
+  },
+  componentDidMount(){
+    window.addEventListener('scroll', this._onScroll);
   },
   componentWillUnmount(){
     AppStore.removeChangeListener(this._onAppChange);
@@ -155,6 +158,13 @@ const Banner = React.createClass({
     let text = this.state.searchText.substr(0,20);
     PageActions.setNewKeyword(text);
   },
+  handleSidebarToggle(){
+    console.log('sidebar!!', this.state.sidebar)
+    this.setState({sidebar: !this.state.sidebar});
+  },
+  handleInnerClick(event){
+    event.stopPropagation();
+  },
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -166,18 +176,20 @@ const Banner = React.createClass({
     }
 
     let controls;
-
+    console.log('path!' , this.state.path);
     if(this.state.userData){
       let avatar = this.state.userData.path.replace('Uploads/','Uploads/Thumb/');
-      controls = <ul>
-        <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
-        <li><Link to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
-        <li><Link to="my" data-text="我的订单" params={{section: 'buy'}}><span>我的订单</span></Link></li>
+      controls = <ul onClick={this.handleInnerClick}>
+        <li><Link className={this.state.path==='/shop'?'onThis':null} to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
+        <li><Link className={this.state.path==='/sell'?'onThis':null} to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
+        <li><Link className={this.state.path==='/my/buy'?'onThis':null} to="my" data-text="我的订单" params={{section: 'buy'}}><span>我的订单</span></Link></li>
+        <li className="sidebar"><Link className={this.state.path==='/my/sell'?'onThis':null} to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link></li>
+        <li className="sidebar"><a onClick={this.handleLogout} data-text="登出"><span>登出</span></a></li>
         <li className="user">
-          <Link to="my" params={{section: 'info'}}><img key={avatar} src={avatar}/></Link>
+          <Link className={this.state.path==='/my/info'?'onThis':null} to="my" params={{section: 'info'}}><img key={avatar} src={avatar}/></Link>
           <ul className="controls">
             <li><Link to="my" data-text="我的售卖" params={{section: 'sell'}}><span>我的售卖</span></Link></li>
-            <li onClick={this.handleLogout}>登出</li>
+            <li><a onClick={this.handleLogout} data-text="登出"><span>登出</span></a></li>
           </ul>
         </li>
       </ul>;
@@ -185,7 +197,7 @@ const Banner = React.createClass({
     }
     else
     {
-      controls = <ul>
+      controls = <ul onClick={this.handleInnerClick}>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><a data-text="登录" onClick={this.handleLoginClick}><span>登录</span></a></li>
         <li className="special"><a data-text="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
@@ -202,19 +214,20 @@ const Banner = React.createClass({
       <div className={classes}>
         <div className="inner">
           <div className="left">
+            <div className="hamburger" onClick={this.handleSidebarToggle}>{hamburger}</div>
             <Link to="home">{logo}</Link>
-            <InputNormal type="text" autocomplete="off" placeholder="找找闲置的宝贝" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}>
+            <InputNormal type="text" placeholder="找找闲置的宝贝" svg={coffecup} value={this.state.searchText} onChange={this.handleSearchChange} onKeyUp={this.handleSearchKey} onBlur={this.handleSearchBlur}>
               <div className="searchButton" onClick={this.handleSearchBlur}>{search}</div>
             </InputNormal>
           </div>
-          <div className="right">
+          <div className={`right${this.state.sidebar?' active':''}`} onClick={this.handleSidebarToggle}>
             {controls}
-            <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
-              <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
-                <div className="close">{close}</div>
-            </button>
           </div>
 
+          <button className={`shoppingCart${this.state.cartOpen?' active':''}${this.state.isChanged?' changed':''}`} onClick={this.handleShoppingCartClick}>
+            <div className="svgWrapper">{shoppingcart}</div><span>{this.state.itemsCount}</span>
+            <div className="close">{close}</div>
+          </button>
         </div>
         <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
           <Cart onCartClose={this.handleShoppingCartClose}/>

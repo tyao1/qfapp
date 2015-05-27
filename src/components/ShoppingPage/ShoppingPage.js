@@ -88,6 +88,7 @@ const ShoppingPage = React.createClass({
         max = this.state.currentPage;
       }
     }
+
     return (
 
       <div className="shoppingPage">
@@ -103,6 +104,7 @@ const ShoppingPage = React.createClass({
             </div>
           </div>
           <div className="main">
+            <p className="info">{`${this.state.currentKeyword?'找找看'+this.state.currentKeyword:'浏览宝贝'}，第${this.state.currentPage}页`}</p>
             <div className="items">
               {elem}
             </div>

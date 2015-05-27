@@ -61,6 +61,14 @@ $inputHeight:40px;          //输入框高度
 $bounceTiming: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 $normalTiming: cubic-bezier(.87,.35,.49,.92);
 
+
+/*
+    Break points
+*/
+$point: 1024px;
+
+
+
 /*
     各种方法
 */
@@ -80,9 +88,15 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
   max-width:$pageMaxWidth;
-  width:$pageMaxWidth;
   margin:0 auto;
+  width:1024px;
+
+  @media only screen and (max-width: $point) {
+    width:auto;
+  }
+
 }
+//width:$pageMaxWidth;
 
 //普通元素加一个阴影提供视觉上的突出
 @mixin dropShadow(){

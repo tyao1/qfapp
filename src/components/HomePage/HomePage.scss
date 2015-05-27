@@ -10,6 +10,38 @@
     background-size: cover;
     overflow: hidden;
     position: relative;
+    @media only screen and (max-width: $point) {
+      height:600px;
+      > div.inner {
+        padding: 24px;
+        > .how > .inner {
+          padding: 24px;
+          > li {
+
+            display: block;
+            width: 100%;
+            margin: 12px auto;
+            h2 {
+              display: none;
+            }
+            p {
+
+              width: 100%;
+              text-align: center;
+            }
+
+          }
+          > .buyer {
+            margin: 0 0 12px 0;
+            h2 {
+              padding: 12px 0 0 0;
+              border-top: none;
+
+            }
+          }
+        }
+      }
+    }
     > .inner {
       margin: auto;
       text-align: center;
@@ -153,6 +185,31 @@
     background-color: $mainColorTint;
     position: relative;
     padding: 24px 0;
+
+    @media only screen and (max-width: $point) {
+      height:auto;
+
+      >div.inner {
+        > .left {
+          float: none;
+          width: 100%;
+          text-align: center;
+          margin: 24px auto;
+          > .more {
+            max-width: 100%;
+          }
+        }
+        >svg{
+          top:0;
+        }
+        >.right {
+          float: none;
+          width: 100%;
+          margin: 24px auto;
+        }
+      }
+    }
+
     > svg {
       width: 100%;
       position: absolute;
@@ -220,6 +277,23 @@
     background:$footerBg url('./footerbg.svg') repeat-x;
     color:#D8D8D8;
     border-top: 1px solid #696;
+
+    @media only screen and (max-width: $point) {
+      height:auto;
+      >div.inner {
+        > .left, > .leftOne, > .right {
+          display: block;
+          width: 100%;
+          text-align: center;
+          margin:32px auto;
+          >h3{
+            max-width:100%;
+          }
+        }
+      }
+
+    }
+
     >.inner{
         height:100%;
         position:relative;

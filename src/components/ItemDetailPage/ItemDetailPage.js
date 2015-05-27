@@ -194,7 +194,7 @@ const ItemDetailPage = React.createClass({
                     max?
                       <ButtonNormal text="加入购物车" svg={shoppingcart} onClick={this.handleBuyClick}/>
                       :
-                      <ButtonNormal text="没有存货" svg={shoppingcart} />
+                      <ButtonNormal text="卖完了" svg={shoppingcart} />
                   }
                 </div>
             }
@@ -234,7 +234,9 @@ const ItemDetailPage = React.createClass({
                 </ul>
                 <div className="detail">
                   <p className="quote">"</p>
-                  <p>{detail.detail?detail.detail:'(ง •̀_•́)ง┻━┻卖家很懒，什么介绍都没写～'}</p>
+                  <p>{detail.detail?
+                    detail.detail.split('\\n').map( para => <p>{para}</p>)
+                    :'(ง •̀_•́)ง┻━┻卖家很懒，什么介绍都没写～'}</p>
                 </div>
               </div>
             </main>

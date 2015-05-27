@@ -166,11 +166,14 @@ $aroundPadding: 12px;
         position:relative;
         padding:24px 0 0 24px;
         color:$fontColor1;
+        p{
+          margin:.325em 0;
+        }
         >.quote{
           font-size:$xxLargeFontSize;
           position:absolute;
           color:$mainColorTint;
-          top: 0;
+          top: -14px;
           left: 0;
           margin: 0;
           font-family:$headingFontFamilyChn;
