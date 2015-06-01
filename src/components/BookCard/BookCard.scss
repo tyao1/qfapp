@@ -3,6 +3,42 @@
 $mainHeight : 338px;
 $topHeight : 198px;
 $avartarSize:44px;
+
+@media only screen and (max-width: $pointCards) {
+  div.bookCard {
+    width: 153px;
+    height: $mainHeight * 0.6375;
+    > .top {
+      height: $topHeight * 0.6375;
+    }
+    > .content {
+      height: $mainHeight * 0.6375 - $topHeight * 0.6375;
+      padding:6px 9px;
+      >.seller{
+        height:$avartarSize * 0.6375;
+        width:$avartarSize * 0.6375;
+        top:-$avartarSize * 0.6375 /2;
+
+      }
+      >p{
+        font-size:$fontSize;
+        height:auto;
+
+      }
+      >.shop{
+        margin-top:7px;
+        >.price{
+          font-size:$bigFontSize;
+        }
+        >.ButtonNormal{
+          margin-top: -3px;
+          border-color: rgba(0,0,0,.1);
+        }
+      }
+    }
+
+  }
+}
 .bookCard{
   text-align: left;
   width:240px;

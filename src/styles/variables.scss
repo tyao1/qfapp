@@ -65,8 +65,15 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
 /*
     Break points
 */
+//normal bp
 $point: 1024px;
+//heade bp
+$pointHeader: 988px;
+$pointSectionMinor: 821px;
+$pointModal: 660px;
+$pointCards: 800px;
 
+$pointPhone: 366px;
 
 
 /*
@@ -84,16 +91,12 @@ $point: 1024px;
   font-family : $headingCustomFamily, $headingFontFamilyEng, $headingFontFamilyChn;
 }
 
-
+//debug
 //定义display:block元素宽度并局中
 @mixin maxWidth() {
   max-width:$pageMaxWidth;
   margin:0 auto;
-  width:1024px;
-
-  @media only screen and (max-width: $point) {
-    width:auto;
-  }
+  width:auto;
 
 }
 //width:$pageMaxWidth;

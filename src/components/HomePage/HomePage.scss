@@ -186,7 +186,7 @@
     position: relative;
     padding: 24px 0;
 
-    @media only screen and (max-width: $point) {
+    @media only screen and (max-width: $pointSectionMinor) {
       height:auto;
 
       >div.inner {
@@ -278,7 +278,7 @@
     color:#D8D8D8;
     border-top: 1px solid #696;
 
-    @media only screen and (max-width: $point) {
+    @media only screen and (max-width: $pointSectionMinor) {
       height:auto;
       >div.inner {
         > .left, > .leftOne, > .right {

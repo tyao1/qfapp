@@ -175,7 +175,7 @@ const Banner = React.createClass({
       classes = cn('banner', {miniBanner: this.state.miniBanner});
     }
 
-    let controls;
+    let controls, modals;
     console.log('path!' , this.state.path);
     if(this.state.userData){
       let avatar = this.state.userData.path.replace('Uploads/','Uploads/Thumb/');
@@ -201,13 +201,14 @@ const Banner = React.createClass({
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><a data-text="登录" onClick={this.handleLoginClick}><span>登录</span></a></li>
         <li className="special"><a data-text="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
-        <Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
+      </ul>;
+      modals = <div><Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
           <LoginForm/>
         </Modal>
         <Modal isOpen = {this.state.modalRegIsOpen} onClose = {this.handleRegClose}>
           <RegForm/>
         </Modal>
-      </ul>;
+      </div>
     }
 
     return (
@@ -232,6 +233,7 @@ const Banner = React.createClass({
         <div className={`cartWrapper${this.state.cartOpen?' active':''}`}>
           <Cart onCartClose={this.handleShoppingCartClose}/>
         </div>
+        {modals}
       </div>
     );
   }

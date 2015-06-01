@@ -8,7 +8,35 @@ $navWidth: 200px;
     @include maxWidth();
     padding-top: $bannerHeight + 32px;
 
+    @media only screen and (max-width: $pointHeader) {
+      >div.nav {
+        top:0;
+        padding:62px 0 8px 0;;
+        width:100%;
+        z-index:6;
+        background:$bgColor;
+        >h3{
+          display:none;
+        }
+        > .types {
+          white-space: nowrap;
+          overflow-x:auto;
+          display:inline-block;
+          > .ButtonNormal {
+            overflow:hidden;
+            display:inline-block;
+            margin:0 12px;
+            &.active {
+              visibility: visible;
+            }
+
+          }
+
+        }
+      }
+    }
     >.nav{
+
       text-align: center;
       padding:14px;
       width: $navWidth;
@@ -76,8 +104,16 @@ $navWidth: 200px;
       }
     }
 
-
+    @media only screen and (max-width: $pointHeader) {
+      >div.main{
+        padding:0 0 32px;
+        >.info{
+          text-align: center;
+        }
+      }
+    }
     >.main{
+
 
       padding:0 0 32px 202px;
       >.info{
@@ -86,7 +122,22 @@ $navWidth: 200px;
       }
 
       >.items {
-        min-height:400px;
+
+
+        @media only screen and (max-width: $point) {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        @media only screen and (max-width: $pointPhone) {
+          >div.bookCard{
+            margin: 0 3px 24px 3px;
+            float:none;
+          }
+        }
+
+
+          min-height:400px;
         >.failure{
           padding: 20vh 0 34px;
           text-align: center;

@@ -15,9 +15,18 @@
   .inputEffect{
     margin:32px 0 17px;
   }
+
+  @media only screen and (max-width: $pointModal) {
+    textarea {
+      width: 100%!important;
+    }
+  }
   textarea{
     width:470px;
     height:180px;
+
+
+
     background:rgba(255,255,255,.6);
     border-radius:$borderRadius;
     padding:17px 24px;

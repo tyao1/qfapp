@@ -21,4 +21,13 @@
     }
 
   }
+  @media only screen and (max-width: $pointPhone) {
+    >.bookCard {
+      margin: 0 3px 24px 3px;
+    }
+    .bookCard:nth-child(4n){
+      margin-right: 3px;
+    }
+
+  }
 }

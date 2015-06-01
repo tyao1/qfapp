@@ -4,10 +4,8 @@ $bannerHeightSmall:50px;
   height: $bannerHeightSmall;
 
   >.inner{
-    .shoppingCart {
-      width: 86px;
-    }
-    @media only screen and (max-width: $point) {
+
+    @media only screen and (max-width: $pointHeader) {
 
       .shoppingCart {
         width: 70px;
@@ -68,14 +66,16 @@ $bannerHeightSmall:50px;
     }
   }
 }
-@media only screen and (max-width: $point){
+@media only screen and (max-width: $pointHeader){
   div.banner {
     @include minibar();
 
     >.inner{
 
       >.left{
+        width:100%;
         .hamburger{
+          display:block;
           height:$bannerHeightSmall;
           width:$bannerHeightSmall;
           z-index:2;
@@ -111,7 +111,7 @@ $bannerHeightSmall:50px;
         right:0;
         top:0;
         bottom:0;
-        background:rgba(0,0,0,.8);
+        background:rgba(0,0,0,.3);
         visibility: hidden;
         opacity:0;
         z-index: 9;
@@ -220,6 +220,7 @@ $bannerHeightSmall:50px;
         color: $fontColor;
         position:absolute;
         background:none;
+
       }
     }
 
@@ -244,6 +245,9 @@ $bannerHeightSmall:50px;
     position:relative;
     >.left{
       float:left;
+      >.hamburger{
+        display:none;
+      }
       >a{
         display: inline-block;
         float: left;
@@ -424,6 +428,7 @@ $bannerHeightSmall:50px;
         transition:all .1s ease;
       }
       &.active{
+        z-index: 3;
         transition: all .1s ease;
         padding:0;
         width:100%;
@@ -466,7 +471,9 @@ $bannerHeightSmall:50px;
     .cart {
       padding-top:$bannerHeight + 32px;
       transform: translate3d(0,-100%,0);
-      transition:all .3s $bounceTiming
+      transition:all .3s $bounceTiming;
+    max-width: 1024px;
+      margin: 0 auto;
     }
     &.active{
       background: $subtleFontColor2;

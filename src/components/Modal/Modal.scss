@@ -1,5 +1,15 @@
 @import '../../styles/variables.scss';
 
+@media only screen and (max-width: $pointModal) {
+  div.modal{
+    >.inner{
+      width:100%;
+      padding:0;
+    }
+
+  }
+}
+
 .modal{
   .ButtonNormal {
     overflow: visible;
@@ -13,6 +23,7 @@
   height: 100%;
   z-index:5;
   transition:background .3s $normalTiming;
+
   &.ready{
     @include verticalCenter1();
   }
@@ -31,7 +42,7 @@
     padding:46px;
     border-radius:0 0 9px 9px;
     position:relative;
-
+    max-width:100%;
     >.deco{
       content:'';
       background:url('./popupbg.svg');
