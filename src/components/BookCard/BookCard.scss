@@ -10,7 +10,14 @@ $avartarSize:44px;
     height: $mainHeight * 0.6375;
     > .top {
       height: $topHeight * 0.6375;
+
+        > .detail {
+          > span {
+            margin-top: 42px;
+          }
+        }
     }
+
     > .content {
       height: $mainHeight * 0.6375 - $topHeight * 0.6375;
       padding:6px 9px;
@@ -23,7 +30,7 @@ $avartarSize:44px;
       >p{
         font-size:$fontSize;
         height:auto;
-
+        white-space: nowrap;
       }
       >.shop{
         margin-top:7px;

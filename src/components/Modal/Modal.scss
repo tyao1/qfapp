@@ -4,7 +4,10 @@
   div.modal{
     >.inner{
       width:100%;
-      padding:0;
+      padding: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
   }

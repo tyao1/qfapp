@@ -120,11 +120,11 @@ const SellOrders = React.createClass({
       </div>;
     }
     else{
-      if(items && items.length<8){
-        max = this.state.currentPage;
+      if(items && items.length>=8){
+        max = 999999999;
       }
       else{
-        max = 1;
+        max = this.state.currentPage;
       }
       switch (this.state.key){
         case OrderConstants.ORDER_KEY:
@@ -174,7 +174,7 @@ const SellOrders = React.createClass({
         {elem}
       </div>
       <div className="pagination">
-        <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+        <Counter isPage={true} initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
       </div>
       <Modal isOpen={this.state.modalCancelIsOpen} onClose={this.handleCloseModal}>
         {this.state.isSuccessful?

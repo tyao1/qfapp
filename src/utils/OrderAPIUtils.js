@@ -52,7 +52,7 @@ const OrderAPIUtils = {
           .get('http://10.60.136.39/index.php/Manager/BookDetail.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             status,
-            start: page,
+            start: (page - 1) * NUMBER + 1,
             count: NUMBER
           })
           .end(function(err, res){
@@ -76,7 +76,7 @@ const OrderAPIUtils = {
           .get('http://10.60.136.39/index.php/Manager/Application.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             status,
-            start: page,
+            start: (page - 1) * NUMBER + 1,
             count: NUMBER
           })
           .end(function(err, res){
@@ -100,7 +100,7 @@ const OrderAPIUtils = {
           .query({
             type: 0,
             status,
-            start: page,
+            start: (page - 1) * NUMBER + 1,
             count: NUMBER
           })
           .end(function(err, res){
@@ -124,7 +124,7 @@ const OrderAPIUtils = {
           .query({
             type: 1,
             status,
-            start: page,
+            start: (page - 1) * NUMBER + 1,
             count: NUMBER
           })
           .end(function(err, res){

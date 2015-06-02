@@ -159,12 +159,10 @@ const Banner = React.createClass({
     PageActions.setNewKeyword(text);
   },
   handleSidebarToggle(){
-    console.log('sidebar!!', this.state.sidebar)
+    //console.log('sidebar!!', this.state.sidebar)
     this.setState({sidebar: !this.state.sidebar});
   },
-  handleInnerClick(event){
-    event.stopPropagation();
-  },
+
   render() {
     let isHome = this.state.isHome;
     let classes;
@@ -179,7 +177,7 @@ const Banner = React.createClass({
     console.log('path!' , this.state.path);
     if(this.state.userData){
       let avatar = this.state.userData.path.replace('Uploads/','Uploads/Thumb/');
-      controls = <ul onClick={this.handleInnerClick}>
+      controls = <ul>
         <li><Link className={this.state.path==='/shop'?'onThis':null} to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><Link className={this.state.path==='/sell'?'onThis':null} to="sell" data-text="出售物品"><span>出售物品</span></Link></li>
         <li><Link className={this.state.path==='/my/buy'?'onThis':null} to="my" data-text="我的订单" params={{section: 'buy'}}><span>我的订单</span></Link></li>
@@ -192,15 +190,18 @@ const Banner = React.createClass({
             <li><a onClick={this.handleLogout} data-text="登出"><span>登出</span></a></li>
           </ul>
         </li>
+        <li className="sidebar"><a onClick={this.handleSidebarToggle} data-text="关闭"><span>关闭</span></a></li>
       </ul>;
 
     }
     else
     {
-      controls = <ul onClick={this.handleInnerClick}>
+      controls = <ul>
         <li><Link to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>
         <li><a data-text="登录" onClick={this.handleLoginClick}><span>登录</span></a></li>
         <li className="special"><a data-text="注册清风" onClick={this.handleRegClick}><span>注册清风</span></a></li>
+        <li className="sidebar"><a onClick={this.handleSidebarToggle} data-text="关闭"><span>关闭</span></a></li>
+
       </ul>;
       modals = <div><Modal isOpen = {this.state.modalLoginIsOpen} onClose = {this.handleLoginClose}>
           <LoginForm/>

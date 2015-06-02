@@ -109,7 +109,7 @@ const ShoppingPage = React.createClass({
               {elem}
             </div>
             <div className="pagination">
-              <Counter initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+              <Counter isPage={true} initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
             </div>
 
           </div>

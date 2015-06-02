@@ -69,7 +69,6 @@ $bannerHeightSmall:50px;
 @media only screen and (max-width: $pointHeader){
   div.banner {
     @include minibar();
-
     >.inner{
 
       >.left{
@@ -88,6 +87,7 @@ $bannerHeightSmall:50px;
           }
         }
         >a{
+
           >svg{
             margin-left: -12px;
           }
@@ -218,7 +218,6 @@ $bannerHeightSmall:50px;
 
       >.cartWrapper{
         color: $fontColor;
-        position:absolute;
         background:none;
 
       }
@@ -249,6 +248,7 @@ $bannerHeightSmall:50px;
         display:none;
       }
       >a{
+        width: 60px;
         display: inline-block;
         float: left;
         >svg{
@@ -468,11 +468,12 @@ $bannerHeightSmall:50px;
     bottom:0;
     transition:all .4s ease;
     visibility: hidden;
+    overflow: auto;
     .cart {
       padding-top:$bannerHeight + 32px;
       transform: translate3d(0,-100%,0);
       transition:all .3s $bounceTiming;
-    max-width: 1024px;
+      max-width: 1024px;
       margin: 0 auto;
     }
     &.active{

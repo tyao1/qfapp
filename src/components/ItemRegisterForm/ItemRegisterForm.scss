@@ -3,12 +3,34 @@
 
 // 于是用了Google的Material Design……
 // 改了下classname
+@media only screen and (max-width: $pointSellForm) {
+  div.itemRegisterForm {
+    min-width:0;
+    height:auto;
+    >.left {
+      width:100%;
+      float:none;
+      text-align: center;
+      >.inputEffectLong,>.inputEffect{
+        margin:0 0 40px 12px;
+        width:auto;
+        text-align: left;
+      }
+    }
+    >.right{
+      width:100%;
+      float:none;
+    }
+  }
 
+
+
+}
 .itemRegisterForm {
   display: block;
   width: 100%;
   color:#fff;
-  min-width:1000px;
+  min-width:1010px;
   height: 300px;
   background: $mainColorTint;
   border-radius: $borderRadius;

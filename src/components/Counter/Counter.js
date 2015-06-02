@@ -42,10 +42,10 @@ const Counter = React.createClass({
   render: function(){
     return (
       <div className="counter">
-        <button className={`minus${this.props.initValue<=this.props.min?' notAllowed':''}`} type="button" onClick={this.minusOne}>-</button>
+        <button className={`minus${this.props.initValue<=this.props.min?' notAllowed':''}`} type="button" onClick={this.minusOne}>{this.props.isPage?'<':'-'}</button>
         <input className="number" type="text" pattern="[0-9]*" value={this.props.initValue}
                onChange={this.handleChange}></input>
-        <button className={`plus${this.props.initValue>=this.props.max?' notAllowed':''}`} type="button" onClick={this.plusOne}>+</button>
+        <button className={`plus${this.props.initValue>=this.props.max?' notAllowed':''}`} type="button" onClick={this.plusOne}>{this.props.isPage?'>':'+'}</button>
       </div>
     );
   }

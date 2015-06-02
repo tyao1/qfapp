@@ -83,7 +83,12 @@
     }
 
     >.controls{
-      margin:24px auto 0;
+      @media only screen and (max-width: $pointSellForm) {
+        >button.ButtonNormal{
+          margin:13px 21px 0 0;
+        }
+      }
+        margin:24px auto 0;
       text-align: center;
       >.ButtonNormal{
         margin: 0 21px 0 0;

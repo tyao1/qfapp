@@ -110,6 +110,12 @@ $navWidth: 200px;
         >.info{
           text-align: center;
         }
+        >.items {
+          min-height:0;
+          >.failure {
+            padding-top:32px;
+          }
+        }
       }
     }
     >.main{
@@ -120,6 +126,7 @@ $navWidth: 200px;
         color:$fontColor2;
         padding:0 0 0 24px;
       }
+
 
       >.items {
 

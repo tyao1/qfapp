@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart} from '../SVGs';
+import {addtocart} from '../SVGs';
 import CartActions from '../../actions/CartActions';
 import DetailActions from '../../actions/DetailActions';
 import router from '../../router';
@@ -45,7 +45,7 @@ const BookCard = React.createClass({
           <div className="shop">
             <span className="price">{item.price?'¥' + item.price.toFixed(2):'免费'}</span>
             {
-              item.quality?<ButtonNormal text="购买" svg={shoppingcart} onClick={this.handleBuyClick}/>:
+              item.quality?<ButtonNormal text="购买" svg={addtocart} onClick={this.handleBuyClick}/>:
                 <span className="soldOut">已售空</span>
             }
           </div>

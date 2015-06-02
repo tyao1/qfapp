@@ -14,8 +14,13 @@
       height:600px;
       > div.inner {
         padding: 24px;
+        >.InputLarge,>.InputLarge>input{
+          width:100%;
+        }
         > .how > .inner {
           padding: 24px;
+
+
           > li {
 
             display: block;

@@ -9,7 +9,7 @@ import DetailConstants from '../../constants/DetailConstants';
 import Counter from '../Counter';
 
 import ButtonNormal from '../ButtonNormal';
-import {shoppingcart, time, itemsleft, renren, weibo, tencent, douban, qzone, wechat} from '../SVGs';
+import {addtocart, time, itemsleft, renren, weibo, tencent, douban, qzone, wechat} from '../SVGs';
 
 import BookCard from '../BookCard';
 import QRCode from 'qrcode.react';
@@ -192,9 +192,9 @@ const ItemDetailPage = React.createClass({
                   </div>
                   {
                     max?
-                      <ButtonNormal text="加入购物车" svg={shoppingcart} onClick={this.handleBuyClick}/>
+                      <ButtonNormal text="加入购物车" svg={addtocart} onClick={this.handleBuyClick}/>
                       :
-                      <ButtonNormal text="卖完了" svg={shoppingcart} />
+                      <ButtonNormal text="卖完了" svg={addtocart} />
                   }
                 </div>
             }

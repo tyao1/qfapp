@@ -66,7 +66,7 @@ $normalTiming: cubic-bezier(.87,.35,.49,.92);
     Break points
 */
 //normal bp
-$point: 1024px;
+$point: 1030px;
 //heade bp
 $pointHeader: 988px;
 $pointSectionMinor: 821px;
@@ -74,8 +74,8 @@ $pointModal: 660px;
 $pointCards: 800px;
 
 $pointPhone: 366px;
-
-
+$pointDetail: 650px;
+$pointSellForm: 1020px;
 /*
     各种方法
 */
@@ -96,7 +96,8 @@ $pointPhone: 366px;
 @mixin maxWidth() {
   max-width:$pageMaxWidth;
   margin:0 auto;
-  width:auto;
+  width:100%;
+  max-width:1024px;
 
 }
 //width:$pageMaxWidth;

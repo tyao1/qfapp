@@ -5,6 +5,7 @@
   padding:0 0 32px 0;
   >.inner {
     @include maxWidth();
+    min-width:1000px;
     padding:$bannerHeight + 36px 0 0 0;
     @include clearfix();
     >.left {
@@ -98,7 +99,10 @@
     }
 
     >.right{
-      padding: 0 12px 0 348px;
+      background:$bgColor;
+      margin: 0 12px 0 348px;
+      z-index: 1;
+      position: relative;
     }
 
 

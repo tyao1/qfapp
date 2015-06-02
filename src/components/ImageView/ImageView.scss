@@ -4,7 +4,17 @@ $width: 648px;
 $height: 648/16*9px;
 .imageView{
 
+  @media only screen and (max-width: $pointDetail) {
 
+    >div.images {
+      width:auto;
+      height:auto;
+      >img:nth-child(1) {
+        height:auto;
+      }
+    }
+
+  }
 
   >.images{
     width:$width;

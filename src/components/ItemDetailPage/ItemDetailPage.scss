@@ -12,6 +12,98 @@ $sellerHeight: 100px;
 
 $aroundPadding: 12px;
 
+
+@media only screen and (max-width: $point) {
+  div.itemDetailPage {
+
+    > .brief {
+
+      height: auto;
+      > .inner {
+        padding: 6px 6px 17px 6px;
+        @include clearfix();
+        > .words {
+          position: relative;
+          width: auto;
+          display: inline-block;
+          vertical-align: middle;
+          bottom: auto;
+          padding:13px 6px;
+        }
+        .controls {
+          float: right;
+          box-shadow: none;
+          display: inline-block;
+          margin: 0;
+          vertical-align: middle;
+          &.isScrolled {
+            position: relative;
+            top: auto;
+          }
+        }
+      }
+    }
+
+    main{
+      >.inner{
+        padding:8px;
+      }
+    }
+
+
+  }
+}
+
+@media only screen and (max-width: $pointDetail) {
+  div.itemDetailPage {
+
+    > .brief > .inner {
+
+      > .words {
+        display: block;
+        float: none;
+        width: 100%;
+        text-align: center;
+        > .price {
+          font-size: $bigFontSize;
+        }
+      }
+      > .controls {
+        float: none;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+    main > .inner {
+      > .brief {
+        text-align:center;
+        > li {
+          margin: 0 17px 0 0;
+          &:nth-child(2){
+            margin-right:0;
+          }
+        }
+      }
+    }
+    .seller{
+      >.inner{
+        >.info{
+          float:none;
+        }
+        >.share {
+          >span{
+            display: none;
+          }
+          margin:21px 0 0 0;
+          float:none;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+
 .itemDetailPage {
   animation:entering .3s ease;
   padding:0 0 $sellerHeight + $bannerHeight 0;
@@ -120,6 +212,15 @@ $aroundPadding: 12px;
       h2{
         font-size:$bigFontSize;
       }
+
+      @media only screen and (max-width: $pointDetail) {
+
+        >div.gallery {
+          width:100%;
+        }
+
+      }
+
       >.gallery{
         width:647px;
         margin-top:29px;
@@ -136,6 +237,7 @@ $aroundPadding: 12px;
 
       >.brief{
         padding:32px 0;
+        clear: both;
         >li{
           margin:0 70px 0 0;
           display:inline-block;
