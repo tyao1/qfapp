@@ -38,8 +38,8 @@ function trans(){
 
 }
 
-function cleanCache(key, second = 60){
-  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 60 min
+function cleanCache(key, second = 10){
+  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 30s
 }
 function refresh(){
   let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
