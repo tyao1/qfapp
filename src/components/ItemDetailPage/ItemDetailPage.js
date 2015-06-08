@@ -19,6 +19,8 @@ import DetailActions from '../../actions/DetailActions';
 import ImageView from '../ImageView';
 import Modal from '../Modal';
 
+import UserStore from '../../stores/UserStore';
+import ItemPriceChange from '../ItemPriceChange';
 require('./ItemDetailPage.scss');
 
 function thisUrl(){
@@ -47,6 +49,13 @@ const ItemDetailPage = React.createClass({
       });
     }
   },
+
+  _onUserChange(){
+    this.setState({
+      username: UserStore.getUserName()
+    });
+  },
+
   _onScroll(){
     this.setState({
       isScrolled: window.pageYOffset > 42
@@ -56,17 +65,20 @@ const ItemDetailPage = React.createClass({
     return {
       detail: DetailStore.getDetail(),
       num: 1,
-      wechatOpen: false
+      wechatOpen: false,
+      username: UserStore.getUserName()
     };
   },
 
   componentWillMount(){
     DetailStore.addChangeListener(this._onDetailChange);
+    UserStore.addChangeListener(this._onUserChange);
     window.addEventListener('scroll', this._onScroll);
 
   },
   componentWillUnmount(){
     DetailStore.removeChangeListener(this._onDetailChange);
+    UserStore.removeChangeListener(this._onUserChange);
     window.removeEventListener('scroll', this._onScroll);
 
   },
@@ -164,6 +176,7 @@ const ItemDetailPage = React.createClass({
             <div className="words">
               <p className="itemName">{detail.name}</p>
               <p className="price">{detail.price?'¥ ' + detail.price.toFixed(2):'免费'}</p>
+              {detail.nickname===this.state.username?<ItemPriceChange key={detail.goods_id} initValue={detail.price} id={detail.goods_id}/>:null}
             </div>
             {
               detail.tokenoff?

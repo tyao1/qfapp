@@ -70,7 +70,6 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
     case AppConstants.TRANSITION:
       _transition = action.data;
       console.log('transition',action.data);
-
       AppStore.emitChange();
       break;
     case AppConstants.NEED_LOGIN:

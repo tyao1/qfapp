@@ -14,9 +14,20 @@ const CHANGE_EVENT = 'CHANGE_DetailStore';
 
 let _items = Immutable.Map();
 let _curId = -1;
+let _updatingPrice = false;
+let _msgPrice = '';
+let _successPrice = false;
 
 const DetailStore = assign({}, EventEmitter.prototype, {
-
+  getUpdatingPrice(){
+    return _updatingPrice;
+  },
+  getMsgPrice(){
+    return _msgPrice;
+  },
+  getSuccessPrice(){
+    return _successPrice;
+  },
   getCurId(){
     return _curId;
   },
@@ -97,6 +108,30 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case DetailConstants.PAGE_FAILURE:
         _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_FAILURE);
+        DetailStore.emitChange();
+        break;
+      case DetailConstants.UPDATE_PRICE:
+        _msgPrice = '';
+        _successPrice = false;
+        _updatingPrice = true;
+        break;
+      case DetailConstants.UPDATE_PRICE_FAILURE:
+        _updatingPrice = false;
+        _successPrice = false;
+        _msgPrice = '网络错误 >.<';
+        DetailStore.emitChange();
+        break;
+      case DetailConstants.UPDATE_PRICE_SUCCESS:
+        _updatingPrice = false;
+        if(action.data.body.Code ===0){
+          _successPrice = true;
+          let {id, price} = action.data;
+          _items = _items.updateIn([id, 'price'], () => price);
+        }
+        else{
+          _successPrice = false;
+          _msgPrice = action.data.body.msg;
+        }
         DetailStore.emitChange();
         break;
       default:

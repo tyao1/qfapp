@@ -80,11 +80,13 @@ const UserStore = assign({}, EventEmitter.prototype, {
     if(_userData) {
       return _userData.telephone;
     }
+    else return null;
   },
   getAli(){
     if(_userData) {
       return _userData.alipay;
     }
+    else return null;
   },
   getForgetMsg(){
     return _forgetMsg;
@@ -105,7 +107,7 @@ const UserStore = assign({}, EventEmitter.prototype, {
   },
 
   getUserName(){
-    return _userData?_userData.nickname:'';
+    return (_userData?_userData.nickname:'');
   },
   getUserData(){
     return _userData;
