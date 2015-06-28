@@ -226,7 +226,7 @@ const RegForm = React.createClass({
         <InputEffect type="password" className={this.state.isValid2===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 仅含字母数字@，6-16位" label="密码" svg={passkey} value={this.state.password} onChange={this.handleChange2} onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
         <InputEffect type="text" className={this.state.isValid1===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 小于16位" label="昵称" svg={user} value={this.state.nickname} onChange={this.handleChange1} onBlur={this.handleBlur1} onKeyUp={this.handleEnterClick}/>
         <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"  svg={email} value={this.state.verifyCode} onChange={this.handleChange4} onBlur={this.handleBlur4} onKeyUp={this.handleEnterClick}>
-          <img className="verify" src={'http://10.60.136.39/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
+          <img className="verify" src={'http://115.29.136.30/index.php/Home/Verify.png?time='+this.state.needVerify} onClick={this.handleVerifyImgClick}/>
         </InputEffect>
         <ButtonNormal text={this.state.isRegistering?'注册中……':'注册'} onClick={this.handleClick}/>
 

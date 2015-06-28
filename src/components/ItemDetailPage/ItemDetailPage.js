@@ -189,7 +189,7 @@ const ItemDetailPage = React.createClass({
                       max?
                         <Counter initValue={this.state.num} OnValueChange={this.handleCounterChange} max={max} min={1}/>
                         :
-                        <Counter initValue={0} max={0}/>
+                        <Counter initValue={0} max={0} min={0}/>
                     }
 
                   </div>

@@ -4,7 +4,7 @@ import UserActions from '../actions/UserActions';
 const UserAPIUtils = {
   register(data){
     request
-      .post('http://10.60.136.39/index.php/Home/User.json')
+      .post('http://115.29.136.30/index.php/Home/User.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -18,7 +18,7 @@ const UserAPIUtils = {
   },
   login(data){
     request
-      .post('http://10.60.136.39/index.php/Home/Login.json')  //SHOULD BE POST //.get('mocklogin.json')
+      .post('http://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST //.get('mocklogin.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -48,7 +48,7 @@ const UserAPIUtils = {
 
   applySell(data){
     request
-      .post('http://10.60.136.39/index.php/Manager/Application.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .post('http://115.29.136.30/index.php/Manager/Application.json')  //SHOULD BE POST //.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -63,7 +63,7 @@ const UserAPIUtils = {
 
   changeInfo(data){
     request
-      .put('http://10.60.136.39/index.php/Manager/UserData.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .put('http://115.29.136.30/index.php/Manager/UserData.json')  //SHOULD BE POST //.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -78,7 +78,7 @@ const UserAPIUtils = {
 
   findPassword(data){
     request
-      .post('http://10.60.136.39/index.php/Home/Forget.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .post('http://115.29.136.30/index.php/Home/Forget.json')  //SHOULD BE POST //.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -92,14 +92,14 @@ const UserAPIUtils = {
   },
   logout(){
     request
-      .put('http://10.60.136.39/index.php/Home/Logout.json')
+      .put('http://115.29.136.30/index.php/Home/Logout.json')
       .end(function(){});
   },
 
 
   uploadAvatar(data){
     request
-      .put('http://10.60.136.39/index.php/Manager/ImgModify.json')
+      .put('http://115.29.136.30/index.php/Manager/ImgModify.json')
       .type('form')
       .send({imgData:data})
       .end(function(err, res){

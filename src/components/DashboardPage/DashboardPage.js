@@ -121,7 +121,7 @@ const DashboardPage = React.createClass({
           <div className="left">
               <ul>
                 <li>
-                  <p className="subtle">买买买</p>
+                  <p className="subtle">我的订单</p>
                   <Link to="my" params={{section: 'buy'}}><span>我的订单</span></Link>
                   <div className="controls">
                     {
@@ -132,7 +132,7 @@ const DashboardPage = React.createClass({
                   </div>
                 </li>
                 <li>
-                  <p  className="subtle">卖卖卖</p>
+                  <p  className="subtle">我的卖单</p>
                   <Link to="my" params={{section: 'sell'}}><span>上线物品</span></Link>
                   <div className="controls">
                     <ButtonNormal className={`ButtonNormal ${this.state.status3===0?' active':''}`} text="上线物品" onClick = {this.handleOnSaleSection(0)}/>
@@ -151,7 +151,7 @@ const DashboardPage = React.createClass({
                   </div>
                 </li>
                 <li>
-                  <p  className="subtle">我的清风</p>
+                  <p  className="subtle">我的信息</p>
                   <Link to="my" params={{section: 'info'}}><span>个人信息</span></Link>
                 </li>
               </ul>

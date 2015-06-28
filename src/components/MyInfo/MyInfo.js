@@ -134,7 +134,7 @@ const MyInfo = React.createClass({
       else{
         this.setState({isChanging: true});
         request
-          .post('http://10.60.136.39/index.php/Manager/PSModify.json')
+          .post('http://115.29.136.30/index.php/Manager/PSModify.json')
           .type('form')
           .send({
             old: this.state.old,

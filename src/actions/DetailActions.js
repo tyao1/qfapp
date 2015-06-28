@@ -2,6 +2,7 @@
 
 import Dispatcher from '../core/Dispatcher';
 import DetailConstants from '../constants/DetailConstants';
+import DetailAPIUtils from '../utils/DetailAPIUtils.js';
 import router from '../router';
 export default {
 
@@ -38,7 +39,7 @@ export default {
         price
       }
     });
-
+    DetailAPIUtils.updatePrice({id, price});
   },
   updatePriceSuccess({body, id, price}){
     Dispatcher.handleServerAction({

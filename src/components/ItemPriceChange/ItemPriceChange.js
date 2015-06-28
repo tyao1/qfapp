@@ -1,3 +1,4 @@
+//initValue: int
 
 'use strict';
 
@@ -7,6 +8,8 @@ import {edit} from '../SVGs';
 import Modal from '../Modal';
 import DetailActions from '../../actions/DetailActions';
 import DetailStore from '../../stores/DetailStore';
+import ButtonNormal from '../ButtonNormal';
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
 require('./ItemPriceChange.scss');
 
@@ -18,6 +21,7 @@ function priceToFloat(price){
 }
 
 const ItemPriceChange = React.createClass({
+  mixins: [PureRenderMixin],
 
   getInitialState(){
     return {
@@ -92,7 +96,7 @@ const ItemPriceChange = React.createClass({
       if(price[price.length-1]==='.'){
         price.substring(0,price.length-1)
       }
-      price = parseFloat(price);
+      price = parseFloat(price).toFixed(2);
       DetailActions.updatePrice({
         id: this.props.id,
         price
@@ -102,12 +106,12 @@ const ItemPriceChange = React.createClass({
   render() {
     return (
       <div className="itemPriceChange">
-        <div className="svgWrapper" onClick={this.state.modalOpen}>
+        <div className="svgWrapper" onClick={this.handleModalToggle}>
           {edit}
         </div>
         <Modal isOpen={this.state.modalOpen} onClose={this.handleModalToggle}>
 
-          <h2>价格就修改</h2>
+          <h2>价格修改</h2>
           <p>{this.state.msgPrice}</p>
           {this.state.successPrice?
             <div className="inner">
@@ -118,7 +122,7 @@ const ItemPriceChange = React.createClass({
             <div className="inner">
               <div className="inputEffect price">
                 <span>¥</span>
-                <input type="text" value={data.price} onChange={this.handlePriceChange}/>
+                <input type="text" value={this.state.price} onChange={this.handlePriceChange}/>
                 <label className='active'>价格</label>
                 <div className="controls">
                   <button onClick={this.addPrice}>+</button>

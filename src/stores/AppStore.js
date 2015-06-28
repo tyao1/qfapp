@@ -17,9 +17,16 @@ const CHANGE_EVENT = 'CHANGE_AppStore';
 let _transition;
 let _toTrans;
 
+let _modalLoginIsOpen = false;
+let _modalRegisterIsOpen = false;
 
 const AppStore = assign({}, EventEmitter.prototype, {
-
+  getLoginModal(){
+    return _modalLoginIsOpen;
+  },
+  getRegModal(){
+    return _modalRegisterIsOpen;
+  },
   getIsHome(){
     if(_transition){
      return (_transition.path === '/');
@@ -61,6 +68,7 @@ const AppStore = assign({}, EventEmitter.prototype, {
     });
   }
 
+
 });
 
 AppStore.dispatcherToken = Dispatcher.register((payload) => {
@@ -74,13 +82,32 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
     case AppConstants.NEED_LOGIN:
       _toTrans = action.data;
-      router.transitionTo('/');
+      //router.transitionTo('/');
+      _modalLoginIsOpen = true;
       AppStore.emitChange();
       break;
-
+    case AppConstants.TOGGLE_LOGIN:
+      _modalLoginIsOpen = !_modalLoginIsOpen;
+      AppStore.emitChange();
+      break;
+    case AppConstants.TOGGLE_REG:
+      _modalRegisterIsOpen = !_modalRegisterIsOpen;
+      AppStore.emitChange();
+      break;
     default:
-      if(action.data&&action.data.body&&action.data.body.Code===1007&&UserStore.getUserData()){
-        AppStore.requireLogin();
+      if(action.data&&action.data.body){
+        if(action.data.body.Code===1007&&Object.keys(action.data.body).length===2){
+          AppStore.requireLogin();
+        }
+        if(action.data.body.Code===1008){
+          setTimeout(()=> {
+
+            NotificationActions.addNotification(
+              `>_<需要填写手机号`
+            );
+          });
+          router.transitionTo('/my/info');
+        }
       }
       break;
       // Do nothing

@@ -96,7 +96,7 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
             signature
           });
           //删除缓存内容
-          setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 60 * 2);
+          //setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 30);
         }
         else if(action.data.body.Code===1041) {
           _items = _items.set(action.data.key, DetailConstants.DETAIL_KEY_NOT_FOUND);
@@ -130,7 +130,8 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
         }
         else{
           _successPrice = false;
-          _msgPrice = action.data.body.msg;
+          _msgPrice = action.data.body.Msg;
+          console.log(action.data.body);
         }
         DetailStore.emitChange();
         break;

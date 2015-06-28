@@ -1,6 +1,43 @@
 @import '../../styles/variables.scss';
 
 .itemPriceChange{
+  >.modal>.inner{
+    text-align:center;
+  }
+  .svgWrapper{
+    cursor: pointer;
+  }
 
+  .inputEffect {
+    margin:23px auto;
+    &.price {
+      > span {
+        position: absolute;
+        left: 5px;
+        top: 10px;
+        font-size: $bigFontSize;
+      }
+      >input{
+         padding-left:18px;
+      }
 
+    }
+    .controls{
+      position:absolute;
+      right:0;
+      top:12px;
+      >button{
+        background:none;
+        outline:none;
+        border:1px solid transparent;
+        border-radius: 50%;
+      }
+      >button:hover{
+        border:1px solid $subtleFontColor1;
+      }
+      >button:active {
+        transform:translate3d(0,1px,0);
+      }
+    }
+  }
 }

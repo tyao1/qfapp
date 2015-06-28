@@ -18,6 +18,7 @@ import RegForm from '../RegForm';
 import Cart from '../Cart';
 
 import PageActions from '../../actions/PageActions';
+import AppActions from '../../actions/AppActions';
 
 require('./Banner.scss');
 
@@ -29,7 +30,9 @@ const Banner = React.createClass({
     let isHome = AppStore.getIsHome();
     this.setState({
       isHome,
-      path: AppStore.getPath()
+      path: AppStore.getPath(),
+      modalLoginIsOpen: AppStore.getLoginModal(),
+      modalRegIsOpen: AppStore.getRegModal()
     });
     if(isHome) {
       this._onScroll();
@@ -61,12 +64,18 @@ const Banner = React.createClass({
 
   yOffset:0,
   _onScroll(){
-    const yOff = window.pageYOffset;
-    this.setState({
-      isScrolled: yOff > 574-84,
-      miniBanner: yOff >= this.yOffset
-      });
-    this.yOffset = yOff;
+    requestAnimationFrame(()=>{
+      const yOff = window.pageYOffset;
+      let state = {
+        miniBanner: yOff >= this.yOffset
+      };
+      if(this.state.isHome){
+        state.isScrolled = yOff > 574-84;
+      }
+      this.setState(state);
+      this.yOffset = yOff;
+    });
+
   },
   getInitialState(){
     return {
@@ -76,7 +85,9 @@ const Banner = React.createClass({
       itemsCount: CartStore.getItemsCount(),
       cartOpen: false,
       searchText: '',
-      sidebar: false
+      sidebar: false,
+      modalLoginIsOpen: AppStore.getLoginModal(),
+      modalRegIsOpen: AppStore.getRegModal()
     };
   },
 
@@ -122,16 +133,16 @@ const Banner = React.createClass({
   },
 
   handleLoginClick(){
-    this.setState({modalLoginIsOpen: true});
+    AppActions.toggleLogin();
   },
   handleLoginClose(){
-    this.setState({modalLoginIsOpen: false});
+    AppActions.toggleLogin();
   },
   handleRegClick(){
-    this.setState({modalRegIsOpen: true});
+    AppActions.toggleReg();
   },
   handleRegClose(){
-    this.setState({modalRegIsOpen: false});
+    AppActions.toggleReg();
   },
   handleShoppingCartClick(){
     this.setState({cartOpen: !this.state.cartOpen});

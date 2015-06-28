@@ -178,6 +178,7 @@ $pointSellForm: 1020px;
     @if($padding!= "") {padding: $padding;}
     @include btnTrans();
     display: inline-block;
+    will-change: transform, opacity;
   }
   &:after{
     content: attr(data-text);

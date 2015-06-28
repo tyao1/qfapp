@@ -237,6 +237,8 @@ $bannerHeightSmall:50px;
   right:0;
   transition:background .24s ease,box-shadow .24s ease,height .24s ease;
   z-index:20;
+  will-change: height;
+
   >.inner{
     z-index: 1;
     @include maxWidth();

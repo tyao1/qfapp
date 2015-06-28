@@ -29,6 +29,16 @@ export default {
       actionType: AppConstants.NEED_LOGIN,
       data
     });
+  },
+  toggleLogin(){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.TOGGLE_LOGIN
+    });
+  },
+  toggleReg(){
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.TOGGLE_REG
+    });
   }
 
 };

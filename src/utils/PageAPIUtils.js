@@ -10,7 +10,7 @@ const PageAPIUtils = {
   },
   getItems(keyWord, type_id, page){
     request
-      .get('http://10.60.136.39/index.php/Home/Search.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
+      .get('http://115.29.136.30/index.php/Home/Search.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
       .query({keyWord, type_id, page})
       .end(function(err, res){
         if(err){
@@ -31,7 +31,7 @@ const PageAPIUtils = {
 
   getHome(){
     request
-      .get('http://10.60.136.39/index.php/Home/Latest.json')//.post('http://10.60.136.39/qfplan/index.php/Home/Login.json')  //SHOULD BE POST
+      .get('http://115.29.136.30/index.php/Home/Latest.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({

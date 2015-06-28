@@ -9,6 +9,7 @@ import UserStore from '../../stores/UserStore.js';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import FormValidation from '../../mixins/FormValidation';
 import InputEffect from '../InputEffect';
+import AppActions from '../../actions/AppActions';
 
 //require('./LoginForm.scss');
 
@@ -209,6 +210,9 @@ const LoginForm = React.createClass({
 
     }
   },
+  handleGoReg(){
+    AppActions.toggleReg();
+  },
   render(){
     let regForm;
     if(this.state.userData){
@@ -251,7 +255,7 @@ const LoginForm = React.createClass({
                          svg={email} value={this.state.verifyCode}
                          onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
               <img className="verify"
-                   src={'http://10.60.136.39/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
+                   src={'http://115.29.136.30/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
                    onClick={this.handleVerifyImgClick}/>
             </InputEffect>
             :
@@ -259,6 +263,7 @@ const LoginForm = React.createClass({
           }
           <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
           <ButtonNormal className="ButtonNormal minor" text="忘记密码" onClick={this.handleChangeType}/>
+          <ButtonNormal className="ButtonNormal minor" text="注册" onClick={this.handleGoReg}/>
 
         </div>;
       }

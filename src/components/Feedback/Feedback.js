@@ -52,7 +52,7 @@ const Feedback = React.createClass({
       else {
         this.setState({isSubmitting: true, realErrMsg: ''});
         request
-          .post('http://10.60.136.39/index.php/Home/Feedback.json')
+          .post('http://115.29.136.30/index.php/Home/Feedback.json')
           .type('form')
           .send({
             email: this.state.email,

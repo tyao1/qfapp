@@ -8,6 +8,8 @@ export default keyMirror({
   LEAVE_HOME: null,
   TRANSITION: null,
   NEED_LOGIN: null,
-  NO_NEED_LOGIN: null
+  NO_NEED_LOGIN: null,
+  TOGGLE_LOGIN: null,
+  TOGGLE_REG: null
 
 });
