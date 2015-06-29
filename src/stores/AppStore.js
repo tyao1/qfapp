@@ -20,6 +20,11 @@ let _toTrans;
 let _modalLoginIsOpen = false;
 let _modalRegisterIsOpen = false;
 
+
+function isNeedLogin(){
+
+}
+
 const AppStore = assign({}, EventEmitter.prototype, {
   getLoginModal(){
     return _modalLoginIsOpen;
@@ -82,7 +87,6 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
     case AppConstants.NEED_LOGIN:
       _toTrans = action.data;
-      //router.transitionTo('/');
       _modalLoginIsOpen = true;
       AppStore.emitChange();
       break;
@@ -97,6 +101,10 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
     default:
       if(action.data&&action.data.body){
         if(action.data.body.Code===1007&&Object.keys(action.data.body).length===2){
+          //transition to index
+          if(_transition.path&&(_transition.path.indexOf('/my')>=0||_transition.path.indexOf('/sell')>=0)){
+            router.transitionTo('/');
+          }
           AppStore.requireLogin();
         }
         if(action.data.body.Code===1008){
