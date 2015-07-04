@@ -47,5 +47,10 @@ export default {
     Dispatcher.handleViewAction({
       actionType: PageConstants.PAGE_REFRESH_HOME
     });
+  },
+  toggleHideSold(){
+    Dispatcher.handleViewAction({
+      actionType: PageConstants.PAGE_TOGGLE_HIDE_SOLD
+    });
   }
 }

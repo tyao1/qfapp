@@ -17,6 +17,8 @@ export default keyMirror({
   PAGE_CHANGE_TYPE: null,
 
   PAGE_REFRESH: null,
-  PAGE_REFRESH_HOME:null
+  PAGE_REFRESH_HOME:null,
+
+  PAGE_TOGGLE_HIDE_SOLD:null
 
 });

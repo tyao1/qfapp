@@ -20,6 +20,7 @@ let _keyWord = '';
 let _page = 1;
 let _typeId = '000000';
 let _failMsg ='';
+let _hideSold = false;
 
 function trans(){
   let keyWord = _keyWord;
@@ -39,7 +40,7 @@ function trans(){
 }
 
 function cleanCache(key, second = 10){
-  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 30s
+  setTimeout(()=>{_items = _items.delete(key); }, 1000 * second);//cache for 10s
 }
 function refresh(){
   let item = _items.get(PageAPIUtils.Id(_keyWord, _typeId, _page));
@@ -52,7 +53,9 @@ function refresh(){
 }
 
 const PageStore = assign({}, EventEmitter.prototype, {
-
+  getHideSold(){
+    return _hideSold;
+  },
   getType(){
     return _typeId;
   },
@@ -206,6 +209,11 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         _items = _items.set(PageConstants.PAGE_KEY_HOME, PageConstants.PAGE_KEY_NULL);
         //开始异步获取数据
         PageAPIUtils.getHome();
+        break;
+
+      case PageConstants.PAGE_TOGGLE_HIDE_SOLD:
+        _hideSold = !_hideSold;
+        PageStore.emitChange();
         break;
       default:
          //

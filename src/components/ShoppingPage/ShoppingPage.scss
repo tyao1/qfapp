@@ -125,6 +125,11 @@ $navWidth: 200px;
       >.info{
         color:$fontColor2;
         padding:0 0 0 24px;
+        >label{
+          margin:0 0 0 12px;
+          padding:0 0 0 3px;
+          cursor:pointer;
+        }
         >.refresh{
           margin:0 0 0 6px;
           border-bottom:1px currentColor dotted;

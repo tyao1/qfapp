@@ -28,7 +28,8 @@ const ShoppingPage = React.createClass({
       failMsg: PageStore.getFailMsg(),
       currentType: PageStore.getType(),
       currentPage: PageStore.getPage(),
-      currentKeyword: PageStore.getKeyWord()
+      currentKeyword: PageStore.getKeyWord(),
+      hideSold: PageStore.getHideSold()
     });
   },
 
@@ -37,7 +38,8 @@ const ShoppingPage = React.createClass({
       items: PageStore.getItems(),
       currentType: PageStore.getType(),
       currentPage: PageStore.getPage(),
-      currentKeyword: PageStore.getKeyWord()
+      currentKeyword: PageStore.getKeyWord(),
+      hideSold: PageStore.getHideSold()
     };
   },
   componentWillMount(){
@@ -58,6 +60,9 @@ const ShoppingPage = React.createClass({
   handlePageChange(page){
     PageActions.changePage(page);
   },
+  handleHideSoldChange(){
+    PageActions.toggleHideSold();
+  },
   render() {
     document.title = (this.state.currentKeyword?this.state.currentKeyword+' - ':'' ) + Types[this.state.currentType] + ' - 清风';
     const items = this.state.items;
@@ -75,7 +80,14 @@ const ShoppingPage = React.createClass({
     else
     {
       if(items.length) {
-        elem = items.map(data => <BookCard key={data.goods_id} item={data}/>);
+        elem = items.map(data => {
+          if(this.state.hideSold&&!data.quality) {
+            return null;
+          }
+          else{
+            return <BookCard key={data.goods_id} item={data}/>;
+          }
+        });
         if(items.length>=18){
           max = 999999999;
         }
@@ -104,7 +116,8 @@ const ShoppingPage = React.createClass({
             </div>
           </div>
           <div className="main">
-            <p className="info">{`${this.state.currentKeyword?'找找看'+this.state.currentKeyword:'浏览宝贝'}，第${this.state.currentPage}页`}<span className="refresh" onClick={this.handleRetry}>刷新</span></p>
+            <p className="info">{`${this.state.currentKeyword?'找找看'+this.state.currentKeyword:'浏览宝贝'}，第${this.state.currentPage}页`}<span className="refresh" onClick={this.handleRetry}>刷新</span>
+              <label><input type="checkbox" checked={this.state.hideSold} onChange={this.handleHideSoldChange}/>隐藏已经售出物品</label></p>
             <div className="items">
               {elem}
             </div>
