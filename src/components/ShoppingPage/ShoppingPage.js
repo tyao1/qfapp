@@ -117,7 +117,7 @@ const ShoppingPage = React.createClass({
           </div>
           <div className="main">
             <p className="info">{`${this.state.currentKeyword?'找找看'+this.state.currentKeyword:'浏览宝贝'}，第${this.state.currentPage}页`}<span className="refresh" onClick={this.handleRetry}>刷新</span>
-              <label><input type="checkbox" checked={this.state.hideSold} onChange={this.handleHideSoldChange}/>隐藏已经售出物品</label></p>
+              <label><input type="checkbox" checked={this.state.hideSold} onChange={this.handleHideSoldChange}/>隐藏已售出物品</label></p>
             <div className="items">
               {elem}
             </div>

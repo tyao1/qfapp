@@ -147,7 +147,7 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         _items = _items.set(nextId,Immutable.fromJS({
           id: nextId,
           name: '',
-          price: '0.0',
+          price: '0',
           num: 1,
           time: 5,
           detail: ''

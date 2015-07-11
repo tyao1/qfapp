@@ -37,7 +37,11 @@ export default keyMirror({
   CANCEL_ORDER_FAILURE: null,
   CANCEL_ORDER_SUCCESS: null,
   CANCEL_ORDER_SUBMIT: null,
-  CANCEL_ORDER_NEW: null
+  CANCEL_ORDER_NEW: null,
+
+  UPDATE_PRICE: null,
+  UPDATE_PRICE_SUCCESS: null,
+  UPDATE_PRICE_FAILURE: null
 
 
 

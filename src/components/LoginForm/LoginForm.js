@@ -39,6 +39,7 @@ const LoginForm = React.createClass({
       msg: UserStore.getLoginMsg(),
       userData: UserStore.getUserData(),
       needVerify: UserStore.getLoginVerify(),
+      isLogining: UserStore.getIsLogining(),
       isForgetting: UserStore.getIsForgetting(),
       forgetMsg: UserStore.getForgetMsg(),
       findPassWordSuccess: UserStore.getFindPassWordSuccess()

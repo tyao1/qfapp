@@ -21,28 +21,6 @@ const DetailAPIUtils = {
           });
         }
       });
-  },
-
-  updatePrice({id,price}){
-    request
-      .put('http://115.29.136.30/index.php/Manager/Price.json') //'http://115.29.136.30/index.php/Home/Goods.json' //./mockitemdetail.json
-      .type('form')
-      .send({goods_id:id, price})
-      .end(function(err, res){
-        if(err){
-          DetailActions.updatePriceFailure({
-            err,
-            body: res.body
-          });
-        }
-        else{
-          DetailActions.updatePriceSuccess({
-            body: res.body,
-            id,
-            price
-          });
-        }
-      });
   }
 
 

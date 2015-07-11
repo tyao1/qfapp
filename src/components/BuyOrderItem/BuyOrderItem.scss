@@ -44,12 +44,15 @@ $_itemHeight:166px;
       overflow:hidden;
     }
   }
+  .withButton{
+    display:inline;
+  }
   .minor{
-    margin:0;
+    margin:0 0 3px;
     color:$subtleFontColor2;
   }
   .main{
-    margin:3px 0 0 0;
+    margin:0;
     white-space: nowrap;
     font-size:$bigFontSize;
     &.small{

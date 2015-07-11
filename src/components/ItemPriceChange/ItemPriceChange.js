@@ -6,8 +6,8 @@ import React from 'react';
 
 import {edit} from '../SVGs';
 import Modal from '../Modal';
-import DetailActions from '../../actions/DetailActions';
-import DetailStore from '../../stores/DetailStore';
+import OrderActions from '../../actions/OrderActions';
+import OrderStore from '../../stores/OrderStore';
 import ButtonNormal from '../ButtonNormal';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 
@@ -27,24 +27,24 @@ const ItemPriceChange = React.createClass({
     return {
       price: this.props.initValue || 0.0,
       modalOpen: false,
-      updatingPrice: DetailStore.getUpdatingPrice(),
-      msgPrice: DetailStore.getMsgPrice(),
-      successPrice: DetailStore.getSuccessPrice()
+      updatingPrice: OrderStore.getUpdatingPrice(),
+      msgPrice: OrderStore.getMsgPrice(),
+      successPrice: OrderStore.getSuccessPrice()
     }
   },
   _onDetailChange(){
     this.setState({
-      updatingPrice: DetailStore.getUpdatingPrice(),
-      msgPrice: DetailStore.getMsgPrice(),
-      successPrice: DetailStore.getSuccessPrice()
+      updatingPrice: OrderStore.getUpdatingPrice(),
+      msgPrice: OrderStore.getMsgPrice(),
+      successPrice: OrderStore.getSuccessPrice()
     })
   },
   componentWillMount(){
-    DetailStore.addChangeListener(this._onDetailChange);
+    OrderStore.addChangeListener(this._onDetailChange);
 
   },
   componentWillUnmount(){
-    DetailStore.removeChangeListener(this._onDetailChange);
+    OrderStore.removeChangeListener(this._onDetailChange);
   },
   handleModalToggle(){
     this.setState({
@@ -97,7 +97,7 @@ const ItemPriceChange = React.createClass({
         price.substring(0,price.length-1)
       }
       price = parseFloat(price).toFixed(2);
-      DetailActions.updatePrice({
+      OrderActions.updatePrice({
         id: this.props.id,
         price
       });

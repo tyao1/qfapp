@@ -113,7 +113,41 @@ export default {
     Dispatcher.handleViewAction({
       actionType: OrderConstants.CANCEL_ORDER_NEW
     });
+  },
+
+  //使用deconstruct使代码更可读
+  updatePrice({id, price}){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.UPDATE_PRICE,
+      data: {
+        id,
+        price
+      }
+    });
+    OrderAPIUtils.updatePrice({id, price});
+  },
+  updatePriceSuccess({body, id, price}){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.UPDATE_PRICE_SUCCESS,
+      data:{
+        body,
+        id,
+        price
+      }
+    });
+  },
+  updatePriceFailure({err, body, id, price}){
+    Dispatcher.handleServerAction({
+      actionType: OrderConstants.UPDATE_PRICE_FAILURE,
+      data:{
+        err,
+        body,
+        id,
+        price
+      }
+    });
   }
+
 
 
 }

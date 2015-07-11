@@ -3,6 +3,8 @@
 import React from 'react';
 import OrderAPIUtils from '../../utils/OrderAPIUtils';
 import Types from '../../utils/Types';
+import ItemPriceChange from '../ItemPriceChange';
+
 require('./SellOrderItem.scss');
 
 const SellOrderItem = React.createClass({
@@ -95,8 +97,9 @@ const SellOrderItem = React.createClass({
             <p className="minor">
               单价
             </p>
-            <p className="main">
-              ¥{data.price.toFixed(2)}
+            <p className="main withButton">
+              <span>¥{data.price.toFixed(2)}</span>
+              <ItemPriceChange key={data.goods_id} initValue={data.price} id={data.goods_id}/>
             </p>
           </li>
           <li className="one">

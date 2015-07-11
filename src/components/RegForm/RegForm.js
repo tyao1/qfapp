@@ -34,7 +34,9 @@ const RegForm = React.createClass({
       msg: UserStore.getRegMsg(),
       userData: UserStore.getUserData(),
       needVerify: UserStore.getRegVerify(),
-      needActivation: UserStore.getNeedActivation()
+      needActivation: UserStore.getNeedActivation(),
+      isRegistering: UserStore.getIsRegistering()
+
     });
   },
   componentWillMount() {

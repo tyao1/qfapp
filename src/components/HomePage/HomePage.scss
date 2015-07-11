@@ -6,7 +6,7 @@
     width: 100%;
     height: 574px;
     @include verticalCenter();
-    background: #0E5869 url('./welcomebg.png') no-repeat  center;
+    background: #0E5869 url('./welcomebg.jpg') no-repeat  center;
     background-size: cover;
     overflow: hidden;
     position: relative;
@@ -54,7 +54,7 @@
 
       > .subtle {
         font-size: $bigFontSize;
-        color: #CFCFCF;
+        color: #EFEFEF;
         margin-bottom: 7px;
         @include customFont();
         font-weight: normal;
@@ -73,6 +73,7 @@
         &.opened{
           color:$fontColor;
           border-color:$fontColor;
+          z-index:2;
         }
       }
       > .how {
@@ -88,6 +89,7 @@
         width: 100%;
         height: 100%;
         min-height: 574px;
+        z-index: 1;
         @include verticalCenter();
 
         > .inner {
@@ -253,7 +255,6 @@
         }
         > .huge {
           font-size: $xLargeFontSize;
-          color: #fff;
           margin: 0;
           line-height: 1.18;
           @include customFont();

@@ -30,38 +30,7 @@ export default {
   },
 
 
-  //使用deconstruct使代码更可读
-  updatePrice({id, price}){
-    Dispatcher.handleServerAction({
-      actionType: DetailConstants.UPDATE_PRICE,
-      data: {
-        id,
-        price
-      }
-    });
-    DetailAPIUtils.updatePrice({id, price});
-  },
-  updatePriceSuccess({body, id, price}){
-    Dispatcher.handleServerAction({
-      actionType: DetailConstants.UPDATE_PRICE_SUCCESS,
-      data:{
-        body,
-        id,
-        price
-      }
-    });
-  },
-  updatePriceFailure({body, id, price}){
-    Dispatcher.handleServerAction({
-      actionType: DetailConstants.UPDATE_PRICE_FAILURE,
-      data:{
-        err,
-        body,
-        id,
-        price
-      }
-    });
-  },
+
   refresh(){
     Dispatcher.handleViewAction({
       actionType: DetailConstants.DETAIL_REFRESH

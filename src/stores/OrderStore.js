@@ -47,6 +47,10 @@ options[OrderConstants.OFF_SALE_ORDER_KEY] = {
 };
 
 let _curKey = OrderConstants.ORDER_KEY;
+let _updatingPrice = false;
+let _msgPrice = '';
+let _successPrice = false;
+
 
 function updateFromQuery(key, query){
   _curKey = key;
@@ -126,7 +130,19 @@ function processFailureAction(action, key){
   options[key].failMsg = '网络错误';
 }
 
+
+
+
 const OrderStore = assign({}, EventEmitter.prototype, {
+  getUpdatingPrice(){
+    return _updatingPrice;
+  },
+  getMsgPrice(){
+    return _msgPrice;
+  },
+  getSuccessPrice(){
+    return _successPrice;
+  },
 
   getSubmitMsg(){
     return _submitMsg;
@@ -273,6 +289,39 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         refresh(_curKey);
         OrderStore.emitChange();
         break;
+
+      case OrderConstants.UPDATE_PRICE:
+        _msgPrice = '';
+        _successPrice = false;
+        _updatingPrice = true;
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.UPDATE_PRICE_FAILURE:
+        _updatingPrice = false;
+        _successPrice = false;
+        _msgPrice = '网络错误 >.<';
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.UPDATE_PRICE_SUCCESS:
+        _updatingPrice = false;
+        if(action.data.body.Code ===0){
+          _successPrice = true;
+
+          //先触发一次成功,再刷新当前页面
+          OrderStore.emitChange();
+          _items = Immutable.Map();
+
+          //let {id, price} = action.data;
+          //_items = _items.updateIn([id, 'price'], () => price);
+        }
+        else{
+          _successPrice = false;
+          _msgPrice = action.data.body.Msg;
+          console.log(action.data.body);
+        }
+        OrderStore.emitChange();
+        break;
+
       default:
       // Do nothing
 

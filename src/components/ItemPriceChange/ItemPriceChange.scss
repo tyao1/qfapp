@@ -1,11 +1,16 @@
 @import '../../styles/variables.scss';
 
 .itemPriceChange{
+  display:inline;
   >.modal>.inner{
     text-align:center;
   }
   .svgWrapper{
     cursor: pointer;
+    display:inline;
+    >svg{
+      height:16px;
+    }
   }
 
   .inputEffect {

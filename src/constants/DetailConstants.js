@@ -10,10 +10,6 @@ export default keyMirror({
   DETAIL_FAILURE: null,
   DETAIL_SUCCESS: null,
   DETAIL_NEW: null,
-  DETAIL_REFRESH:null,
-
-  UPDATE_PRICE: null,
-  UPDATE_PRICE_SUCCESS: null,
-  UPDATE_PRICE_FAILURE: null
+  DETAIL_REFRESH:null
 
 });
