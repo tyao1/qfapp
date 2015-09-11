@@ -157,7 +157,7 @@ const LoginForm = React.createClass({
       status.msg = msg;
       if(status.isValid3&&status.isValid2) { //&&(!this.state.needVerify||status.isValid3)
         let {password, email, verifyCode} = this.state;
-        UserAction.login({password, data: email, verifyCode});
+        UserAction.login({password, email, verifyCode});
       }
       else{
         this.setState(status);

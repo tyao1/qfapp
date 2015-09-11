@@ -79,10 +79,8 @@ const AppStore = assign({}, EventEmitter.prototype, {
 
 
 function getToken(data){
-  console.log('fuckkking', data);
   if(!data) return;
   let tokenID = data.TOKENID;
-  console.log('fking', tokenID);
   if(tokenID && _token!==tokenID){
     _token = tokenID;
     setTimeout(()=> {
@@ -94,7 +92,7 @@ function getToken(data){
 
 AppStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
-  getToken(action.data);
+  //getToken(action.data); in new version
   switch (action.actionType) {
     case AppConstants.TRANSITION:
       _transition = action.data;

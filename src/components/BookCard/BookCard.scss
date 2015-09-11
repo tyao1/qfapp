@@ -46,6 +46,10 @@ $avartarSize:44px;
 
   }
 }
+
+/*
+  Big Card
+*/
 .bookCard{
   text-align: left;
   width:240px;
@@ -62,6 +66,18 @@ $avartarSize:44px;
     background:$mainColor;
     position:relative;
     cursor: pointer;
+    display: block;
+    >.official{
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: $mainColor;
+      width: 80px;
+      text-align: center;
+      color: white;
+      transform: rotate(45deg) translate3d(22px, -7px, 0);
+      z-index:2;
+    }
     >img{
       width: 100%;
       min-height: 100%;

@@ -4,11 +4,16 @@ import React from 'react';
 import OrderAPIUtils from '../../utils/OrderAPIUtils';
 import Types from '../../utils/Types';
 import ItemPriceChange from '../ItemPriceChange';
+import DetailActions from '../../actions/DetailActions';
 
 require('./SellOrderItem.scss');
 
 const SellOrderItem = React.createClass({
-
+  handleItemClick(data){
+    return ()=>{
+      DetailActions.getNewDetail(data);
+    }
+  },
   render() {
     const data = this.props.data;
     let time;
@@ -76,10 +81,10 @@ const SellOrderItem = React.createClass({
           </li>
         </ul>
         <ul className="detail">
-          <li className="three">
+          <li className="three itemInfo" onClick={this.handleItemClick(data)}>
             <img src={data.path.replace('Uploads/','Uploads/Thumb/')} />
             <p className="minor">
-              {Types[data.type_id]||'未知'}
+              {Types[data.type_id]||'未知分类'}
             </p>
             <p className="main">
               {data.name}

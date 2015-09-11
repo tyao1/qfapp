@@ -18,7 +18,8 @@ const BookCard = React.createClass({
     item.num = 1;
     CartActions.cartAdd(item);
   },
-  handleDetailClick(){
+  handleDetailClick(e){
+    e.preventDefault();
     DetailActions.getNewDetail(this.props.item);
     console.log('temp detail',this.props.item);
   },
@@ -27,12 +28,18 @@ const BookCard = React.createClass({
     console.log('Book Card', item);
     return (
       <div className="bookCard">
-        <div className="top" onClick={this.handleDetailClick}>
+        <a className="top" onClick={this.handleDetailClick} href={`/#/detail/${this.props.item.goods_id}`}>
+          {
+            this.props.item.user_id===-1?
+              <div className="official">
+                官方
+              </div>:null
+          }
           <div className="detail">
             <span>查看详情</span>
           </div>
           <img src={item.path.replace('Uploads/','Uploads/Thumb/')}/>
-        </div>
+        </a>
         <div className="content">
           <div className="seller">
             <img src={item.upath.replace('Uploads/','Uploads/Thumb/')}/>

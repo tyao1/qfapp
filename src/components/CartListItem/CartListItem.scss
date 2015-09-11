@@ -19,6 +19,17 @@
     vertical-align: middle;
     margin-left: 3%;
     width: 18%;
+    .official{
+      background:$mainColor;
+      font-size: .8em;
+      width: 44px;
+      height: 20px;
+      display: inline-block;
+      text-align: center;
+      border-radius: 9px;
+      margin: 0 0 0 5px;
+      color: white;
+    }
     &.small{
       width:14%;
     }

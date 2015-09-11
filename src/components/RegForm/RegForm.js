@@ -23,14 +23,12 @@ const RegForm = React.createClass({
       password: '',
       email: '',
       verifyCode: '',
-      //msg: UserStore.getRegMsg(),
       userData: UserStore.getUserData(),
       isRegistering: UserStore.getIsRegistering(),
       needVerify: UserStore.getRegVerify()
     };
   },
   _onUserChange(){
-    console.log('user change in reg');
     this.setState({
       msg: UserStore.getRegMsg(),
       userData: UserStore.getUserData(),

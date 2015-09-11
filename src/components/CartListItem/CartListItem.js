@@ -44,7 +44,9 @@ const CartListItem = React.createClass({
         </section>
         <section>
           <span>卖家</span>
-          <p>{item.nickname}</p>
+          <p>{item.nickname}
+            {item.user_id===-1?<span className="official">官方</span>:null}
+          </p>
         </section>
         <section>
           <span>价格</span>

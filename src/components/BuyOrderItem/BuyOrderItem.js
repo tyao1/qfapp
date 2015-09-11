@@ -4,6 +4,8 @@ import React from 'react';
 import OrderAPIUtils from '../../utils/OrderAPIUtils';
 import Types from '../../utils/Types';
 import ButtonNormal from '../ButtonNormal';
+import DetailActions from '../../actions/DetailActions';
+
 require('./BuyOrderItem.scss');
 
 const BuyOrderItem = React.createClass({
@@ -12,6 +14,13 @@ const BuyOrderItem = React.createClass({
       this.props.cancelClick(id);
     }
   },
+
+  handleItemClick(data){
+    return ()=>{
+      DetailActions.getNewDetail(data);
+    }
+  },
+
   render() {
     const data = this.props.data;
     let time;
@@ -74,10 +83,10 @@ const BuyOrderItem = React.createClass({
         {
           data.detail.map( item =>
             <ul key={item.goods_id} className="detail">
-              <li className="three">
+              <li className="three itemInfo" onClick={this.handleItemClick(item)}>
                 <img src={item.path} />
                 <p className="minor">
-                  {Types[item.type_id]||'未知'}
+                  {Types[item.type_id]||'未知分类'}
                 </p>
                 <p className="main">
                   {item.name}
