@@ -20,6 +20,7 @@ let _toTrans;
 let _modalLoginIsOpen = false;
 let _modalRegisterIsOpen = false;
 
+let _token = localStorage.getItem('tfboy') || '';
 
 function isNeedLogin(){
 
@@ -76,9 +77,24 @@ const AppStore = assign({}, EventEmitter.prototype, {
 
 });
 
+
+function getToken(data){
+  console.log('fuckkking', data);
+  if(!data) return;
+  let tokenID = data.TOKENID;
+  console.log('fking', tokenID);
+  if(tokenID && _token!==tokenID){
+    _token = tokenID;
+    setTimeout(()=> {
+      localStorage.setItem('tfboy', _token);
+    }, 0);
+  }
+
+}
+
 AppStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
-
+  getToken(action.data);
   switch (action.actionType) {
     case AppConstants.TRANSITION:
       _transition = action.data;
@@ -100,6 +116,7 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
     default:
       if(action.data&&action.data.body){
+
         if(action.data.body.Code===1007&&Object.keys(action.data.body).length===2){
           //transition to index
           if(_transition.path&&(_transition.path.indexOf('/my')>=0||_transition.path.indexOf('/sell')>=0)){

@@ -2,6 +2,7 @@
 import request from 'superagent';
 import PageActions from '../actions/PageActions';
 import PageConstants from '../constants/PageConstants';
+console.log(API);
 const PageAPIUtils = {
 
 
@@ -10,7 +11,7 @@ const PageAPIUtils = {
   },
   getItems(keyWord, type_id, page){
     request
-      .get('http://115.29.136.30/index.php/Home/Search.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .get(API + '/Home/Search.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
       .query({keyWord, type_id, page})
       .end(function(err, res){
         if(err){
@@ -31,7 +32,7 @@ const PageAPIUtils = {
 
   getHome(){
     request
-      .get('http://115.29.136.30/index.php/Home/Latest.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .get(API + '/Home/Latest.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({

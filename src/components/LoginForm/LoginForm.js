@@ -10,6 +10,7 @@ import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import FormValidation from '../../mixins/FormValidation';
 import InputEffect from '../InputEffect';
 import AppActions from '../../actions/AppActions';
+import Lang from '../../utils/zh-CN';
 
 //require('./LoginForm.scss');
 
@@ -71,7 +72,7 @@ const LoginForm = React.createClass({
     else{
       status = {
         isValid2: false,
-        msg: '密码需要在6-16位之间，且仅含英文字母、数字、@'
+        msg: Lang.PASSWORD_ERROR
       };
     }
     console.log('check password', status);
@@ -95,8 +96,8 @@ const LoginForm = React.createClass({
     else{
       status = {
         isValid3: false,
-        msg: '邮箱格式不正确',
-        forgetMsg: '邮箱格式不正确'
+        msg: Lang.EMAIL_ERROR,
+        forgetMsg: Lang.EMAIL_ERROR
       };
     }
 
@@ -118,7 +119,7 @@ const LoginForm = React.createClass({
     else{
       status = {
         isValid4: false,
-        msg: '验证码格式不符合要求'
+        msg: Lang.VERIFY_ERROR
       };
     }
     this.setState(status);
@@ -133,15 +134,16 @@ const LoginForm = React.createClass({
       }
       else {
         status.isValid2 = false;
-        msg = '密码需要在6-16位之间，且仅含英文字母、数字、@';
+        msg = Lang.PASSWORD_ERROR;
       }
       if(LoginForm.isValidEmail(this.state.email)){
         status.isValid3 = true;
       }
       else {
         status.isValid3 = false;
-        msg = '邮箱格式不正确';
+        msg = Lang.EMAIL_ERROR;
       }
+      /*
       if(this.state.needVerify){
         if(LoginForm.isValidVerify(this.state.verifyCode)){
           status.isValid4 = true;
@@ -151,11 +153,11 @@ const LoginForm = React.createClass({
           msg = '验证码格式不正确';
         }
       }
+      */
       status.msg = msg;
-      console.log('status', status);
-      if(status.isValid3&&status.isValid2&&(!this.state.needVerify||status.isValid3)) {
+      if(status.isValid3&&status.isValid2) { //&&(!this.state.needVerify||status.isValid3)
         let {password, email, verifyCode} = this.state;
-        UserAction.login({password, email, verifyCode});
+        UserAction.login({password, data: email, verifyCode});
       }
       else{
         this.setState(status);
@@ -183,7 +185,7 @@ const LoginForm = React.createClass({
       }
       else {
         status.isValid3 = false;
-        status.forgetMsg = '邮箱格式不正确';
+        status.forgetMsg = Lang.EMAIL_ERROR;
       }
       if(status.isValid3===true) {
         let {email} = this.state;
@@ -251,17 +253,7 @@ const LoginForm = React.createClass({
           <InputEffect type="password" className={this.state.isValid2===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 仅含字母数字@，6-16位" label="密码"
                        svg={passkey} value={this.state.password} onChange={this.handleChange2}
                        onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
-          {this.state.needVerify ?
-            <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"
-                         svg={email} value={this.state.verifyCode}
-                         onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
-              <img className="verify"
-                   src={'http://115.29.136.30/index.php/Home/Verify.png?type=1&time='+this.state.needVerify}
-                   onClick={this.handleVerifyImgClick}/>
-            </InputEffect>
-            :
-            null
-          }
+
           <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
           <ButtonNormal className="ButtonNormal minor" text="忘记密码" onClick={this.handleChangeType}/>
           <ButtonNormal className="ButtonNormal minor" text="注册" onClick={this.handleGoReg}/>
@@ -276,7 +268,20 @@ const LoginForm = React.createClass({
     );
   }
 });
+/*
 
+ {this.state.needVerify ?
+ <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"
+ svg={email} value={this.state.verifyCode}
+ onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
+ <img className="verify"
+ src={API + '/Home/Verify.png?type=1&time='+this.state.needVerify}
+ onClick={this.handleVerifyImgClick}/>
+ </InputEffect>
+ :
+ null
+ }
+ */
 LoginForm.defaultProps = {
 
 };

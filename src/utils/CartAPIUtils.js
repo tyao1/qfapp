@@ -10,7 +10,7 @@ function cartChangeFunc(data, num, backup){
   return ()=>{
   //清除记录
     request
-      .put('http://115.29.136.30/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
+      .put(API + '/Home/CarAdd.json')//.get('mockadditem.json')//put
       .type('form')
       .send({
         goods_id: data,
@@ -49,7 +49,7 @@ const CartAPIUtils = {
    */
   submitOrder(data){
     request
-      .post('http://115.29.136.30/index.php/Manager/Book.json')//.get('mockapplysell.json')
+      .post(API + '/Manager/Book.json')//.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -67,7 +67,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   addItem(data, number=1, backup){
     request
-      .put('http://115.29.136.30/index.php/Home/CarAdd.json')//.get('mockadditem.json')//put
+      .put(API + '/Home/CarAdd.json')//.get('mockadditem.json')//put
       .type('form')
       .send({
         goods_id: data,
@@ -94,7 +94,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   deleteItem(data, backup){
     request
-      .put('http://115.29.136.30/index.php/Home/CarRemove.json')//.get('mockadditem.json')//put
+      .put(API + '/Home/CarRemove.json')//.get('mockadditem.json')//put
       .type('form')
       .send({goods_id: data})
       .end(function(err, res){
@@ -136,7 +136,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   fetchCarts(){
     request
-      .get('http://115.29.136.30/index.php/Home/Car.json')//.get('./mockgetcart.json')////put
+      .get(API + '/Home/Car.json')//.get('./mockgetcart.json')////put
       .end(function(err, res){
         if(err){
           //就返回之前的物品backup

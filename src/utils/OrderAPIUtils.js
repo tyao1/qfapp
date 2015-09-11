@@ -49,7 +49,7 @@ const OrderAPIUtils = {
     switch(keyWord){
       case OrderConstants.ORDER_KEY:
         request
-          .get('http://115.29.136.30/index.php/Manager/BookDetail.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+          .get(API + '/Manager/BookDetail.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             status,
             start: (page - 1) * NUMBER + 1,
@@ -73,7 +73,7 @@ const OrderAPIUtils = {
         break;
       case OrderConstants.APPLY_ORDER_KEY:
         request
-          .get('http://115.29.136.30/index.php/Manager/Application.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+          .get(API + '/Manager/Application.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             status,
             start: (page - 1) * NUMBER + 1,
@@ -96,7 +96,7 @@ const OrderAPIUtils = {
         break;
       case OrderConstants.ON_SALE_ORDER_KEY:
         request
-          .get('http://115.29.136.30/index.php/Manager/Goods.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+          .get(API + '/Manager/Goods.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             type: 0,
             status,
@@ -120,7 +120,7 @@ const OrderAPIUtils = {
         break;
       case OrderConstants.OFF_SALE_ORDER_KEY:
         request
-          .get('http://115.29.136.30/index.php/Manager/Goods.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+          .get(API + '/Manager/Goods.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
           .query({
             type: 1,
             status,
@@ -151,7 +151,7 @@ const OrderAPIUtils = {
    */
   cancelOrder(id, reason){
     request
-      .put('http://115.29.136.30/index.php/Manager/Application.json')
+      .put(API + '/Manager/Application.json')
       .type('form')
       .send({
         app_id: id,
@@ -174,7 +174,7 @@ const OrderAPIUtils = {
   },
   cancelNormalOrder(id){
     request
-      .put('http://115.29.136.30/index.php/Manager/BookCancel.json')
+      .put(API + '/Manager/BookCancel.json')
       .type('form')
       .send({
         book_id: id
@@ -197,7 +197,7 @@ const OrderAPIUtils = {
 
   updatePrice({id,price}){
     request
-      .put('http://115.29.136.30/index.php/Manager/Price.json') //'http://115.29.136.30/index.php/Home/Goods.json' //./mockitemdetail.json
+      .put(API + '/Manager/Price.json') //API + '/Home/Goods.json' //./mockitemdetail.json
       .type('form')
       .send({goods_id:id, price})
       .end(function(err, res){

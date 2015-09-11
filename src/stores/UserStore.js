@@ -218,7 +218,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           {
             router.transitionTo(trans);
           }
-          _userData = action.data.Info;
+          _userData = action.data//.Info;
           _userData.path = _userData.path + '?' + Date.now();
           if(_userData.telephone==='00000000000'){
             _userData.telephone = '';

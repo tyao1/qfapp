@@ -33,6 +33,9 @@ Class命名按功能或特性进行命名（关键是方便他人理解）
 ### React Style Guide
 完全参考facebook官方文档
 将独立的功能拆分成独立的component（便于维护、代码重用、提升性能）
+学习React的好去处
+https://github.com/enaqx/awesome-react
+
 
 ### Flux Style Guide
 关于Flux的一些

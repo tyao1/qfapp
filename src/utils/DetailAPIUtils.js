@@ -5,7 +5,7 @@ const DetailAPIUtils = {
 
   getDetail(data){
     request
-      .get('http://115.29.136.30/index.php/Home/Goods.json') //'http://115.29.136.30/index.php/Home/Goods.json' //./mockitemdetail.json
+      .get(API + '/Home/Goods.json') //API + '/Home/Goods.json' //./mockitemdetail.json
       .query({goods_id:data})
       .end(function(err, res){
         if(err){
