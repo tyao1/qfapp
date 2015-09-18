@@ -133,7 +133,7 @@ const HomePage = React.createClass({
               <h3 className="minor">拥有闲置物品？</h3>
               <h2 className="huge">在清风上出售<br/>享受前所未有的便利</h2>
               <p className="more">
-                只需轻巧键盘，我们就将派人上门收取宝贝<br/>并完成宝贝的拍照、入库、出售所有工作<br/>另外，欢迎关注我们的微信公众号:qfplan，提供更多服务</p>
+                只需轻敲键盘，我们就将派人上门收取宝贝<br/>并完成宝贝的拍照、入库、出售所有工作<br/>另外，欢迎关注我们的微信公众号:qfplan，提供更多服务</p>
             </div>
             <div className="right">
               <RegForm/>
