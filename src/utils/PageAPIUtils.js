@@ -33,6 +33,7 @@ const PageAPIUtils = {
   getHome(){
     request
       .get(API + '/Home/Latest.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .set({token: 'tttttst', form: 'ttttst'})
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({

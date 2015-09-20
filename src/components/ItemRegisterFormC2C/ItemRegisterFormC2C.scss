@@ -1,0 +1,204 @@
+@import '../../styles/variables.scss';
+
+
+// 于是用了Google的Material Design……
+// 改了下classname
+@media only screen and (max-width: $pointSellForm) {
+  div.itemRegisterForm {
+    min-width:0;
+    height:auto;
+    >.left {
+      width:100%;
+      float:none;
+      text-align: center;
+      >.inputEffectLong,>.inputEffect{
+        margin:0 0 40px 12px;
+        width:auto;
+        text-align: left;
+      }
+    }
+    >.right{
+      width:100%;
+      float:none;
+    }
+  }
+
+
+
+}
+.itemRegisterForm {
+  display: block;
+  width: 100%;
+  color:#fff;
+  min-width:1010px;
+  height: 300px;
+  background: $mainColorTint;
+  border-radius: $borderRadius;
+  padding: 46px 32px;
+  position:relative;
+
+
+
+  label{
+    color: $subtleFontColor;
+    font-size: $bigFontSize;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s $normalTiming all;
+  }
+
+  /* active state */
+  label.active, input:focus ~ label{
+    top: -20px;
+    font-size: $bigFontSize - 2px;
+    color: $subtleFontColor;
+  }
+
+  &:after{
+    content:'';
+    position: absolute;
+    left:0;
+    top:0;
+    width:7px;
+    bottom:0;
+    background:url(../ItemRegisterForm/Decoration2.svg) repeat-y;
+  }
+
+  >.left {
+    width: 50%;
+    float: left;
+    padding:0 24px 0 0;
+
+    input , select{
+      font-size: $bigFontSize;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $subtleFontColor2;
+      background: none;
+      outline:none;
+      color:#fff;
+    }
+    select{
+      margin-top: 6px;
+      >option { color: $fontColor; }
+    }
+
+    .controls{
+      position:absolute;
+      right:0;
+      top:12px;
+      >button{
+        background:none;
+        outline:none;
+        border:1px solid transparent;
+        border-radius: 50%;
+      }
+      >button:hover{
+        border:1px solid $subtleFontColor1;
+      }
+      >button:active {
+        transform:translate3d(0,1px,0);
+      }
+    }
+
+    >.inputEffectLong {
+      position:relative;
+      margin:0 22px 44px 0;
+      width:400px;
+      display: inline-block;
+
+    }
+    >.inputEffect {
+         position:relative;
+         margin:0 22px 44px 0;
+         width:189px;
+         display: inline-block;
+
+         &.price {
+           > span {
+             position: absolute;
+             left: 5px;
+             top: 10px;
+             font-size: $bigFontSize;
+           }
+           >input{
+             padding-left:18px;
+           }
+         }
+    }
+  }
+
+  >.delete{
+    position:absolute;
+    right: 6px;
+    top: 12px;
+    cursor: pointer;
+    svg{
+      height:20px;
+      stroke-width: 6px;
+    }
+  }
+
+  >.right{
+    float: right;
+    width:50%;
+    padding:4px 0 0 24px;
+    >.textareaEffect {
+      position: relative;
+      >label{
+        left:12px;
+        top:9px;
+      }
+      >textarea:focus ~ label, >label.active {
+        top: -28px;
+        font-size: $bigFontSize - 2px;
+        color: $subtleFontColor;
+      }
+      >textarea {
+        width: 100%;
+        height: 220px;
+        resize: none;
+        font-size: $bigFontSize;
+        padding: 9px 12px;
+        display: block;
+        border: 1px solid $subtleFontColor2;
+        background: none;
+        outline: none;
+        border-radius: $borderRadius;
+      }
+      >textarea:focus ~ label ~.wordsCount{
+        opacity:1;
+        right:8px;
+        bottom:3px;
+      }
+      >.wordsCount{
+        opacity:0;
+        pointer-events: none;
+        color:$subtleFontColor2;
+        position:absolute;
+        right:4px;
+        bottom:2px;
+        transition:all .2s ease;
+
+      }
+    }
+  }
+
+}
+
+/*
+@keyframes inputHighlighter {
+  from {
+    background: white;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+*/

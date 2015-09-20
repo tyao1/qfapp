@@ -6,6 +6,7 @@ const DetailAPIUtils = {
   getDetail(data){
     request
       .get(API + '/Home/Goods.json') //API + '/Home/Goods.json' //./mockitemdetail.json
+      .set({token: 'tttttst', form: 'testtest'})
       .query({goods_id:data})
       .end(function(err, res){
         if(err){

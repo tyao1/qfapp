@@ -143,7 +143,7 @@ const LoginForm = React.createClass({
         status.isValid3 = false;
         msg = Lang.EMAIL_ERROR;
       }
-
+      /*
       if(this.state.needVerify){
         if(LoginForm.isValidVerify(this.state.verifyCode)){
           status.isValid4 = true;
@@ -153,11 +153,12 @@ const LoginForm = React.createClass({
           msg = Lang.VERIFY_ERROR;
         }
       }
+      */
 
       status.msg = msg;
-      if(status.isValid3&&status.isValid2&&(!this.state.needVerify||status.isValid3)) {
+      if(status.isValid3&&status.isValid2) { //&&(!this.state.needVerify||status.isValid4)
         let {password, email, verifyCode} = this.state;
-        UserAction.login({password, email, verifyCode});
+        UserAction.login({password, data: email, verifyCode});
       }
       else{
         this.setState(status);
@@ -244,17 +245,7 @@ const LoginForm = React.createClass({
           <InputEffect type="password" className={this.state.isValid2===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 仅含字母数字@，6-16位" label="密码"
                        svg={passkey} value={this.state.password} onChange={this.handleChange2}
                        onBlur={this.handleBlur2} onKeyUp={this.handleEnterClick}/>
-          {this.state.needVerify ?
-            <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"
-                         svg={email} value={this.state.verifyCode}
-                         onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
-              <img className="verify"
-                   src={API + '/Home/Verify.png?type=1&time='+this.state.needVerify}
-                   onClick={this.handleVerifyImgClick}/>
-            </InputEffect>
-            :
-            null
-          }
+
           <ButtonNormal text={this.state.isLogining?'登录中……':'登录'} onClick={this.handleClick}/>
           <ButtonNormal className="ButtonNormal minor" text="忘记密码" onClick={this.handleChangeType}/>
           <ButtonNormal className="ButtonNormal minor" text="注册" onClick={this.handleGoReg}/>
@@ -270,8 +261,17 @@ const LoginForm = React.createClass({
   }
 });
 /*
-
-
+ {this.state.needVerify ?
+ <InputEffect type="text" className={this.state.isValid4===false?'invalid': null} tmpPlaceHolder="╰(*°▽°*)╯ 4位" label="验证码"
+ svg={email} value={this.state.verifyCode}
+ onChange={this.handleChange4} onKeyUp={this.handleEnterClick}>
+ <img className="verify"
+ src={API + '/Home/Verify.png?type=1&time='+this.state.needVerify}
+ onClick={this.handleVerifyImgClick}/>
+ </InputEffect>
+ :
+ null
+ }
  */
 LoginForm.defaultProps = {
 

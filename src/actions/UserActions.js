@@ -123,7 +123,31 @@ export default {
       value
     });
   },
+  /*
+    友易
+   */
+  applySellNewC2C(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.APPLY_SELL_NEW_C2C
+    });
+  },
 
+  applySellSubmitC2C(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_SUBMIT_C2C,
+      data
+    });
+    console.log('sell c2c submit', data);
+    UserAPIUtils.applySellC2C(data);
+  },
+
+  changeDataC2C(key, value){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.SELL_CHANGE_DATA_C2C,
+      key,
+      value
+    });
+  },
 
 
   /*

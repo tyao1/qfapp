@@ -30,6 +30,14 @@ export default keyMirror({
   SELL_CHANGE_DATA: null,
   SELL_REMOVE_ITEM: null,
 
+  APPLY_SELL_SUBMIT_C2C: null,
+  APPLY_SELL_SUCCESS_C2C: null,
+  APPLY_SELL_FAILURE_C2C: null,
+  APPLY_SELL_NEW_C2C: null,
+  SELL_NEW_ITEM_C2C:null,
+  SELL_CHANGE_DATA_C2C: null,
+  SELL_REMOVE_ITEM_C2C: null,
+
   ADD_TO_SUBMIT: null,
   REMOVE_FROM_SUBMIT:null,
 

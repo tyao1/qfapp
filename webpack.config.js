@@ -85,7 +85,7 @@ var config = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      API: "'/index.php'",
+      API: "'/api'",
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE

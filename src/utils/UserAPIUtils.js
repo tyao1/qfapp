@@ -1,11 +1,14 @@
 'use strict';
 import request from 'superagent';
 import UserActions from '../actions/UserActions';
+import UserStore from '../stores/UserStore';
+
 const UserAPIUtils = {
   register(data){
     request
-      .post(API + '/Home/User.json')  //Site/RegEmail.json
+      .post(API + '/Site/RegEmail.json')
       .type('form')
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .send(data)
       .end(function(err, res){
         if(err){
@@ -18,7 +21,8 @@ const UserAPIUtils = {
   },
   login(data){
     request
-      .post(API + '/Home/Login.json')  // /Site/Login.json
+      .post(API + '/Site/Login.json')
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .type('form')
       .send(data)
       .end(function(err, res){
@@ -29,6 +33,25 @@ const UserAPIUtils = {
           UserActions.loginSuccess(res.body);
         }
       });
+  },
+  applySellC2C(data){
+    request
+      .post(API + '/Ap/c2c.json')
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
+      .type('form')
+      .send(data)
+      .end(function(err, res){
+        console.log(res);
+        /*
+        if(err){
+          UserActions.loginFailure(err);
+        }
+        else{
+          UserActions.loginSuccess(res.body);
+        }
+        */
+      });
+
   },
 
   getSellOrders(data){

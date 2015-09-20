@@ -112,7 +112,12 @@ const UserStore = assign({}, EventEmitter.prototype, {
   getUserData(){
     return _userData;
   },
-
+  getToken(){
+    return _userData?_userData.TOKENID:null;
+  },
+  getForm(){
+    return _userData?_userData.data.form_rand:null;
+  },
   getRegMsg(){
     return _regMsg;
   },
@@ -218,7 +223,8 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           {
             router.transitionTo(trans);
           }
-          _userData = action.data.Info;  //no Info in new version
+          _userData = action.data;  //no Info in new version
+          console.log('userData', _userData);
           _userData.path = _userData.path + '?' + Date.now();
           if(_userData.telephone==='00000000000'){
             _userData.telephone = '';

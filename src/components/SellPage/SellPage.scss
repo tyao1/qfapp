@@ -2,131 +2,154 @@
 
 .sellPage{
   animation:entering .3s ease;
+  >.sellType{
+    position:absolute;
+    top:72px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:$subtleFontColor;
+    >span{
+      cursor:pointer;
+      &:hover, &.active{
+        color:$fontColor;
+      }
+
+    }
+  }
   >.inner{
     @include maxWidth();
     margin-top:$bannerHeight;
     padding:24px;
     min-height:480px;
     @include verticalCenter1();
-    >.title{
-      text-align:center;
-
-      &.active{
-        >svg{
-          fill:$subtleFontColor2;
-          width:80px;
-
-        }
-        >span{
-          visibility:hidden;
-          width:0;
-          height:0;
-        }
-      }
-
-      >svg{
-        fill:$fontColor;
-        transition:height .3s $normalTiming,width .3s $normalTiming,fill .3s ease;
-      }
-
-      >span{
-        display: inline-block;
-        text-align: left;
-        font-size:$LargeFontSize;
-        padding:6px 0 0 24px;
-        vertical-align: top;
-        transition:height .3s ,width .3s ,visibility 0s;
-        >a>.ButtonNormal{
-          font-size: 14px;
-        }
-      }
-    }
 
 
-    >.items{
-      width:100%;
-      counter-reset: dacounter;
-      .itemRegisterForm {
-        &:before{
-          content: counter(dacounter);
-          counter-increment: dacounter;
-          font-size: $bigFontSize;
-          position:absolute;
-          top:12px;
-          left:48%;
-          color: $bgColor;
-          text-shadow: -1px -1px rgba(255,255,255,.3);
-        }
-        margin: 32px auto;
-        transition: transform $normalTiming .18s, opacity $normalTiming .3s;
-        &.t-enter {
-          opacity: 0;
-          transform: translate3d(-22%, 0, 0);
-        }
-        &.t-enter-active {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-        }
-        &.t-leave {
-          &:hover > .close {
-            opacity: 0;
-            visibility: hidden;
+    >.sellItems{
+
+
+      >.title{
+        text-align:center;
+
+        &.active{
+          >svg{
+            fill:$subtleFontColor2;
+            width:80px;
+
+          }
+          >span{
+            visibility:hidden;
+            width:0;
+            height:0;
           }
         }
-        &.t-leave-active {
-          transform: translate3d(22%, 0, 0);
-          opacity: 0;
 
+        >svg{
+          fill:$fontColor;
+          transition:height .3s $normalTiming,width .3s $normalTiming,fill .3s ease;
         }
-      }
 
-    }
-
-    >.controls{
-      @media only screen and (max-width: $pointSellForm) {
-        >button.ButtonNormal{
-          margin:13px 21px 0 0;
-        }
-      }
-        margin:24px auto 0;
-      text-align: center;
-      >.ButtonNormal{
-        margin: 0 21px 0 0;
         >span{
-          padding: 7px 56px;
-        }
-        &:after {
-          padding: 7px 56px;
-          color:#000;
-        }
-
-        &.submit{
-          background:$secondaryColor;
-
+          display: inline-block;
+          text-align: left;
+          font-size:$LargeFontSize;
+          padding:6px 0 0 24px;
+          vertical-align: top;
+          transition:height .3s ,width .3s ,visibility 0s;
+          >a>.ButtonNormal{
+            font-size: 14px;
+          }
         }
       }
 
-    }
+      >.itemRegisterFormC2C{
+        margin: 24px 0 0 0;
+      }
+      >.items{
+        width:100%;
+        counter-reset: dacounter;
+        .itemRegisterForm {
+          &:before{
+            content: counter(dacounter);
+            counter-increment: dacounter;
+            font-size: $bigFontSize;
+            position:absolute;
+            top:12px;
+            left:48%;
+            color: $bgColor;
+            text-shadow: -1px -1px rgba(255,255,255,.3);
+          }
+          margin: 32px auto;
+          transition: transform $normalTiming .18s, opacity $normalTiming .3s;
+          &.t-enter {
+            opacity: 0;
+            transform: translate3d(-22%, 0, 0);
+          }
+          &.t-enter-active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+          }
+          &.t-leave {
+            &:hover > .close {
+              opacity: 0;
+              visibility: hidden;
+            }
+          }
+          &.t-leave-active {
+            transform: translate3d(22%, 0, 0);
+            opacity: 0;
 
-    >.more{
-      text-align: center;
-      margin: 64px auto 0;
-      color:$subtleFontColor2;
-    }
+          }
+        }
 
-    >.err{
-      text-align: center;
-      display: inline-block;
-      position:relative;
-      margin:12px auto 0;
-      &.active:after{
-        content:'!';
-        position:absolute;
-        top:-24px;
-        left:-24px;
-        font-size:64px;
-        color:$subtleFontColor;
-        transform:rotate(-13deg);
+      }
+
+      >.controls{
+        @media only screen and (max-width: $pointSellForm) {
+          >button.ButtonNormal{
+            margin:13px 21px 0 0;
+          }
+        }
+          margin:24px auto 0;
+        text-align: center;
+        >.ButtonNormal{
+          margin: 0 21px 0 0;
+          >span{
+            padding: 7px 56px;
+          }
+          &:after {
+            padding: 7px 56px;
+            color:#000;
+          }
+
+          &.submit{
+            background:$secondaryColor;
+
+          }
+        }
+
+      }
+
+      >.more{
+        text-align: center;
+        margin: 64px auto 0;
+        color:$subtleFontColor2;
+      }
+
+      >.err{
+        text-align: center;
+        display: inline-block;
+        position:relative;
+        margin:12px auto 0;
+        &.active:after{
+          content:'!';
+          position:absolute;
+          top:-24px;
+          left:-24px;
+          font-size:64px;
+          color:$subtleFontColor;
+          transform:rotate(-13deg);
+        }
       }
     }
   }

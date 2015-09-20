@@ -20,6 +20,15 @@ let _success = false;
 
 
 let _items = Immutable.OrderedMap();
+let _itemC2C = Immutable.fromJS({
+  goods_name: '',
+  price: '0',
+  ps: '',
+  sum: 1,
+  timeSpan: 1,
+  detail: '',
+  area_id: '0101010101'
+});
 
 let _lastId = 0;
 function genNextId(){
@@ -74,6 +83,9 @@ const SellStore = assign({}, EventEmitter.prototype, {
 
   getItems(){
     return _items;
+  },
+  getItemC2C(){
+    return _itemC2C;
   },
   getIsSubmitting(){
     return _isSubmitting;
@@ -158,6 +170,11 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         _items = _items.updateIn([action.id, action.key], () => action.value);
         SellStore.emitChange();
         saveItems();
+        break;
+      case UserConstants.SELL_CHANGE_DATA_C2C:
+        console.log(action);
+        _itemC2C = _itemC2C.update(action.key, () => action.value);
+        SellStore.emitChange();
         break;
       case UserConstants.SELL_REMOVE_ITEM:
         _items = _items.delete(action.id);

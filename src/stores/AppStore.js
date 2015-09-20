@@ -78,21 +78,8 @@ const AppStore = assign({}, EventEmitter.prototype, {
 });
 
 
-function getToken(data){
-  if(!data) return;
-  let tokenID = data.TOKENID;
-  if(tokenID && _token!==tokenID){
-    _token = tokenID;
-    setTimeout(()=> {
-      localStorage.setItem('tfboy', _token);
-    }, 0);
-  }
-
-}
-
 AppStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
-  //getToken(action.data); in new version
   switch (action.actionType) {
     case AppConstants.TRANSITION:
       _transition = action.data;
