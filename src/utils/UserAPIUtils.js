@@ -34,23 +34,26 @@ const UserAPIUtils = {
         }
       });
   },
-  applySellC2C(data){
-    request
+  applySellC2C(data, images){
+    let req = request
       .post(API + '/Ap/c2c.json')
       .set({token: UserStore.getToken(), form: UserStore.getForm()})
-      .type('form')
-      .send(data)
-      .end(function(err, res){
-        console.log(res);
-        /*
-        if(err){
-          UserActions.loginFailure(err);
-        }
-        else{
-          UserActions.loginSuccess(res.body);
-        }
-        */
-      });
+      //.type('form')
+    for (let key in data) {
+      req.field(key, data[key]);
+    }
+    for(let i=0; i<images.length; i++) {
+      console.log('path?', images[i]);
+      req.attach('gimg'+ (i+1), images[i]);
+    }
+    req.end(function(err, res){
+      if(err){
+        UserActions.applySellC2CFailure(err);
+      }
+      else{
+        UserActions.applySellC2CFailure(res.body);
+      }
+    });
 
   },
 

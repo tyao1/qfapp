@@ -45,6 +45,18 @@ options[OrderConstants.OFF_SALE_ORDER_KEY] = {
   failMsg: '',
   path: '/my/end'
 };
+options[OrderConstants.C2C_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: '/my/buyc2c'
+};
+options[OrderConstants.C2C_APPLY_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: '/my/applyc2c'
+};
 
 let _curKey = OrderConstants.ORDER_KEY;
 let _updatingPrice = false;
@@ -248,6 +260,30 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         OrderStore.emitChange();
         break;
 
+      case OrderConstants.C2C_ORDER_SUCCESS:
+        //买家
+        processSuccessAction(action, OrderConstants.C2C_ORDER_KEY, (data)=> {
+          data.time = parseInt(data.time) * 1000;
+          data.f_time = parseInt(data.f_time) * 1000;
+          data.detail.forEach(item =>{
+            item.price = parseFloat(item.price);
+          });
+        });
+        OrderStore.emitChange();
+        break;
+
+      case OrderConstants.C2C_APPLY_ORDER_SUCCESS:
+        //买家
+        processSuccessAction(action, OrderConstants.C2C_APPLY_ORDER_KEY, (data)=> {
+          data.time = parseInt(data.time) * 1000;
+          data.f_time = parseInt(data.f_time) * 1000;
+          data.detail.forEach(item =>{
+            item.price = parseFloat(item.price);
+          });
+        });
+        OrderStore.emitChange();
+        break;
+
       case OrderConstants.ORDER_FAILURE:
         processFailureAction(action, OrderConstants.ORDER_KEY);
         OrderStore.emitChange();
@@ -262,6 +298,14 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case OrderConstants.OFF_SALE_ORDER_FAILURE:
         processFailureAction(OrderConstants.OFF_SALE_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.C2C_ORDER_FAILURE:
+        processFailureAction(OrderConstants.C2C_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.C2C_APPLY_ORDER_FAILURE:
+        processFailureAction(OrderConstants.C2C_APPLY_ORDER_KEY);
         OrderStore.emitChange();
         break;
 
@@ -347,6 +391,14 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
               break;
             case '/my/end':
               updateFromQuery(OrderConstants.OFF_SALE_ORDER_KEY, action.data.query, '/my/end');
+              OrderStore.emitChange();
+              break;
+            case '/my/buyc2c':
+              updateFromQuery(OrderConstants.C2C_ORDER_KEY, action.data.query, '/my/c2cbuy');
+              OrderStore.emitChange();
+              break;
+            case '/my/applyc2c':
+              updateFromQuery(OrderConstants.C2C_APPLY_ORDER_KEY, action.data.query, '/my/c2capply');
               OrderStore.emitChange();
               break;
           }

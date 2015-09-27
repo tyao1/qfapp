@@ -132,18 +132,36 @@ export default {
     });
   },
 
-  applySellSubmitC2C(data){
+  applySellSubmitC2C(data, images){
     Dispatcher.handleServerAction({
       actionType: UserConstants.APPLY_SELL_SUBMIT_C2C,
       data
     });
     console.log('sell c2c submit', data);
-    UserAPIUtils.applySellC2C(data);
+    UserAPIUtils.applySellC2C(data, images);
   },
-
+  applySellC2CSuccess(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_SUCCESS_C2C,
+      data
+    });
+  },
+  applySellC2CFailure(data){
+    Dispatcher.handleServerAction({
+      actionType: UserConstants.APPLY_SELL_FAILURE_C2C,
+      data
+    });
+  },
   changeDataC2C(key, value){
     Dispatcher.handleViewAction({
       actionType: UserConstants.SELL_CHANGE_DATA_C2C,
+      key,
+      value
+    });
+  },
+  changeImageC2C(key, value){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.SELL_CHANGE_IMAGE_C2C,
       key,
       value
     });

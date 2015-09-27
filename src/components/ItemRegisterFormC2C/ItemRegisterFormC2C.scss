@@ -4,7 +4,7 @@
 // 于是用了Google的Material Design……
 // 改了下classname
 @media only screen and (max-width: $pointSellForm) {
-  div.itemRegisterForm {
+  div.itemRegisterFormC2C {
     min-width:0;
     height:auto;
     >.left {
@@ -26,17 +26,29 @@
 
 
 }
-.itemRegisterForm {
+.itemRegisterFormC2C {
   display: block;
   width: 100%;
   color:#fff;
   min-width:1010px;
-  height: 300px;
+  height: 330px;
   background: $mainColorTint;
   border-radius: $borderRadius;
-  padding: 46px 32px;
+  padding: 12px 32px;
   position:relative;
 
+
+  >h2 {
+    text-align:center;
+    color:$subtleFontColor1;
+    margin:12px 0 12px 0;
+    >span{
+      cursor: pointer;
+      &:hover, &.active{
+        color:white;
+      }
+    }
+  }
 
 
   label{
@@ -161,7 +173,7 @@
       }
       >textarea {
         width: 100%;
-        height: 220px;
+        height: 126px;
         resize: none;
         font-size: $bigFontSize;
         padding: 9px 12px;
@@ -185,6 +197,17 @@
         bottom:2px;
         transition:all .2s ease;
 
+      }
+    }
+
+    >.pics{
+      @include clearfix;
+      margin: 14px 0 0 0;
+      label {
+        margin:0 26px 0 0;
+      }
+      div.imageChooser:last-of-type>label{
+        margin-right:0;
       }
     }
   }

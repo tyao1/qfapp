@@ -4,7 +4,7 @@
   animation:entering .3s ease;
   >.sellType{
     position:absolute;
-    top:72px;
+    top:84px;
     left:0;
     right:0;
     text-align:center;
@@ -20,7 +20,7 @@
   >.inner{
     @include maxWidth();
     margin-top:$bannerHeight;
-    padding:24px;
+    padding:60px 24px 24px;
     min-height:480px;
     @include verticalCenter1();
 

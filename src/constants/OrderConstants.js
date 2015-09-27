@@ -41,9 +41,17 @@ export default keyMirror({
 
   UPDATE_PRICE: null,
   UPDATE_PRICE_SUCCESS: null,
-  UPDATE_PRICE_FAILURE: null
+  UPDATE_PRICE_FAILURE: null,
 
+  //C2C订单
+  C2C_ORDER_FAILURE: null,
+  C2C_ORDER_SUCCESS: null,
+  C2C_ORDER_KEY: null,
 
+  //C2C出售
+  C2C_APPLY_ORDER_FAILURE: null,
+  C2C_APPLY_ORDER_SUCCESS: null,
+  C2C_APPLY_ORDER_KEY: null
 
 
 });

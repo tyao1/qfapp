@@ -48,7 +48,7 @@ const SellPage = React.createClass({
       NO: '',
       modalSubmitIsOpen: false,
       showSuccess: false,
-      sellType: 0,
+      sellType: 1,
       realErrMsg: SellStore.getSubmitMsg(),
       isSubmitting: SellStore.getIsSubmitting(),
       isSuccessful: SellStore.getSuccess(),
@@ -75,12 +75,20 @@ const SellPage = React.createClass({
 
   handleSubmitClick(){
     if(this.state.sellType===1){
-      let item = this.state.itemC2C;
-      let date = Date.now()/1000; // unix time
+      let item = this.state.itemC2C.toJS();
+      // 处理日期
+      let date = Math.round(Date.now()/1000); // unix time
       item.limit_time = date + item.timeSpan * 60 * 60 * 24 * 30; // in month
       delete item.timeSpan;
-
-      UserActions.applySellSubmitC2C(item);
+      // 处理照片
+      let images = [];
+      for (let image of item.imgs) {
+        if (image.src.length) {
+          images.push(image.path);
+        }
+      }
+      delete item.imgs;
+      UserActions.applySellSubmitC2C(item, images);
     }
     else {
       let errMsg = '';
@@ -133,6 +141,9 @@ const SellPage = React.createClass({
   },
   handleValueChangeC2C(key, value){
     UserActions.changeDataC2C(key, value);
+  },
+  handleImageChangeC2C(key, value){
+    UserActions.changeImageC2C(key, value);
   },
 
   handleRealSubmitClick(){
@@ -290,10 +301,10 @@ const SellPage = React.createClass({
                       亲自和小伙伴交易物品。
                     </span>
                   </div>
-                  <ItemRegisterFormC2C data={itemC2C} onValueChange={this.handleValueChangeC2C}/>
+                  <ItemRegisterFormC2C data={itemC2C} onValueChange={this.handleValueChangeC2C} onImageChange={this.handleImageChangeC2C}/>
                   <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
                   <div className="controls">
-                    <ButtonNormal className="ButtonNormal submit" text="提交申请" svg={paperplane} onClick={this.handleSubmitClick}/>
+                    <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'开始售卖'} svg={paperplane} onClick={this.handleSubmitClick}/>
                   </div>
                   <div className="more">
                     在友易模式中，您需要亲自填写物品上传图片并完成物品的交易<br/>体验交易～

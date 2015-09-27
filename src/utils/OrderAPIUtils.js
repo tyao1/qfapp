@@ -2,6 +2,7 @@
 import request from 'superagent';
 import OrderActions from '../actions/OrderActions';
 import OrderConstants from '../constants/OrderConstants';
+import UserStore from '../stores/UserStore';
 
 const NUMBER = 8;
 const OrderAPIUtils = {
@@ -47,6 +48,56 @@ const OrderAPIUtils = {
   //最炫store风
   getItems(keyWord, status, page){
     switch(keyWord){
+      case OrderConstants.C2C_ORDER_KEY:
+        request
+          .get(API + '/Ap/bookCGet.json?')
+          .set({token: UserStore.getToken(), form: UserStore.getForm()})
+          .query({
+            type: 2,
+            status,
+            start: (page - 1) * NUMBER + 1,
+            sum: NUMBER
+          })
+          .end(function(err, res){
+            if(err){
+              OrderActions.getItemsFailure1({
+                err,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+            else{
+              OrderActions.getItemsSuccess1({
+                body: res.body,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+          });
+        break;
+      case OrderConstants.C2C_APPLY_ORDER_KEY:
+        request
+          .get(API + '/Ap/bookCGet.json?')
+          .set({token: UserStore.getToken(), form: UserStore.getForm()})
+          .query({
+            type: 1,
+            status,
+            start: (page - 1) * NUMBER + 1,
+            sum: NUMBER
+          })
+          .end(function(err, res){
+            if(err){
+              OrderActions.getItemsFailure1({
+                err,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+            else{
+              OrderActions.getItemsSuccess1({
+                body: res.body,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+          });
+        break;
       case OrderConstants.ORDER_KEY:
         request
           .get(API + '/Manager/BookDetail.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST

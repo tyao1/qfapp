@@ -36,6 +36,7 @@ export default keyMirror({
   APPLY_SELL_NEW_C2C: null,
   SELL_NEW_ITEM_C2C:null,
   SELL_CHANGE_DATA_C2C: null,
+  SELL_CHANGE_IMAGE_C2C: null,
   SELL_REMOVE_ITEM_C2C: null,
 
   ADD_TO_SUBMIT: null,

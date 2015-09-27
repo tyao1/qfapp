@@ -1,0 +1,6 @@
+{
+  "name": "ImageChooser",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ImageChooser.js"
+}

@@ -21,13 +21,15 @@ let _success = false;
 
 let _items = Immutable.OrderedMap();
 let _itemC2C = Immutable.fromJS({
+  type_id: '110000',
   goods_name: '',
   price: '0',
   ps: '',
   sum: 1,
-  timeSpan: 1,
+  timeSpan: 10,
   detail: '',
-  area_id: '0101010101'
+  area_id: '0101010101',
+  imgs: [{src:'',path:''},{src:'',path:''},{src:'',path:''},{src:'',path:''},{src:'',path:''}]
 });
 
 let _lastId = 0;
@@ -174,6 +176,11 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
       case UserConstants.SELL_CHANGE_DATA_C2C:
         console.log(action);
         _itemC2C = _itemC2C.update(action.key, () => action.value);
+        SellStore.emitChange();
+        break;
+      case UserConstants.SELL_CHANGE_IMAGE_C2C:
+        console.log(action);
+        _itemC2C = _itemC2C.updateIn(['imgs', action.key], () => action.value);
         SellStore.emitChange();
         break;
       case UserConstants.SELL_REMOVE_ITEM:

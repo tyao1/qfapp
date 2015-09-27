@@ -39,20 +39,20 @@ let _items = Immutable.OrderedMap();
  * 回撤物品操作
  *
  */
-function reverseAdd(id){
-  if(_items.get(id)){
-    _items = _items.delete(id);
+function reverseAdd(type, id){
+  if(_items.hasIn([type, id])){
+    _items = _items.deleteIn([type, id]);
   }
 }
-function reverseDelete(id, data){
-  if(!_items.get(id)){
-    _items = _items.set(id, data);
+function reverseDelete(type, id, data){
+  if(!_items.hasIn([type, id])){
+    _items = _items.setIn([type, id], data);
   }
 }
 
-function reverseNum(id, num){
-  if(_items.get(id)){
-    _items = _items.updateIn([id, 'num'], () => num);
+function reverseNum(type, id, num){
+  if(_items.hasIn([type, id])){
+    _items = _items.updateIn([type, id, 'num'], () => num);
   }
 }
 

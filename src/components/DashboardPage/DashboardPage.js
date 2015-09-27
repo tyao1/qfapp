@@ -121,18 +121,20 @@ const DashboardPage = React.createClass({
           <div className="left">
               <ul>
                 <li>
-                  <p className="subtle">我的订单</p>
+                  <p className="subtle">我的友易</p>
+                  <Link to="my" params={{section: 'buyc2c'}}><span>我的购买</span></Link>
+                  <Link to="my" params={{section: 'sellc2c'}}><span>我的出售</span></Link>
+                </li>
+                <li>
+                  <p  className="subtle">我的寄卖</p>
                   <Link to="my" params={{section: 'buy'}}><span>我的订单</span></Link>
                   <div className="controls">
                     {
                       buySections.map( (data) =>
-                        <ButtonNormal key={data.code} className={`ButtonNormal ${this.state.status1===data.code?' active':''}`} text={data.name} onClick = {this.handleBuySection(data.code)}/>
+                          <ButtonNormal key={data.code} className={`ButtonNormal ${this.state.status1===data.code?' active':''}`} text={data.name} onClick = {this.handleBuySection(data.code)}/>
                       )
                     }
                   </div>
-                </li>
-                <li>
-                  <p  className="subtle">我的卖单</p>
                   <Link to="my" params={{section: 'sell'}}><span>上线物品</span></Link>
                   <div className="controls">
                     <ButtonNormal className={`ButtonNormal ${this.state.status3===0?' active':''}`} text="上线物品" onClick = {this.handleOnSaleSection(0)}/>
