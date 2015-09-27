@@ -144,6 +144,37 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         _isSubmitting = false;
         SellStore.emitChange();
         break;
+      case UserConstants.APPLY_SELL_FAILURE_C2C:
+        _submitMsg = action.data.Info || '啊哦，网络出错辣！';
+        _isSubmitting = false;
+        SellStore.emitChange();
+        break;
+      case UserConstants.APPLY_SELL_SUCCESS_C2C:
+        if (action.data.Code === 0) {
+          console.log('c2c apply success');
+          _success = true;
+          _itemC2C = Immutable.fromJS({
+            type_id: '110000',
+            goods_name: '',
+            price: '0',
+            ps: '',
+            sum: 1,
+            timeSpan: 10,
+            detail: '',
+            area_id: '0101010101',
+            imgs: [{src:'',path:''},{src:'',path:''},{src:'',path:''},{src:'',path:''},{src:'',path:''}]
+          });
+          //saveItems(true);//删除
+        }
+        else if (action.data.Code === 1001) {
+          _submitMsg = action.data.Info + ',请返回检查~';
+        }
+        else {
+          _submitMsg = action.data.Info;
+        }
+        _isSubmitting = false;
+        SellStore.emitChange();
+        break;
       default:
       // Do nothing
 

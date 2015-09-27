@@ -51,7 +51,7 @@ const UserAPIUtils = {
         UserActions.applySellC2CFailure(err);
       }
       else{
-        UserActions.applySellC2CFailure(res.body);
+        UserActions.applySellC2CSuccess(res.body);
       }
     });
 

@@ -27,10 +27,12 @@
 
     >.sellItems{
 
-
+      .errorC2C{
+        text-align: center;
+      }
       >.title{
         text-align:center;
-
+        margin: 0 0 24px 0;
         &.active{
           >svg{
             fill:$subtleFontColor2;
@@ -104,7 +106,7 @@
 
       }
 
-      >.controls{
+      .controls{
         @media only screen and (max-width: $pointSellForm) {
           >button.ButtonNormal{
             margin:13px 21px 0 0;

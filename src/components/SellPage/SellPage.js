@@ -145,7 +145,9 @@ const SellPage = React.createClass({
   handleImageChangeC2C(key, value){
     UserActions.changeImageC2C(key, value);
   },
-
+  handleC2CSuccessClick(){
+    this.setState({isSuccessful: false});
+  },
   handleRealSubmitClick(){
     if(this.state.isSuccessful){
       //关闭Modal
@@ -301,41 +303,28 @@ const SellPage = React.createClass({
                       亲自和小伙伴交易物品。
                     </span>
                   </div>
-                  <ItemRegisterFormC2C data={itemC2C} onValueChange={this.handleValueChangeC2C} onImageChange={this.handleImageChangeC2C}/>
-                  <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
-                  <div className="controls">
-                    <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'开始售卖'} svg={paperplane} onClick={this.handleSubmitClick}/>
-                  </div>
+
+                  {this.state.isSuccessful?
+                    <div>
+                      <h2>物品上架成功～</h2>
+                      <div className="controls">
+                        <ButtonNormal className="ButtonNormal submit" text="继续提交" svg={paperplane} onClick={this.handleC2CSuccessClick}/>
+                      </div>
+                    </div> :
+                    <div>
+                      <ItemRegisterFormC2C data={itemC2C} onValueChange={this.handleValueChangeC2C} onImageChange={this.handleImageChangeC2C}/>
+                      <p className={`err ${this.state.errMsg?'active':''}`} dangerouslySetInnerHTML={{__html: this.state.errMsg}}></p>
+                      <p className="errorC2C">{this.state.realErrMsg}</p>
+                      <div className="controls">
+                        <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'开始售卖'} svg={paperplane} onClick={this.handleSubmitClick}/>
+                      </div>
+                    </div>
+                  }
+
+
                   <div className="more">
-                    在友易模式中，您需要亲自填写物品上传图片并完成物品的交易<br/>体验交易～
+                    在友易模式中，您需要亲自填写物品上传图片并完成物品的交易<br/>担保模式我们会对交易款项进行担保，自由交易您可以自由设置交换条件～
                   </div>
-                  <Modal isOpen = {this.state.modalSubmitIsOpen} onClose = {this.handleModalSubmitClose}>
-                    {this.state.isSuccessful?
-                      <div className="submitForm">
-                        <p className="main">提交成功～审核通过后，我们就会前来取货！~</p>
-                        {this.state.alipay?'':<p className="main">记得在个人信息页填写支付宝账号(￣▽￣)/</p>}
-                        <ButtonNormal className="ButtonNormal submit" text="关闭"
-                                      svg={paperplane} onClick={this.handleRealSubmitClick}/>
-                      </div>
-                      :
-                      <div className="submitForm">
-                        <p className="main">马上就好，还差一些信息</p>
-
-                        <div className="inputEffectAgain">
-                          <input type="text" value={this.state.b_NO} onChange={this.handleBNOChange}/>
-                          <label className={this.state.b_NO.length?'active':null}>宿舍楼号</label>
-                        </div>
-
-                        <div className="inputEffectAgain">
-                          <input type="text" value={this.state.NO} onChange={this.handleNOChange}/>
-                          <label className={this.state.NO.length?'active':null}>宿舍号</label>
-                        </div>
-                        <p>{this.state.realErrMsg}</p>
-                        <ButtonNormal className="ButtonNormal submit" text={this.state.isSubmitting?'提交中……':'正式提交'}
-                                      svg={paperplane} onClick={this.handleRealSubmitClick}/>
-                      </div>
-                    }
-                  </Modal>
                 </div>
                 }
 
