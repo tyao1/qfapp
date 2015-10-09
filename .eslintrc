@@ -21,6 +21,7 @@
     "quotes": [2, "single"],
 
     //preference
-    "no-underscore-dangle":false
+    "no-underscore-dangle":false,
+    "camelcase": false
   }
 }

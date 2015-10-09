@@ -1,6 +1,7 @@
 'use strict';
 import request from 'superagent';
 import CartActions from '../actions/CartActions';
+import UserStore from '../stores/UserStore';
 
 
 
@@ -137,6 +138,7 @@ const CartAPIUtils = {
   fetchCarts(){
     request
       .get(API + '/Car/detail.json')//.get('./mockgetcart.json')////put
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .end(function(err, res){
         if(err){
           //就返回之前的物品backup

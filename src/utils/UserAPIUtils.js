@@ -89,7 +89,8 @@ const UserAPIUtils = {
 
   changeInfo(data){
     request
-      .put(API + '/Manager/UserData.json')  //SHOULD BE POST //.get('mockapplysell.json')
+      .put(API + '/User/modify.json?PCID')  //SHOULD BE POST //.get('mockapplysell.json')
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .type('form')
       .send(data)
       .end(function(err, res){

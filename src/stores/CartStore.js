@@ -258,23 +258,53 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CART_FETCH_SUCCESS:
-        if(action.data.body.Code===0||action.data.body.Code===1007){
-          if(action.data.body.Info) {
-            let car = action.data.body.Info.car;
-            if (car) {
-              car.forEach(data=> {
+        let body = action.data.body;
+        if(body.Code===0||body.Code===1007){
+          if(body.data) {
+            console.log('god damn', body);
+            let list = body.data.list;
+            // cars1
+            if (list.carS) {
+              list.carS.forEach(data=> {
+                data.goods_id = parseInt(data.goods_id);
+                data.quality = parseInt(data.quality);
+                data.price = parseFloat(data.price);
+                data.status = parseInt(data.status);
+                data.t_limit = parseInt(data.t_limit);
+                data.f_user_id = parseInt(data.f_user_id);
+                _items = _items.setIn(['carS', data.goods_id], Immutable.fromJS(data));
+              });
+            }
+            if (list.carP) {
+              list.carP.forEach(data=> {
                 data.goods_id = parseInt(data.goods_id);
                 data.quality = parseInt(data.quality);
                 data.price = parseFloat(data.price);
                 data.status = parseInt(data.status);
                 data.t_limit = parseInt(data.t_limit);
                 data.user_id = parseInt(data.user_id);
-                _items = _items.set(data.goods_id, Immutable.fromJS(data));
+                _items = _items.setIn(['carP', data.goods_id], Immutable.fromJS(data));
               });
-
             }
-            if (action.data.body.Info.tokenOff) {
-              fireNotification(`您的购物车中有${action.data.body.Info.tokenOff}件物品已下架或售完，已被移除`);
+            if (list.carY) {
+              list.carY.forEach(data=> {
+                data.goods_id = parseInt(data.goods_id);
+                data.quality = parseInt(data.quality);
+                data.price = parseFloat(data.price);
+                data.status = parseInt(data.status);
+                data.t_limit = parseInt(data.t_limit);
+                data.user_id = parseInt(data.user_id);
+                _items = _items.setIn(['carY', data.goods_id], Immutable.fromJS(data));
+              });
+            }
+            if (body.data.off.length) {
+              fireNotification(`您的购物车中有${body.data.off.length}件物品已下架，已被移除`);
+            }
+            if (body.data.expire.length) {
+              fireNotification(`您的购物车中有${body.data.expire.length}件物品已过期，已被移除`);
+            }
+            if (body.data.same.length) {
+              fireNotification(`您的购物车中有${body.data.same.length}件物品为自己出售，已被移除`);
             }
           }
         }

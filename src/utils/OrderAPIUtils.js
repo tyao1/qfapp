@@ -11,34 +11,34 @@ const OrderAPIUtils = {
     return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + (date.getDay() + 1) + ' '+ date.getHours() + ':' + date.getMinutes();
   },
   buyStatus:{
-    1:'正在打包',
-    2:'用户取消',
-    3:'官方取消',
-    4:'交易成功',
-    5:'取消审核中',
-    6:'等待收货'
+    1: '正在打包',
+    2: '用户取消',
+    3: '官方取消',
+    4: '交易成功',
+    5: '取消审核中',
+    6: '等待收货'
   },
   sellStatus:{
-    1:'官方下架',
-    2:'售卖中',
-    3:'刚卖完'
+    1: '官方下架',
+    2: '售卖中',
+    3: '刚卖完'
   },
   offStatus:{
-    1:'管理员下架',
-    2:'已到期',
-    3:'销售完毕'
+    1: '管理员下架',
+    2: '已到期',
+    3: '销售完毕'
   },
   applyStatus:{
-    1:'正在审核',
-    2:'等待收取',
-    3:'用户取消',
-    4:'官方取消',
-    5:'申请完成'
+    1: '正在审核',
+    2: '等待收取',
+    3: '用户取消',
+    4: '官方取消',
+    5: '申请完成'
   },
 
   applyItemStatus:{
-    1:'申请取消',
-    4:'录入完毕'
+    1: '申请取消',
+    4: '录入完毕'
   },
 
   Id(keyWord, status, page){
@@ -75,13 +75,14 @@ const OrderAPIUtils = {
         break;
       case OrderConstants.C2C_APPLY_ORDER_KEY:
         request
-          .get(API + '/Ap/bookCGet.json?')
+          .get(API + '/Book/c2c.json')
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
-            type: 1,
-            status,
-            start: (page - 1) * NUMBER + 1,
-            sum: NUMBER
+            type: 'S',
+            begin: (page - 1) * NUMBER + 1,
+            count: NUMBER,
+            status: 1,
+            b_or_s: 'S'
           })
           .end(function(err, res){
             if(err){
@@ -192,6 +193,8 @@ const OrderAPIUtils = {
               });
             }
           });
+        break;
+      default:
         break;
     }
 

@@ -31,7 +31,7 @@ const BuyOrderItem = React.createClass({
       date = new Date(data.t_time);
       remains = '完成时间：' + OrderAPIUtils.dateToString(date);
     }
-    else if(data.status==6){
+    else if(data.status === 6){
       remains = '取货时间' + data.delivery;
     }
     else{
@@ -47,7 +47,7 @@ const BuyOrderItem = React.createClass({
             <p className="minor">
               {time}
             </p>
-            <p className={`main${data.status==6?' small':''}`}>
+            <p className={`main${data.status === 6?' small':''}`}>
               {remains}
             </p>
           </li>
@@ -56,11 +56,11 @@ const BuyOrderItem = React.createClass({
               订单编号
             </p>
             <p className="main">
-              {data.b_mid==='000000'?'无':data.b_mid}
+              {data.b_mid === '000000'?'无':data.b_mid}
             </p>
           </li>
           {
-            (data.status==1||data.status==6)? <li className="one">
+            (data.status === 1||data.status === 6)? <li className="one">
               <p className="minor">
                 取消订单
               </p>

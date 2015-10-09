@@ -66,10 +66,10 @@ const MyInfo = React.createClass({
 
   },
   handleGetPhone(val){
-    UserActions.addToSubmit('telephone', val);
+    UserActions.addToSubmit('tel', val);
   },
   handleCancelPhone(){
-    UserActions.removeFromSubmit('telephone');
+    UserActions.removeFromSubmit('tel');
   },
   handleCheckPhone(val){
     return /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(val);
@@ -93,10 +93,10 @@ const MyInfo = React.createClass({
     return val.length<9;
   },
   handleGetSignature(val){
-    UserActions.addToSubmit('signature', val);
+    UserActions.addToSubmit('sign', val);
   },
   handleCancelSignature(){
-    UserActions.removeFromSubmit('signature');
+    UserActions.removeFromSubmit('sign');
   },
   handleCheckSignature(val){
     return val.length<23;
@@ -134,11 +134,12 @@ const MyInfo = React.createClass({
       else{
         this.setState({isChanging: true});
         request
-          .post(API + '/Manager/PSModify.json')
+          .post(API + '/User/modifyPw.json')
+          .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .type('form')
           .send({
-            old: this.state.old,
-            new: this.state.new
+            opw: this.state.old,
+            npw: this.state.new
           })
           .end((err, res) => {
             this.setState({isChanging: false});

@@ -166,6 +166,28 @@ const SellOrders = React.createClass({
           else{
             elem = <div className="failure"><p>没有申请ಠ_ಠ</p></div>
           }
+          break;
+        case OrderConstants.C2C_APPLY_ORDER_KEY:
+          document.title='我的售卖 - 清风';
+          if(items.length){
+            elem = items.map( order => <OrderItem key={order.app_id} data={order}  cancelClick={this.handleApplyCancel}/>);
+          }
+          else{
+            elem = <div className="failure"><p>没有申请ಠ_ಠ</p></div>
+          }
+          break;
+        case OrderConstants.C2C_ORDER_KEY:
+          document.title='我的购买 - 清风';
+          if(items.length){
+            elem = items.map( order => <OrderItem key={order.app_id} data={order}  cancelClick={this.handleApplyCancel}/>);
+          }
+          else{
+            elem = <div className="failure"><p>没有申请ಠ_ಠ</p></div>
+          }
+          break;
+        default:
+          break;
+
       }
     }
 
