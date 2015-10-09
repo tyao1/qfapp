@@ -149,19 +149,22 @@ const HomePage = React.createClass({
             </div>
 
             <div className="left">
-              <h3>清风福利</h3>
-              <p>我们在微信公众号上为毕业季学生提供了更多服务 <br/>
-                清风寄存：为保研考研成功的同学提供物品书架寄存 <br/>
-                清风代邮：为异地读研，工作的同学进行物品邮寄 <br/>
-                一键回收：一分钟处理自己根本用不上的闲置物品 <br/>
-                宝贝推送：每周精选含金量极高的物品推送给您 <br/>
+              <h3>清风秒杀</h3>
+              <p>每周二，22:22分 <br/>
+                我们将在用户寄卖的物品中挑选出最佳的物品 <br/>
+                在秒杀时间开始后逐个物品进行上线 <br/>
+                秒杀的物品将在秒杀前几天通过微信公众号进行告知<br/>
                 一切精彩，尽在清风平台</p>
             </div>
 
             <div className="right">
               <h3>联系我们</h3>
-              <p>可以通过微信直接联系我们</p>
-              <p>或者联系文科：wenke@qfplan.com<br/>天宇：yaotianyu0512@gmail.com</p>
+              <p>我们欢迎您的联系
+                <br/>邮件：wenke@qfplan.com<br/>
+                QQ群：488083052<br/>
+                微博：qfplan
+              </p>
+
             </div>
 
             <div className="copyright">
