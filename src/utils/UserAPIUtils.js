@@ -1,6 +1,10 @@
 'use strict';
 import request from 'superagent';
 import UserActions from '../actions/UserActions';
+function gaEvent(type) {
+  ga('send', 'event', '用户', type, '清风API调用');
+}
+
 const UserAPIUtils = {
   register(data){
     request
@@ -15,6 +19,7 @@ const UserAPIUtils = {
           UserActions.registerSuccess(res.body);
         }
       });
+    gaEvent('注册');
   },
   login(data){
     request
@@ -29,6 +34,7 @@ const UserAPIUtils = {
           UserActions.loginSuccess(res.body);
         }
       });
+    gaEvent('登陆');
   },
 
   getSellOrders(data){
@@ -59,6 +65,7 @@ const UserAPIUtils = {
           UserActions.applySellSuccess(res.body);
         }
       });
+    gaEvent('提交申请');
   },
 
   changeInfo(data){
@@ -74,6 +81,7 @@ const UserAPIUtils = {
           UserActions.changeInfoSuccess(res.body);
         }
       });
+    gaEvent('个人信息修改');
   },
 
   findPassword(data){
@@ -89,11 +97,13 @@ const UserAPIUtils = {
           UserActions.findPasswordSuccess(res.body);
         }
       });
+    gaEvent('找回密码');
   },
   logout(){
     request
       .put(API + '/Home/Logout.json')
       .end(function(){});
+    gaEvent('登出');
   },
 
 
@@ -110,6 +120,7 @@ const UserAPIUtils = {
           UserActions.uploadAvatarSuccess(res.body);
         }
       });
+    gaEvent('上传头像');
   }
 
 

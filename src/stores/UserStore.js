@@ -223,6 +223,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
           if(_userData.telephone==='00000000000'){
             _userData.telephone = '';
           }
+          ga('create', 'UA-68644874-1', { 'userId': _userData.email });
           saveUserData();
         }
         else{

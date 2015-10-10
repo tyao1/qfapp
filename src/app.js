@@ -11,6 +11,10 @@ router.run(function (Handler, state) {
       <Handler/>
     , document.body);
 
+  // 这里插入ga
+  console.log('ga', ga);
+  ga('send', 'pageview', state.path);
+
   AppActions.transition(state);
 
 });

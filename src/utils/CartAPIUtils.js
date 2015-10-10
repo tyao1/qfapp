@@ -1,7 +1,9 @@
 'use strict';
 import request from 'superagent';
 import CartActions from '../actions/CartActions';
-
+function gaEvent(type) {
+  ga('send', 'event', '购物车', type, '清风API调用');
+}
 
 
 //缓存物品数量操作
@@ -62,6 +64,7 @@ const CartAPIUtils = {
           });
         }
       });
+    gaEvent('提交订单');
   },
 
   //data 物品id, backup 之前物品数据
@@ -89,6 +92,7 @@ const CartAPIUtils = {
           });
         }
       });
+    gaEvent('添加物品');
   },
 
   //data 物品id, backup 之前物品数据
@@ -112,6 +116,7 @@ const CartAPIUtils = {
           });
         }
       });
+    gaEvent('删除物品');
   },
 
 
