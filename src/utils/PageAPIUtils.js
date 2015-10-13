@@ -11,8 +11,8 @@ const PageAPIUtils = {
   },
   getItems(keyWord, type_id, page){
     request
-      .get(API + '/Home/Search.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
-      .query({keyWord, type_id, page})
+      .get(API + '/Info/List.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .query({key: keyWord, type_id, start: page, count: 8})
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({

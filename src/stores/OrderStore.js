@@ -57,6 +57,18 @@ options[OrderConstants.C2C_APPLY_ORDER_KEY] = {
   failMsg: '',
   path: '/my/applyc2c'
 };
+options[OrderConstants.C2C2_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: '/my/buyc2c2'
+};
+options[OrderConstants.C2C2_APPLY_ORDER_KEY] = {
+  page: 1,
+  status: 0,
+  failMsg: '',
+  path: '/my/applyc2c2'
+};
 
 let _curKey = OrderConstants.ORDER_KEY;
 let _updatingPrice = false;
@@ -306,6 +318,14 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
       case OrderConstants.C2C_APPLY_ORDER_FAILURE:
         processFailureAction(OrderConstants.C2C_APPLY_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.C2C2_ORDER_FAILURE:
+        processFailureAction(OrderConstants.C2C2_ORDER_KEY);
+        OrderStore.emitChange();
+        break;
+      case OrderConstants.C2C2_APPLY_ORDER_FAILURE:
+        processFailureAction(OrderConstants.C2C2_APPLY_ORDER_KEY);
         OrderStore.emitChange();
         break;
 

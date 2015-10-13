@@ -50,13 +50,14 @@ const OrderAPIUtils = {
     switch(keyWord){
       case OrderConstants.C2C_ORDER_KEY:
         request
-          .get(API + '/Ap/bookCGet.json?')
+          .get(API + '/Book/c2c.json')
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
-            type: 2,
+            type: 'S',
             status,
-            start: (page - 1) * NUMBER + 1,
-            sum: NUMBER
+            begin: (page - 1) * NUMBER + 1,
+            count: NUMBER,
+            b_or_s: 'B'
           })
           .end(function(err, res){
             if(err){
@@ -79,6 +80,58 @@ const OrderAPIUtils = {
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
             type: 'S',
+            begin: (page - 1) * NUMBER + 1,
+            count: NUMBER,
+            status: 1,
+            b_or_s: 'S'
+          })
+          .end(function(err, res){
+            if(err){
+              OrderActions.getItemsFailure1({
+                err,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+            else{
+              OrderActions.getItemsSuccess1({
+                body: res.body,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+          });
+        break;
+      case OrderConstants.C2C2_ORDER_KEY:
+        request
+          .get(API + '/Book/c2c.json')
+          .set({token: UserStore.getToken(), form: UserStore.getForm()})
+          .query({
+            type: 'Y',
+            status,
+            begin: (page - 1) * NUMBER + 1,
+            count: NUMBER,
+            b_or_s: 'B'
+          })
+          .end(function(err, res){
+            if(err){
+              OrderActions.getItemsFailure1({
+                err,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+            else{
+              OrderActions.getItemsSuccess1({
+                body: res.body,
+                key: OrderAPIUtils.Id(keyWord, status, page)
+              });
+            }
+          });
+        break;
+      case OrderConstants.C2C2_APPLY_ORDER_KEY:
+        request
+          .get(API + '/Book/c2c.json')
+          .set({token: UserStore.getToken(), form: UserStore.getForm()})
+          .query({
+            type: 'Y',
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
             status: 1,

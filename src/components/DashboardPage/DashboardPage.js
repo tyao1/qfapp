@@ -45,6 +45,23 @@ const applySections = [
   {name: '用户取消', code: 3},
   {name: '官方取消', code: 4}
 ];
+const c2cSections = [
+  {name: '所有订单', code: 0},
+  {name: '处理中', code: 1},
+  {name: '卖家确认', code: 3},
+  {name: '买家确认', code: 4},
+  {name: '已完成', code: 5},
+  {name: '已取消', code: 6}
+];
+const c2c2Sections = [
+  {name: '所有订单', code: 0},
+  {name: '处理中', code: 1},
+  {name: '买家付款', code: 2},
+  {name: '卖家确认', code: 3},
+  {name: '买家确认', code: 4},
+  {name: '已完成', code: 5},
+  {name: '已取消', code: 6}
+];
 
 
 const DashboardPage = React.createClass({
@@ -56,7 +73,11 @@ const DashboardPage = React.createClass({
       status1: OrderStore.getStatus(OrderConstants.ORDER_KEY),
       status2: OrderStore.getStatus(OrderConstants.APPLY_ORDER_KEY),
       status3: OrderStore.getStatus(OrderConstants.ON_SALE_ORDER_KEY),
-      status4: OrderStore.getStatus(OrderConstants.OFF_SALE_ORDER_KEY)
+      status4: OrderStore.getStatus(OrderConstants.OFF_SALE_ORDER_KEY),
+      status5: OrderStore.getStatus(OrderConstants.C2C_ORDER_KEY),
+      status6: OrderStore.getStatus(OrderConstants.C2C_APPLY_ORDER_KEY),
+      status7: OrderStore.getStatus(OrderConstants.C2C2_ORDER_KEY),
+      status8: OrderStore.getStatus(OrderConstants.C2C2_APPLY_ORDER_KEY)
     });
   },
   _onUserChange(){
@@ -65,7 +86,11 @@ const DashboardPage = React.createClass({
       status1: OrderStore.getStatus(OrderConstants.ORDER_KEY),
       status2: OrderStore.getStatus(OrderConstants.APPLY_ORDER_KEY),
       status3: OrderStore.getStatus(OrderConstants.ON_SALE_ORDER_KEY),
-      status4: OrderStore.getStatus(OrderConstants.OFF_SALE_ORDER_KEY)
+      status4: OrderStore.getStatus(OrderConstants.OFF_SALE_ORDER_KEY),
+      status5: OrderStore.getStatus(OrderConstants.C2C_ORDER_KEY),
+      status6: OrderStore.getStatus(OrderConstants.C2C_APPLY_ORDER_KEY),
+      status7: OrderStore.getStatus(OrderConstants.C2C2_ORDER_KEY),
+      status8: OrderStore.getStatus(OrderConstants.C2C2_APPLY_ORDER_KEY)
     });
   },
 
@@ -84,15 +109,20 @@ const DashboardPage = React.createClass({
     UserStore.removeChangeListener(this._onUserChange);
     OrderStore.removeChangeListener(this._onOrderChange);
   },
+  handleSectionSelection(key, code) {
+    return () =>{
+      OrderActions.setNewStatus(key, code);
+    }
+  },
   handleBuySection(code){
     return () =>{
-      OrderActions.setNewStatus(OrderConstants.ORDER_KEY,code);
+      OrderActions.setNewStatus(OrderConstants.ORDER_KEY, code);
     }
   },
 
   handleOnSaleSection(code){
     return () =>{
-      OrderActions.setNewStatus(OrderConstants.ON_SALE_ORDER_KEY,code);
+      OrderActions.setNewStatus(OrderConstants.ON_SALE_ORDER_KEY, code);
     }
   },
   handleOffSaleSection(code){
@@ -122,8 +152,10 @@ const DashboardPage = React.createClass({
               <ul>
                 <li>
                   <p className="subtle">我的友易</p>
-                  <Link to="my" params={{section: 'buyc2c'}}><span>我的购买</span></Link>
-                  <Link to="my" params={{section: 'sellc2c'}}><span>我的出售</span></Link>
+                  <Link to="my" params={{section: 'buyc2c'}}><span>自由购买</span></Link>
+                  <Link to="my" params={{section: 'sellc2c'}}><span>自由出售</span></Link>
+                  <Link to="my" params={{section: 'buyc2c2'}}><span>担保购买</span></Link>
+                  <Link to="my" params={{section: 'sellc2c2'}}><span>担保出售</span></Link>
                 </li>
                 <li>
                   <p  className="subtle">我的寄卖</p>

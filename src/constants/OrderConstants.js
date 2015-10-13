@@ -51,7 +51,16 @@ export default keyMirror({
   //C2C出售
   C2C_APPLY_ORDER_FAILURE: null,
   C2C_APPLY_ORDER_SUCCESS: null,
-  C2C_APPLY_ORDER_KEY: null
+  C2C_APPLY_ORDER_KEY: null,
 
+  //C2C订单
+  C2C2_ORDER_FAILURE: null,
+  C2C2_ORDER_SUCCESS: null,
+  C2C2_ORDER_KEY: null,
+
+  //C2C出售
+  C2C2_APPLY_ORDER_FAILURE: null,
+  C2C2_APPLY_ORDER_SUCCESS: null,
+  C2C2_APPLY_ORDER_KEY: null
 
 });
