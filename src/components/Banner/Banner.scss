@@ -250,13 +250,15 @@ $bannerHeightSmall:50px;
         display:none;
       }
       >a{
-        width: 60px;
-        display: inline-block;
+        width: $bannerHeight;
+        height: $bannerHeight;
+
+
         float: left;
         >svg{
           width: $bannerHeight;
           height: $bannerHeight;
-          fill: $boldFontColor;
+
           transition: height .24s ease;
         }
       }
