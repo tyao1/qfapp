@@ -4,7 +4,7 @@ import React from 'react';
 import Counter from '../Counter';
 import ButtonNormal from '../ButtonNormal';
 import DetailActions from '../../actions/DetailActions';
-import Types from '../../utils/Types';
+import Types, {OfficialTypes} from '../../utils/Types';
 
 require('./CartListItem.scss');
 
@@ -35,12 +35,13 @@ const CartListItem = React.createClass({
       <div className="cartListItem">
         <img src={item.path.replace('Uploads/','Uploads/Thumb/')} onClick={this.handleItemClick} />
         <section className="big" onClick={this.handleItemClick}>
-          <span>{Types[item.type_id]||'未知'}</span>
-          <p>{item.name}</p>
+          <span>{OfficialTypes[item.is_qf]||''}</span>
+          <span>{Types[item.type_id]||''}</span>
+          <p>{item.goods_name}</p>
         </section>
         <section className="small">
-          <span>总量：{item.quality}</span>
-          <Counter initValue={item.num} OnValueChange={this.handleCounterChange} max={item.quality} min={1}/>
+          <span>总量：{item.sum}</span>
+          <Counter initValue={item.num} OnValueChange={this.handleCounterChange} max={item.sum} min={1}/>
         </section>
         <section>
           <span>卖家</span>

@@ -12,6 +12,7 @@ import SellPage from './components/SellPage';
 import ShoppingPage from './components/ShoppingPage';
 import DashboardPage from './components/DashboardPage';
 import ItemDetailPage from './components/ItemDetailPage';
+import ActivePage from './components/ActivePage';
 
 /*
 const HomePageMixin = require("react-proxy!./components/HomePage").Mixin;
@@ -83,6 +84,7 @@ export default (
     <Route name='sell' handler={SellPage}/>
     <Route name='my' handler={DashboardPage} path="my/:section"/>
     <Route name='detail' handler={ItemDetailPage} path="detail/:id"/>
+    <Route name='active' handler={ActivePage} path="active/:key"/>
     <DefaultRoute name="home" handler={HomePage}/>
     <NotFoundRoute handler={HomePage}/>
   </Route>

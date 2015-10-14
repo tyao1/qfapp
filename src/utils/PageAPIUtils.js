@@ -11,8 +11,14 @@ const PageAPIUtils = {
   },
   getItems(keyWord, type_id, page){
     request
-      .get(API + '/Info/List.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
-      .query({key: keyWord, type_id, start: page, count: 8})
+      .get(API + '/Goods/List.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .query({
+        key: keyWord,
+        type_id,
+        start: page,
+        count: 12,
+        area_id:'000000'
+      })
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({
@@ -42,7 +48,7 @@ const PageAPIUtils = {
           });
         }
         else{
-          //res.body.max = res.body.quality;
+          //res.body.max = res.body.sum;
           PageActions.getItemsSuccess({
             isHome: true,
             body: res.body,

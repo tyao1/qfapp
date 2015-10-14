@@ -18,10 +18,12 @@ const CHANGE_EVENT = 'CHANGE_UserStore';
 
 //安全获取data
 const localdata = localStorage.getItem('userData');
-let _userData;
+const localToken = localStorage.getItem('tmpToken');
+let _userToken = localToken;
+let _userData = {};
 if(localdata)
 {
-  if(localdata!==''&&localdata!=='undefined'){
+  if(localdata !== '' && localdata !== 'undefined'){
     _userData = JSON.parse(localdata);
   }
 }
@@ -54,7 +56,11 @@ function saveUserData(){
     localStorage.setItem('userData', JSON.stringify(_userData));
   }, 0);
 }
-
+function saveUserToken(){
+  setTimeout(()=> {
+    localStorage.setItem('tmpToken', _userToken);
+  }, 0);
+}
 
 const UserStore = assign({}, EventEmitter.prototype, {
 
@@ -113,7 +119,7 @@ const UserStore = assign({}, EventEmitter.prototype, {
     return _userData;
   },
   getToken(){
-    return _userData?_userData.TOKENID:null;
+    return _userToken;
   },
   getForm(){
     return _userData?_userData.form_rand:null;
@@ -168,11 +174,17 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
   var action = payload.action;
   if(payload.source==='SERVER_ACTION')
   {
+    if (action.data.body && action.data.body.TOKENID) {
+      _userToken = action.data.body.TOKENID;
+      saveUserToken();
+    }
+
     switch (action.actionType) {
       case UserConstants.REG_SUBMIT:
         _isRegistering = true;
         _localEmail = action.data.email;
         _localPassword = action.data.password;
+        console.log(action.data);
         _regMsg = '';
         UserStore.emitChange();
         localStorage.setItem('tyn', _localEmail);
@@ -204,6 +216,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _loginMsg = '';
         _localEmail = action.data.email;
         _localPassword = action.data.password;
+        console.log(action.data);
         UserStore.emitChange();
         localStorage.setItem('tyn', _localEmail);
         localStorage.setItem('typ', _localPassword);
@@ -224,7 +237,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
             router.transitionTo(trans);
           }
           _userData = action.data.data;  //no Info in new version
-          _userData.TOKENID = action.data.TOKENID;
+          _userToken = action.data.TOKENID;
           console.log('userData', _userData);
           _userData.path = _userData.path + '?' + Date.now();
           if(_userData.telephone==='00000000000'){
@@ -316,11 +329,8 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         _isUploadingAvatar = false;
         UserStore.emitChange();
         break;
-
-
       default:
       // Do nothing
-
     }
   }
   else

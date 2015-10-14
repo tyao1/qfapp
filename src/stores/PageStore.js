@@ -121,20 +121,22 @@ PageStore.dispatcherToken = Dispatcher.register((payload) => {
         console.log('page success',action.data);
         if(action.data.isHome){
           //HOME
-          _items = _items.set(action.data.key, action.data.body.Info);
+          _items = _items.set(action.data.key, action.data.body.data);
           cleanCache(action.data.key);
         }
         else{//搜索页
           if(action.data.body.Code===0){
-            let items = action.data.body.Info;
+            let items = action.data.body.data.list;
             if(items){
               items.forEach(data=> {
                 data.goods_id = parseInt(data.goods_id);
-                data.quality = parseInt(data.quality);
+                data.sum = parseInt(data.sum);
                 data.price = parseFloat(data.price);
                 data.status = parseInt(data.status);
-                data.t_limit = parseInt(data.t_limit);
+                data.limit_time = parseInt(data.limit_time);
                 data.user_id = parseInt(data.user_id);
+                data.sold_num = parseInt(data.sold_num);
+                data.path = data.path.replace('Upload','');
               });
             }else{
               items = [];

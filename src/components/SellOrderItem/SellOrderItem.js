@@ -25,7 +25,7 @@ const SellOrderItem = React.createClass({
       remains = '下架时间：' + OrderAPIUtils.dateToString(date);
     }
     else{
-      date = new Date(data.t_limit);
+      date = new Date(data.limit_time);
       remains = '到期时间：' + OrderAPIUtils.dateToString(date);
     }
 
@@ -95,7 +95,7 @@ const SellOrderItem = React.createClass({
               总数
             </p>
             <p className="main">
-              {data.quality}
+              {data.sum}
             </p>
           </li>
           <li className="one">
@@ -112,7 +112,7 @@ const SellOrderItem = React.createClass({
               总价
             </p>
             <p className="main">
-              ¥{(data.price * data.quality).toFixed(2)}
+              ¥{(data.price * data.sum).toFixed(2)}
             </p>
           </li>
         </ul>

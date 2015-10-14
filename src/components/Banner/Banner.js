@@ -186,7 +186,7 @@ const Banner = React.createClass({
 
     let controls, modals;
     console.log('path!' , this.state.path);
-    if(this.state.userData){
+    if(this.state.userData.path){
       let avatar = this.state.userData.path.replace('Uploads/','Uploads/Thumb/');
       controls = <ul>
         <li><Link className={this.state.path==='/shop'?'onThis':null} to="shop" data-text="浏览物品"><span>浏览物品</span></Link></li>

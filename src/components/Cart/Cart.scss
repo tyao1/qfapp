@@ -11,10 +11,15 @@ $buttonHeight:42px;
   padding:32px;
   border-radius:$borderRadius;
   overflow-y:auto;
+  max-height:100vh;
   >.cartList{
-   >.cartListItem{
+    >.category{
+      font-size:$bigFontSize;
+      margin: 0;
+    }
+    >.cartListItem{
      margin:34px 0;
-   }
+    }
   }
 
   >.checkout{
@@ -35,8 +40,6 @@ $buttonHeight:42px;
           font-size: $bigFontSize;
           transition:all .8s ease;
           position:absolute;
-          bottom:$morphBottom ;
-          right:$morphRight;
           background: $mainColorTint;
           color:#fff;
           border:none;

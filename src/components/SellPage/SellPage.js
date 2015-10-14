@@ -186,9 +186,9 @@ const SellPage = React.createClass({
           price.substring(0,price.length-1)
         }
         price = parseFloat(price);
-        let t_limit = time;
+        let limit_time = time;
         toSubmit.push({
-          name, price, num, detail, t_limit
+          name, price, num, detail, limit_time
         });
       }
 

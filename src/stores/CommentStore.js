@@ -127,10 +127,10 @@ CommentStore.dispatcherToken = Dispatcher.register((payload) => {
             if(items){
               items.forEach(data=> {
                 data.goods_id = parseInt(data.goods_id);
-                data.quality = parseInt(data.quality);
+                data.sum = parseInt(data.sum);
                 data.price = parseFloat(data.price);
                 data.status = parseInt(data.status);
-                data.t_limit = parseInt(data.t_limit);
+                data.limit_time = parseInt(data.limit_time);
                 data.user_id = parseInt(data.user_id);
               });
             }else{

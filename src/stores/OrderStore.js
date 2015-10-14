@@ -234,7 +234,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
           data.time = parseInt(data.time) * 1000;
           data.detail.forEach(item =>{
             item.price = parseFloat(item.price);
-            item.t_limit = parseInt(item.t_limit) * 1000;
+            item.limit_time = parseInt(item.limit_time) * 1000;
           });
         });
         OrderStore.emitChange();
@@ -249,7 +249,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
           }
           data.price = parseFloat(data.price);
           data.start_time = parseInt(data.start_time)  * 1000;
-          data.t_limit = parseInt(data.t_limit) * 1000;
+          data.limit_time = parseInt(data.limit_time) * 1000;
         });
 
         OrderStore.emitChange();
@@ -265,7 +265,7 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
           data.price = parseFloat(data.price);
           data.start_time = parseInt(data.start_time)  * 1000;
           data.t_time = parseInt(data.t_time) * 1000;
-          data.t_limit = parseInt(data.t_limit) * 1000;
+          data.limit_time = parseInt(data.limit_time) * 1000;
           data.pay = data.is_pay!=='N';
         });
 

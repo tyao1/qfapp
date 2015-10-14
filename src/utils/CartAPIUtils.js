@@ -66,13 +66,14 @@ const CartAPIUtils = {
   },
 
   //data 物品id, backup 之前物品数据
-  addItem(data, number=1, backup){
+  addItem(data, num=1, backup){
     request
-      .put(API + '/Home/CarAdd.json')//.get('mockadditem.json')//put
+      .put(API + '/Site/CarAdd.json')//.get('mockadditem.json')//put
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .type('form')
       .send({
         goods_id: data,
-        number
+        num
       })
       .end(function(err, res){
         if(err){
@@ -95,7 +96,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   deleteItem(data, backup){
     request
-      .put(API + '/Home/CarRemove.json')//.get('mockadditem.json')//put
+      .put(API + '/Site/Cardelete.json')//.get('mockadditem.json')//put
       .type('form')
       .send({goods_id: data})
       .end(function(err, res){
@@ -137,7 +138,7 @@ const CartAPIUtils = {
   //data 物品id, backup 之前物品数据
   fetchCarts(){
     request
-      .get(API + '/Car/detail.json')//.get('./mockgetcart.json')////put
+      .get(API + '/Site/Car.json')//.get('./mockgetcart.json')////put
       .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .end(function(err, res){
         if(err){

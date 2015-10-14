@@ -78,12 +78,12 @@ const ItemDetailPage = React.createClass({
     this.setState({num});
   },
   handleBuyClick(){
-    let {type_id, name, price, nickname,quality ,sold_num, book_num, img} = this.state.detail;
-    quality = quality - sold_num - book_num;
+    let {type_id, goods_name, price, nickname,sum ,sold_num, book_num, img, is_qf, ps} = this.state.detail;
+    sum = sum - sold_num - book_num;
     let path = img[0].path;
     CartActions.cartAdd({
       goods_id: DetailStore.getCurId(),
-      type_id, name, quality, price, nickname, path,
+      type_id, goods_name, sum, price, nickname, path, is_qf, ps,
       num: this.state.num
     });
   },
@@ -120,7 +120,7 @@ const ItemDetailPage = React.createClass({
   render() {
 
     const detail = this.state.detail;
-    const max = detail.quality - detail.sold_num - detail.book_num;
+    const max = detail.sum - detail.sold_num - detail.book_num;
     let elem;
     if(detail === DetailConstants.DETAIL_KEY_NULL)
     {
@@ -161,12 +161,12 @@ const ItemDetailPage = React.createClass({
         </div>;
     }
     else{
-      document.title = detail.name + ' - 清风';
+      document.title = detail.goods_name + ' - 清风';
       elem = <div className="itemDetailPage">
         <div className="brief">
           <div className="inner">
             <div className="words">
-              <p className="itemName">{detail.name}</p>
+              <p className="itemName">{detail.goods_name}</p>
               <p className="price">{detail.price?'¥ ' + detail.price.toFixed(2):'免费'}</p>
             </div>
             {
@@ -224,14 +224,14 @@ const ItemDetailPage = React.createClass({
                     {time}
                     <div className="words">
                       <p className="title">剩余时间</p>
-                      <p className="value">{Math.round((parseInt(detail.t_limit) - Date.now()/1000) / (60 * 60 * 24))}天</p>
+                      <p className="value">{Math.round((parseInt(detail.limit_time) - Date.now()/1000) / (60 * 60 * 24))}天</p>
                     </div>
                   </li>
                   <li>
                     {itemsleft}
                     <div className="words">
-                      <p className="title">剩余数量</p>
-                      <p className="value">{max}件</p>
+                      <p className="title">已经售出</p>
+                      <p className="value">{detail.sold_num}件</p>
                     </div>
                   </li>
 
@@ -247,7 +247,7 @@ const ItemDetailPage = React.createClass({
           <div className="seller">
             <div className="inner">
               <div className="info">
-                <img src={detail.upath.replace('Uploads/','Uploads/Thumb/')}/>
+                <img src={detail.upath}/>
                 <div className="words">
                   <p className="user">{detail.nickname}</p>
                   <p className="subtle">{detail.signature}</p>

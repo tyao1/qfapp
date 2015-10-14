@@ -34,7 +34,7 @@ const ImageView = React.createClass({
     */
        imgArray.push({
           original: img,
-          thumbnail: img.replace('Uploads/','Uploads/Thumb/')
+          thumbnail: `/Thumb${img}`
         });
      }
     return{

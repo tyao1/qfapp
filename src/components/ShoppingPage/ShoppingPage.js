@@ -81,7 +81,7 @@ const ShoppingPage = React.createClass({
     {
       if(items.length) {
         elem = items.map(data => {
-          if(this.state.hideSold&&!data.quality) {
+          if(this.state.hideSold&&!data.sum) {
             return null;
           }
           else{

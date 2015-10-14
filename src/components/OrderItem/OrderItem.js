@@ -79,7 +79,7 @@ const OrderItem = React.createClass({
               <ul key={item.process_id} className="detail">
                 <li className="three">
                   <p className="minor">
-                    {'过期时间：' + OrderAPIUtils.dateToString(new Date(item.t_limit))}
+                    {'过期时间：' + OrderAPIUtils.dateToString(new Date(item.limit_time))}
                   </p>
                   <p className="main">
                     {item.name}

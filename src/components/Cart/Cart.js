@@ -12,6 +12,7 @@ import {shoppingcart, boxface, paperplane} from '../SVGs';
 
 import CartActions from '../../actions/CartActions';
 import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+import {OfficialCategory} from '../../utils/Types';
 
 require('./Cart.scss');
 
@@ -21,8 +22,11 @@ const Cart = React.createClass({
 
   mixins: [PureRenderMixin],
   _onCartChange(){
+    console.log('cart change', CartStore.getItems().toJS());
     this.setState({
       items: CartStore.getItems(),
+      itemsCount: CartStore.getItemsCount(),
+
       realErrMsg: CartStore.getSubmitMsg(),
       isSubmitting: CartStore.getIsSubmitting(),
       isSuccessful: CartStore.getSuccess()
@@ -34,8 +38,6 @@ const Cart = React.createClass({
     return {
       items: CartStore.getItems(),
       aboutToOrder: false,
-      //b_NO: '',
-      //NO: '',
       realErrMsg: CartStore.getSubmitMsg(),
       isSubmitting: CartStore.getIsSubmitting(),
       isSuccessful: CartStore.getSuccess()
@@ -50,14 +52,14 @@ const Cart = React.createClass({
     CartStore.removeChangeListener(this._onCartChange);
   },
 
-  handleNumChange(goods_id){
+  handleNumChange(goods_id, is_qf){
     return (num)=>{
-      CartActions.changeNum({goods_id, num});
+      CartActions.changeNum({goods_id, num, is_qf});
     };
   },
-  handleDelete(goods_id){
+  handleDelete(goods_id, is_qf){
     return ()=>{
-      CartActions.deleteItem({goods_id});
+      CartActions.deleteItem({goods_id, is_qf});
     };
   },
   handleOrder(){
@@ -104,27 +106,34 @@ const Cart = React.createClass({
   render() {
     let elem;
     //let cartList = [];
-    if(this.state.items.size || this.state.isSuccessful){
+    if(this.state.itemsCount || this.state.isSuccessful){
       let items = this.state.items.toJS();
       let price = 0;
       elem = <div className="cart">
-        <div className="cartList">
-          {
-
-            Object.keys(items).map((key)=>{
-              let data = items[key];
-              if(!data) {
-                return;
-              }
-              let goods_id = data.goods_id;
-              price += data.price * data.num;
-              data.price = data.price * data.num;
-              return <CartListItem key={goods_id} data={data} handleNumChange={this.handleNumChange(goods_id)} handleDelete={this.handleDelete(goods_id)}/>;
-            })
-          }
-        </div>
-
-
+        {
+          Object.keys(items).map(key => {
+            console.log(items[key]);
+            return Object.keys(items[key]).length?
+              <div className="cartList">
+                <p className="category">{OfficialCategory[key]}</p>
+                {
+                  Object.keys(items[key]).map((innerKey)=> {
+                    let data = items[key][innerKey];
+                    console.log('cart data', data);
+                    if (!data) {
+                      return;
+                    }
+                    let goods_id = data.goods_id;
+                    price += data.price * data.num;
+                    data.price = data.price * data.num;
+                    return <CartListItem key={goods_id} data={data} handleNumChange={this.handleNumChange(goods_id, data.is_qf)}
+                                         handleDelete={this.handleDelete(goods_id, data.is_qf)}/>;
+                  })
+                }
+              </div>
+            :null
+          })
+        }
         <div className="checkout">
           <div className="controls">
             <p className="total">总价：¥{price.toFixed(2)}元</p>

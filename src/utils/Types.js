@@ -10,3 +10,23 @@ export default {
   '170000': '其他宝贝',
   '000000': '所有宝贝'
 }
+
+export var OfficialTypes = {
+  S: '自由友易',
+  P: '担保友易',
+  Y: '官方销售',
+  N: '用户寄卖'
+};
+
+export var OfficialCategory = {
+  carS: '自由友易',
+  carP: '担保友易',
+  carY: '寄卖'
+};
+
+export var Type2Cat = {
+  S: 'carS',
+  P: 'carP',
+  Y: 'carY',
+  N: 'carY'
+};

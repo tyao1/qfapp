@@ -210,7 +210,7 @@ const LoginForm = React.createClass({
   },
   render(){
     let regForm;
-    if(this.state.userData){
+    if(this.state.userData.path){
       regForm = <div className="regForm">
         test
       </div>;

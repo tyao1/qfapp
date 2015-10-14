@@ -51,6 +51,10 @@ const AppStore = assign({}, EventEmitter.prototype, {
   getPath(){
     return _transition?_transition.path:null;
   },
+  getKey() {
+    return _transition?_transition.params.key:null;
+  },
+
 
   emitChange() {
     return this.emit(CHANGE_EVENT);
@@ -101,7 +105,6 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       break;
     default:
       if(action.data&&action.data.body){
-
         if(action.data.body.Code===1007&&Object.keys(action.data.body).length===2){
           //transition to index
           if(_transition.path&&(_transition.path.indexOf('/my')>=0||_transition.path.indexOf('/sell')>=0)){

@@ -204,7 +204,7 @@ const RegForm = React.createClass({
   },
   render(){
     let regForm;
-    if(this.state.userData){
+    if(this.state.userData.path){
       regForm = <div className="regForm">
         <div className="center">
           <Link to="my" params={{section: 'info'}}><img src={this.state.userData.path.replace('Uploads/','Uploads/Thumb/')} /></Link>

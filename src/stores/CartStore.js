@@ -13,6 +13,8 @@ import CartAPIUtils from '../utils/CartAPIUtils';
 import Immutable from 'immutable';
 import UserConstants from '../constants/UserConstants';
 import AppConstants from '../constants/AppConstants';
+import {OfficialCategory, Type2Cat} from '../utils/Types';
+
 
 const CHANGE_EVENT = 'CHANGE_CartStore';
 
@@ -32,25 +34,33 @@ let _submitMsg = '';
      path: ''
    },
 */
-let _items = Immutable.OrderedMap();
+let _items = Immutable.Map({
+  carS: Immutable.OrderedMap(),
+  carP: Immutable.OrderedMap(),
+  carY: Immutable.OrderedMap()
+});
 
 /*
  *
  * 回撤物品操作
  *
  */
-function reverseAdd(type, id){
+function reverseAdd(isqf, id){
+  let type = Type2Cat[isqf];
   if(_items.hasIn([type, id])){
     _items = _items.deleteIn([type, id]);
   }
 }
-function reverseDelete(type, id, data){
+
+function reverseDelete(isqf, id, data){
+  let type = Type2Cat[isqf];
   if(!_items.hasIn([type, id])){
     _items = _items.setIn([type, id], data);
   }
 }
 
-function reverseNum(type, id, num){
+function reverseNum(isqf, id, num){
+  let type = Type2Cat[isqf];
   if(_items.hasIn([type, id])){
     _items = _items.updateIn([type, id, 'num'], () => num);
   }
@@ -60,14 +70,17 @@ function updateItemAndEmit(Info){
   console.log('updateitemandemit',Info);
   if(Info)
   {
-    let {goods_id, quality, nickname, price} = Info;
+    let {goods_id, sum, nickname, price, is_qf, ps} = Info;
     goods_id = parseInt(goods_id);
-    quality = parseInt(quality);
+    sum = parseInt(sum);
     price = parseFloat(price);
+    let type = Type2Cat[is_qf];
 
-    _items = _items.updateIn([goods_id, 'quality'], () => quality);
-    _items = _items.updateIn([goods_id, 'price'], () => price);
-    _items = _items.updateIn([goods_id, 'nickname'], () => nickname);
+    _items = _items.updateIn([type, goods_id, 'sum'], () => sum);
+    _items = _items.updateIn([type, goods_id, 'price'], () => price);
+    _items = _items.updateIn([type, goods_id, 'nickname'], () => nickname);
+    _items = _items.updateIn([type, goods_id, 'ps'], () => ps);
+    console.log('updated', _items.toJS());
     CartStore.emitChange();
   }
 }
@@ -80,12 +93,27 @@ function fireNotification(word){
   });
 }
 
+function processData(type) {
+  return data => {
+    data.goods_id = parseInt(data.goods_id);
+    data.sum = parseInt(data.sum);
+    data.price = parseFloat(data.price);
+    data.status = parseInt(data.status);
+    data.limit_time = parseInt(data.limit_time);
+    data.f_user_id = parseInt(data.f_user_id);
+    data.path = data.path.replace('Upload', 'Thumb');
+    _items = _items.setIn([type, data.goods_id], Immutable.fromJS(data));
+  }
+}
+
+
+
 const CartStore = assign({}, EventEmitter.prototype, {
   init(){
     CartAPIUtils.fetchCarts();
   },
   getItemsCount(){
-    return _items.size;
+    return Object.keys(OfficialCategory).map(type => _items.get(type).size).reduce( (a, b) => a+b);
   },
 
   getItems(){
@@ -148,12 +176,12 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           let tokens = action.data.body.tokenOff;
           if(amounts){
             amounts.forEach( data => {
-              let count = data.quality;
+              let count = data.sum;
               let goods_id = parseInt(data.goods_id);
-              let name = _items.getIn([goods_id, 'name']);
+              let name = _items.getIn([goods_id, 'goods_name']);
               if(goods_id) {
                 if (count) {
-                  _items = _items.updateIn([goods_id, 'quality'], () => count);
+                  _items = _items.updateIn([goods_id, 'sum'], () => count);
                   _items = _items.updateIn([goods_id, 'num'], () => count);
                   fireNotification(`${name}存货已不足，已修改至最大数量`);
                 }
@@ -170,7 +198,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           if(tokens){
             tokens.forEach( data =>{
               let goods_id = parseInt(data);
-              let name = _items.getIn([goods_id, 'name']);
+              let name = _items.getIn([goods_id, 'goods_name']);
               if(goods_id) {
                 _items = _items.delete(goods_id);
                 fireNotification(`${name}已经售完或下架，已从购物车中移除`);
@@ -195,31 +223,31 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CART_ADD_FAILURE:
-        reverseAdd(action.data.goods_id);
+        reverseAdd(action.data.backup.is_qf, action.data.goods_id);
         CartStore.emitChange();
-        fireNotification(`添加失败，${action.data.backup.name}：网络错误`);
+        fireNotification(`添加失败，${action.data.backup.goods_name}：网络错误`);
         break;
 
       case CartConstants.CART_ADD_SUCCESS:
         if(action.data.body.Code!==0&&action.data.body.Code!==1007){
 
-          reverseAdd(action.data.goods_id);
-          fireNotification(`添加失败，${action.data.backup.name}：${action.data.body.Msg}`);
+          reverseAdd(action.data.backup.is_qf, action.data.goods_id);
+          fireNotification(`添加失败，${action.data.backup.goods_name}：${action.data.body.Msg}`);
 
           CartStore.emitChange();
 
         }
         else{
-          updateItemAndEmit(action.data.body.Info);
+          updateItemAndEmit(action.data.body.data);
         }
         break;
 
       case CartConstants.DELETE_ITEM_FAILURE:
         //物品删除失败，回撤操作
         //发出提醒
-        reverseDelete(action.data.goods_id, action.data.backup);
+        reverseDelete(action.data.backup.is_qf, action.data.goods_id, action.data.backup);
         CartStore.emitChange();
-        fireNotification(`删除失败，${action.data.backup.name}：网络错误`);
+        fireNotification(`删除失败，${action.data.backup.goods_name}：网络错误`);
         break;
 
       case CartConstants.DELETE_ITEM_SUCCESS:
@@ -227,7 +255,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case CartConstants.CHANGE_NUM_FAILURE:
-        reverseNum(action.data.goods_id, action.data.backup);
+        reverseNum(action.data.backup.is_qf, action.data.goods_id, action.data.backup);
         CartStore.emitChange();
         fireNotification(`更改数量失败：网络错误`);
         break;
@@ -237,7 +265,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         if(cartCode!==0&&cartCode!==1007){
           if(cartCode===1048){
             fireNotification(`更改数量失败：${action.data.body.Msg}`);
-            reverseNum(action.data.goods_id, action.data.backup);
+            reverseNum(action.data.backup.is_qf, action.data.goods_id, action.data.backup);
             updateItemAndEmit(action.data.body.Info);
           }
           else
@@ -246,9 +274,9 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
               _items = _items.delete(action.data.goods_id);
             }
             else{
-              reverseNum(action.data.goods_id, action.data.backup);
+              reverseNum(action.data.backup.is_qf, action.data.goods_id, action.data.backup);
             }
-            fireNotification(`更改数量失败${action.data.backup.name}：${action.data.body.Msg}`);
+            fireNotification(`更改数量失败${action.data.backup.goods_name}：${action.data.body.Msg}`);
             CartStore.emitChange();
           }
         }
@@ -264,38 +292,14 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
             console.log('god damn', body);
             let list = body.data.list;
             // cars1
-            if (list.carS) {
-              list.carS.forEach(data=> {
-                data.goods_id = parseInt(data.goods_id);
-                data.quality = parseInt(data.quality);
-                data.price = parseFloat(data.price);
-                data.status = parseInt(data.status);
-                data.t_limit = parseInt(data.t_limit);
-                data.f_user_id = parseInt(data.f_user_id);
-                _items = _items.setIn(['carS', data.goods_id], Immutable.fromJS(data));
-              });
+            if (list.carS.length) {
+              list.carS.forEach(processData('carS'));
             }
-            if (list.carP) {
-              list.carP.forEach(data=> {
-                data.goods_id = parseInt(data.goods_id);
-                data.quality = parseInt(data.quality);
-                data.price = parseFloat(data.price);
-                data.status = parseInt(data.status);
-                data.t_limit = parseInt(data.t_limit);
-                data.user_id = parseInt(data.user_id);
-                _items = _items.setIn(['carP', data.goods_id], Immutable.fromJS(data));
-              });
+            if (list.carP.length) {
+              list.carP.forEach(processData('carP'));
             }
-            if (list.carY) {
-              list.carY.forEach(data=> {
-                data.goods_id = parseInt(data.goods_id);
-                data.quality = parseInt(data.quality);
-                data.price = parseFloat(data.price);
-                data.status = parseInt(data.status);
-                data.t_limit = parseInt(data.t_limit);
-                data.user_id = parseInt(data.user_id);
-                _items = _items.setIn(['carY', data.goods_id], Immutable.fromJS(data));
-              });
+            if (list.carY.length) {
+              list.carY.forEach(processData('carY'));
             }
             if (body.data.off.length) {
               fireNotification(`您的购物车中有${body.data.off.length}件物品已下架，已被移除`);
@@ -338,8 +342,9 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case CartConstants.CHANGE_NUM:
         const changeId = action.data.goods_id;
+        const changeType = Type2Cat[action.data.is_qf];
         let number;
-        _items = _items.updateIn([changeId, 'num'], val =>{
+        _items = _items.updateIn([changeType, changeId, 'num'], val =>{
           number = val;
           return action.data.num
         });
@@ -349,8 +354,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
 
       case CartConstants.DELETE_ITEM:
         const deleteId = action.data.goods_id;
-        const deleteItem = _items.get(deleteId);
-        _items = _items.delete(deleteId);
+        const deleteType = Type2Cat[action.data.is_qf];
+        console.log(action.data);
+
+        const deleteItem = _items.getIn([deleteType, deleteId]);
+        _items = _items.deleteIn([deleteType, deleteId]);
         CartStore.emitChange();
         CartAPIUtils.deleteItem(deleteId, deleteItem);
         break;
@@ -366,11 +374,12 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         }
         const checkItem = _items.get(item.goods_id);
         if(checkItem){
+          console.log(action.data);
           //该物品已经在购物车，增加数量
-          const quality = checkItem.get('quality');
+          const sum = checkItem.get('sum');
           let num = checkItem.get('num');
-          if(num===quality){
-            fireNotification(`${action.data.name}已在购物车中，并已达到最大数量`);
+          if(num===sum){
+            fireNotification(`${action.data.goods_name}已在购物车中，并已达到最大数量`);
           }
           else{
             num = num+1;
@@ -378,7 +387,7 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
             setTimeout(()=>{
               CartActions.changeNum(action.data);
             });
-            fireNotification(`${action.data.name}已在购物车中，数量加一`);
+            fireNotification(`${action.data.goods_name}已在购物车中，数量加一`);
           }
           //更改数量Action
 
@@ -387,18 +396,20 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
           //_items = _items.updateIn([action.data.id, 'num'], val => (val===max?max:val+1));
         }
         else{
-          const {goods_id, type_id, name, price, nickname, path, num, quality} = item;
+          const {goods_id, type_id, goods_name, price, nickname, path, num, sum, is_qf, limit_time} = item;
           const newItem = {
             goods_id,
             type_id,
-            name,
+            goods_name,
             num,
-            quality: quality||1,
+            sum: sum||1,
             price,
             nickname,
-            path
+            path,
+            is_qf,
+            limit_time
           };
-          _items = _items.set(goods_id, Immutable.fromJS(newItem));
+          _items = _items.setIn([Type2Cat[is_qf], goods_id], Immutable.fromJS(newItem));
           //直接调用api请求吧！
           CartAPIUtils.addItem(goods_id, 1,item);
         }
