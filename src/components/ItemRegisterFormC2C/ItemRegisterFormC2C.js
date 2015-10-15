@@ -216,7 +216,7 @@ const ItemRegisterForm = React.createClass({
                 })
               }
             </select>
-            <label className='active'>出售时长</label>
+            <label className='active'>物品分类</label>
           </div>
 
         </div>

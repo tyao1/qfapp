@@ -89,17 +89,27 @@ const Cart = React.createClass({
       if(!this.state.isSubmitting){
         let items = this.state.items.toJS();
         let submitItems = [];
-        Object.keys(items).map((key)=> {
-         let data = items[key];
-         if (data) {
-           submitItems.push({
-             gid: data.goods_id,
-             num: data.num
-           });
-         }
+        let gList = []; //物品编号
+        let nList = []; //物品对应数量
+        let type = []; //物品类型
+        let psList = []; //物品交易条件
+        let pList = []; //单价数组
+        Object.keys(items).forEach((key)=> {
+         let tmpData = items[key];
+            Object.keys(tmpData).forEach((realKey) => {
+              let data = tmpData[realKey];
+              console.log('submitItems', data);
+              if (data) {
+                gList.push(data.goods_id);
+                nList.push(data.num);
+                type.push(data.is_qf);
+                psList.push(data.ps);
+                pList.push(data.price);
+              }
+            });
         });
-        console.log('submitItems', submitItems);
-        CartActions.cartOrderSubmit({bookInfo: JSON.stringify(submitItems)});
+        console.log({gList, nList, type, psList, pList});
+        CartActions.cartOrderSubmit({gList, nList, type, psList, pList});
       }
     }
   },
