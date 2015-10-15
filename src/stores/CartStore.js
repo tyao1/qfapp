@@ -165,7 +165,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
       case CartConstants.CART_ORDER_SUCCESS:
         if (action.data.body.Code === 0) {
           _success = true;
-          _items = _items.clear();
+          _items = Immutable.Map({
+            carS: Immutable.OrderedMap(),
+            carP: Immutable.OrderedMap(),
+            carY: Immutable.OrderedMap()
+          });
         }
         else if (action.data.body.Code === 1040) {
           _submitMsg = '订单中的物品数量太多了>_<，请返回删除一些物品后再试'
@@ -324,7 +328,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case UserConstants.LOGIN_SUCCESS:
-        _items = _items.clear();
+        _items = Immutable.Map({
+          carS: Immutable.OrderedMap(),
+          carP: Immutable.OrderedMap(),
+          carY: Immutable.OrderedMap()
+        });
         CartStore.init();
         CartStore.emitChange();
         break;
@@ -416,7 +424,11 @@ CartStore.dispatcherToken = Dispatcher.register((payload) => {
         CartStore.emitChange();
         break;
       case AppConstants.NEED_LOGIN:
-        _items = _items.clear();
+        _items = Immutable.Map({
+          carS: Immutable.OrderedMap(),
+          carP: Immutable.OrderedMap(),
+          carY: Immutable.OrderedMap()
+        });
         CartStore.init();
         CartStore.emitChange();
         break;

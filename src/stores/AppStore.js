@@ -104,23 +104,36 @@ AppStore.dispatcherToken = Dispatcher.register((payload) => {
       AppStore.emitChange();
       break;
     default:
-      if(action.data&&action.data.body){
-        if(action.data.body.Code===1007&&Object.keys(action.data.body).length===2){
-          //transition to index
-          if(_transition.path&&(_transition.path.indexOf('/my')>=0||_transition.path.indexOf('/sell')>=0)){
-            router.transitionTo('/');
-          }
-          AppStore.requireLogin();
-        }
-        if(action.data.body.Code===1008){
-          setTimeout(()=> {
+      console.log(action);
+      if(action.data){
+          if(action.data.Code) {
+            if (action.data.Code === 4) {
+              //transition to index
+              if (_transition.path && (_transition.path.indexOf('/my') >= 0 || _transition.path.indexOf('/sell') >= 0)) {
+                router.transitionTo('/');
+              }
+              AppStore.requireLogin();
+            }
 
-            NotificationActions.addNotification(
-              `>_<需要填写手机号`
-            );
-          });
-          router.transitionTo('/my/info');
-        }
+            if (action.data.Code === 1008) {
+              setTimeout(()=> {
+
+                NotificationActions.addNotification(
+                  `>_<需要填写手机号`
+                );
+              });
+              router.transitionTo('/my/info');
+            }
+          }
+          if(action.data.body&&action.data.body.Code){
+            if(action.data.body.Code===4){
+              //transition to index
+              if(_transition.path&&(_transition.path.indexOf('/my')>=0||_transition.path.indexOf('/sell')>=0)){
+                router.transitionTo('/');
+              }
+              AppStore.requireLogin();
+            }
+          }
       }
       break;
       // Do nothing

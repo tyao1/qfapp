@@ -54,7 +54,8 @@ export default keyMirror({
   UPLOAD_AVATAR_END:null,
   UPLOAD_AVATAR_SUBMIT: null,
   UPLOAD_AVATAR_SUCCESS: null,
-  UPLOAD_AVATAR_FAILURE: null
+  UPLOAD_AVATAR_FAILURE: null,
 
+  C2C_SUCCESS_CLICK:null
 
 });

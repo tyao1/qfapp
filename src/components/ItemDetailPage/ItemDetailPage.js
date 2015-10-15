@@ -36,6 +36,7 @@ const ItemDetailPage = React.createClass({
   },
   _onDetailChange(){
     const detail = DetailStore.getDetail();
+    console.log('get detail', detail);
     if(detail!==this.state.detail){
       this.setState({
         detail,
@@ -167,7 +168,11 @@ const ItemDetailPage = React.createClass({
           <div className="inner">
             <div className="words">
               <p className="itemName">{detail.goods_name}</p>
-              <p className="price">{detail.price?'¥ ' + detail.price.toFixed(2):'免费'}</p>
+              <p className="price">{
+                detail.is_qf==='S'?
+                  detail.ps
+                  : detail.price?'¥' + detail.price.toFixed(2):'免费'
+              }</p>
             </div>
             {
               detail.tokenoff?

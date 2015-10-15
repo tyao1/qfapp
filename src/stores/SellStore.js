@@ -166,11 +166,8 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
           });
           //saveItems(true);//删除
         }
-        else if (action.data.Code === 1001) {
-          _submitMsg = action.data.Info + ',请返回检查~';
-        }
         else {
-          _submitMsg = action.data.Info;
+          _submitMsg = action.data.Msg;
         }
         _isSubmitting = false;
         SellStore.emitChange();
@@ -220,7 +217,13 @@ SellStore.dispatcherToken = Dispatcher.register((payload) => {
         saveItems();
         break;
 
+      case UserConstants.C2C_SUCCESS_CLICK:
+        _success = false;
+        _submitMsg = '';
+        SellStore.emitChange();
+        break;
       default:
+        break;
     }
   }
 

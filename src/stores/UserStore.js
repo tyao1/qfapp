@@ -212,9 +212,10 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         break;
 
       case UserConstants.LOGIN_SUBMIT:
+        //console.log('login data', action.data);
         _isLogining = true;
         _loginMsg = '';
-        _localEmail = action.data.email;
+        _localEmail = action.data.data;
         _localPassword = action.data.password;
         console.log(action.data);
         UserStore.emitChange();
@@ -352,7 +353,7 @@ UserStore.dispatcherToken = Dispatcher.register((payload) => {
         UserStore.emitChange();
         break;
       case AppConstants.NEED_LOGIN:
-        _userData = null;
+        _userData = {};
         UserStore.emitChange();
         localStorage.removeItem('userData');
         break;

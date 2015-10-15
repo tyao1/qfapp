@@ -16,8 +16,7 @@ const PageAPIUtils = {
         key: keyWord,
         type_id,
         start: page,
-        count: 12,
-        area_id:'000000'
+        count: 12
       })
       .end(function(err, res){
         if(err){

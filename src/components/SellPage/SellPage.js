@@ -146,7 +146,8 @@ const SellPage = React.createClass({
     UserActions.changeImageC2C(key, value);
   },
   handleC2CSuccessClick(){
-    this.setState({isSuccessful: false});
+    UserActions.c2cSuccessClick();
+    //this.setState({isSuccessful: false});
   },
   handleRealSubmitClick(){
     if(this.state.isSuccessful){

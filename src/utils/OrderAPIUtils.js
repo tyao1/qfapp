@@ -105,7 +105,7 @@ const OrderAPIUtils = {
           .get(API + '/Book/c2c.json')
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
-            type: 'Y',
+            type: 'P',
             status,
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
@@ -131,7 +131,7 @@ const OrderAPIUtils = {
           .get(API + '/Book/c2c.json')
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
-            type: 'Y',
+            type: 'P',
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
             status: 1,

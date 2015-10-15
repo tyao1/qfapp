@@ -166,6 +166,11 @@ export default {
       value
     });
   },
+  c2cSuccessClick(){
+    Dispatcher.handleViewAction({
+      actionType: UserConstants.C2C_SUCCESS_CLICK
+    });
+  },
 
 
   /*

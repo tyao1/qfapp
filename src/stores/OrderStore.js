@@ -414,11 +414,19 @@ OrderStore.dispatcherToken = Dispatcher.register((payload) => {
               OrderStore.emitChange();
               break;
             case '/my/buyc2c':
-              updateFromQuery(OrderConstants.C2C_ORDER_KEY, action.data.query, '/my/c2cbuy');
+              updateFromQuery(OrderConstants.C2C_ORDER_KEY, action.data.query, '/my/buyc2c');
               OrderStore.emitChange();
               break;
-            case '/my/applyc2c':
-              updateFromQuery(OrderConstants.C2C_APPLY_ORDER_KEY, action.data.query, '/my/c2capply');
+            case '/my/sellc2c':
+              updateFromQuery(OrderConstants.C2C_APPLY_ORDER_KEY, action.data.query, '/my/sellc2c');
+              OrderStore.emitChange();
+              break;
+            case '/my/buyc2c2':
+              updateFromQuery(OrderConstants.C2C2_ORDER_KEY, action.data.query, '/my/buyc2c2');
+              OrderStore.emitChange();
+              break;
+            case '/my/sellc2c2':
+              updateFromQuery(OrderConstants.C2C2_APPLY_ORDER_KEY, action.data.query, '/my/sellc2c2');
               OrderStore.emitChange();
               break;
           }

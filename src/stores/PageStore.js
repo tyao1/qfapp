@@ -18,7 +18,7 @@ const CHANGE_EVENT = 'CHANGE_PageStore';
 let _items = Immutable.Map();
 let _keyWord = '';
 let _page = 1;
-let _typeId = '000000';
+let _typeId;
 let _failMsg ='';
 let _hideSold = false;
 

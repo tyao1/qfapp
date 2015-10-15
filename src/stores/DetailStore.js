@@ -59,7 +59,7 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
         if(action.data.body.Code===0)
         {
           //转义内容
-          let {goods_id, type_id, goods_name, sum, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname, limit_time,ps, signature} = action.data.body.data;
+          let {goods_id, type_id, goods_name, sum, price, status, img, path, sold_num, book_num, token_off, upath, detail, nickname, limit_time,ps, signature, is_qf} = action.data.body.data;
           goods_id = parseInt(goods_id);
           sum = parseInt(sum);
           price = parseFloat(price);
@@ -68,8 +68,9 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
           book_num = parseInt(book_num);
           limit_time = parseInt(limit_time);
           img.forEach(data => {
-            data.path.replace('Upload','');
+            data.path = data.path.replace('Upload','');
           });
+          console.log(img);
           _items = _items.set(action.data.key, {
             goods_id,
             type_id,
@@ -87,7 +88,8 @@ DetailStore.dispatcherToken = Dispatcher.register((payload) => {
             nickname,
             limit_time,
             signature,
-            ps
+            ps,
+            is_qf
           });
           //删除缓存内容
           //setTimeout(()=>{_items = _items.delete(goods_id)}, 1000 * 30);

@@ -50,7 +50,7 @@ const CartAPIUtils = {
    */
   submitOrder(data){
     request
-      .post(API + '/Manager/Book.json')//.get('mockapplysell.json')
+      .post(API + '/http://qfplan.com/api/Manager/BookDetail.json?status=0&start=1&count=8http://qfplan.com/api/Manager/BookDetail.json?status=0&start=1&count=8')//.get('mockapplysell.json')
       .type('form')
       .send(data)
       .end(function(err, res){

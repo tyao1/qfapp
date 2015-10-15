@@ -6,6 +6,7 @@ const DetailAPIUtils = {
   getDetail(data){
     request
       .get(API + '/Goods/Detail.json') //API + '/Home/Goods.json' //./mockitemdetail.json.query({goods_id:data})
+      .query({goods_id: data})
       .end(function(err, res){
         if(err){
           DetailActions.getDetailFailure({
