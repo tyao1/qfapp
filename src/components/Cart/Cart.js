@@ -108,6 +108,11 @@ const Cart = React.createClass({
               }
             });
         });
+        gList = JSON.stringify(gList);
+        nList = JSON.stringify(nList);
+        psList = JSON.stringify(psList);
+        type = JSON.stringify(type);
+        pList = JSON.stringify(pList);
         console.log({gList, nList, type, psList, pList});
         CartActions.cartOrderSubmit({gList, nList, type, psList, pList});
       }

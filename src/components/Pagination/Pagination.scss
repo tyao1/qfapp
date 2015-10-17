@@ -1,0 +1,15 @@
+.pagination{
+  .anchor {
+    display:inline;
+    list-style: none;
+    li {
+      display: inline-block;
+      width: 24px;
+      cursor:pointer;
+      text-decoration: underline;
+      &.current{
+        text-decoration:none;
+      }
+    }
+  }
+}

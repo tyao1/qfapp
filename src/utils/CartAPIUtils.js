@@ -12,6 +12,7 @@ function cartChangeFunc(data, num, backup){
   //清除记录
     request
       .put(API + '/Home/CarAdd.json')//.get('mockadditem.json')//put
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .type('form')
       .send({
         goods_id: data,
@@ -98,6 +99,7 @@ const CartAPIUtils = {
   deleteItem(data, backup){
     request
       .put(API + '/Site/Cardelete.json')//.get('mockadditem.json')//put
+      .set({token: UserStore.getToken(), form: UserStore.getForm()})
       .type('form')
       .send({goods_id: data})
       .end(function(err, res){

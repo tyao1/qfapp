@@ -10,7 +10,7 @@ import ButtonNormal from '../ButtonNormal';
 import PageConstants from '../../constants/PageConstants';
 import PageActions from '../../actions/PageActions';
 import Types from '../../utils/Types';
-import Counter from '../Counter';
+import Pagination from '../Pagination';
 
 const TypeIDs = ['000000', '100000', '110000', '120000', '130000', '140000', '150000', '160000', '170000'];
 
@@ -88,7 +88,7 @@ const ShoppingPage = React.createClass({
             return <BookCard key={data.goods_id} item={data}/>;
           }
         });
-        if(items.length>=18){
+        if(items.length>=24){
           max = 999999999;
         }
         else {
@@ -122,7 +122,7 @@ const ShoppingPage = React.createClass({
               {elem}
             </div>
             <div className="pagination">
-              <Counter isPage={true} initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={max} min={1}/>
+              <Pagination initValue={this.state.currentPage} OnValueChange={this.handlePageChange} max={14} min={1} span={12}/>
             </div>
 
           </div>

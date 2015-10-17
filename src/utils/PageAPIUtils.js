@@ -2,7 +2,7 @@
 import request from 'superagent';
 import PageActions from '../actions/PageActions';
 import PageConstants from '../constants/PageConstants';
-console.log(API);
+import UserStore from '../stores/UserStore';
 const PageAPIUtils = {
 
 
@@ -12,11 +12,12 @@ const PageAPIUtils = {
   getItems(keyWord, type_id, page){
     request
       .get(API + '/Goods/List.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
+      .set({token: UserStore.getToken()})
       .query({
         key: keyWord,
         type_id,
-        start: page,
-        count: 12
+        start: 1 + (page-1) * 24,
+        count: 24
       })
       .end(function(err, res){
         if(err){
@@ -38,7 +39,7 @@ const PageAPIUtils = {
   getHome(){
     request
       .get(API + '/Home/Latest.json')//.post('/qfplanhttp://115.29.136.30/index.php/Home/Login.json')  //SHOULD BE POST
-      .set({token: 'tttttst', form: 'ttttst'})
+      .set({token: UserStore.getToken()})
       .end(function(err, res){
         if(err){
           PageActions.getItemsFailure({

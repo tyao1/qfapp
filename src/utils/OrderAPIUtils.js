@@ -54,7 +54,7 @@ const OrderAPIUtils = {
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
             type: 'S',
-            status,
+            //status,
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
             b_or_s: 'B'
@@ -82,7 +82,7 @@ const OrderAPIUtils = {
             type: 'S',
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
-            status: 1,
+            //status: 1,
             b_or_s: 'S'
           })
           .end(function(err, res){
@@ -106,7 +106,7 @@ const OrderAPIUtils = {
           .set({token: UserStore.getToken(), form: UserStore.getForm()})
           .query({
             type: 'P',
-            status,
+            //status,
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
             b_or_s: 'B'
@@ -134,7 +134,7 @@ const OrderAPIUtils = {
             type: 'P',
             begin: (page - 1) * NUMBER + 1,
             count: NUMBER,
-            status: 1,
+            //status: 1,
             b_or_s: 'S'
           })
           .end(function(err, res){
